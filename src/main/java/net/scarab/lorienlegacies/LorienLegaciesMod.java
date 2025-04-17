@@ -2,6 +2,9 @@ package net.scarab.lorienlegacies;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.scarab.lorienlegacies.block.ModBlocks;
+import net.scarab.lorienlegacies.item.ModItemGroup;
+import net.scarab.lorienlegacies.item.ModItems;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,6 +14,11 @@ public class LorienLegaciesMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		LOGGER.info("Hello Fabric world!");
+		ModItemGroup.registerItemGroups();
+
+		ModItems.registerModItems();
+
+		ModBlocks.registerModBlocks();
+
 	}
 }

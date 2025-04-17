@@ -12,7 +12,7 @@
 		"sources": "https://github.com/FabricMC/fabric-example-mod"
 	},
 	"license": "MIT",
-	"icon": "assets/lorienlegacies/icon.png",
+	"icon": "assets/lorienlegacies/lorienlegacies.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
