@@ -22,7 +22,8 @@
 			"net.scarab.lorienlegacies.LorienLegaciesModDataGenerator"
 		],
 		"client": [
-			"net.scarab.lorienlegacies.LorienLegaciesModClient"
+			"net.scarab.lorienlegacies.LorienLegaciesModClient",
+			"net.scarab.lorienlegacies.LorienLegaciesModKeybinds"
 		]
 	},
 	"mixins": [
@@ -31,6 +32,7 @@
 	"depends": {
 		"fabricloader": ">=0.16.13",
 		"minecraft": "~1.20.1",
+		"fabric-key-binding-api-v1": "*",
 		"java": ">=17",
 		"fabric-api": "*"
 	},
