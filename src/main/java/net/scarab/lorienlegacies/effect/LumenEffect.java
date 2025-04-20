@@ -40,5 +40,15 @@ public class LumenEffect extends StatusEffect {
             world.spawnEntity(fireball);
         }
     }
+
+    public static void humanFireball(LivingEntity entity) {
+        if(!entity.getWorld().isClient()  && entity instanceof net.minecraft.server.network.ServerPlayerEntity) {
+            if (entity.isOnFire()) {
+                entity.extinguish();
+            } else {
+                entity.setOnFireFor(100);
+            }
+        }
+    }
 }
 

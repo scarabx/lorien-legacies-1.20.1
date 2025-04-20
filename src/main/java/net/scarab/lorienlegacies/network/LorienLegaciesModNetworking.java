@@ -8,11 +8,21 @@ import net.scarab.lorienlegacies.effect.ModEffects;
 public class LorienLegaciesModNetworking {
     public static final Identifier SHOOT_FIREBALL_PACKET = new Identifier("lorienlegacies", "shoot_fireball");
 
+    public static final Identifier HUMAN_FIREBALL_PACKET = new Identifier("lorien_legacies", "human_fireball");
+
     public static void registerC2SPackets() {
         ServerPlayNetworking.registerGlobalReceiver(SHOOT_FIREBALL_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 if (player.hasStatusEffect(ModEffects.LUMEN)) {
                     LumenEffect.shootFireball(player);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(HUMAN_FIREBALL_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(ModEffects.LUMEN)) {
+                    LumenEffect.humanFireball(player);
                 }
             });
         });

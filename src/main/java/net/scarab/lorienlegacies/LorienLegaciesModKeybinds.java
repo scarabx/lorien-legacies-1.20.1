@@ -16,12 +16,23 @@ import org.lwjgl.glfw.GLFW;
 public class LorienLegaciesModKeybinds implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        KeyBinding shootFireball = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.lorienlegacies.shoot_fireball", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_P, "key.category.lorienlegacies.lorienlegacies"));
+
+        KeyBinding shootFireball = KeyBindingHelper.registerKeyBinding(
+                new KeyBinding("key.lorienlegacies.shoot_fireball", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_X, "key.category.lorienlegacies.lorienlegacies"));
+
+        KeyBinding humanFireball = KeyBindingHelper.registerKeyBinding(
+                new KeyBinding("key.lorienlegacies.human_fireball", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_C, "key.category.lorienlegacies.lorienlegacies"));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (shootFireball.wasPressed()) {
                 if (client.player != null && client.player.hasStatusEffect(ModEffects.LUMEN)) {
                     ClientPlayNetworking.send(LorienLegaciesModNetworking.SHOOT_FIREBALL_PACKET, new PacketByteBuf(Unpooled.buffer()));
+                }
+            }
+
+            while (humanFireball.wasPressed()) {
+                if (client.player != null && client.player.hasStatusEffect(ModEffects.LUMEN)) {
+                    ClientPlayNetworking.send(LorienLegaciesModNetworking.HUMAN_FIREBALL_PACKET, new PacketByteBuf(Unpooled.buffer()));
                 }
             }
         });
