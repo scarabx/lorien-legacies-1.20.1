@@ -1,5 +1,7 @@
 {
+
   "item.lorienlegacies.loralite": "Loralite",
+
   "item.lorienlegacies.loric_stone": "Loric Stone",
 
   "item.lorienlegacies.leather_sleeve": "Leather Sleeve",
@@ -7,13 +9,20 @@
   "item.lorienlegacies.lorien_book": "Lorien Book",
 
   "block.lorienlegacies.loralite_block": "Loralite Block",
+
   "block.lorienlegacies.loralite_ore": "Loralite Ore",
 
   "effect.lorienlegacies.lumen": "Lumen",
 
+  "effect.lorienlegacies.toggle_flaming_hands": "Toggle Flaming Hands",
+
   "key.category.lorienlegacies.lorienlegacies": "Lorien Legacies",
 
   "key.lorienlegacies.shoot_fireball": "Shoot Fireball",
+
+  "key.lorienlegacies.human_fireball": "Human Fireball",
+
+  "key.lorienlegacies.flaming_hands": "Flaming Hands",
 
   "itemgroup.lorien_legacies": "Lorien Legacies"
 }

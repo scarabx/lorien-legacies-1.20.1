@@ -12,9 +12,9 @@ public class ModBlockLootTableGenerator extends FabricBlockLootTableProvider {
 
     @Override
     public void generate() {
+
         addDrop(ModBlocks.LORALITE_BLOCK);
 
         addDrop(ModBlocks.LORALITE_ORE, oreDrops(ModBlocks.LORALITE_ORE, ModItems.LORALITE));
-
     }
 }

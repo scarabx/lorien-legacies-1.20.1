@@ -21,6 +21,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
 
     @Override
     public void generate(Consumer<RecipeJsonProvider> exporter) {
+
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.LORIC_STONE)
                 .pattern(" L ")
                 .pattern("LDL")
@@ -52,6 +53,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
 
         offerSmelting(exporter, List.of(ModItems.LORALITE, ModBlocks.LORALITE_ORE), RecipeCategory.MISC, ModItems.LORALITE,
                 0.25f, 200, "loralite");
+
         offerBlasting(exporter, List.of(ModItems.LORALITE, ModBlocks.LORALITE_ORE), RecipeCategory.MISC, ModItems.LORALITE,
                 0.25f, 200, "loralite");
     }

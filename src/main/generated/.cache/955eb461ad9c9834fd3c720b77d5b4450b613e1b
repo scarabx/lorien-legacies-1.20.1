@@ -1,7 +1,7 @@
-// 1.20.1	2025-04-17T18:13:02.842755	Lorien Legacies Mod/Recipes
+// 1.20.1	2025-04-21T16:29:45.536711	Lorien Legacies Mod/Recipes
 e603a7ea41352669fccebf9fd9672a4626641884 data/lorienlegacies/recipes/loralite.json
-47852b8042f7cef7a8f550588502a81aa6822296 data/lorienlegacies/recipes/loralite_from_smelting_loralite.json
 36f398bdd9c4f81dd53072709e92516e8ce0d3fd data/lorienlegacies/advancements/recipes/misc/loralite_from_smelting_loralite.json
+47852b8042f7cef7a8f550588502a81aa6822296 data/lorienlegacies/recipes/loralite_from_smelting_loralite.json
 1c668fad1c5ec63560e6ba5383d8e68d84a89c42 data/lorienlegacies/recipes/loric_stone_.json
 2ee7e915f47765c99bd73911e5b39e10d17d4412 data/lorienlegacies/recipes/leather_sleeve_.json
 4f2a9437c01776f3b22e138dd5625e20981693af data/lorienlegacies/advancements/recipes/misc/loralite.json
