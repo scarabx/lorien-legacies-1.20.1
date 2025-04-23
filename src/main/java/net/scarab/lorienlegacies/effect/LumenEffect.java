@@ -143,24 +143,6 @@ public class LumenEffect extends StatusEffect {
             target.setOnFireFor(20);
         }
     }
-
-    // Toggle helper method for safely enabling/disabling the effect invisibly
-    public static void toggleFlamingHands(ServerPlayerEntity player) {
-
-        if (player.hasStatusEffect(LUMEN)) {
-            player.removeStatusEffect(LUMEN);
-        } else {
-            // Apply the status effect invisibly: no ambient, no particles, no icon
-            player.addStatusEffect(new StatusEffectInstance(
-                    LUMEN,
-                    Integer.MAX_VALUE,
-                    0,
-                    false,
-                    false,
-                    false
-            ));
-        }
-    }
 }
 
 

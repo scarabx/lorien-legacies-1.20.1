@@ -8,6 +8,7 @@ import net.minecraft.util.ActionResult;
 import net.scarab.lorienlegacies.block.ModBlocks;
 import net.scarab.lorienlegacies.effect.LumenEffect;
 import net.scarab.lorienlegacies.effect.ModEffects;
+import net.scarab.lorienlegacies.entity.ModEntities;
 import net.scarab.lorienlegacies.item.ModItemGroup;
 import net.scarab.lorienlegacies.item.ModItems;
 import net.scarab.lorienlegacies.network.LorienLegaciesModNetworking;
@@ -44,5 +45,7 @@ public class LorienLegaciesMod implements ModInitializer {
 		ModEffects.registerEffects();
 
 		LorienLegaciesModNetworking.registerC2SPackets();
+
+		ModEntities.registerModEntities();
 	}
 }

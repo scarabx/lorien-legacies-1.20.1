@@ -6,6 +6,8 @@
 
   "item.lorienlegacies.leather_sleeve": "Leather Sleeve",
 
+  "item.lorienlegacies.iceball": "Iceball",
+
   "item.lorienlegacies.lorien_book": "Lorien Book",
 
   "block.lorienlegacies.loralite_block": "Loralite Block",
@@ -19,6 +21,10 @@
   "key.category.lorienlegacies.lorienlegacies": "Lorien Legacies",
 
   "key.lorienlegacies.shoot_fireball": "Shoot Fireball",
+
+  "key.lorienlegacies.shoot_iceball": "Shoot Iceball",
+
+  "effect.lorienlegacies.glacen": "Glacen",
 
   "key.lorienlegacies.human_fireball": "Human Fireball",
 

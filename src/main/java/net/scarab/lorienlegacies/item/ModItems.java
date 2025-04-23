@@ -12,13 +12,18 @@ import net.scarab.lorienlegacies.LorienLegaciesMod;
 import net.scarab.lorienlegacies.block.ModBlocks;
 
 public class ModItems {
+
     public static final Item LORALITE = registerItem("loralite",
             new Item(new FabricItemSettings()));
+
     public static final Item LORIC_STONE = registerItem("loric_stone",
             new Item(new FabricItemSettings()));
 
     public static final Item LEATHER_SLEEVE = registerItem("leather_sleeve",
             new Item(new FabricItemSettings()));
+
+    public static final Item ICEBALL = registerItem("iceball",
+            new IceballItem(new FabricItemSettings()));
 
     public static final Item LORIEN_BOOK = registerItem("lorien_book",
             new Item(new FabricItemSettings()));

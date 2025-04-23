@@ -15,7 +15,9 @@ public class ModItemGroup {
             new Identifier(LorienLegaciesMod.MOD_ID, "lorien_legacies"),
             FabricItemGroup.builder().displayName(Text.translatable("itemgroup.lorien_legacies"))
                     .icon(() -> new ItemStack(ModItems.LORALITE)).entries((displayContext, entries) -> {
+
                         entries.add(ModItems.LORALITE);
+
                         entries.add(ModItems.LORIC_STONE);
 
                         entries.add(ModItems.LEATHER_SLEEVE);
@@ -23,7 +25,11 @@ public class ModItemGroup {
                         entries.add(ModItems.LORIEN_BOOK);
 
                         entries.add(ModBlocks.LORALITE_BLOCK);
+
                         entries.add(ModBlocks.LORALITE_ORE);
+
+                        entries.add(ModItems.ICEBALL);
+
                     }).build());
 
     public static void registerItemGroups() {
