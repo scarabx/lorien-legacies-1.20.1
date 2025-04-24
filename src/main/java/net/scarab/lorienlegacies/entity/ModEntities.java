@@ -16,6 +16,11 @@ public class ModEntities {
             FabricEntityTypeBuilder.<IceballProjectileEntity>create(SpawnGroup.MISC, IceballProjectileEntity::new)
                     .dimensions(EntityDimensions.fixed(0.25f, 0.25f)).build());
 
+    public static final EntityType<IciclesEntity> ICICLES = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(LorienLegaciesMod.MOD_ID, "icicles"),
+            FabricEntityTypeBuilder.<IciclesEntity>create(SpawnGroup.MISC, IciclesEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.5f, 0.8f)).build());
+
     public static void registerModEntities() {
         LorienLegaciesMod.LOGGER.info("Registering Mod Entities for " + LorienLegaciesMod.MOD_ID);
     }

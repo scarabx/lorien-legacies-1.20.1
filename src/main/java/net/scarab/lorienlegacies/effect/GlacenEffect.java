@@ -3,6 +3,7 @@ package net.scarab.lorienlegacies.effect;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -12,6 +13,29 @@ import net.scarab.lorienlegacies.item.ModItems;
 public class GlacenEffect extends StatusEffect {
     protected GlacenEffect(StatusEffectCategory category, int color) {
         super(category, color);
+    }
+
+    @Override
+    public void applyUpdateEffect(LivingEntity entity, int amplifier) {
+        // Reapply invisibly if needed
+        StatusEffectInstance current = entity.getStatusEffect(this);
+        if (current != null && (current.shouldShowParticles() || current.shouldShowIcon())) {
+            entity.removeStatusEffect(this);
+            entity.addStatusEffect(new StatusEffectInstance(
+                    this,
+                    current.getDuration(),
+                    current.getAmplifier(),
+                    false,
+                    false,
+                    false
+            ));
+        }
+        super.applyUpdateEffect(entity, amplifier);
+    }
+
+    @Override
+    public boolean canApplyUpdateEffect(int duration, int amplifier) {
+        return true;
     }
 
     // Method for shooting fireballs

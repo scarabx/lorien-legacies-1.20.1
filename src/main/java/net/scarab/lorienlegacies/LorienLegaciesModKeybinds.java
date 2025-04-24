@@ -53,6 +53,5 @@ public class LorienLegaciesModKeybinds implements ClientModInitializer {
                 }
             }
         });
-
     }
 }
