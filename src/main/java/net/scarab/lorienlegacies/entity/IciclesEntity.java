@@ -120,7 +120,6 @@ public class IciclesEntity extends Entity implements Ownable {
                 if (livingEntity.isTeammate(target)) {
                     return;
                 }
-
                 target.damage(this.getDamageSources().indirectMagic(this, livingEntity), 6.0F);
             }
         }

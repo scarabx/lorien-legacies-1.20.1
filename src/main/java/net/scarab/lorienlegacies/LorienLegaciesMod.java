@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ActionResult;
 import net.scarab.lorienlegacies.block.ModBlocks;
+import net.scarab.lorienlegacies.effect.GlacenEffect;
 import net.scarab.lorienlegacies.effect.LumenEffect;
 import net.scarab.lorienlegacies.effect.ModEffects;
 import net.scarab.lorienlegacies.entity.ModEntities;
@@ -35,6 +36,15 @@ public class LorienLegaciesMod implements ModInitializer {
 			}
 			return ActionResult.PASS;
 		});
+
+		AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
+			if (!world.isClient && entity instanceof LivingEntity target) {
+				GlacenEffect.icicles(player, target);
+			}
+			return ActionResult.PASS;
+		});
+
+
 
 		ModItemGroup.registerItemGroups();
 

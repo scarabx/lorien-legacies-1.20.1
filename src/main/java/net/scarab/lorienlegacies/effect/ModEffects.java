@@ -10,7 +10,7 @@ import net.scarab.lorienlegacies.LorienLegaciesMod;
 public class ModEffects {
 
     public static final StatusEffect LUMEN = registerStatusEffect("lumen",
-            new LumenEffect(StatusEffectCategory.BENEFICIAL, 0xFFA5000));
+            new LumenEffect(StatusEffectCategory.BENEFICIAL, 0xFFA500));
 
     // A flag to track whether the AOE fire is active
     public static final StatusEffect TOGGLE_HUMAN_FIREBALL_AOE = registerStatusEffect("toggle_human_fireball_aoe",
@@ -21,6 +21,9 @@ public class ModEffects {
 
     public static final StatusEffect GlACEN = registerStatusEffect("glacen",
             new GlacenEffect(StatusEffectCategory.BENEFICIAL, 0x55FFFF));
+
+    public static final StatusEffect TOGGLE_ICICLES = registerStatusEffect("toggle_icicles",
+            new ToggleIciclesEffect(StatusEffectCategory.BENEFICIAL, 0x55FFFF));
 
     private static StatusEffect registerStatusEffect(String name, StatusEffect statusEffect) {
         return Registry.register(Registries.STATUS_EFFECT, new Identifier(LorienLegaciesMod.MOD_ID, name), statusEffect);
