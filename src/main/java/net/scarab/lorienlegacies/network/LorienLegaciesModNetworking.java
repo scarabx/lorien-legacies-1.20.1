@@ -16,6 +16,8 @@ public class LorienLegaciesModNetworking {
 
     public static final Identifier ICICLES_PACKET = new Identifier("lorienlegacies", "icicles");
 
+    public static final Identifier TOGGLE_ICE_HANDS_PACKET = new Identifier("lorienlegacies", "toggle_ice_hands");
+
     public static void registerC2SPackets() {
 
         ServerPlayNetworking.registerGlobalReceiver(SHOOT_FIREBALL_PACKET, (server, player, handler, buf, responseSender) -> {
@@ -62,6 +64,14 @@ public class LorienLegaciesModNetworking {
             server.execute(() -> {
                 if (player.hasStatusEffect(ModEffects.GlACEN)) {
                     ToggleIciclesEffect.toggleIcicles(player);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_ICE_HANDS_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(ModEffects.GlACEN)) {
+                    ToggleIceHandsEffect.toggleIceHands(player);
                 }
             });
         });

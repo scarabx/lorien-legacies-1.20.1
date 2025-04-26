@@ -2,7 +2,6 @@ package net.scarab.lorienlegacies.effect;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -16,7 +15,7 @@ import net.scarab.lorienlegacies.entity.IciclesEntity;
 import net.scarab.lorienlegacies.entity.ModEntities;
 import net.scarab.lorienlegacies.item.ModItems;
 
-import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_ICICLES;
+import static net.scarab.lorienlegacies.effect.ModEffects.*;
 
 public class GlacenEffect extends StatusEffect {
     protected GlacenEffect(StatusEffectCategory category, int color) {
@@ -69,9 +68,23 @@ public class GlacenEffect extends StatusEffect {
             IciclesEntity icicles = new IciclesEntity(ModEntities.ICICLES, world);
             icicles.setPos(target.getX(), target.getY(), target.getZ());
             world.spawnEntity(icicles);
+
             target.damage(target.getWorld().getDamageSources().thrown(user, target), 10.0F);
+
             if (target instanceof LivingEntity livingEntity) {
                 livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 3)); // 100 ticks (5 seconds) with level 4 slowness
+            }
+        }
+    }
+
+    public static void iceHands(LivingEntity user, Entity target) {
+
+        if (!user.getWorld().isClient()
+                && user.hasStatusEffect(GlACEN)
+                && user.hasStatusEffect(TOGGLE_ICE_HANDS)) {
+            if (target instanceof LivingEntity livingEntity) {
+                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 3));
+                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.INSTANT_DAMAGE, 100, 3));
             }
         }
     }

@@ -23,28 +23,15 @@ public class LorienLegaciesMod implements ModInitializer {
 	@Override
 	public void onInitialize() {
 
-		AttackEntityCallback.EVENT.register((player, world, hand, target, hitResult) -> {
-			if (target instanceof LivingEntity) {
-				LumenEffect.burnOnHit(player, target); // Call your method!
-			}
-			return ActionResult.PASS;
-		});
-
-		AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
-			if (!world.isClient && entity instanceof LivingEntity target) {
-				LumenEffect.flamingHands(player, target);
-			}
-			return ActionResult.PASS;
-		});
-
 		AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
 			if (!world.isClient && entity instanceof LivingEntity target) {
 				GlacenEffect.icicles(player, target);
+				GlacenEffect.iceHands(player, target);
+				LumenEffect.flamingHands(player, target);
+				LumenEffect.burnOnHit(player, target);
 			}
 			return ActionResult.PASS;
 		});
-
-
 
 		ModItemGroup.registerItemGroups();
 

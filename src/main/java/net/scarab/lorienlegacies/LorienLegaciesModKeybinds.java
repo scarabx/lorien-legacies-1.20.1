@@ -31,6 +31,9 @@ public class LorienLegaciesModKeybinds implements ClientModInitializer {
         KeyBinding icicles = KeyBindingHelper.registerKeyBinding(
                 new KeyBinding("key.lorienlegacies.icicles", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_R, "key.category.lorienlegacies.lorienlegacies"));
 
+        KeyBinding iceHands = KeyBindingHelper.registerKeyBinding(
+                new KeyBinding("key.lorienlegacies.ice_hands", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_Y, "key.category.lorienlegacies.lorienlegacies"));
+
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (shootFireball.wasPressed()) {
                 if (client.player.hasStatusEffect(ModEffects.LUMEN)) {
@@ -59,6 +62,12 @@ public class LorienLegaciesModKeybinds implements ClientModInitializer {
             while (icicles.wasPressed()) {
                 if (client.player.hasStatusEffect(ModEffects.GlACEN)) {
                     ClientPlayNetworking.send(LorienLegaciesModNetworking.ICICLES_PACKET, new PacketByteBuf(Unpooled.buffer()));
+                }
+            }
+
+            while (iceHands.wasPressed()) {
+                if (client.player.hasStatusEffect(ModEffects.GlACEN)) {
+                    ClientPlayNetworking.send(LorienLegaciesModNetworking.TOGGLE_ICE_HANDS_PACKET, new PacketByteBuf(Unpooled.buffer()));
                 }
             }
         });

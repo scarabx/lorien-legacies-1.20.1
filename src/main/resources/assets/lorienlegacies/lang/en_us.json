@@ -26,9 +26,19 @@
 
   "effect.lorienlegacies.glacen": "Glacen",
 
+  "effect.lorienlegacies.shoot_iceball": "Shoot Iceball",
+
+  "effect.lorienlegacies.toggle_icicles": "Toggle Icicles",
+
+  "effect.lorienlegacies.toggle_ice_hands": "Toggle Ice Hands",
+
   "key.lorienlegacies.human_fireball": "Human Fireball",
 
   "key.lorienlegacies.flaming_hands": "Flaming Hands",
+
+  "key.lorienlegacies.ice_hands": "Ice Hands",
+
+  "key.lorienlegacies.icicles": "Icicles",
 
   "itemgroup.lorien_legacies": "Lorien Legacies"
 }
