@@ -42,6 +42,7 @@ public class LumenEffect extends StatusEffect {
                     false
             ));
         }
+
         // Apply fire resistance
         entity.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 200, 1, false, false, false), entity);
         // Check if the entity is a ServerPlayerEntity and if they're on fire

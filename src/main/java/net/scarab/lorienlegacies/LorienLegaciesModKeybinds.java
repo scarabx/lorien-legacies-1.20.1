@@ -34,6 +34,9 @@ public class LorienLegaciesModKeybinds implements ClientModInitializer {
         KeyBinding iceHands = KeyBindingHelper.registerKeyBinding(
                 new KeyBinding("key.lorienlegacies.ice_hands", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_Y, "key.category.lorienlegacies.lorienlegacies"));
 
+        KeyBinding freezeWater = KeyBindingHelper.registerKeyBinding(
+                new KeyBinding("key.lorienlegacies.freeze_water", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_J, "key.category.lorienlegacies.lorienlegacies"));
+
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (shootFireball.wasPressed()) {
                 if (client.player.hasStatusEffect(ModEffects.LUMEN)) {
@@ -68,6 +71,12 @@ public class LorienLegaciesModKeybinds implements ClientModInitializer {
             while (iceHands.wasPressed()) {
                 if (client.player.hasStatusEffect(ModEffects.GlACEN)) {
                     ClientPlayNetworking.send(LorienLegaciesModNetworking.TOGGLE_ICE_HANDS_PACKET, new PacketByteBuf(Unpooled.buffer()));
+                }
+            }
+
+            while (freezeWater.wasPressed()) {
+                if (client.player.hasStatusEffect(ModEffects.GlACEN)) {
+                    ClientPlayNetworking.send(LorienLegaciesModNetworking.FREEZE_WATER_PACKET, new PacketByteBuf(Unpooled.buffer()));
                 }
             }
         });

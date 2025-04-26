@@ -1,5 +1,7 @@
 package net.scarab.lorienlegacies.effect;
 
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
@@ -9,6 +11,11 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.scarab.lorienlegacies.entity.IceballProjectileEntity;
 import net.scarab.lorienlegacies.entity.IciclesEntity;
@@ -24,6 +31,7 @@ public class GlacenEffect extends StatusEffect {
 
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
+
         // Reapply invisibly if needed
         StatusEffectInstance current = entity.getStatusEffect(this);
         if (current != null && (current.shouldShowParticles() || current.shouldShowIcon())) {
@@ -47,6 +55,7 @@ public class GlacenEffect extends StatusEffect {
 
     // Method for shooting fireballs
     public static void shootIceball(LivingEntity entity) {
+
         if (!entity.getWorld().isClient() && entity instanceof ServerPlayerEntity) {
             ServerWorld world = (ServerWorld) entity.getWorld();
 
@@ -59,6 +68,7 @@ public class GlacenEffect extends StatusEffect {
     }
 
     public static void icicles(LivingEntity user, Entity target) {
+
         if (!user.getWorld().isClient()
                 && user.hasStatusEffect(ModEffects.GlACEN)
                 && user.hasStatusEffect(TOGGLE_ICICLES)) {
@@ -72,7 +82,7 @@ public class GlacenEffect extends StatusEffect {
             target.damage(target.getWorld().getDamageSources().thrown(user, target), 10.0F);
 
             if (target instanceof LivingEntity livingEntity) {
-                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 3)); // 100 ticks (5 seconds) with level 4 slowness
+                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 3, false, false, false)); // 100 ticks (5 seconds) with level 4 slowness
             }
         }
     }
@@ -83,8 +93,43 @@ public class GlacenEffect extends StatusEffect {
                 && user.hasStatusEffect(GlACEN)
                 && user.hasStatusEffect(TOGGLE_ICE_HANDS)) {
             if (target instanceof LivingEntity livingEntity) {
-                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 3));
-                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.INSTANT_DAMAGE, 100, 3));
+                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 3, false, false, false));
+            }
+        }
+    }
+
+    public static void freezeWater(LivingEntity entity) {
+
+        if (!entity.getWorld().isClient() && entity instanceof ServerPlayerEntity) {
+            ServerWorld world = (ServerWorld) entity.getWorld();
+
+            // 1. Freeze the water block under the player's feet
+            BlockPos feetPos = entity.getBlockPos().down();
+            BlockState underState = world.getBlockState(feetPos);
+
+            if (underState.getBlock() == Blocks.WATER) {
+                world.setBlockState(feetPos, Blocks.ICE.getDefaultState());
+            }
+
+            // 2. Freeze the water block the player is looking at (up to 5 blocks away)
+            Vec3d start = entity.getCameraPosVec(1.0F);
+            Vec3d end = start.add(entity.getRotationVec(1.0F).multiply(5)); // 5 block range
+
+            BlockHitResult hitResult = world.raycast(new RaycastContext(
+                    start,
+                    end,
+                    RaycastContext.ShapeType.OUTLINE,
+                    RaycastContext.FluidHandling.ANY,
+                    entity
+            ));
+
+            if (hitResult.getType() == HitResult.Type.BLOCK) {
+                BlockPos lookPos = hitResult.getBlockPos();
+                BlockState lookState = world.getBlockState(lookPos);
+
+                if (lookState.getBlock() == Blocks.WATER) {
+                    world.setBlockState(lookPos, Blocks.ICE.getDefaultState());
+                }
             }
         }
     }
