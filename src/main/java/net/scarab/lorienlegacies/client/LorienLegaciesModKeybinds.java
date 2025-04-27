@@ -10,6 +10,7 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.network.PacketByteBuf;
 import net.scarab.lorienlegacies.client.gui.RadialMenuHandler;
+import net.scarab.lorienlegacies.client.gui.RadialMenuScreen;
 import net.scarab.lorienlegacies.effect.ModEffects;
 import net.scarab.lorienlegacies.network.LorienLegaciesModNetworking;
 import org.lwjgl.glfw.GLFW;
@@ -45,28 +46,20 @@ public class LorienLegaciesModKeybinds implements ClientModInitializer {
         KeyBinding freezeWater = KeyBindingHelper.registerKeyBinding(
                 new KeyBinding("key.lorienlegacies.freeze_water", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_GRAVE_ACCENT, "key.category.lorienlegacies.lorienlegacies"));
 
-        HudRenderCallback.EVENT.register((drawcontext, tickDelta) -> {
-            RadialMenuHandler.render(drawcontext, tickDelta);
+        // Register HUD renderer
+        HudRenderCallback.EVENT.register((drawContext, tickDelta) -> {
+            RadialMenuHandler.render(drawContext, tickDelta);
         });
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            // Radial Menu Logic
+            // Radial Menu Keybind
             if (openRadialMenuKey.wasPressed()) {
-                RadialMenuHandler.toggleMenu();
-            }
-
-            if (RadialMenuHandler.menuOpen) {
-                if (client.options.attackKey.isPressed()) {
-                    RadialMenuHandler.selectOption();
-                }
-
-                if (client.options.sneakKey.isPressed()) {
-                    if (!sneakingLastTick) {
-                        RadialMenuHandler.nextPage();
-                    }
-                    sneakingLastTick = true;
+                if (RadialMenuHandler.menuOpen) {
+                    RadialMenuHandler.closeMenu();
+                    client.setScreen(null);
                 } else {
-                    sneakingLastTick = false;
+                    RadialMenuHandler.menuOpen = true;
+                    client.setScreen(new RadialMenuScreen());
                 }
             }
 

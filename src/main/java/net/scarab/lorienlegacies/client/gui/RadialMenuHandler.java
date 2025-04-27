@@ -55,11 +55,6 @@ public class RadialMenuHandler {
         packetPages.add(icePackets);
     }
 
-    public static void toggleMenu() {
-        menuOpen = !menuOpen;
-        if (menuOpen) currentPage = 0;
-    }
-
     public static void closeMenu() {
         menuOpen = false;
     }
@@ -137,6 +132,7 @@ public class RadialMenuHandler {
             if (hovered) {
                 ClientPlayNetworking.send(packets.get(i), new PacketByteBuf(Unpooled.buffer()));
                 closeMenu();
+                MinecraftClient.getInstance().setScreen(null); // Close after selecting
                 break;
             }
         }
