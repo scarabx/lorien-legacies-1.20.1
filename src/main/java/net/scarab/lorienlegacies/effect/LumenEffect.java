@@ -62,89 +62,94 @@ public class LumenEffect extends StatusEffect {
     // Method for shooting fireballs
     public static void shootFireball(LivingEntity entity) {
 
-        if (!entity.getWorld().isClient() && entity instanceof ServerPlayerEntity) {
-            ServerWorld world = ((ServerWorld) entity.getWorld());
+        if (!entity.getWorld().isClient()
+                && entity.hasStatusEffect(ModEffects.LUMEN)
+                && entity.hasStatusEffect(TOGGLE_SHOOT_FIREBALL))
 
-            Vec3d direction = entity.getRotationVec(1.0f);
-            double x = entity.getX() + direction.x;
-            double y = entity.getEyeY();
-            double z = entity.getZ() + direction.z;
+            if (!entity.getWorld().isClient() && entity instanceof ServerPlayerEntity) {
+                ServerWorld world = ((ServerWorld) entity.getWorld());
 
-            SmallFireballEntity fireball = new SmallFireballEntity(world, entity, direction.x, direction.y, direction.z);
-            fireball.setPosition(x, y, z);
+                Vec3d direction = entity.getRotationVec(1.0f);
+                double x = entity.getX() + direction.x;
+                double y = entity.getEyeY();
+                double z = entity.getZ() + direction.z;
 
-            world.spawnEntity(fireball);
-        }
-    }
+                SmallFireballEntity fireball = new SmallFireballEntity(world, entity, direction.x, direction.y, direction.z);
+                fireball.setPosition(x, y, z);
 
-    // Toggle the AOE fire effect (enable or disable)
-    public static void humanFireball(LivingEntity entity) {
-
-        if (!entity.getWorld().isClient() && entity instanceof ServerPlayerEntity) {
-            ServerPlayerEntity player = (ServerPlayerEntity) entity;
-            if (entity.isOnFire()) {
-                entity.extinguish();
-                // Disable AOE fire when human fireball is turned off
-                toggleHumanFireballAOE(player, false);
-
-            } else {
-                player.setOnFireFor(100);
-                // Enable AOE fire when human fireball is turned on
-                toggleHumanFireballAOE(player, true);
-            }
-        }
-    }
-
-    // AOE Fire effect: Burn mobs, animals, and blocks around the player
-    public static void humanFireballAOE(ServerPlayerEntity player, int radius, int fireSeconds) {
-
-        World world = player.getWorld();
-        BlockPos playerPos = player.getBlockPos();
-
-        // --- 1. Set mobs/animals on fire ---
-        Box box = new Box(
-                player.getX() - radius, player.getY() - radius, player.getZ() - radius,
-                player.getX() + radius, player.getY() + radius, player.getZ() + radius
-        );
-
-        for (Entity entity : world.getOtherEntities(player, box)) {
-            if (entity instanceof MobEntity || entity instanceof AnimalEntity) {
-                entity.setOnFireFor(fireSeconds);
+                world.spawnEntity(fireball);
             }
         }
 
-        // --- 2. Set air blocks on fire if block below is solid ---
-        for (int x = -radius; x <= radius; x++) {
-            for (int y = -1; y <= 1; y++) {
-                for (int z = -radius; z <= radius; z++) {
-                    BlockPos targetPos = playerPos.add(x, y, z);
-                    if (world.isAir(targetPos)) {
-                        BlockPos belowPos = targetPos.down();
-                        if (world.getBlockState(belowPos).isSolidBlock(world, belowPos)) {
-                            world.setBlockState(targetPos, Blocks.FIRE.getDefaultState());
+        // Toggle the AOE fire effect (enable or disable)
+        public static void humanFireball (LivingEntity entity){
+
+            if (!entity.getWorld().isClient() && entity instanceof ServerPlayerEntity) {
+                ServerPlayerEntity player = (ServerPlayerEntity) entity;
+                if (entity.isOnFire()) {
+                    entity.extinguish();
+                    // Disable AOE fire when human fireball is turned off
+                    toggleHumanFireballAOE(player, false);
+
+                } else {
+                    player.setOnFireFor(100);
+                    // Enable AOE fire when human fireball is turned on
+                    toggleHumanFireballAOE(player, true);
+                }
+            }
+        }
+
+        // AOE Fire effect: Burn mobs, animals, and blocks around the player
+        public static void humanFireballAOE (ServerPlayerEntity player,int radius, int fireSeconds){
+
+            World world = player.getWorld();
+            BlockPos playerPos = player.getBlockPos();
+
+            // --- 1. Set mobs/animals on fire ---
+            Box box = new Box(
+                    player.getX() - radius, player.getY() - radius, player.getZ() - radius,
+                    player.getX() + radius, player.getY() + radius, player.getZ() + radius
+            );
+
+            for (Entity entity : world.getOtherEntities(player, box)) {
+                if (entity instanceof MobEntity || entity instanceof AnimalEntity) {
+                    entity.setOnFireFor(fireSeconds);
+                }
+            }
+
+            // --- 2. Set air blocks on fire if block below is solid ---
+            for (int x = -radius; x <= radius; x++) {
+                for (int y = -1; y <= 1; y++) {
+                    for (int z = -radius; z <= radius; z++) {
+                        BlockPos targetPos = playerPos.add(x, y, z);
+                        if (world.isAir(targetPos)) {
+                            BlockPos belowPos = targetPos.down();
+                            if (world.getBlockState(belowPos).isSolidBlock(world, belowPos)) {
+                                world.setBlockState(targetPos, Blocks.FIRE.getDefaultState());
+                            }
                         }
                     }
                 }
             }
         }
-    }
 
-    public static void burnOnHit(LivingEntity user, Entity target) {
+        public static void burnOnHit (LivingEntity user, Entity target){
 
-        if (!user.getWorld().isClient() && user.isOnFire()) {
-            target.setOnFireFor(20);
+            if (!user.getWorld().isClient() && user.isOnFire()) {
+                target.setOnFireFor(20);
+            }
+        }
+
+        public static void flamingHands (LivingEntity user, Entity target){
+
+            if (!user.getWorld().isClient()
+                    && user.hasStatusEffect(ModEffects.LUMEN)
+                    && user.hasStatusEffect(TOGGLE_FLAMING_HANDS)) {
+                target.setOnFireFor(20);
+            }
         }
     }
 
-    public static void flamingHands(LivingEntity user, Entity target) {
-
-        if (!user.getWorld().isClient()
-                && user.hasStatusEffect(ModEffects.LUMEN)
-                && user.hasStatusEffect(TOGGLE_FLAMING_HANDS)) {
-            target.setOnFireFor(20);
-        }
-    }
-}
 
 
 

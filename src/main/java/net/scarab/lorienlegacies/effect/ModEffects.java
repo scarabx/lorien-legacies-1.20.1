@@ -26,7 +26,10 @@ public class ModEffects {
             new ToggleIciclesEffect(StatusEffectCategory.BENEFICIAL, 0x55FFFF));
 
     public static final StatusEffect TOGGLE_ICE_HANDS = registerStatusEffect("toggle_ice_hands",
-            new ToggleIciclesEffect(StatusEffectCategory.BENEFICIAL, 0x55FFFF));
+            new ToggleIceHandsEffect(StatusEffectCategory.BENEFICIAL, 0x55FFFF));
+
+    public static final StatusEffect TOGGLE_SHOOT_FIREBALL = registerStatusEffect("toggle_shoot_fireball",
+            new ToggleShootFireballEffect(StatusEffectCategory.BENEFICIAL, 0x55FFFF));
 
     private static StatusEffect registerStatusEffect(String name, StatusEffect statusEffect) {
         return Registry.register(Registries.STATUS_EFFECT, new Identifier(LorienLegaciesMod.MOD_ID, name), statusEffect);

@@ -100,37 +100,37 @@ public class GlacenEffect extends StatusEffect {
 
     public static void freezeWater(LivingEntity entity) {
 
-        if (!entity.getWorld().isClient() && entity instanceof ServerPlayerEntity) {
-            ServerWorld world = (ServerWorld) entity.getWorld();
+            if (!entity.getWorld().isClient() && entity instanceof ServerPlayerEntity) {
+                ServerWorld world = (ServerWorld) entity.getWorld();
 
-            // 1. Freeze the water block under the player's feet
-            BlockPos feetPos = entity.getBlockPos().down();
-            BlockState underState = world.getBlockState(feetPos);
+                // 1. Freeze the water block under the player's feet
+                BlockPos feetPos = entity.getBlockPos().down();
+                BlockState underState = world.getBlockState(feetPos);
 
-            if (underState.getBlock() == Blocks.WATER) {
-                world.setBlockState(feetPos, Blocks.ICE.getDefaultState());
-            }
+                if (underState.getBlock() == Blocks.WATER) {
+                    world.setBlockState(feetPos, Blocks.ICE.getDefaultState());
+                }
 
-            // 2. Freeze the water block the player is looking at (up to 5 blocks away)
-            Vec3d start = entity.getCameraPosVec(1.0F);
-            Vec3d end = start.add(entity.getRotationVec(1.0F).multiply(5)); // 5 block range
+                // 2. Freeze the water block the player is looking at (up to 5 blocks away)
+                Vec3d start = entity.getCameraPosVec(1.0F);
+                Vec3d end = start.add(entity.getRotationVec(1.0F).multiply(5)); // 5 block range
 
-            BlockHitResult hitResult = world.raycast(new RaycastContext(
-                    start,
-                    end,
-                    RaycastContext.ShapeType.OUTLINE,
-                    RaycastContext.FluidHandling.ANY,
-                    entity
-            ));
+                BlockHitResult hitResult = world.raycast(new RaycastContext(
+                        start,
+                        end,
+                        RaycastContext.ShapeType.OUTLINE,
+                        RaycastContext.FluidHandling.ANY,
+                        entity
+                ));
 
-            if (hitResult.getType() == HitResult.Type.BLOCK) {
-                BlockPos lookPos = hitResult.getBlockPos();
-                BlockState lookState = world.getBlockState(lookPos);
+                if (hitResult.getType() == HitResult.Type.BLOCK) {
+                    BlockPos lookPos = hitResult.getBlockPos();
+                    BlockState lookState = world.getBlockState(lookPos);
 
-                if (lookState.getBlock() == Blocks.WATER) {
-                    world.setBlockState(lookPos, Blocks.ICE.getDefaultState());
+                    if (lookState.getBlock() == Blocks.WATER) {
+                        world.setBlockState(lookPos, Blocks.ICE.getDefaultState());
+                    }
                 }
             }
         }
     }
-}

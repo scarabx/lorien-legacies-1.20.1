@@ -6,13 +6,14 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_ICE_HANDS;
+import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_SHOOT_FIREBALL;
 
-public class ToggleIceHandsEffect extends StatusEffect {
+public class ToggleShootFireballEffect extends StatusEffect {
 
-    protected ToggleIceHandsEffect(StatusEffectCategory category, int color) {
+    protected ToggleShootFireballEffect(StatusEffectCategory category, int color) {
         super(category, color);
     }
+
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
 
@@ -32,14 +33,14 @@ public class ToggleIceHandsEffect extends StatusEffect {
     }
 
     // Toggle helper method for safely enabling/disabling the effect invisibly
-    public static void toggleIceHands(ServerPlayerEntity player) {
+    public static void toggleShootFireball(ServerPlayerEntity player) {
 
-        if (player.hasStatusEffect(TOGGLE_ICE_HANDS)) {
-            player.removeStatusEffect(TOGGLE_ICE_HANDS);
+        if (player.hasStatusEffect(TOGGLE_SHOOT_FIREBALL)) {
+            player.removeStatusEffect(TOGGLE_SHOOT_FIREBALL);
         } else {
             // Apply the status effect invisibly: no ambient, no particles, no icon
             player.addStatusEffect(new StatusEffectInstance(
-                    TOGGLE_ICE_HANDS,
+                    TOGGLE_SHOOT_FIREBALL,
                     Integer.MAX_VALUE,
                     0,
                     false,

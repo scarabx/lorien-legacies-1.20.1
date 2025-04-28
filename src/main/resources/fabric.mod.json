@@ -23,7 +23,8 @@
 		],
 		"client": [
 			"net.scarab.lorienlegacies.LorienLegaciesModClient",
-			"net.scarab.lorienlegacies.client.LorienLegaciesModKeybinds"
+			"net.scarab.lorienlegacies.client.LorienLegaciesModKeybinds",
+			"net.scarab.lorienlegacies.client.SwingTracker"
 		]
 	},
 	"mixins": [

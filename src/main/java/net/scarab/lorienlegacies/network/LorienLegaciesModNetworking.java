@@ -1,6 +1,7 @@
 package net.scarab.lorienlegacies.network;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.scarab.lorienlegacies.effect.*;
 
@@ -19,6 +20,10 @@ public class LorienLegaciesModNetworking {
     public static final Identifier TOGGLE_ICE_HANDS_PACKET = new Identifier("lorienlegacies", "toggle_ice_hands");
 
     public static final Identifier FREEZE_WATER_PACKET = new Identifier("lorienlegacies", "freeze_water");
+
+    public static final Identifier TOGGLE_SHOOT_FIREBALL_PACKET = new Identifier("lorienlegacies", "toggle_shoot_fireball");
+
+    public static final Identifier SWING_PACKET = new Identifier("lorienlegacies", "swing");
 
     public static void registerC2SPackets() {
 
@@ -82,6 +87,22 @@ public class LorienLegaciesModNetworking {
             server.execute(() -> {
                 if (player.hasStatusEffect(ModEffects.GlACEN)) {
                     GlacenEffect.freezeWater(player);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_SHOOT_FIREBALL_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(ModEffects.LUMEN)) {
+                    ToggleShootFireballEffect.toggleShootFireball(player);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(SWING_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(ModEffects.LUMEN)) {
+                    LumenEffect.shootFireball(player);
                 }
             });
         });

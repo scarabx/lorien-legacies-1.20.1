@@ -19,6 +19,7 @@ public class RadialMenuHandler {
     private static final List<String> pageNames = new ArrayList<>();
     private static final List<List<String>> optionsPages = new ArrayList<>();
     private static final List<List<Identifier>> packetPages = new ArrayList<>();
+    private static final List<Integer> pageColors = new ArrayList<>(); // List to hold colors for each page
     private static int currentPage = 0;
 
     static {
@@ -30,12 +31,13 @@ public class RadialMenuHandler {
                 "Toggle Flaming Hands"
         );
         List<Identifier> firePackets = List.of(
-                LorienLegaciesModNetworking.SHOOT_FIREBALL_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_SHOOT_FIREBALL_PACKET,
                 LorienLegaciesModNetworking.HUMAN_FIREBALL_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_FLAMING_HANDS_PACKET
         );
         optionsPages.add(fireOptions);
         packetPages.add(firePackets);
+        pageColors.add(0xFFFF6600); // Orange for fire abilities
 
         // Page 2 - Ice Abilities
         pageNames.add("Ice Abilities");
@@ -53,6 +55,7 @@ public class RadialMenuHandler {
         );
         optionsPages.add(iceOptions);
         packetPages.add(icePackets);
+        pageColors.add(0xFF0099FF); // Blue for ice abilities
     }
 
     public static void closeMenu() {
@@ -79,12 +82,21 @@ public class RadialMenuHandler {
 
         // Draw Page Heading
         String pageName = pageNames.get(currentPage);
+
+        // Set a color based on the current page
+        int headingColor = 0xFFFFFFFF; // Default white color
+        if (currentPage == 0) { // Fire Abilities
+            headingColor = 0xFFFF6600; // Orange
+        } else if (currentPage == 1) { // Ice Abilities
+            headingColor = 0xFF0099FF; // Blue
+        }
+
         drawContext.drawCenteredTextWithShadow(
                 client.textRenderer,
                 Text.literal(pageName),
                 centerX,
-                centerY - 100,
-                0xFFFFFFFF
+                centerY - 120,
+                headingColor
         );
 
         for (int i = 0; i < options.size(); i++) {

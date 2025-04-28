@@ -41,4 +41,9 @@ public class RadialMenuScreen extends Screen {
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
+
+    @Override
+    public boolean shouldPause() {
+        return false;
+    }
 }
