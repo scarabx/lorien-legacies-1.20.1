@@ -1,15 +1,16 @@
-package net.scarab.lorienlegacies.effect;
+package net.scarab.lorienlegacies.effect.passive_effects;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.entity.effect.StatusEffects;
 
-import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_HUMAN_FIREBALL_AOE;
+import static net.scarab.lorienlegacies.effect.ModEffects.*;
 
-public class ToggleHumanFireballAOEEffect extends StatusEffect {
-    protected ToggleHumanFireballAOEEffect(StatusEffectCategory category, int color) {
+public class AccelixEffect extends StatusEffect {
+
+    public AccelixEffect(StatusEffectCategory category, int color) {
         super(category, color);
     }
 
@@ -29,23 +30,39 @@ public class ToggleHumanFireballAOEEffect extends StatusEffect {
                     false
             ));
         }
+
+        applySpeedEffect(entity);
+
+        super.applyUpdateEffect(entity, amplifier);
     }
 
-    // Toggle helper method for safely enabling/disabling the effect invisibly
-    public static void toggleHumanFireballAOE(ServerPlayerEntity player, boolean enable) {
+    public static void applySpeedEffect(LivingEntity entity) {
 
-        if (enable) {
-            // Apply the status effect invisibly: no ambient, no particles, no icon
-            player.addStatusEffect(new StatusEffectInstance(
-                    TOGGLE_HUMAN_FIREBALL_AOE,
-                    Integer.MAX_VALUE,
-                    0,
+        if (!entity.getWorld().isClient()
+                && entity.hasStatusEffect(ACCELIX)
+                && entity.hasStatusEffect(TOGGLE_ACCELIX)) {
+
+            entity.addStatusEffect(new StatusEffectInstance(
+                    StatusEffects.SPEED,
+                    100,
+                    4,
                     false,
                     false,
                     false
             ));
-        } else {
-            player.removeStatusEffect(TOGGLE_HUMAN_FIREBALL_AOE);
         }
     }
+
+    @Override
+    public boolean canApplyUpdateEffect ( int duration, int amplifier){
+        return true;
+    }
 }
+
+
+
+
+
+
+
+

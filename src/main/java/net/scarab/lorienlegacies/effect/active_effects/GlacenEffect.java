@@ -1,4 +1,4 @@
-package net.scarab.lorienlegacies.effect;
+package net.scarab.lorienlegacies.effect.active_effects;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -17,6 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
+import net.scarab.lorienlegacies.effect.ModEffects;
 import net.scarab.lorienlegacies.entity.IceballProjectileEntity;
 import net.scarab.lorienlegacies.entity.IciclesEntity;
 import net.scarab.lorienlegacies.entity.ModEntities;
@@ -25,7 +26,7 @@ import net.scarab.lorienlegacies.item.ModItems;
 import static net.scarab.lorienlegacies.effect.ModEffects.*;
 
 public class GlacenEffect extends StatusEffect {
-    protected GlacenEffect(StatusEffectCategory category, int color) {
+    public GlacenEffect(StatusEffectCategory category, int color) {
         super(category, color);
     }
 
@@ -45,6 +46,11 @@ public class GlacenEffect extends StatusEffect {
                     false
             ));
         }
+
+        if (entity instanceof ServerPlayerEntity player) {
+            if (player.hasStatusEffect(TOGGLE_FREEZE_WATER))
+                freezeWater(player);
+        }
         super.applyUpdateEffect(entity, amplifier);
     }
 
@@ -56,14 +62,19 @@ public class GlacenEffect extends StatusEffect {
     // Method for shooting fireballs
     public static void shootIceball(LivingEntity entity) {
 
-        if (!entity.getWorld().isClient() && entity instanceof ServerPlayerEntity) {
-            ServerWorld world = (ServerWorld) entity.getWorld();
+        if (!entity.getWorld().isClient()
+                && entity.hasStatusEffect(ModEffects.GlACEN)
+                && entity.hasStatusEffect(TOGGLE_SHOOT_ICEBALL)) {
 
-            IceballProjectileEntity iceballProjectile = new IceballProjectileEntity(entity, world);
-            iceballProjectile.setItem(new ItemStack(ModItems.ICEBALL)); // Optional: visually shows item in flight
-            iceballProjectile.setVelocity(entity, entity.getPitch(), entity.getYaw(), 0.0f, 1.5f, 1.0f);
+            if (!entity.getWorld().isClient() && entity instanceof ServerPlayerEntity) {
+                ServerWorld world = (ServerWorld) entity.getWorld();
 
-            world.spawnEntity(iceballProjectile);
+                IceballProjectileEntity iceballProjectile = new IceballProjectileEntity(entity, world);
+                iceballProjectile.setItem(new ItemStack(ModItems.ICEBALL)); // Optional: visually shows item in flight
+                iceballProjectile.setVelocity(entity, entity.getPitch(), entity.getYaw(), 0.0f, 1.5f, 1.0f);
+
+                world.spawnEntity(iceballProjectile);
+            }
         }
     }
 
@@ -82,7 +93,7 @@ public class GlacenEffect extends StatusEffect {
             target.damage(target.getWorld().getDamageSources().thrown(user, target), 10.0F);
 
             if (target instanceof LivingEntity livingEntity) {
-                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 3, false, false, false)); // 100 ticks (5 seconds) with level 4 slowness
+                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 4, false, false, false)); // 100 ticks (5 seconds) with level 5 slowness
             }
         }
     }
@@ -92,13 +103,18 @@ public class GlacenEffect extends StatusEffect {
         if (!user.getWorld().isClient()
                 && user.hasStatusEffect(GlACEN)
                 && user.hasStatusEffect(TOGGLE_ICE_HANDS)) {
+
             if (target instanceof LivingEntity livingEntity) {
-                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 3, false, false, false));
+                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 4, false, false, false));
             }
         }
     }
 
     public static void freezeWater(LivingEntity entity) {
+
+        if (!entity.getWorld().isClient()
+                && entity.hasStatusEffect(GlACEN)
+                && entity.hasStatusEffect(TOGGLE_FREEZE_WATER)) {
 
             if (!entity.getWorld().isClient() && entity instanceof ServerPlayerEntity) {
                 ServerWorld world = (ServerWorld) entity.getWorld();
@@ -134,3 +150,4 @@ public class GlacenEffect extends StatusEffect {
             }
         }
     }
+}

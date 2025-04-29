@@ -1,17 +1,19 @@
-package net.scarab.lorienlegacies.effect;
+package net.scarab.lorienlegacies.effect.passive_effects;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.entity.effect.StatusEffects;
 
-import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_ICICLES;
+import static net.scarab.lorienlegacies.effect.ModEffects.*;
 
-public class ToggleIciclesEffect extends StatusEffect {
-    protected ToggleIciclesEffect(StatusEffectCategory category, int color) {
+public class FortemEffect extends StatusEffect {
+
+    public FortemEffect(StatusEffectCategory category, int color) {
         super(category, color);
     }
+
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
 
@@ -28,23 +30,38 @@ public class ToggleIciclesEffect extends StatusEffect {
                     false
             ));
         }
+
+        applyStrengthEffect(entity);
+
+        super.applyUpdateEffect(entity, amplifier);
     }
 
-    // Toggle helper method for safely enabling/disabling the effect invisibly
-    public static void toggleIcicles(ServerPlayerEntity player) {
+    public static void applyStrengthEffect(LivingEntity entity) {
 
-        if (player.hasStatusEffect(TOGGLE_ICICLES)) {
-            player.removeStatusEffect(TOGGLE_ICICLES);
-        } else {
-            // Apply the status effect invisibly: no ambient, no particles, no icon
-            player.addStatusEffect(new StatusEffectInstance(
-                    TOGGLE_ICICLES,
-                    Integer.MAX_VALUE,
-                    0,
+        if (!entity.getWorld().isClient()
+                && entity.hasStatusEffect(FORTEM)
+                && entity.hasStatusEffect(TOGGLE_FORTEM)) {
+
+            entity.addStatusEffect(new StatusEffectInstance(
+                    StatusEffects.STRENGTH,
+                    100,
+                    4,
                     false,
                     false,
                     false
             ));
         }
     }
+
+    @Override
+    public boolean canApplyUpdateEffect(int duration, int amplifier) {
+        return true;
+    }
 }
+
+
+
+
+
+
+

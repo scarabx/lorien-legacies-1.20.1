@@ -1,4 +1,4 @@
-package net.scarab.lorienlegacies.effect;
+package net.scarab.lorienlegacies.effect.toggle_effects;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
@@ -6,11 +6,10 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_SHOOT_FIREBALL;
+import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_FLAMING_HANDS;
 
-public class ToggleShootFireballEffect extends StatusEffect {
-
-    protected ToggleShootFireballEffect(StatusEffectCategory category, int color) {
+public class ToggleFlamingHandsEffect extends StatusEffect {
+    public ToggleFlamingHandsEffect(StatusEffectCategory category, int color) {
         super(category, color);
     }
 
@@ -33,14 +32,14 @@ public class ToggleShootFireballEffect extends StatusEffect {
     }
 
     // Toggle helper method for safely enabling/disabling the effect invisibly
-    public static void toggleShootFireball(ServerPlayerEntity player) {
+    public static void toggleFlamingHands(ServerPlayerEntity player) {
 
-        if (player.hasStatusEffect(TOGGLE_SHOOT_FIREBALL)) {
-            player.removeStatusEffect(TOGGLE_SHOOT_FIREBALL);
+        if (player.hasStatusEffect(TOGGLE_FLAMING_HANDS)) {
+            player.removeStatusEffect(TOGGLE_FLAMING_HANDS);
         } else {
             // Apply the status effect invisibly: no ambient, no particles, no icon
             player.addStatusEffect(new StatusEffectInstance(
-                    TOGGLE_SHOOT_FIREBALL,
+                    TOGGLE_FLAMING_HANDS,
                     Integer.MAX_VALUE,
                     0,
                     false,

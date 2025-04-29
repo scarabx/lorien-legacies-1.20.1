@@ -1,4 +1,4 @@
-package net.scarab.lorienlegacies.effect;
+package net.scarab.lorienlegacies.effect.active_effects;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -16,13 +16,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.scarab.lorienlegacies.effect.ModEffects;
 
 import static net.scarab.lorienlegacies.effect.ModEffects.*;
-import static net.scarab.lorienlegacies.effect.ToggleHumanFireballAOEEffect.toggleHumanFireballAOE;
+import static net.scarab.lorienlegacies.effect.toggle_effects.ToggleHumanFireballAOEEffect.toggleHumanFireballAOE;
 
 public class LumenEffect extends StatusEffect {
 
-    protected LumenEffect(StatusEffectCategory category, int color) {
+    public LumenEffect(StatusEffectCategory category, int color) {
         super(category, color);
     }
 
@@ -44,7 +45,7 @@ public class LumenEffect extends StatusEffect {
         }
 
         // Apply fire resistance
-        entity.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 200, 1, false, false, false), entity);
+        entity.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 100, 0, false, false, false), entity);
         // Check if the entity is a ServerPlayerEntity and if they're on fire
         if (entity instanceof ServerPlayerEntity player && player.isOnFire()) {
             // If the player is on fire and AOE fire is enabled, trigger the AOE fire
@@ -145,6 +146,7 @@ public class LumenEffect extends StatusEffect {
             if (!user.getWorld().isClient()
                     && user.hasStatusEffect(ModEffects.LUMEN)
                     && user.hasStatusEffect(TOGGLE_FLAMING_HANDS)) {
+
                 target.setOnFireFor(20);
             }
         }

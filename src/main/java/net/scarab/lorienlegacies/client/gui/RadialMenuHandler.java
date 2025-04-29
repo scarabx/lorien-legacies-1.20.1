@@ -19,43 +19,63 @@ public class RadialMenuHandler {
     private static final List<String> pageNames = new ArrayList<>();
     private static final List<List<String>> optionsPages = new ArrayList<>();
     private static final List<List<Identifier>> packetPages = new ArrayList<>();
-    private static final List<Integer> pageColors = new ArrayList<>(); // List to hold colors for each page
+    private static final List<Integer> pageColors = new ArrayList<>();
     private static int currentPage = 0;
 
     static {
-        // Page 1 - Fire Abilities
-        pageNames.add("Fire Abilities");
-        List<String> fireOptions = List.of(
+        // Page 1 - Combat Abilities
+        pageNames.add("Combat");
+        List<String> combatOptions = List.of(
                 "Shoot Fireball",
                 "Human Fireball",
-                "Toggle Flaming Hands"
-        );
-        List<Identifier> firePackets = List.of(
-                LorienLegaciesModNetworking.TOGGLE_SHOOT_FIREBALL_PACKET,
-                LorienLegaciesModNetworking.HUMAN_FIREBALL_PACKET,
-                LorienLegaciesModNetworking.TOGGLE_FLAMING_HANDS_PACKET
-        );
-        optionsPages.add(fireOptions);
-        packetPages.add(firePackets);
-        pageColors.add(0xFFFF6600); // Orange for fire abilities
-
-        // Page 2 - Ice Abilities
-        pageNames.add("Ice Abilities");
-        List<String> iceOptions = List.of(
+                "Toggle Flaming Hands",
                 "Shoot Iceball",
                 "Icicles",
                 "Toggle Ice Hands",
-                "Freeze Water"
+                "Fortem"
         );
-        List<Identifier> icePackets = List.of(
-                LorienLegaciesModNetworking.SHOOT_ICEBALL_PACKET,
+        List<Identifier> combatPackets = List.of(
+                LorienLegaciesModNetworking.TOGGLE_SHOOT_FIREBALL_PACKET,
+                LorienLegaciesModNetworking.HUMAN_FIREBALL_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_FLAMING_HANDS_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_SHOOT_ICEBALL_PACKET,
                 LorienLegaciesModNetworking.ICICLES_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_ICE_HANDS_PACKET,
-                LorienLegaciesModNetworking.FREEZE_WATER_PACKET
+                LorienLegaciesModNetworking.TOGGLE_FORTEM_PACKET
         );
-        optionsPages.add(iceOptions);
-        packetPages.add(icePackets);
-        pageColors.add(0xFF0099FF); // Blue for ice abilities
+        optionsPages.add(combatOptions);
+        packetPages.add(combatPackets);
+        pageColors.add(0xFF0000); // Red for combat abilities
+
+        // Page 2 - Movement Abilities
+        pageNames.add("Movement");
+        List<String> movementOptions = List.of(
+                "Accelix"
+        );
+        List<Identifier> movementPackets = List.of(
+                LorienLegaciesModNetworking.TOGGLE_ACCELIX_PACKET
+        );
+        optionsPages.add(movementOptions);
+        packetPages.add(movementPackets);
+        pageColors.add(0xFFFF00); // Yellow for movement abilities
+
+        // Page 3 - Utility Abilities
+        pageNames.add("Utility");
+        List<String> utilityOptions = List.of(
+                "Freeze Water",
+                "Noxen",
+                "Novis",
+                "Regeneras"
+        );
+        List<Identifier> utilityPackets = List.of(
+                LorienLegaciesModNetworking.TOGGLE_FREEZE_WATER_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_NOXEN_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_NOVIS_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_REGENERAS_PACKET
+        );
+        optionsPages.add(utilityOptions);
+        packetPages.add(utilityPackets);
+        pageColors.add(0x808080); // Grey for utility abilities
     }
 
     public static void closeMenu() {
@@ -73,41 +93,39 @@ public class RadialMenuHandler {
         int screenHeight = client.getWindow().getScaledHeight();
         int centerX = screenWidth / 2;
         int centerY = screenHeight / 2;
-        int radius = 60;
 
-        double mouseX = client.mouse.getX() * (double) screenWidth / (double) client.getWindow().getWidth();
-        double mouseY = client.mouse.getY() * (double) screenHeight / (double) client.getWindow().getHeight();
+        double mouseX = client.mouse.getX() * screenWidth / client.getWindow().getWidth();
+        double mouseY = client.mouse.getY() * screenHeight / client.getWindow().getHeight();
 
         List<String> options = optionsPages.get(currentPage);
-
-        // Draw Page Heading
         String pageName = pageNames.get(currentPage);
+        int headingColor = pageColors.get(currentPage);
 
-        // Set a color based on the current page
-        int headingColor = 0xFFFFFFFF; // Default white color
-        if (currentPage == 0) { // Fire Abilities
-            headingColor = 0xFFFF6600; // Orange
-        } else if (currentPage == 1) { // Ice Abilities
-            headingColor = 0xFF0099FF; // Blue
-        }
+        // Adjust radius dynamically based on number of options
+        int baseRadius = 60;
+        int radius = baseRadius + Math.min(40, options.size() * 10);
 
+        // Draw heading
         drawContext.drawCenteredTextWithShadow(
                 client.textRenderer,
                 Text.literal(pageName),
                 centerX,
-                centerY - 120,
+                centerY - radius - 30,
                 headingColor
         );
 
-        for (int i = 0; i < options.size(); i++) {
+        int optionCount = options.size();
+        double angleStep = 2 * Math.PI / Math.max(optionCount, 1);
+
+        for (int i = 0; i < optionCount; i++) {
             String option = options.get(i);
 
-            double angle = (2 * Math.PI / options.size()) * i - Math.PI / 2;
+            double angle = angleStep * i - Math.PI / 2;
             int optionX = centerX + (int) (radius * Math.cos(angle));
             int optionY = centerY + (int) (radius * Math.sin(angle));
 
-            boolean hovered = Math.sqrt(Math.pow(mouseX - optionX, 2) + Math.pow(mouseY - optionY, 2)) < 20;
-            int color = hovered ? 0xFF00FFFF : 0xFFFFFFFF; // Bright blue if hovered, otherwise white
+            boolean hovered = Math.hypot(mouseX - optionX, mouseY - optionY) < 20;
+            int color = hovered ? 0xFF00FFFF : 0xFFFFFFFF;
 
             drawContext.drawCenteredTextWithShadow(
                     client.textRenderer,
@@ -126,25 +144,28 @@ public class RadialMenuHandler {
         int screenHeight = client.getWindow().getScaledHeight();
         int centerX = screenWidth / 2;
         int centerY = screenHeight / 2;
-        int radius = 60;
-
-        double mouseX = client.mouse.getX() * (double) screenWidth / (double) client.getWindow().getWidth();
-        double mouseY = client.mouse.getY() * (double) screenHeight / (double) client.getWindow().getHeight();
-
+        int baseRadius = 60;
         List<String> options = optionsPages.get(currentPage);
-        List<Identifier> packets = packetPages.get(currentPage);
+        int radius = baseRadius + Math.min(40, options.size() * 10);
 
-        for (int i = 0; i < options.size(); i++) {
-            double angle = (2 * Math.PI / options.size()) * i - Math.PI / 2;
+        double mouseX = client.mouse.getX() * screenWidth / client.getWindow().getWidth();
+        double mouseY = client.mouse.getY() * screenHeight / client.getWindow().getHeight();
+
+        List<Identifier> packets = packetPages.get(currentPage);
+        int optionCount = options.size();
+        double angleStep = 2 * Math.PI / Math.max(optionCount, 1);
+
+        for (int i = 0; i < optionCount; i++) {
+            double angle = angleStep * i - Math.PI / 2;
             int optionX = centerX + (int) (radius * Math.cos(angle));
             int optionY = centerY + (int) (radius * Math.sin(angle));
 
-            boolean hovered = Math.sqrt(Math.pow(mouseX - optionX, 2) + Math.pow(mouseY - optionY, 2)) < 20;
+            boolean hovered = Math.hypot(mouseX - optionX, mouseY - optionY) < 20;
 
             if (hovered) {
                 ClientPlayNetworking.send(packets.get(i), new PacketByteBuf(Unpooled.buffer()));
                 closeMenu();
-                MinecraftClient.getInstance().setScreen(null); // Close after selecting
+                MinecraftClient.getInstance().setScreen(null);
                 break;
             }
         }

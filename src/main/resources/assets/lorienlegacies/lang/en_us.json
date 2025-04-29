@@ -18,29 +18,43 @@
 
   "effect.lorienlegacies.toggle_flaming_hands": "Toggle Flaming Hands",
 
-  "key.category.lorienlegacies.lorienlegacies": "Lorien Legacies",
-
-  "key.lorienlegacies.shoot_fireball": "Shoot Fireball",
-
-  "key.lorienlegacies.shoot_iceball": "Shoot Iceball",
+  "effect.lorienlegacies.toggle_human_fireball_aoe": "Toggle Human Fireball AOE",
 
   "effect.lorienlegacies.glacen": "Glacen",
 
-  "effect.lorienlegacies.shoot_iceball": "Shoot Iceball",
-
-  "effect.lorienlegacies.toggle_icicles": "Toggle Icicles",
+  "effect.lorienlegacies.toggle_shoot_iceball": "Toggle Shoot Iceball",
 
   "effect.lorienlegacies.toggle_ice_hands": "Toggle Ice Hands",
 
-  "key.lorienlegacies.human_fireball": "Human Fireball",
+  "effect.lorienlegacies.toggle_icicles": "Toggle Icicles",
 
-  "key.lorienlegacies.flaming_hands": "Flaming Hands",
+  "effect.lorienlegacies.toggle_freeze_water": "Toggle Freeze Water",
 
-  "key.lorienlegacies.ice_hands": "Ice Hands",
+  "effect.lorienlegacies.toggle_shoot_fireball": "Toggle Shoot Fireball",
 
-  "key.lorienlegacies.icicles": "Icicles",
+  "effect.lorienlegacies.toggle_accelix": "Toggle Accelix",
 
-  "key.lorienlegacies.freeze_water": "Freeze Water",
+  "effect.lorienlegacies.toggle_fortem": "Toggle Fortem",
+
+  "effect.lorienlegacies.toggle_regeneras": "Toggle Regeneras",
+
+  "effect.lorienlegacies.toggle_noxen": "Toggle Noxen",
+
+  "effect.lorienlegacies.toggle_novis": "Toggle Novis",
+
+  "effect.lorienlegacies.accelix": "Accelix",
+
+  "effect.lorienlegacies.fortem": "Fortem",
+
+  "effect.lorienlegacies.regeneras": "Regeneras",
+
+  "effect.lorienlegacies.noxen": "Noxen",
+
+  "effect.lorienlegacies.novis": "Novis",
+
+  "key.category.lorienlegacies.lorienlegacies": "Lorien Legacies",
+
+  "key.lorienlegacies.open_radial_menu": "Open Radial Menu",
 
   "itemgroup.lorien_legacies": "Lorien Legacies"
 }

@@ -1,4 +1,4 @@
-package net.scarab.lorienlegacies.effect;
+package net.scarab.lorienlegacies.effect.toggle_effects;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
@@ -6,13 +6,14 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_ICE_HANDS;
+import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_REGENERAS;
 
-public class ToggleIceHandsEffect extends StatusEffect {
+public class ToggleRegenerasEffect extends StatusEffect {
 
-    protected ToggleIceHandsEffect(StatusEffectCategory category, int color) {
+    public ToggleRegenerasEffect(StatusEffectCategory category, int color) {
         super(category, color);
     }
+
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
 
@@ -32,14 +33,14 @@ public class ToggleIceHandsEffect extends StatusEffect {
     }
 
     // Toggle helper method for safely enabling/disabling the effect invisibly
-    public static void toggleIceHands(ServerPlayerEntity player) {
+    public static void toggleRegeneras(ServerPlayerEntity player) {
 
-        if (player.hasStatusEffect(TOGGLE_ICE_HANDS)) {
-            player.removeStatusEffect(TOGGLE_ICE_HANDS);
+        if (player.hasStatusEffect(TOGGLE_REGENERAS)) {
+            player.removeStatusEffect(TOGGLE_REGENERAS);
         } else {
             // Apply the status effect invisibly: no ambient, no particles, no icon
             player.addStatusEffect(new StatusEffectInstance(
-                    TOGGLE_ICE_HANDS,
+                    TOGGLE_REGENERAS,
                     Integer.MAX_VALUE,
                     0,
                     false,
