@@ -59,7 +59,21 @@ public class RadialMenuHandler {
         packetPages.add(movementPackets);
         pageColors.add(0xFFFF00); // Yellow for movement abilities
 
-        // Page 3 - Utility Abilities
+        // Page 3 - Defense Abilities
+        pageNames.add("Defense");
+        List<String> defenseOptions = List.of(
+                "Impenetrable Skin",
+                "Intangibility"
+        );
+        List<Identifier> defensePackets = List.of(
+                LorienLegaciesModNetworking.TOGGLE_IMPENETRABLE_SKIN_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_INTANGIBILITY_PACKET
+        );
+        optionsPages.add(defenseOptions);
+        packetPages.add(defensePackets);
+        pageColors.add(0x808080); // Grey for utility abilities
+
+        // Page 4 - Utility Abilities
         pageNames.add("Utility");
         List<String> utilityOptions = List.of(
                 "Freeze Water",

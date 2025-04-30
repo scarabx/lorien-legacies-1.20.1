@@ -41,6 +41,11 @@ public class LorienLegaciesModNetworking {
 
     public static final Identifier TOGGLE_NOXEN_PACKET = new Identifier("lorienlegacies", "toggle_noxen");
 
+
+    public static final Identifier TOGGLE_IMPENETRABLE_SKIN_PACKET = new Identifier("lorienlegacies", "toggle_impenetrable_skin");
+
+    public static final Identifier TOGGLE_INTANGIBILITY_PACKET = new Identifier("lorienlegacies", "toggle_intangibility");
+
     public static void registerC2SPackets() {
 
         ServerPlayNetworking.registerGlobalReceiver(SHOOT_FIREBALL_PACKET, (server, player, handler, buf, responseSender) -> {
@@ -172,6 +177,21 @@ public class LorienLegaciesModNetworking {
             server.execute(() -> {
                 if (player.hasStatusEffect(ModEffects.NOXEN)) {
                     ToggleNoxenEffect.toggleNoxen(player);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_IMPENETRABLE_SKIN_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                // Just toggle the TOGGLE_ status effect; do NOT directly add/remove IMPENETRABLE_SKIN here
+                ToggleImpenetrableSkinEffect.toggleImpenetrableSkin(player);
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_INTANGIBILITY_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(ModEffects.INTANGIBILITY)) {
+                    ToggleIntangibilityEffect.toggleIntangibility(player);
                 }
             });
         });

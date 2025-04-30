@@ -26,6 +26,7 @@ import net.scarab.lorienlegacies.item.ModItems;
 import static net.scarab.lorienlegacies.effect.ModEffects.*;
 
 public class GlacenEffect extends StatusEffect {
+
     public GlacenEffect(StatusEffectCategory category, int color) {
         super(category, color);
     }

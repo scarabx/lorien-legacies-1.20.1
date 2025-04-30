@@ -3,7 +3,9 @@
 	"package": "net.scarab.lorienlegacies.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"ExampleMixin"
+		"ExampleMixin",
+		"PlayerEntityMixin",
+		"ProjectileEntityMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
