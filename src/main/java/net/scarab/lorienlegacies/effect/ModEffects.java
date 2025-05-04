@@ -82,9 +82,6 @@ public class ModEffects {
     public static final StatusEffect INTANGIBILITY = registerStatusEffect("intangibility",
             new IntangibilityEffect(StatusEffectCategory.BENEFICIAL, 0x1A0B29/*Obsidian*/));
 
-    public static final StatusEffect TOGGLE_INTANGIBILITY = registerStatusEffect("toggle_intangibility",
-            new ToggleIntangibilityEffect(StatusEffectCategory.BENEFICIAL, 0x55FFFF/*Light Blue*/));
-
     private static StatusEffect registerStatusEffect(String name, StatusEffect statusEffect) {
         return Registry.register(Registries.STATUS_EFFECT, new Identifier(LorienLegaciesMod.MOD_ID, name), statusEffect);
     }

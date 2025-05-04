@@ -1,11 +1,10 @@
 package net.scarab.lorienlegacies.effect.active_effects;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.player.PlayerEntity;
-
-import static net.scarab.lorienlegacies.effect.ModEffects.*;
 
 public class IntangibilityEffect extends StatusEffect {
 
@@ -15,10 +14,23 @@ public class IntangibilityEffect extends StatusEffect {
 
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
+
         if (entity instanceof PlayerEntity player) {
             intangibility(player);
         }
         super.applyUpdateEffect(entity, amplifier);
+    }
+
+    @Override
+    public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
+
+        if (entity instanceof PlayerEntity player) {
+            player.noClip = false;
+            player.getAbilities().flying = false;
+            player.getAbilities().allowFlying = false;
+            player.sendAbilitiesUpdate();
+        }
+        super.onRemoved(entity, attributes, amplifier);
     }
 
     @Override
@@ -27,10 +39,6 @@ public class IntangibilityEffect extends StatusEffect {
     }
 
     public static void intangibility(PlayerEntity player) {
-
-        if (!player.getWorld().isClient()
-                && player.hasStatusEffect(INTANGIBILITY)
-                && player.hasStatusEffect(TOGGLE_INTANGIBILITY)) {
 
             player.noClip = true;
 
@@ -47,5 +55,5 @@ public class IntangibilityEffect extends StatusEffect {
             player.sendAbilitiesUpdate();
         }
     }
-}
+
 
