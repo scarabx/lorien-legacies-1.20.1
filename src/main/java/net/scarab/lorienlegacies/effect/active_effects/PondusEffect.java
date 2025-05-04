@@ -5,10 +5,12 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
+import net.scarab.lorienlegacies.effect.ModEffects;
 
-public class ImpenetrableSkinEffect extends StatusEffect {
+public class PondusEffect extends StatusEffect {
 
-    public ImpenetrableSkinEffect(StatusEffectCategory category, int color) {
+    public PondusEffect(StatusEffectCategory category, int color) {
         super(category, color);
     }
 
@@ -29,11 +31,21 @@ public class ImpenetrableSkinEffect extends StatusEffect {
             ));
         }
 
-        entity.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 100, 4, false, false, false));
+        if (entity.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN)) {
+            entity.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 100, 4, false, false, false));
+        }
     }
 
     @Override
     public boolean canApplyUpdateEffect(int duration, int amplifier) {
         return true;
+    }
+
+    public static void applyIntangibility(PlayerEntity player) {
+        if (player.hasStatusEffect(ModEffects.TOGGLE_INTANGIBILITY)) {
+            player.removeStatusEffect(ModEffects.TOGGLE_INTANGIBILITY);
+        } else {
+            player.addStatusEffect(new StatusEffectInstance(ModEffects.TOGGLE_INTANGIBILITY, Integer.MAX_VALUE, 0, false, false, false));
+        }
     }
 }

@@ -6,7 +6,6 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_ACCELIX;
 import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_IMPENETRABLE_SKIN;
 
 public class ToggleImpenetrableSkinEffect extends StatusEffect {

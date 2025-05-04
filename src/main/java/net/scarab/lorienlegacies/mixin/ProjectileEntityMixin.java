@@ -23,7 +23,7 @@ public abstract class ProjectileEntityMixin {
 
         for (Entity entity : projectile.getWorld().getOtherEntities(projectile, projectile.getBoundingBox().expand(0.3))) {
             if (entity instanceof PlayerEntity player &&
-                    player.hasStatusEffect(ModEffects.IMPENETRABLE_SKIN) &&
+                    player.hasStatusEffect(ModEffects.PONDUS) &&
                     player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN)) {
 
                 deflectProjectileFrom(projectile, player.getPos());
@@ -40,7 +40,7 @@ public abstract class ProjectileEntityMixin {
         Entity target = hitResult.getEntity();
 
         if (target instanceof PlayerEntity player &&
-                player.hasStatusEffect(ModEffects.IMPENETRABLE_SKIN) &&
+                player.hasStatusEffect(ModEffects.PONDUS) &&
                 player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN)) {
 
             ProjectileEntity projectile = (ProjectileEntity) (Object) this;

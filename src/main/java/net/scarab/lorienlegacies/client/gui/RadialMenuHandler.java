@@ -66,7 +66,8 @@ public class RadialMenuHandler {
                 "Intangibility"
         );
         List<Identifier> defensePackets = List.of(
-                LorienLegaciesModNetworking.TOGGLE_IMPENETRABLE_SKIN_PACKET
+                LorienLegaciesModNetworking.TOGGLE_IMPENETRABLE_SKIN_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_INTANGIBILITY_PACKET
         );
         optionsPages.add(defenseOptions);
         packetPages.add(defensePackets);

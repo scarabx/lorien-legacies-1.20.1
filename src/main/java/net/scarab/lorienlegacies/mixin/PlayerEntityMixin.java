@@ -24,7 +24,7 @@ public class PlayerEntityMixin {
     private void cancelDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         PlayerEntity player = (PlayerEntity) (Object) this;
 
-        if (player.hasStatusEffect(ModEffects.IMPENETRABLE_SKIN) &&
+        if (player.hasStatusEffect(ModEffects.PONDUS) &&
                 player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN)) {
 
             Entity attacker = source.getSource();
@@ -40,7 +40,7 @@ public class PlayerEntityMixin {
         }
 
         // Cancel suffocation damage if Intangibility is active
-        if (player.hasStatusEffect(ModEffects.INTANGIBILITY) && source.isOf(DamageTypes.IN_WALL)) {
+        if (player.hasStatusEffect(ModEffects.PONDUS) && source.isOf(DamageTypes.IN_WALL)) {
             cir.setReturnValue(false);
         }
     }

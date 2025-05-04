@@ -7,9 +7,8 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.scarab.lorienlegacies.LorienLegaciesMod;
 import net.scarab.lorienlegacies.effect.active_effects.GlacenEffect;
-import net.scarab.lorienlegacies.effect.active_effects.ImpenetrableSkinEffect;
-import net.scarab.lorienlegacies.effect.active_effects.IntangibilityEffect;
 import net.scarab.lorienlegacies.effect.active_effects.LumenEffect;
+import net.scarab.lorienlegacies.effect.active_effects.PondusEffect;
 import net.scarab.lorienlegacies.effect.passive_effects.*;
 import net.scarab.lorienlegacies.effect.toggle_effects.*;
 
@@ -73,14 +72,14 @@ public class ModEffects {
     public static final StatusEffect TOGGLE_NOVIS = registerStatusEffect("toggle_novis",
             new NovisEffect(StatusEffectCategory.BENEFICIAL, 0x55FFFF/*Light Blue*/));
 
-    public static final StatusEffect IMPENETRABLE_SKIN = registerStatusEffect("impenetrable_skin",
-            new ImpenetrableSkinEffect(StatusEffectCategory.BENEFICIAL, 0x1A0B29/*Obsidian*/));
+    public static final StatusEffect PONDUS = registerStatusEffect("pondus",
+            new PondusEffect(StatusEffectCategory.BENEFICIAL, 0x1A0B29/*Obsidian*/));
 
     public static final StatusEffect TOGGLE_IMPENETRABLE_SKIN = registerStatusEffect("toggle_impenetrable_skin",
-            new ImpenetrableSkinEffect(StatusEffectCategory.BENEFICIAL, 0x1A0B29/*Obsidian*/));
+            new ToggleImpenetrableSkinEffect(StatusEffectCategory.BENEFICIAL, 0x1A0B29/*Obsidian*/));
 
-    public static final StatusEffect INTANGIBILITY = registerStatusEffect("intangibility",
-            new IntangibilityEffect(StatusEffectCategory.BENEFICIAL, 0x1A0B29/*Obsidian*/));
+    public static final StatusEffect TOGGLE_INTANGIBILITY = registerStatusEffect("toggle_intangibility",
+            new ToggleIntangibilityEffect(StatusEffectCategory.BENEFICIAL, 0x55FFFF/*Light Blue*/));
 
     private static StatusEffect registerStatusEffect(String name, StatusEffect statusEffect) {
         return Registry.register(Registries.STATUS_EFFECT, new Identifier(LorienLegaciesMod.MOD_ID, name), statusEffect);
