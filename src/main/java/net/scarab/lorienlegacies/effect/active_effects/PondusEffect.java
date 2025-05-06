@@ -8,6 +8,8 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.scarab.lorienlegacies.effect.ModEffects;
 
+import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_INTANGIBILITY;
+
 public class PondusEffect extends StatusEffect {
 
     public PondusEffect(StatusEffectCategory category, int color) {
@@ -42,10 +44,10 @@ public class PondusEffect extends StatusEffect {
     }
 
     public static void applyIntangibility(PlayerEntity player) {
-        if (player.hasStatusEffect(ModEffects.TOGGLE_INTANGIBILITY)) {
-            player.removeStatusEffect(ModEffects.TOGGLE_INTANGIBILITY);
+        if (player.hasStatusEffect(TOGGLE_INTANGIBILITY)) {
+            player.removeStatusEffect(TOGGLE_INTANGIBILITY);
         } else {
-            player.addStatusEffect(new StatusEffectInstance(ModEffects.TOGGLE_INTANGIBILITY, Integer.MAX_VALUE, 0, false, false, false));
+            player.addStatusEffect(new StatusEffectInstance(TOGGLE_INTANGIBILITY, Integer.MAX_VALUE, 0, false, false, false));
         }
     }
 }

@@ -50,10 +50,12 @@ public class RadialMenuHandler {
         // Page 2 - Movement Abilities
         pageNames.add("Movement");
         List<String> movementOptions = List.of(
-                "Accelix"
+                "Accelix",
+                "Avex"
         );
         List<Identifier> movementPackets = List.of(
-                LorienLegaciesModNetworking.TOGGLE_ACCELIX_PACKET
+                LorienLegaciesModNetworking.TOGGLE_ACCELIX_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_AVEX_PACKET
         );
         optionsPages.add(movementOptions);
         packetPages.add(movementPackets);

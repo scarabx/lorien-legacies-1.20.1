@@ -1,8 +1,11 @@
 package net.scarab.lorienlegacies.network;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.util.Identifier;
 import net.scarab.lorienlegacies.effect.*;
+import net.scarab.lorienlegacies.effect.active_effects.AvexEffect;
 import net.scarab.lorienlegacies.effect.active_effects.GlacenEffect;
 import net.scarab.lorienlegacies.effect.active_effects.LumenEffect;
 import net.scarab.lorienlegacies.effect.active_effects.PondusEffect;
@@ -42,10 +45,13 @@ public class LorienLegaciesModNetworking {
 
     public static final Identifier TOGGLE_NOXEN_PACKET = new Identifier("lorienlegacies", "toggle_noxen");
 
-
     public static final Identifier TOGGLE_IMPENETRABLE_SKIN_PACKET = new Identifier("lorienlegacies", "toggle_impenetrable_skin");
 
     public static final Identifier TOGGLE_INTANGIBILITY_PACKET = new Identifier("lorienlegacies", "toggle_intangibility");
+
+    public static final Identifier TOGGLE_AVEX_PACKET = new Identifier("lorienlegacies", "toggle_avex");
+
+    public static final Identifier START_AVEX_FLIGHT_PACKET = new Identifier("lorienlegacies", "start_avex_flight");
 
     public static void registerC2SPackets() {
 
@@ -128,7 +134,7 @@ public class LorienLegaciesModNetworking {
                 if (player.hasStatusEffect(ModEffects.LUMEN)) {
                     LumenEffect.shootFireball(player);
                 }
-                if (player.hasStatusEffect(ModEffects.LUMEN)) {
+                if (player.hasStatusEffect(ModEffects.GlACEN)) {
                     GlacenEffect.shootIceball(player);
                 }
             });
@@ -193,6 +199,22 @@ public class LorienLegaciesModNetworking {
             server.execute(() -> {
                 if (player.hasStatusEffect(ModEffects.PONDUS)) {
                     PondusEffect.applyIntangibility(player);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_AVEX_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(ModEffects.AVEX)) {
+                    ToggleAvexEffect.toggleAvex(player);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(START_AVEX_FLIGHT_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(ModEffects.AVEX) && player.hasStatusEffect(ModEffects.TOGGLE_AVEX)) {
+                    player.startFallFlying();
                 }
             });
         });
