@@ -1,14 +1,12 @@
 package net.scarab.lorienlegacies.network;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.util.Identifier;
 import net.scarab.lorienlegacies.effect.*;
-import net.scarab.lorienlegacies.effect.active_effects.AvexEffect;
 import net.scarab.lorienlegacies.effect.active_effects.GlacenEffect;
 import net.scarab.lorienlegacies.effect.active_effects.LumenEffect;
 import net.scarab.lorienlegacies.effect.active_effects.PondusEffect;
+import net.scarab.lorienlegacies.effect.active_effects.TelekinesisEffect;
 import net.scarab.lorienlegacies.effect.toggle_effects.*;
 
 public class LorienLegaciesModNetworking {
@@ -52,6 +50,15 @@ public class LorienLegaciesModNetworking {
     public static final Identifier TOGGLE_AVEX_PACKET = new Identifier("lorienlegacies", "toggle_avex");
 
     public static final Identifier START_AVEX_FLIGHT_PACKET = new Identifier("lorienlegacies", "start_avex_flight");
+
+    public static final Identifier TELEKINESIS_PUSH_PACKET = new Identifier("lorienlegacies", "telekinesis_push");
+
+    public static final Identifier TELEKINESIS_PULL_PACKET = new Identifier("lorienlegacies", "telekinesis_pull");
+
+    public static final Identifier TELEKINESIS_MOVE_PACKET = new Identifier("lorienlegacies", "telekinesis_move");
+
+    public static final Identifier TOGGLE_TELEKINESIS_PACKET = new Identifier("lorienlegacies", "toggle_telekinesis");
+
 
     public static void registerC2SPackets() {
 
@@ -216,6 +223,32 @@ public class LorienLegaciesModNetworking {
                 if (player.hasStatusEffect(ModEffects.AVEX) && player.hasStatusEffect(ModEffects.TOGGLE_AVEX)) {
                     player.startFallFlying();
                 }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_TELEKINESIS_PACKET, (server, player, handler, buf, sender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(ModEffects.TELEKINESIS)) {
+                    ToggleTelekinesisEffect.toggle(player);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(TELEKINESIS_PUSH_PACKET, (server, player, handler, buf, sender) -> {
+            server.execute(() -> {
+                TelekinesisEffect.push(player);
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(TELEKINESIS_PULL_PACKET, (server, player, handler, buf, sender) -> {
+            server.execute(() -> {
+                TelekinesisEffect.pull(player);
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(TELEKINESIS_MOVE_PACKET, (server, player, handler, buf, sender) -> {
+            server.execute(() -> {
+                TelekinesisEffect.move(player);
             });
         });
     }

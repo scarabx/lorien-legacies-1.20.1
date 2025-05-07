@@ -6,10 +6,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.scarab.lorienlegacies.LorienLegaciesMod;
-import net.scarab.lorienlegacies.effect.active_effects.AvexEffect;
-import net.scarab.lorienlegacies.effect.active_effects.GlacenEffect;
-import net.scarab.lorienlegacies.effect.active_effects.LumenEffect;
-import net.scarab.lorienlegacies.effect.active_effects.PondusEffect;
+import net.scarab.lorienlegacies.effect.active_effects.*;
 import net.scarab.lorienlegacies.effect.passive_effects.*;
 import net.scarab.lorienlegacies.effect.toggle_effects.*;
 
@@ -87,6 +84,12 @@ public class ModEffects {
 
     public static final StatusEffect TOGGLE_AVEX = registerStatusEffect("toggle_avex",
             new ToggleAvexEffect(StatusEffectCategory.BENEFICIAL, 0x87CEEB/*Sky Blue*/));
+
+    public static final StatusEffect TELEKINESIS = registerStatusEffect("telekinesis",
+            new TelekinesisEffect(StatusEffectCategory.BENEFICIAL, 0x87CEEB/*Sky Blue*/));
+
+    public static final StatusEffect TOGGLE_TELEKINESIS = registerStatusEffect("toggle_telekinesis",
+            new ToggleTelekinesisEffect(StatusEffectCategory.BENEFICIAL, 0x87CEEB/*Sky Blue*/));
 
     private static StatusEffect registerStatusEffect(String name, StatusEffect statusEffect) {
         return Registry.register(Registries.STATUS_EFFECT, new Identifier(LorienLegaciesMod.MOD_ID, name), statusEffect);

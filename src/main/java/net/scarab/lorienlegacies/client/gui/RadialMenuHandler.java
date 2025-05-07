@@ -73,7 +73,7 @@ public class RadialMenuHandler {
         );
         optionsPages.add(defenseOptions);
         packetPages.add(defensePackets);
-        pageColors.add(0x808080); // Grey for utility abilities
+        pageColors.add(0xFF4682B4); // Steel Blue for defense abilities
 
         // Page 4 - Utility Abilities
         pageNames.add("Utility");
@@ -140,8 +140,9 @@ public class RadialMenuHandler {
             int optionX = centerX + (int) (radius * Math.cos(angle));
             int optionY = centerY + (int) (radius * Math.sin(angle));
 
+            // Change the hover color to blue (0xFF0000FF)
             boolean hovered = Math.hypot(mouseX - optionX, mouseY - optionY) < 20;
-            int color = hovered ? 0xFF00FFFF : 0xFFFFFFFF;
+            int color = hovered ? 0xFF0000FF : 0xFFFFFFFF; // Blue hover color
 
             drawContext.drawCenteredTextWithShadow(
                     client.textRenderer,
