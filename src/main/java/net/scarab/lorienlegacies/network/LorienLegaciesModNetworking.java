@@ -27,7 +27,9 @@ public class LorienLegaciesModNetworking {
 
     public static final Identifier TOGGLE_SHOOT_FIREBALL_PACKET = new Identifier("lorienlegacies", "toggle_shoot_fireball");
 
-    public static final Identifier SWING_PACKET = new Identifier("lorienlegacies", "swing");
+    public static final Identifier LEFT_CLICK_PACKET = new Identifier("lorienlegacies", "left_click");
+
+    public static final Identifier RIGHT_CLICK_PACKET = new Identifier("lorienlegacies", "right_click");
 
     public static final Identifier TOGGLE_SHOOT_ICEBALL_PACKET = new Identifier("lorienlegacies", "toggle_shoot_iceball");
 
@@ -56,9 +58,6 @@ public class LorienLegaciesModNetworking {
     public static final Identifier TELEKINESIS_PULL_PACKET = new Identifier("lorienlegacies", "telekinesis_pull");
 
     public static final Identifier TELEKINESIS_MOVE_PACKET = new Identifier("lorienlegacies", "telekinesis_move");
-
-    public static final Identifier TOGGLE_TELEKINESIS_PACKET = new Identifier("lorienlegacies", "toggle_telekinesis");
-
 
     public static void registerC2SPackets() {
 
@@ -136,13 +135,24 @@ public class LorienLegaciesModNetworking {
             });
         });
 
-        ServerPlayNetworking.registerGlobalReceiver(SWING_PACKET, (server, player, handler, buf, responseSender) -> {
+        ServerPlayNetworking.registerGlobalReceiver(LEFT_CLICK_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 if (player.hasStatusEffect(ModEffects.LUMEN)) {
                     LumenEffect.shootFireball(player);
                 }
                 if (player.hasStatusEffect(ModEffects.GlACEN)) {
                     GlacenEffect.shootIceball(player);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(RIGHT_CLICK_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(ModEffects.TELEKINESIS)) {
+                    TelekinesisEffect.push(player);
+                }
+                if (player.hasStatusEffect(ModEffects.TELEKINESIS)) {
+                    TelekinesisEffect.pull(player);
                 }
             });
         });
@@ -226,29 +236,29 @@ public class LorienLegaciesModNetworking {
             });
         });
 
-        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_TELEKINESIS_PACKET, (server, player, handler, buf, sender) -> {
+        ServerPlayNetworking.registerGlobalReceiver(TELEKINESIS_PUSH_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 if (player.hasStatusEffect(ModEffects.TELEKINESIS)) {
-                    ToggleTelekinesisEffect.toggle(player);
+                    ToggleTelekinesisPushEffect.toggleTelekinesisPush(player);
+                    player.removeStatusEffect(ModEffects.TOGGLE_TELEKINESIS_PULL);
                 }
             });
         });
 
-        ServerPlayNetworking.registerGlobalReceiver(TELEKINESIS_PUSH_PACKET, (server, player, handler, buf, sender) -> {
+        ServerPlayNetworking.registerGlobalReceiver(TELEKINESIS_PULL_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                TelekinesisEffect.push(player);
+                if (player.hasStatusEffect(ModEffects.TELEKINESIS)) {
+                    ToggleTelekinesisPullEffect.toggleTelekinesisPull(player);
+                    player.removeStatusEffect(ModEffects.TOGGLE_TELEKINESIS_PUSH);
+                }
             });
         });
 
-        ServerPlayNetworking.registerGlobalReceiver(TELEKINESIS_PULL_PACKET, (server, player, handler, buf, sender) -> {
+        ServerPlayNetworking.registerGlobalReceiver(TELEKINESIS_MOVE_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                TelekinesisEffect.pull(player);
-            });
-        });
-
-        ServerPlayNetworking.registerGlobalReceiver(TELEKINESIS_MOVE_PACKET, (server, player, handler, buf, sender) -> {
-            server.execute(() -> {
-                TelekinesisEffect.move(player);
+                if (player.hasStatusEffect(ModEffects.TELEKINESIS)) {
+                    ToggleTelekinesisMoveEffect.toggleTelekinesisMove(player);
+                }
             });
         });
     }

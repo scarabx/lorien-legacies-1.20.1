@@ -27,6 +27,9 @@ public class RadialMenuHandler {
         pageNames.add("Combat");
         List<String> combatOptions = List.of(
                 "Shoot Fireball",
+                "Push",
+                "Pull",
+                "Move",
                 "Human Fireball",
                 "Toggle Flaming Hands",
                 "Shoot Iceball",
@@ -36,6 +39,9 @@ public class RadialMenuHandler {
         );
         List<Identifier> combatPackets = List.of(
                 LorienLegaciesModNetworking.TOGGLE_SHOOT_FIREBALL_PACKET,
+                LorienLegaciesModNetworking.TELEKINESIS_PUSH_PACKET,
+                LorienLegaciesModNetworking.TELEKINESIS_PULL_PACKET,
+                LorienLegaciesModNetworking.TELEKINESIS_MOVE_PACKET,
                 LorienLegaciesModNetworking.HUMAN_FIREBALL_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_FLAMING_HANDS_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_SHOOT_ICEBALL_PACKET,

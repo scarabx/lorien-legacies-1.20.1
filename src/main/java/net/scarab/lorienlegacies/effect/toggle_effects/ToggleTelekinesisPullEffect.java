@@ -7,9 +7,9 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.scarab.lorienlegacies.effect.ModEffects;
 
-public class ToggleTelekinesisEffect extends StatusEffect {
+public class ToggleTelekinesisPullEffect extends StatusEffect {
 
-    public ToggleTelekinesisEffect(StatusEffectCategory category, int color) {
+    public ToggleTelekinesisPullEffect(StatusEffectCategory category, int color) {
         super(category, color);
     }
 
@@ -29,12 +29,12 @@ public class ToggleTelekinesisEffect extends StatusEffect {
         }
     }
 
-    public static void toggle(ServerPlayerEntity player) {
-        if (player.hasStatusEffect(ModEffects.TOGGLE_TELEKINESIS)) {
-            player.removeStatusEffect(ModEffects.TOGGLE_TELEKINESIS);
+    public static void toggleTelekinesisPull(ServerPlayerEntity player) {
+        if (player.hasStatusEffect(ModEffects.TOGGLE_TELEKINESIS_PULL)) {
+            player.removeStatusEffect(ModEffects.TOGGLE_TELEKINESIS_PULL);
         } else {
             player.addStatusEffect(new StatusEffectInstance(
-                    ModEffects.TOGGLE_TELEKINESIS,
+                    ModEffects.TOGGLE_TELEKINESIS_PULL,
                     Integer.MAX_VALUE,
                     0,
                     false,

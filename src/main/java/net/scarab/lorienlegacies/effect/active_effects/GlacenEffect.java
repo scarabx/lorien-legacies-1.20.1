@@ -113,10 +113,6 @@ public class GlacenEffect extends StatusEffect {
 
     public static void freezeWater(LivingEntity entity) {
 
-        if (!entity.getWorld().isClient()
-                && entity.hasStatusEffect(GlACEN)
-                && entity.hasStatusEffect(TOGGLE_FREEZE_WATER)) {
-
             if (!entity.getWorld().isClient() && entity instanceof ServerPlayerEntity) {
                 ServerWorld world = (ServerWorld) entity.getWorld();
 
@@ -151,4 +147,3 @@ public class GlacenEffect extends StatusEffect {
             }
         }
     }
-}
