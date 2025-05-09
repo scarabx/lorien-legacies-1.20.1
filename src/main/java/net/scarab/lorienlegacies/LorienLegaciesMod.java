@@ -10,6 +10,7 @@ import net.scarab.lorienlegacies.effect.active_effects.GlacenEffect;
 import net.scarab.lorienlegacies.effect.active_effects.LumenEffect;
 import net.scarab.lorienlegacies.effect.ModEffects;
 import net.scarab.lorienlegacies.entity.ModEntities;
+import net.scarab.lorienlegacies.event.LorienLegacyEventHandler;
 import net.scarab.lorienlegacies.item.ModItemGroup;
 import net.scarab.lorienlegacies.item.ModItems;
 import net.scarab.lorienlegacies.network.LorienLegaciesModNetworking;
@@ -44,5 +45,7 @@ public class LorienLegaciesMod implements ModInitializer {
 		LorienLegaciesModNetworking.registerC2SPackets();
 
 		ModEntities.registerModEntities();
+
+		LorienLegacyEventHandler.register();
 	}
 }

@@ -86,16 +86,16 @@ public class ModEffects {
             new ToggleAvexEffect(StatusEffectCategory.BENEFICIAL, 0x87CEEB/*Sky Blue*/));
 
     public static final StatusEffect TELEKINESIS = registerStatusEffect("telekinesis",
-            new TelekinesisEffect(StatusEffectCategory.BENEFICIAL, 0x87CEEB/*Sky Blue*/));
+            new TelekinesisEffect(StatusEffectCategory.BENEFICIAL, 0x9b4f96/*Purple*/));
 
     public static final StatusEffect TOGGLE_TELEKINESIS_PUSH = registerStatusEffect("toggle_telekinesis_push",
-            new ToggleTelekinesisPushEffect(StatusEffectCategory.BENEFICIAL, 0x87CEEB/*Sky Blue*/));
+            new ToggleTelekinesisPushEffect(StatusEffectCategory.BENEFICIAL, 0x9b4f96/*Purple*/));
 
     public static final StatusEffect TOGGLE_TELEKINESIS_PULL = registerStatusEffect("toggle_telekinesis_pull",
-            new ToggleTelekinesisPullEffect(StatusEffectCategory.BENEFICIAL, 0x87CEEB/*Sky Blue*/));
+            new ToggleTelekinesisPullEffect(StatusEffectCategory.BENEFICIAL, 0x9b4f96/*Purple*/));
 
     public static final StatusEffect TOGGLE_TELEKINESIS_MOVE = registerStatusEffect("toggle_telekinesis_move",
-            new ToggleTelekinesisMoveEffect(StatusEffectCategory.BENEFICIAL, 0x87CEEB/*Sky Blue*/));
+            new ToggleTelekinesisMoveEffect(StatusEffectCategory.BENEFICIAL, 0x9b4f96/*Purple*/));
 
     private static StatusEffect registerStatusEffect(String name, StatusEffect statusEffect) {
         return Registry.register(Registries.STATUS_EFFECT, new Identifier(LorienLegaciesMod.MOD_ID, name), statusEffect);

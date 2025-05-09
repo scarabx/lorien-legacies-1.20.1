@@ -62,6 +62,14 @@
 
   "effect.lorienlegacies.avex": "Avex",
 
+  "effect.lorienlegacies.telekinesis": "Telekinesis",
+
+  "effect.lorienlegacies.toggle_telekinesis_push": "Toggle Telekinesis Push",
+
+  "effect.lorienlegacies.toggle_telekinesis_pull": "Toggle Telekinesis Pull",
+
+  "effect.lorienlegacies.toggle_telekinesis_move": "Toggle telekinesis Move",
+
   "key.category.lorienlegacies.lorienlegacies": "Lorien Legacies",
 
   "key.lorienlegacies.open_radial_menu": "Open Radial Menu",

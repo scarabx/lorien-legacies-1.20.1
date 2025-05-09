@@ -44,7 +44,7 @@ public class NovisEffect extends StatusEffect {
 
             entity.addStatusEffect(new StatusEffectInstance(
                     StatusEffects.INVISIBILITY,
-                    100,
+                    200,
                     0,
                     false,
                     false,

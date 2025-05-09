@@ -9,8 +9,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.scarab.lorienlegacies.network.LorienLegaciesModNetworking;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class RadialMenuHandler {
     public static boolean menuOpen = false;
@@ -21,6 +20,9 @@ public class RadialMenuHandler {
     private static final List<List<Identifier>> packetPages = new ArrayList<>();
     private static final List<Integer> pageColors = new ArrayList<>();
     private static int currentPage = 0;
+
+    // Store toggled state
+    private static final Set<Identifier> toggledOptions = new HashSet<>();
 
     static {
         // Page 1 - Combat Abilities
@@ -51,7 +53,7 @@ public class RadialMenuHandler {
         );
         optionsPages.add(combatOptions);
         packetPages.add(combatPackets);
-        pageColors.add(0xFF0000); // Red for combat abilities
+        pageColors.add(0xFF0000); // Red
 
         // Page 2 - Movement Abilities
         pageNames.add("Movement");
@@ -65,7 +67,7 @@ public class RadialMenuHandler {
         );
         optionsPages.add(movementOptions);
         packetPages.add(movementPackets);
-        pageColors.add(0xFFFF00); // Yellow for movement abilities
+        pageColors.add(0xFFFF00); // Yellow
 
         // Page 3 - Defense Abilities
         pageNames.add("Defense");
@@ -79,7 +81,7 @@ public class RadialMenuHandler {
         );
         optionsPages.add(defenseOptions);
         packetPages.add(defensePackets);
-        pageColors.add(0xFF4682B4); // Steel Blue for defense abilities
+        pageColors.add(0xFF4682B4); // Steel Blue
 
         // Page 4 - Utility Abilities
         pageNames.add("Utility");
@@ -97,7 +99,7 @@ public class RadialMenuHandler {
         );
         optionsPages.add(utilityOptions);
         packetPages.add(utilityPackets);
-        pageColors.add(0x808080); // Grey for utility abilities
+        pageColors.add(0x808080); // Gray
     }
 
     public static void closeMenu() {
@@ -120,14 +122,13 @@ public class RadialMenuHandler {
         double mouseY = client.mouse.getY() * screenHeight / client.getWindow().getHeight();
 
         List<String> options = optionsPages.get(currentPage);
+        List<Identifier> packets = packetPages.get(currentPage);
         String pageName = pageNames.get(currentPage);
         int headingColor = pageColors.get(currentPage);
 
-        // Adjust radius dynamically based on number of options
         int baseRadius = 60;
         int radius = baseRadius + Math.min(40, options.size() * 10);
 
-        // Draw heading
         drawContext.drawCenteredTextWithShadow(
                 client.textRenderer,
                 Text.literal(pageName),
@@ -141,14 +142,17 @@ public class RadialMenuHandler {
 
         for (int i = 0; i < optionCount; i++) {
             String option = options.get(i);
+            Identifier packetId = packets.get(i);
 
             double angle = angleStep * i - Math.PI / 2;
             int optionX = centerX + (int) (radius * Math.cos(angle));
             int optionY = centerY + (int) (radius * Math.sin(angle));
 
-            // Change the hover color to blue (0xFF0000FF)
             boolean hovered = Math.hypot(mouseX - optionX, mouseY - optionY) < 20;
-            int color = hovered ? 0xFF0000FF : 0xFFFFFFFF; // Blue hover color
+            boolean toggled = toggledOptions.contains(packetId);
+
+            // Both hovered and selected options are regular blue
+            int color = (hovered || toggled) ? 0xFF0000FF : 0xFFFFFFFF;
 
             drawContext.drawCenteredTextWithShadow(
                     client.textRenderer,
@@ -167,14 +171,15 @@ public class RadialMenuHandler {
         int screenHeight = client.getWindow().getScaledHeight();
         int centerX = screenWidth / 2;
         int centerY = screenHeight / 2;
+
         int baseRadius = 60;
         List<String> options = optionsPages.get(currentPage);
+        List<Identifier> packets = packetPages.get(currentPage);
         int radius = baseRadius + Math.min(40, options.size() * 10);
 
         double mouseX = client.mouse.getX() * screenWidth / client.getWindow().getWidth();
         double mouseY = client.mouse.getY() * screenHeight / client.getWindow().getHeight();
 
-        List<Identifier> packets = packetPages.get(currentPage);
         int optionCount = options.size();
         double angleStep = 2 * Math.PI / Math.max(optionCount, 1);
 
@@ -186,7 +191,16 @@ public class RadialMenuHandler {
             boolean hovered = Math.hypot(mouseX - optionX, mouseY - optionY) < 20;
 
             if (hovered) {
-                ClientPlayNetworking.send(packets.get(i), new PacketByteBuf(Unpooled.buffer()));
+                Identifier packetId = packets.get(i);
+
+                // Toggle selection state
+                if (toggledOptions.contains(packetId)) {
+                    toggledOptions.remove(packetId);
+                } else {
+                    toggledOptions.add(packetId);
+                }
+
+                ClientPlayNetworking.send(packetId, new PacketByteBuf(Unpooled.buffer()));
                 closeMenu();
                 MinecraftClient.getInstance().setScreen(null);
                 break;

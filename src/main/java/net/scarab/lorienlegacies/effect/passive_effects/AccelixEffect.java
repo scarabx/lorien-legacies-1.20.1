@@ -44,12 +44,23 @@ public class AccelixEffect extends StatusEffect {
 
             entity.addStatusEffect(new StatusEffectInstance(
                     StatusEffects.SPEED,
-                    100,
+                    200,
                     4,
                     false,
                     false,
                     false
             ));
+
+            if (entity.isSubmergedInWater()) {
+                entity.addStatusEffect(new StatusEffectInstance(
+                        StatusEffects.DOLPHINS_GRACE,
+                        200,
+                        4,
+                        false,
+                        false,
+                        false
+                ));
+            }
         }
     }
 
