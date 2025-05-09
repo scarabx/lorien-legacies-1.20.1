@@ -25,6 +25,9 @@ public class ModItems {
     public static final Item ICEBALL = registerItem("iceball",
             new IceballItem(new FabricItemSettings()));
 
+    public static final Item CHIMAERA_STAFF = registerItem("chimaera_staff",
+            new ChimaeraStaffItem(new FabricItemSettings()));
+
     public static final Item LORIEN_BOOK = registerItem("lorien_book",
             new Item(new FabricItemSettings()));
 

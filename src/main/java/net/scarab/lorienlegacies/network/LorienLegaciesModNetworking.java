@@ -8,6 +8,8 @@ import net.scarab.lorienlegacies.effect.active_effects.LumenEffect;
 import net.scarab.lorienlegacies.effect.active_effects.PondusEffect;
 import net.scarab.lorienlegacies.effect.active_effects.TelekinesisEffect;
 import net.scarab.lorienlegacies.effect.toggle_effects.*;
+import net.scarab.lorienlegacies.item.ChimaeraStaffItem;
+import net.scarab.lorienlegacies.item.ModItems;
 
 public class LorienLegaciesModNetworking {
 
@@ -142,6 +144,9 @@ public class LorienLegaciesModNetworking {
                 }
                 if (player.hasStatusEffect(ModEffects.GlACEN)) {
                     GlacenEffect.shootIceball(player);
+                }
+                if (player.getMainHandStack().isOf(ModItems.CHIMAERA_STAFF)) {
+                    ChimaeraStaffItem.chimaeraMorph(player);
                 }
             });
         });
