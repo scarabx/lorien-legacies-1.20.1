@@ -97,11 +97,19 @@ public class TelekinesisEffect extends StatusEffect {
             Vec3d look = player.getRotationVec(1.0F);
             Vec3d eyePos = player.getEyePos();
             World world = player.getWorld();
-            double closest = RANGE;
-            Entity target = null;
 
-            // Find the closest living entity to the player within the range
-            for (Entity entity : world.getOtherEntities(player, player.getBoundingBox().expand(RANGE))) {
+            double baseGripDistance = 4.0;
+            double minGrip = 2.0;
+            double maxGrip = 6.0;
+
+            double pitch = player.getPitch(); // positive = looking down, negative = up
+            double gripAdjustment = pitch / 90.0 * 2.0; // maps -90..90 to -2..2
+            double gripDistance = Math.max(minGrip, Math.min(maxGrip, baseGripDistance - gripAdjustment));
+
+            Entity target = null;
+            double closest = maxGrip;
+
+            for (Entity entity : world.getOtherEntities(player, player.getBoundingBox().expand(maxGrip))) {
                 if (entity instanceof LivingEntity) {
                     double dist = eyePos.distanceTo(entity.getPos());
                     if (dist < closest) {
@@ -112,22 +120,21 @@ public class TelekinesisEffect extends StatusEffect {
             }
 
             if (target != null) {
-                // Calculate the new position to maintain a fixed distance in front of the player
-                Vec3d targetPos = eyePos.add(look.x * closest, look.y * closest, look.z * closest);
-
-                // Adjust the vertical position based on the player's pitch (looking up or down)
-                double pitchFactor = Math.sin(Math.toRadians(player.getPitch())); // Use sin of the pitch for vertical influence
-                targetPos = targetPos.add(0, pitchFactor * FORCE * 0.5, 0); // Modify Y position based on pitch
-
-                // Move the entity smoothly towards the target position
                 Vec3d currentPos = target.getPos();
-                Vec3d delta = targetPos.subtract(currentPos).normalize().multiply(FORCE * 0.2); // Smooth movement
+                Vec3d targetPos = eyePos.add(look.normalize().multiply(gripDistance));
 
-                // Apply the new position with a smooth movement effect
-                target.setPosition(currentPos.x + delta.x, currentPos.y + delta.y, currentPos.z + delta.z);
+                // Prevent mob from going below player's feet (or some safe Y level)
+                double minY = Math.floor(player.getY()); // floor level
+                if (targetPos.y < minY) {
+                    targetPos = new Vec3d(targetPos.x, minY, targetPos.z);
+                }
+
+                Vec3d moveVec = targetPos.subtract(currentPos).multiply(0.4); // smooth movement
+
+                target.setVelocity(Vec3d.ZERO);
+                target.teleport(currentPos.x + moveVec.x, currentPos.y + moveVec.y, currentPos.z + moveVec.z);
+                target.setNoGravity(true);
             }
         }
     }
 }
-
-
