@@ -6,6 +6,8 @@
 
   "item.lorienlegacies.leather_sleeve": "Leather Sleeve",
 
+  "item.lorienlegacies.chimaera_staff": "Chimaera Staff",
+
   "item.lorienlegacies.iceball": "Iceball",
 
   "item.lorienlegacies.lorien_book": "Lorien Book",
@@ -69,6 +71,14 @@
   "effect.lorienlegacies.toggle_telekinesis_pull": "Toggle Telekinesis Pull",
 
   "effect.lorienlegacies.toggle_telekinesis_move": "Toggle telekinesis Move",
+
+  "effect.lorienlegacies.axolotl_follow": "Axolotl Follow",
+
+  "effect.lorienlegacies.chimaera_essence": "Chimaera Essence",
+
+  "item.minecraft.potion.effect.chimaera_essence": "Chimaera Essence",
+  "item.minecraft.splash_potion.effect.chimaera_essence": "Splash Chimaera Essence",
+  "item.minecraft.lingering_potion.effect.chimaera_essence": "Lingering Chimaera Essence",
 
   "key.category.lorienlegacies.lorienlegacies": "Lorien Legacies",
 

@@ -2,21 +2,19 @@ package net.scarab.lorienlegacies.item;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.HorseArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
+import net.scarab.lorienlegacies.effect.ModEffects;
 
+import java.util.List;
 import java.util.Optional;
 
 public class ChimaeraStaffItem extends Item {
@@ -37,7 +35,7 @@ public class ChimaeraStaffItem extends Item {
         double closestDistance = maxDistance * maxDistance;
 
         // Morph from wolf to parrot
-        for (Entity entity : world.getOtherEntities(player, box, e -> e instanceof WolfEntity wolf && wolf.isTamed() && e.isAlive())) {
+        for (Entity entity : world.getOtherEntities(player, box, e -> e instanceof WolfEntity wolf && wolf.isTamed() && wolf.hasStatusEffect(ModEffects.CHIMAERA_ESSENCE) && e.isAlive())) {
             Box entityBox = entity.getBoundingBox().expand(0.3);
             Optional<Vec3d> optional = entityBox.raycast(eyePos, reachVec);
             if (optional.isPresent()) {
@@ -48,26 +46,22 @@ public class ChimaeraStaffItem extends Item {
                 }
             }
         }
-
         if (lookedAtEntity != null) {
-            // Get the original entity's position
             Vec3d originalPos = lookedAtEntity.getPos();
-            // Despawn wolf
             lookedAtEntity.discard();
-            // Spawn parrot
             ParrotEntity parrot = EntityType.PARROT.create(world);
             if (parrot != null) {
                 parrot.refreshPositionAndAngles(originalPos.x, originalPos.y, originalPos.z, lookedAtEntity.getYaw(), lookedAtEntity.getPitch());
-                // Tame the parrot and set the player as the owner
                 parrot.setOwner(player);
                 parrot.setTamed(true);
-                world.spawnEntity(parrot); // Spawn the parrot in the world
+                parrot.addStatusEffect(new StatusEffectInstance(ModEffects.CHIMAERA_ESSENCE, Integer.MAX_VALUE, 0, false, false, false));
+                world.spawnEntity(parrot);
             }
             return;
         }
 
         // Morph from parrot to axolotl
-        for (Entity entity : world.getOtherEntities(player, box, e -> e instanceof ParrotEntity parrot && parrot.isTamed() && e.isAlive())) {
+        for (Entity entity : world.getOtherEntities(player, box, e -> e instanceof ParrotEntity parrot && parrot.isTamed() && parrot.hasStatusEffect(ModEffects.CHIMAERA_ESSENCE) && e.isAlive())) {
             Box entityBox = entity.getBoundingBox().expand(0.3);
             Optional<Vec3d> optional = entityBox.raycast(eyePos, reachVec);
             if (optional.isPresent()) {
@@ -80,21 +74,41 @@ public class ChimaeraStaffItem extends Item {
         }
 
         if (lookedAtEntity != null) {
-            // Get the original entity's position
             Vec3d originalPos = lookedAtEntity.getPos();
-            // Despawn parrot
             lookedAtEntity.discard();
-            // Spawn axolotl
             AxolotlEntity axolotl = EntityType.AXOLOTL.create(world);
             if (axolotl != null) {
                 axolotl.refreshPositionAndAngles(originalPos.x, originalPos.y, originalPos.z, lookedAtEntity.getYaw(), lookedAtEntity.getPitch());
-                world.spawnEntity(axolotl); // Spawn the axolotl in the world
+                axolotl.addStatusEffect(new StatusEffectInstance(ModEffects.CHIMAERA_ESSENCE, Integer.MAX_VALUE, 0, false, false, false));
+                world.spawnEntity(axolotl);
+                ItemStack tropicalFishBucket = new ItemStack(Items.TROPICAL_FISH_BUCKET);
+                ItemStack mainHand = player.getMainHandStack();
+                if (mainHand.isEmpty()) {
+                    player.setStackInHand(player.getActiveHand(), tropicalFishBucket);
+                } else {
+                    // Move the current item from main hand to the first available slot
+                    boolean itemAdded = false;
+                    for (int i = 0; i < player.getInventory().size(); i++) {
+                        ItemStack slot = player.getInventory().getStack(i);
+                        if (slot.isEmpty()) {
+                            player.getInventory().setStack(i, mainHand.split(mainHand.getCount())); // Move the main hand item to this slot
+                            itemAdded = true;
+                            break;
+                        }
+                    }
+                    // If no slot is available, just remove the item from main hand
+                    if (!itemAdded) {
+                        mainHand.setCount(0); // Remove the item from main hand if no empty slot found
+                    }
+                    // Now place the Tropical Fish Bucket in the main hand
+                    player.setStackInHand(player.getActiveHand(), tropicalFishBucket);
+                }
             }
             return;
         }
 
         // Morph from axolotl to horse
-        for (Entity entity : world.getOtherEntities(player, box, e -> e instanceof AxolotlEntity && e.isAlive())) {
+        for (Entity entity : world.getOtherEntities(player, box, e -> e instanceof AxolotlEntity axolotl && axolotl.hasStatusEffect(ModEffects.CHIMAERA_ESSENCE) && e.isAlive())) {
             Box entityBox = entity.getBoundingBox().expand(0.3);
             Optional<Vec3d> optional = entityBox.raycast(eyePos, reachVec);
             if (optional.isPresent()) {
@@ -105,20 +119,23 @@ public class ChimaeraStaffItem extends Item {
                 }
             }
         }
-
         if (lookedAtEntity != null) {
-            // Get the original entity's position
             Vec3d originalPos = lookedAtEntity.getPos();
-            // Despawn axolotl
             lookedAtEntity.discard();
-            // Spawn horse
+            for (int i = 0; i < player.getInventory().size(); i++) {
+                ItemStack stack = player.getInventory().getStack(i);
+                if (stack.getItem() == Items.TROPICAL_FISH_BUCKET) {
+                    stack.decrement(1);
+                    break;
+                }
+            }
             HorseEntity horse = EntityType.HORSE.create(world);
             if (horse != null) {
                 horse.refreshPositionAndAngles(originalPos.x, originalPos.y, originalPos.z, lookedAtEntity.getYaw(), lookedAtEntity.getPitch());
                 horse.setTame(true);
                 horse.setOwnerUuid(player.getUuid());
-                world.spawnEntity(horse); // Spawn the horse in the world
-                // Give the player a saddle
+                horse.addStatusEffect(new StatusEffectInstance(ModEffects.CHIMAERA_ESSENCE, Integer.MAX_VALUE, 0, false, false, false));
+                world.spawnEntity(horse);
                 player.getInventory().insertStack(new ItemStack(Items.SADDLE));
             }
             return;
@@ -136,21 +153,16 @@ public class ChimaeraStaffItem extends Item {
                 }
             }
         }
-
         if (lookedAtEntity != null) {
-            // Get the original entity's position
             Vec3d originalPos = lookedAtEntity.getPos();
-            // Despawn horse
             lookedAtEntity.discard();
-            // Spawn wolf
             WolfEntity wolf = EntityType.WOLF.create(world);
             if (wolf != null) {
                 wolf.refreshPositionAndAngles(originalPos.x, originalPos.y, originalPos.z, lookedAtEntity.getYaw(), lookedAtEntity.getPitch());
-                // Tame the wolf and set the player as the owner
                 wolf.setOwner(player);
                 wolf.setTamed(true);
-                world.spawnEntity(wolf); // Spawn the wolf in the world
-                // Remove one saddle from the inventory
+                wolf.addStatusEffect(new StatusEffectInstance(ModEffects.CHIMAERA_ESSENCE, Integer.MAX_VALUE, 0, false, false, false));
+                world.spawnEntity(wolf);
                 for (int i = 0; i < player.getInventory().size(); i++) {
                     ItemStack stack = player.getInventory().getStack(i);
                     if (stack.getItem() == Items.SADDLE) {
@@ -159,8 +171,46 @@ public class ChimaeraStaffItem extends Item {
                     }
                 }
             }
-            return;
+        }
+    }
+
+    public static void axolotlFollowEffectTick(PlayerEntity player) {
+
+        boolean hasStaff = false;
+        for (int i = 0; i < 9; i++) {
+            ItemStack stack = player.getInventory().getStack(i);
+            if (stack.getItem() instanceof ChimaeraStaffItem) {
+                hasStaff = true;
+                break;
+            }
+        }
+
+        if (hasStaff) {
+            if (!player.hasStatusEffect(ModEffects.AXOLOTL_FOLLOW)) {
+                player.addStatusEffect(new StatusEffectInstance(ModEffects.AXOLOTL_FOLLOW, 200, 0, false, false, false));
+            }
+        } else {
+            if (player.hasStatusEffect(ModEffects.AXOLOTL_FOLLOW)) {
+                player.removeStatusEffect(ModEffects.AXOLOTL_FOLLOW);
+            }
+        }
+    }
+
+    public static void teleportAllWithChimaeraEssenceToPlayer(PlayerEntity player) {
+        World world = player.getWorld();
+        Vec3d playerPos = player.getPos();
+
+        // Huge bounding box that covers the entire Minecraft world
+        Box globalBox = new Box(
+                -30000000, -30000000, -30000000,
+                30000000,  30000000,  30000000
+        );
+
+        List<LivingEntity> entities = world.getEntitiesByClass(LivingEntity.class, globalBox,
+                e -> e.isAlive() && e.hasStatusEffect(ModEffects.CHIMAERA_ESSENCE));
+
+        for (LivingEntity entity : entities) {
+            entity.refreshPositionAndAngles(playerPos.x, playerPos.y, playerPos.z, entity.getYaw(), entity.getPitch());
         }
     }
 }
-

@@ -159,6 +159,9 @@ public class LorienLegaciesModNetworking {
                 if (player.hasStatusEffect(ModEffects.TELEKINESIS)) {
                     TelekinesisEffect.pull(player);
                 }
+                if (player.getMainHandStack().isOf(ModItems.CHIMAERA_STAFF)) {
+                    ChimaeraStaffItem.teleportAllWithChimaeraEssenceToPlayer(player);
+                }
             });
         });
 

@@ -1,16 +1,23 @@
 package net.scarab.lorienlegacies.event;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.scarab.lorienlegacies.effect.ModEffects;
+import net.scarab.lorienlegacies.item.ChimaeraStaffItem;
 
 import java.util.List;
 
 public class LorienLegacyEventHandler {
 
-    // Register event listener
     public static void register() {
+        keepEffectsOnDeath();
+        axolotlFollowTickHandler();
+    }
+
+    private static void keepEffectsOnDeath() {
         ServerPlayerEvents.COPY_FROM.register((oldPlayer, newPlayer, alive) -> {
             if (!alive) {
                 // List of effects that should persist through death
@@ -22,19 +29,26 @@ public class LorienLegacyEventHandler {
                         // Add more effects as needed
                 );
 
-                // Reapply the effects that were present before death
                 for (StatusEffect effect : persistentEffects) {
                     if (oldPlayer.hasStatusEffect(effect)) {
                         newPlayer.addStatusEffect(new StatusEffectInstance(
                                 effect,
-                                Integer.MAX_VALUE, // Keep the effect indefinitely
-                                0, // Default amplifier
-                                false, // No ambient
-                                false, // No particles
-                                false  // No icon
+                                Integer.MAX_VALUE,
+                                0,
+                                false,
+                                false,
+                                false
                         ));
                     }
                 }
+            }
+        });
+    }
+
+    private static void axolotlFollowTickHandler() {
+        ServerTickEvents.END_SERVER_TICK.register(server -> {
+            for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
+                ChimaeraStaffItem.axolotlFollowEffectTick(player);
             }
         });
     }

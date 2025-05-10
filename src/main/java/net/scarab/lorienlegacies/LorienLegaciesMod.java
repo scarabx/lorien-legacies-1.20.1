@@ -14,6 +14,7 @@ import net.scarab.lorienlegacies.event.LorienLegacyEventHandler;
 import net.scarab.lorienlegacies.item.ModItemGroup;
 import net.scarab.lorienlegacies.item.ModItems;
 import net.scarab.lorienlegacies.network.LorienLegaciesModNetworking;
+import net.scarab.lorienlegacies.potion.ModPotions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,5 +48,7 @@ public class LorienLegaciesMod implements ModInitializer {
 		ModEntities.registerModEntities();
 
 		LorienLegacyEventHandler.register();
+
+		ModPotions.registerPotions();
 	}
 }
