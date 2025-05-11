@@ -145,8 +145,15 @@ public class LorienLegaciesModNetworking {
                 if (player.hasStatusEffect(ModEffects.GlACEN)) {
                     GlacenEffect.shootIceball(player);
                 }
-                if (player.getMainHandStack().isOf(ModItems.CHIMAERA_STAFF)) {
+                if (player.getMainHandStack().isOf(ModItems.CHIMAERA_STAFF) && !player.isSneaking()) {
                     ChimaeraStaffItem.chimaeraMorph(player);
+                }
+                if (player.getMainHandStack().isOf(ModItems.CHIMAERA_STAFF) && player.isSneaking()) {
+                    if (player.hasStatusEffect(ModEffects.TRAVEL_MODE)) {
+                        ChimaeraStaffItem.travelModeDeactivate(player);
+                    } else {
+                        ChimaeraStaffItem.travelModeActivate(player);
+                    }
                 }
             });
         });
@@ -159,8 +166,11 @@ public class LorienLegaciesModNetworking {
                 if (player.hasStatusEffect(ModEffects.TELEKINESIS)) {
                     TelekinesisEffect.pull(player);
                 }
-                if (player.getMainHandStack().isOf(ModItems.CHIMAERA_STAFF)) {
+                if (player.getMainHandStack().isOf(ModItems.CHIMAERA_STAFF) && player.isSneaking()) {
                     ChimaeraStaffItem.teleportAllWithChimaeraEssenceToPlayer(player);
+                }
+                if (player.getMainHandStack().isOf(ModItems.CHIMAERA_STAFF) && !player.isSneaking()) {
+                    ChimaeraStaffItem.markTargetForWolf(player);
                 }
             });
         });
