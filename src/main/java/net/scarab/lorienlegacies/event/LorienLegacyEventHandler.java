@@ -14,7 +14,6 @@ public class LorienLegacyEventHandler {
 
     public static void register() {
         keepEffectsOnDeath();
-        axolotlFollowTickHandler();
     }
 
     private static void keepEffectsOnDeath() {
@@ -41,14 +40,6 @@ public class LorienLegacyEventHandler {
                         ));
                     }
                 }
-            }
-        });
-    }
-
-    private static void axolotlFollowTickHandler() {
-        ServerTickEvents.END_SERVER_TICK.register(server -> {
-            for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
-                ChimaeraStaffItem.axolotlFollowEffectTick(player);
             }
         });
     }

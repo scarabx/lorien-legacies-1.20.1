@@ -149,7 +149,7 @@ public class LorienLegaciesModNetworking {
                     ChimaeraStaffItem.chimaeraMorph(player);
                 }
                 if (player.getMainHandStack().isOf(ModItems.CHIMAERA_STAFF) && player.isSneaking()) {
-                    if (player.hasStatusEffect(ModEffects.TRAVEL_MODE)) {
+                   if (player.hasStatusEffect(ModEffects.TOGGLE_TRAVEL_MODE)) {
                         ChimaeraStaffItem.travelModeDeactivate(player);
                     } else {
                         ChimaeraStaffItem.travelModeActivate(player);

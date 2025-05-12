@@ -10,6 +10,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -53,6 +55,10 @@ public class ChimaeraStaffItem extends Item {
             }
         }
         if (lookedAtEntity != null) {
+            float healthLost = 0.0F;
+            if (lookedAtEntity instanceof LivingEntity le) {
+                healthLost = le.getMaxHealth() - le.getHealth();
+            }
             Vec3d originalPos = lookedAtEntity.getPos();
             lookedAtEntity.discard();
             ParrotEntity parrot = EntityType.PARROT.create(world);
@@ -61,6 +67,7 @@ public class ChimaeraStaffItem extends Item {
                 parrot.setOwner(player);
                 parrot.setTamed(true);
                 parrot.addStatusEffect(new StatusEffectInstance(ModEffects.CHIMAERA_ESSENCE, Integer.MAX_VALUE, 0, false, false, false));
+                parrot.setHealth(Math.max(1.0F, parrot.getMaxHealth() - healthLost));
                 world.spawnEntity(parrot);
             }
             return;
@@ -80,33 +87,35 @@ public class ChimaeraStaffItem extends Item {
         }
 
         if (lookedAtEntity != null) {
+            float healthLost = 0.0F;
+            if (lookedAtEntity instanceof LivingEntity le) {
+                healthLost = le.getMaxHealth() - le.getHealth();
+            }
             Vec3d originalPos = lookedAtEntity.getPos();
             lookedAtEntity.discard();
             AxolotlEntity axolotl = EntityType.AXOLOTL.create(world);
             if (axolotl != null) {
                 axolotl.refreshPositionAndAngles(originalPos.x, originalPos.y, originalPos.z, lookedAtEntity.getYaw(), lookedAtEntity.getPitch());
                 axolotl.addStatusEffect(new StatusEffectInstance(ModEffects.CHIMAERA_ESSENCE, Integer.MAX_VALUE, 0, false, false, false));
+                axolotl.setHealth(Math.max(1.0F, axolotl.getMaxHealth() - healthLost));
                 world.spawnEntity(axolotl);
                 ItemStack tropicalFishBucket = new ItemStack(Items.TROPICAL_FISH_BUCKET);
                 ItemStack mainHand = player.getMainHandStack();
                 if (mainHand.isEmpty()) {
                     player.setStackInHand(player.getActiveHand(), tropicalFishBucket);
                 } else {
-                    // Move the current item from main hand to the first available slot
                     boolean itemAdded = false;
                     for (int i = 0; i < player.getInventory().size(); i++) {
                         ItemStack slot = player.getInventory().getStack(i);
                         if (slot.isEmpty()) {
-                            player.getInventory().setStack(i, mainHand.split(mainHand.getCount())); // Move the main hand item to this slot
+                            player.getInventory().setStack(i, mainHand.split(mainHand.getCount()));
                             itemAdded = true;
                             break;
                         }
                     }
-                    // If no slot is available, just remove the item from main hand
                     if (!itemAdded) {
-                        mainHand.setCount(0); // Remove the item from main hand if no empty slot found
+                        mainHand.setCount(0);
                     }
-                    // Now place the Tropical Fish Bucket in the main hand
                     player.setStackInHand(player.getActiveHand(), tropicalFishBucket);
                 }
             }
@@ -126,6 +135,10 @@ public class ChimaeraStaffItem extends Item {
             }
         }
         if (lookedAtEntity != null) {
+            float healthLost = 0.0F;
+            if (lookedAtEntity instanceof LivingEntity le) {
+                healthLost = le.getMaxHealth() - le.getHealth();
+            }
             Vec3d originalPos = lookedAtEntity.getPos();
             lookedAtEntity.discard();
             for (int i = 0; i < player.getInventory().size(); i++) {
@@ -141,6 +154,7 @@ public class ChimaeraStaffItem extends Item {
                 horse.setTame(true);
                 horse.setOwnerUuid(player.getUuid());
                 horse.addStatusEffect(new StatusEffectInstance(ModEffects.CHIMAERA_ESSENCE, Integer.MAX_VALUE, 0, false, false, false));
+                horse.setHealth(Math.max(1.0F, horse.getMaxHealth() - healthLost));
                 world.spawnEntity(horse);
                 player.getInventory().insertStack(new ItemStack(Items.SADDLE));
             }
@@ -160,6 +174,10 @@ public class ChimaeraStaffItem extends Item {
             }
         }
         if (lookedAtEntity != null) {
+            float healthLost = 0.0F;
+            if (lookedAtEntity instanceof LivingEntity le) {
+                healthLost = le.getMaxHealth() - le.getHealth();
+            }
             Vec3d originalPos = lookedAtEntity.getPos();
             lookedAtEntity.discard();
             WolfEntity wolf = EntityType.WOLF.create(world);
@@ -168,6 +186,7 @@ public class ChimaeraStaffItem extends Item {
                 wolf.setOwner(player);
                 wolf.setTamed(true);
                 wolf.addStatusEffect(new StatusEffectInstance(ModEffects.CHIMAERA_ESSENCE, Integer.MAX_VALUE, 0, false, false, false));
+                wolf.setHealth(Math.max(1.0F, wolf.getMaxHealth() - healthLost));
                 world.spawnEntity(wolf);
                 for (int i = 0; i < player.getInventory().size(); i++) {
                     ItemStack stack = player.getInventory().getStack(i);
@@ -176,28 +195,6 @@ public class ChimaeraStaffItem extends Item {
                         break;
                     }
                 }
-            }
-        }
-    }
-
-    public static void axolotlFollowEffectTick(PlayerEntity player) {
-
-        boolean hasStaff = false;
-        for (int i = 0; i < 9; i++) {
-            ItemStack stack = player.getInventory().getStack(i);
-            if (stack.getItem() instanceof ChimaeraStaffItem) {
-                hasStaff = true;
-                break;
-            }
-        }
-
-        if (hasStaff) {
-            if (!player.hasStatusEffect(ModEffects.AXOLOTL_FOLLOW)) {
-                player.addStatusEffect(new StatusEffectInstance(ModEffects.AXOLOTL_FOLLOW, Integer.MAX_VALUE, 0, false, false, false));
-            }
-        } else {
-            if (player.hasStatusEffect(ModEffects.AXOLOTL_FOLLOW)) {
-                player.removeStatusEffect(ModEffects.AXOLOTL_FOLLOW);
             }
         }
     }
@@ -245,7 +242,7 @@ public class ChimaeraStaffItem extends Item {
         }
         if (lookedAtEntity != null) {
             lookedAtEntity.discard();
-            player.addStatusEffect(new StatusEffectInstance(ModEffects.TRAVEL_MODE, Integer.MAX_VALUE, 0, false, false, false));
+            player.addStatusEffect(new StatusEffectInstance(ModEffects.TOGGLE_TRAVEL_MODE, Integer.MAX_VALUE, 0, false, false, false));
             return;
         }
 
@@ -263,7 +260,7 @@ public class ChimaeraStaffItem extends Item {
         }
         if (lookedAtEntity != null) {
             lookedAtEntity.discard();
-            player.addStatusEffect(new StatusEffectInstance(ModEffects.TRAVEL_MODE, Integer.MAX_VALUE, 0, false, false, false));
+            player.addStatusEffect(new StatusEffectInstance(ModEffects.TOGGLE_TRAVEL_MODE, Integer.MAX_VALUE, 0, false, false, false));
             return;
         }
 
@@ -281,7 +278,7 @@ public class ChimaeraStaffItem extends Item {
         }
         if (lookedAtEntity != null) {
             lookedAtEntity.discard();
-            player.addStatusEffect(new StatusEffectInstance(ModEffects.TRAVEL_MODE, Integer.MAX_VALUE, 0, false, false, false));
+            player.addStatusEffect(new StatusEffectInstance(ModEffects.TOGGLE_TRAVEL_MODE, Integer.MAX_VALUE, 0, false, false, false));
             return;
         }
 
@@ -299,7 +296,7 @@ public class ChimaeraStaffItem extends Item {
         }
         if (lookedAtEntity != null) {
             lookedAtEntity.discard();
-            player.addStatusEffect(new StatusEffectInstance(ModEffects.TRAVEL_MODE, Integer.MAX_VALUE, 0, false, false, false));
+            player.addStatusEffect(new StatusEffectInstance(ModEffects.TOGGLE_TRAVEL_MODE, Integer.MAX_VALUE, 0, false, false, false));
             for (int i = 0; i < player.getInventory().size(); i++) {
                 ItemStack stack = player.getInventory().getStack(i);
                 if (stack.getItem() == Items.TROPICAL_FISH_BUCKET) {
@@ -338,12 +335,13 @@ public class ChimaeraStaffItem extends Item {
                 wolf.setTamed(true);
                 wolf.addStatusEffect(new StatusEffectInstance(ModEffects.CHIMAERA_ESSENCE, Integer.MAX_VALUE, 0, false, false, false));
                 world.spawnEntity(wolf);
-                player.removeStatusEffect(ModEffects.TRAVEL_MODE);
+                player.removeStatusEffect(ModEffects.TOGGLE_TRAVEL_MODE);
             }
         }
     }
 
     public static void markTargetForWolf (PlayerEntity player) {
+
         double maxDistance = 10.0;
         Vec3d eyePos = player.getCameraPosVec(1.0F);
         Vec3d lookVec = player.getRotationVec(1.0F);
@@ -356,7 +354,7 @@ public class ChimaeraStaffItem extends Item {
         double closestDistance = maxDistance * maxDistance;
 
         for (Entity entity : world.getOtherEntities(player, box, e ->
-                e instanceof HostileEntity && e.isAlive() && !e.isSpectator())) {
+                e instanceof Entity && !(e instanceof WolfEntity wolf && wolf.isTamed() && wolf.hasStatusEffect(ModEffects.CHIMAERA_ESSENCE)) && e.isAlive() && !e.isSpectator())) {
             Box entityBox = entity.getBoundingBox().expand(0.3);
             Optional<Vec3d> optional = entityBox.raycast(eyePos, reachVec);
             if (optional.isPresent()) {

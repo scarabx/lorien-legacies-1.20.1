@@ -7,9 +7,8 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.scarab.lorienlegacies.LorienLegaciesMod;
 import net.scarab.lorienlegacies.effect.active_effects.*;
-import net.scarab.lorienlegacies.effect.chimaera_effects.AxolotlFollowEffect;
 import net.scarab.lorienlegacies.effect.chimaera_effects.ChimaeraEssenceEffect;
-import net.scarab.lorienlegacies.effect.chimaera_effects.TravelModeEffect;
+import net.scarab.lorienlegacies.effect.toggle_effects.ToggleTravelModeEffect;
 import net.scarab.lorienlegacies.effect.passive_effects.*;
 import net.scarab.lorienlegacies.effect.toggle_effects.*;
 
@@ -100,14 +99,11 @@ public class ModEffects {
     public static final StatusEffect TOGGLE_TELEKINESIS_MOVE = registerStatusEffect("toggle_telekinesis_move",
             new ToggleTelekinesisMoveEffect(StatusEffectCategory.BENEFICIAL, 0x9b4f96/*Purple*/));
 
-    public static final StatusEffect AXOLOTL_FOLLOW = registerStatusEffect("axolotl_follow",
-            new AxolotlFollowEffect(StatusEffectCategory.BENEFICIAL, 0x55FF55/*Light Green*/));
-
     public static final StatusEffect CHIMAERA_ESSENCE = registerStatusEffect("chimaera_essence",
             new ChimaeraEssenceEffect(StatusEffectCategory.BENEFICIAL, 0x00AA00/*Dark Green*/));
 
-    public static final StatusEffect TRAVEL_MODE = registerStatusEffect("travel_mode",
-            new TravelModeEffect(StatusEffectCategory.BENEFICIAL, 0x00AA00/*Dark Green*/));
+    public static final StatusEffect TOGGLE_TRAVEL_MODE = registerStatusEffect("toggle_travel_mode",
+            new ToggleTravelModeEffect(StatusEffectCategory.BENEFICIAL, 0x00AA00/*Dark Green*/));
 
     private static StatusEffect registerStatusEffect(String name, StatusEffect statusEffect) {
         return Registry.register(Registries.STATUS_EFFECT, new Identifier(LorienLegaciesMod.MOD_ID, name), statusEffect);

@@ -11,6 +11,11 @@ import net.scarab.lorienlegacies.LorienLegaciesMod;
 
 public class ModEntities {
 
+    public static final EntityType<ChimaeraParrotEntity> CHIMAERA_PARROT = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(LorienLegaciesMod.MOD_ID, "chimaera_parrot"),
+            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, ChimaeraParrotEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.5f, 0.9f)).build());
+
     public static final EntityType<IceballProjectileEntity> THROWN_ICEBALL_PROJECTILE = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(LorienLegaciesMod.MOD_ID, "iceball_projectile"),
             FabricEntityTypeBuilder.<IceballProjectileEntity>create(SpawnGroup.MISC, IceballProjectileEntity::new)
