@@ -22,6 +22,9 @@ public class ModItems {
     public static final Item LEATHER_SLEEVE = registerItem("leather_sleeve",
             new Item(new FabricItemSettings()));
 
+    public static final Item LEGACY_GIVER = registerItem("legacy_giver",
+            new LegacyGiverItem(new FabricItemSettings()));
+
     public static final Item ICEBALL = registerItem("iceball",
             new IceballItem(new FabricItemSettings()));
 

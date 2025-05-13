@@ -15,7 +15,8 @@ import net.scarab.lorienlegacies.entity.ModEntities;
 import net.scarab.lorienlegacies.event.LorienLegacyEventHandler;
 import net.scarab.lorienlegacies.item.ModItemGroup;
 import net.scarab.lorienlegacies.item.ModItems;
-import net.scarab.lorienlegacies.legacy.LegacyRegistration;
+import net.scarab.lorienlegacies.legacy.TelekinesisLegacy;
+import net.scarab.lorienlegacies.legacy.TelekinesisManager;
 import net.scarab.lorienlegacies.network.LorienLegaciesModNetworking;
 import net.scarab.lorienlegacies.potion.ModPotions;
 import net.scarab.lorienlegacies.util.ModRegistries;
@@ -59,6 +60,8 @@ public class LorienLegaciesMod implements ModInitializer {
 
 		MorphHandler.registerMorphHandler();
 
-		LegacyRegistration.registerLegacies();
+		TelekinesisLegacy.registerTelekinesisLegacy();
+
+		TelekinesisManager.register();
 	}
 }

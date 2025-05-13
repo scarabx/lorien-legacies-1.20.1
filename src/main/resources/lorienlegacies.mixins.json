@@ -5,7 +5,9 @@
   "mixins": [
     "EntityMixin",
     "ExampleMixin",
+    "LegacyTogglesPlayerEntityMixin",
     "PlayerEntityMixin",
+    "LegacyTogglesPlayerEntityMixin",
     "ProjectileEntityMixin"
   ],
   "injectors": {

@@ -10,6 +10,9 @@ import net.scarab.lorienlegacies.effect.active_effects.LumenEffect;
 import net.scarab.lorienlegacies.effect.active_effects.PondusEffect;
 import net.scarab.lorienlegacies.effect.active_effects.TelekinesisEffect;
 import net.scarab.lorienlegacies.effect.toggle_effects.*;
+import net.scarab.lorienlegacies.legacy.TelekinesisLegacy;
+import net.scarab.lorienlegacies.legacy_toggle.TelekinesisToggles;
+import net.scarab.lorienlegacies.legacy_toggle.TelekinesisTogglesAccess;
 
 import static net.scarab.lorienlegacies.effect.ModEffects.*;
 
@@ -158,12 +161,12 @@ public class LorienLegaciesModNetworking {
 
         ServerPlayNetworking.registerGlobalReceiver(RIGHT_CLICK_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(TELEKINESIS)) {
+                /*if (player.hasStatusEffect(TELEKINESIS)) {
                     TelekinesisEffect.push(player);
                 }
                 if (player.hasStatusEffect(TELEKINESIS)) {
                     TelekinesisEffect.pull(player);
-                }
+                }*/
                 if (player.hasStatusEffect(CHIMAERA_MORPH)) {
                     MorphHandler.chimaeraMorph(player);
                 }
@@ -255,7 +258,7 @@ public class LorienLegaciesModNetworking {
             });
         });
 
-        ServerPlayNetworking.registerGlobalReceiver(TELEKINESIS_PUSH_PACKET, (server, player, handler, buf, responseSender) -> {
+        /*ServerPlayNetworking.registerGlobalReceiver(TELEKINESIS_PUSH_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 if (player.hasStatusEffect(TELEKINESIS)) {
                     ToggleTelekinesisPushEffect.toggleTelekinesisPush(player);
@@ -279,7 +282,7 @@ public class LorienLegaciesModNetworking {
                     ToggleTelekinesisMoveEffect.toggleTelekinesisMove(player);
                 }
             });
-        });
+        });*/
 
         ServerPlayNetworking.registerGlobalReceiver(CHIMAERA_MORPH_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
@@ -313,6 +316,36 @@ public class LorienLegaciesModNetworking {
                     player.addStatusEffect(new StatusEffectInstance(MARK_TARGET_FOR_WOLF, Integer.MAX_VALUE, 0, false, false, false));
                     player.removeStatusEffect(CHIMAERA_MORPH);
                     player.removeStatusEffect(CHIMAERA_CALL);
+                }
+            });
+        });
+
+        // Register the packet receiver to handle toggle requests
+        ServerPlayNetworking.registerGlobalReceiver(TELEKINESIS_PUSH_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player instanceof TelekinesisTogglesAccess accessor) {
+                    TelekinesisToggles toggles = accessor.getTelekinesisToggles();
+                    TelekinesisToggles.toggleAbility(player.getWorld(), player, toggles, "push");
+                }
+            });
+        });
+
+        // Register the packet receiver to handle toggle requests
+        ServerPlayNetworking.registerGlobalReceiver(TELEKINESIS_PULL_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player instanceof TelekinesisTogglesAccess accessor) {
+                    TelekinesisToggles toggles = accessor.getTelekinesisToggles();
+                    TelekinesisToggles.toggleAbility(player.getWorld(), player, toggles, "pull");
+                }
+            });
+        });
+
+        // Register the packet receiver to handle toggle requests
+        ServerPlayNetworking.registerGlobalReceiver(TELEKINESIS_MOVE_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player instanceof TelekinesisTogglesAccess accessor) {
+                    TelekinesisToggles toggles = accessor.getTelekinesisToggles();
+                    TelekinesisToggles.toggleAbility(player.getWorld(), player, toggles, "move");
                 }
             });
         });
