@@ -1,13 +1,12 @@
-// 1.20.1	2025-05-10T14:19:54.940238	Lorien Legacies Mod/Model Definitions
+// 1.20.1	2025-05-13T12:05:57.843193	Lorien Legacies Mod/Model Definitions
 323f63dc512354cf931542c708904799cbe88c38 assets/lorienlegacies/blockstates/loralite_block.json
 b804b933a181e9479a3fd84152a7781495dcc508 assets/lorienlegacies/blockstates/loralite_ore.json
-92fc832872fc687b163eac28ee9cc2d252d0dc6e assets/lorienlegacies/models/block/loralite_ore.json
-e7e4d41dc65d8c4a7f7b55b6ce41d806398a8e40 assets/lorienlegacies/models/item/lorien_book.json
 3eeca16fe5e0c23bbbfc6f755c1dac24d2dc30aa assets/lorienlegacies/models/item/loralite_ore.json
 71c2cb8bf23f934a69e58bb8875172ce1a4b5eeb assets/lorienlegacies/models/item/iceball.json
-0942e95651130e19d350c22c15c5d5f8527b8f60 assets/lorienlegacies/models/item/chimaera_staff.json
 00f1bc75f8c73c54f4274179cad7093881bd10a7 assets/lorienlegacies/models/item/loralite.json
 02719879f0d464be8512b310b7464661f8e0a278 assets/lorienlegacies/models/item/loric_stone.json
+92fc832872fc687b163eac28ee9cc2d252d0dc6e assets/lorienlegacies/models/block/loralite_ore.json
 e2309ef765428bb1c8dee5417b9647cd24fa86b4 assets/lorienlegacies/models/item/loralite_block.json
+e7e4d41dc65d8c4a7f7b55b6ce41d806398a8e40 assets/lorienlegacies/models/item/lorien_book.json
 afd85354a887f217400eee6dfdeea58217470df1 assets/lorienlegacies/models/item/leather_sleeve.json
 889b0dfc3a841f7336222b53aaf4c64477f26a9d assets/lorienlegacies/models/block/loralite_block.json

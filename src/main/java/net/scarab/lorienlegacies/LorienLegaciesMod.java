@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ActionResult;
 import net.scarab.lorienlegacies.block.ModBlocks;
+import net.scarab.lorienlegacies.chimaera.MorphHandler;
 import net.scarab.lorienlegacies.effect.active_effects.GlacenEffect;
 import net.scarab.lorienlegacies.effect.active_effects.LumenEffect;
 import net.scarab.lorienlegacies.effect.ModEffects;
@@ -53,5 +54,7 @@ public class LorienLegaciesMod implements ModInitializer {
 		ModPotions.registerPotions();
 
 		ModRegistries.registerModStuffs();
+
+		MorphHandler.registerMorphHandler();
 	}
 }

@@ -76,6 +76,12 @@
 
   "effect.lorienlegacies.chimaera_essence": "Chimaera Essence",
 
+  "effect.lorienlegacies.chimaera_morph": "Chimaera Morph",
+
+  "effect.lorienlegacies.chimaera_call": "Chimaera Call",
+
+  "effect.lorienlegacies.mark_target_for_wolf": "Mark Target",
+
   "item.minecraft.potion.effect.chimaera_essence": "Chimaera Essence",
   "item.minecraft.splash_potion.effect.chimaera_essence": "Splash Chimaera Essence",
   "item.minecraft.lingering_potion.effect.chimaera_essence": "Lingering Chimaera Essence",

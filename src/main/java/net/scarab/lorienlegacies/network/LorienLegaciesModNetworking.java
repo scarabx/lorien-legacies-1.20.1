@@ -1,15 +1,17 @@
 package net.scarab.lorienlegacies.network;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.util.Identifier;
-import net.scarab.lorienlegacies.effect.*;
+
+import net.scarab.lorienlegacies.chimaera.MorphHandler;
 import net.scarab.lorienlegacies.effect.active_effects.GlacenEffect;
 import net.scarab.lorienlegacies.effect.active_effects.LumenEffect;
 import net.scarab.lorienlegacies.effect.active_effects.PondusEffect;
 import net.scarab.lorienlegacies.effect.active_effects.TelekinesisEffect;
 import net.scarab.lorienlegacies.effect.toggle_effects.*;
-import net.scarab.lorienlegacies.item.ChimaeraStaffItem;
-import net.scarab.lorienlegacies.item.ModItems;
+
+import static net.scarab.lorienlegacies.effect.ModEffects.*;
 
 public class LorienLegaciesModNetworking {
 
@@ -61,11 +63,17 @@ public class LorienLegaciesModNetworking {
 
     public static final Identifier TELEKINESIS_MOVE_PACKET = new Identifier("lorienlegacies", "telekinesis_move");
 
+    public static final Identifier CHIMAERA_MORPH_PACKET = new Identifier("lorienlegacies", "chimaera_morph");
+
+    public static final Identifier CHIMAERA_CALL_PACKET = new Identifier("lorienlegacies", "chimaera_call");
+
+    public static final Identifier MARK_TARGET_FOR_WOLF_PACKET = new Identifier("lorienlegacies", "mark_target_for_wolf");
+
     public static void registerC2SPackets() {
 
         ServerPlayNetworking.registerGlobalReceiver(SHOOT_FIREBALL_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(ModEffects.LUMEN)) {
+                if (player.hasStatusEffect(LUMEN)) {
                     LumenEffect.shootFireball(player);
                 }
             });
@@ -73,7 +81,7 @@ public class LorienLegaciesModNetworking {
 
         ServerPlayNetworking.registerGlobalReceiver(HUMAN_FIREBALL_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(ModEffects.LUMEN)) {
+                if (player.hasStatusEffect(LUMEN)) {
                     LumenEffect.humanFireball(player);
                 }
             });
@@ -81,7 +89,7 @@ public class LorienLegaciesModNetworking {
 
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_FLAMING_HANDS_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(ModEffects.LUMEN)) {
+                if (player.hasStatusEffect(LUMEN)) {
                     ToggleFlamingHandsEffect.toggleFlamingHands(player);
                 }
             });
@@ -89,7 +97,7 @@ public class LorienLegaciesModNetworking {
 
         ServerPlayNetworking.registerGlobalReceiver(SHOOT_ICEBALL_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(ModEffects.GlACEN)) {
+                if (player.hasStatusEffect(GlACEN)) {
                     GlacenEffect.shootIceball(player);
                 }
             });
@@ -97,7 +105,7 @@ public class LorienLegaciesModNetworking {
 
         ServerPlayNetworking.registerGlobalReceiver(ICICLES_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(ModEffects.GlACEN)) {
+                if (player.hasStatusEffect(GlACEN)) {
                     ToggleIciclesEffect.toggleIcicles(player);
                 }
             });
@@ -105,7 +113,7 @@ public class LorienLegaciesModNetworking {
 
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_ICE_HANDS_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(ModEffects.GlACEN)) {
+                if (player.hasStatusEffect(GlACEN)) {
                     ToggleIceHandsEffect.toggleIceHands(player);
                 }
             });
@@ -113,7 +121,7 @@ public class LorienLegaciesModNetworking {
 
         ServerPlayNetworking.registerGlobalReceiver(FREEZE_WATER_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(ModEffects.GlACEN)) {
+                if (player.hasStatusEffect(GlACEN)) {
                     GlacenEffect.freezeWater(player);
                 }
             });
@@ -121,63 +129,56 @@ public class LorienLegaciesModNetworking {
 
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_SHOOT_FIREBALL_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(ModEffects.LUMEN)) {
+                if (player.hasStatusEffect(LUMEN)) {
                     ToggleShootFireballEffect.toggleShootFireball(player);
-                    player.removeStatusEffect(ModEffects.TOGGLE_SHOOT_ICEBALL);
+                    player.removeStatusEffect(TOGGLE_SHOOT_ICEBALL);
                 }
             });
         });
 
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_SHOOT_ICEBALL_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(ModEffects.GlACEN)) {
+                if (player.hasStatusEffect(GlACEN)) {
                     ToggleShootIceballEffect.toggleShootIceball(player);
-                    player.removeStatusEffect(ModEffects.TOGGLE_SHOOT_FIREBALL);
+                    player.removeStatusEffect(TOGGLE_SHOOT_FIREBALL);
                 }
             });
         });
 
         ServerPlayNetworking.registerGlobalReceiver(LEFT_CLICK_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(ModEffects.LUMEN)) {
+                if (player.hasStatusEffect(LUMEN)) {
                     LumenEffect.shootFireball(player);
                 }
-                if (player.hasStatusEffect(ModEffects.GlACEN)) {
+                if (player.hasStatusEffect(GlACEN)) {
                     GlacenEffect.shootIceball(player);
-                }
-                if (player.getMainHandStack().isOf(ModItems.CHIMAERA_STAFF) && !player.isSneaking()) {
-                    ChimaeraStaffItem.chimaeraMorph(player);
-                }
-                if (player.getMainHandStack().isOf(ModItems.CHIMAERA_STAFF) && player.isSneaking()) {
-                   if (player.hasStatusEffect(ModEffects.TOGGLE_TRAVEL_MODE)) {
-                        ChimaeraStaffItem.travelModeDeactivate(player);
-                    } else {
-                        ChimaeraStaffItem.travelModeActivate(player);
-                    }
                 }
             });
         });
 
         ServerPlayNetworking.registerGlobalReceiver(RIGHT_CLICK_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(ModEffects.TELEKINESIS)) {
+                if (player.hasStatusEffect(TELEKINESIS)) {
                     TelekinesisEffect.push(player);
                 }
-                if (player.hasStatusEffect(ModEffects.TELEKINESIS)) {
+                if (player.hasStatusEffect(TELEKINESIS)) {
                     TelekinesisEffect.pull(player);
                 }
-                if (player.getMainHandStack().isOf(ModItems.CHIMAERA_STAFF) && player.isSneaking()) {
-                    ChimaeraStaffItem.teleportAllWithChimaeraEssenceToPlayer(player);
+                if (player.hasStatusEffect(CHIMAERA_MORPH)) {
+                    MorphHandler.chimaeraMorph(player);
                 }
-                if (player.getMainHandStack().isOf(ModItems.CHIMAERA_STAFF) && !player.isSneaking()) {
-                    ChimaeraStaffItem.markTargetForWolf(player);
+                if (player.hasStatusEffect(CHIMAERA_CALL)) {
+                    MorphHandler.teleportChimaera(player);
+                }
+                if (player.hasStatusEffect(MARK_TARGET_FOR_WOLF)) {
+                    MorphHandler.markTargetForWolf(player);
                 }
             });
         });
 
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_FREEZE_WATER_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(ModEffects.GlACEN)) {
+                if (player.hasStatusEffect(GlACEN)) {
                     ToggleFreezeWaterEffect.toggleFreezeWater(player);
                 }
             });
@@ -185,7 +186,7 @@ public class LorienLegaciesModNetworking {
 
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_ACCELIX_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(ModEffects.ACCELIX)) {
+                if (player.hasStatusEffect(ACCELIX)) {
                     ToggleAccelixEffect.toggleAccelix(player);
                 }
             });
@@ -193,7 +194,7 @@ public class LorienLegaciesModNetworking {
 
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_REGENERAS_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(ModEffects.REGENERAS)) {
+                if (player.hasStatusEffect(REGENERAS)) {
                     ToggleRegenerasEffect.toggleRegeneras(player);
                 }
             });
@@ -201,7 +202,7 @@ public class LorienLegaciesModNetworking {
 
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_FORTEM_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(ModEffects.FORTEM)) {
+                if (player.hasStatusEffect(FORTEM)) {
                     ToggleFortemEffect.toggleFortem(player);
                 }
             });
@@ -209,7 +210,7 @@ public class LorienLegaciesModNetworking {
 
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_NOVIS_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(ModEffects.NOVIS)) {
+                if (player.hasStatusEffect(NOVIS)) {
                     ToggleNovisEffect.toggleNovis(player);
                 }
             });
@@ -217,7 +218,7 @@ public class LorienLegaciesModNetworking {
 
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_NOXEN_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(ModEffects.NOXEN)) {
+                if (player.hasStatusEffect(NOXEN)) {
                     ToggleNoxenEffect.toggleNoxen(player);
                 }
             });
@@ -232,7 +233,7 @@ public class LorienLegaciesModNetworking {
 
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_INTANGIBILITY_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(ModEffects.PONDUS)) {
+                if (player.hasStatusEffect(PONDUS)) {
                     PondusEffect.applyIntangibility(player);
                 }
             });
@@ -240,7 +241,7 @@ public class LorienLegaciesModNetworking {
 
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_AVEX_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(ModEffects.AVEX)) {
+                if (player.hasStatusEffect(AVEX)) {
                     ToggleAvexEffect.toggleAvex(player);
                 }
             });
@@ -248,7 +249,7 @@ public class LorienLegaciesModNetworking {
 
         ServerPlayNetworking.registerGlobalReceiver(START_AVEX_FLIGHT_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(ModEffects.AVEX) && player.hasStatusEffect(ModEffects.TOGGLE_AVEX)) {
+                if (player.hasStatusEffect(AVEX) && player.hasStatusEffect(TOGGLE_AVEX)) {
                     player.startFallFlying();
                 }
             });
@@ -256,26 +257,62 @@ public class LorienLegaciesModNetworking {
 
         ServerPlayNetworking.registerGlobalReceiver(TELEKINESIS_PUSH_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(ModEffects.TELEKINESIS)) {
+                if (player.hasStatusEffect(TELEKINESIS)) {
                     ToggleTelekinesisPushEffect.toggleTelekinesisPush(player);
-                    player.removeStatusEffect(ModEffects.TOGGLE_TELEKINESIS_PULL);
+                    player.removeStatusEffect(TOGGLE_TELEKINESIS_PULL);
                 }
             });
         });
 
         ServerPlayNetworking.registerGlobalReceiver(TELEKINESIS_PULL_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(ModEffects.TELEKINESIS)) {
+                if (player.hasStatusEffect(TELEKINESIS)) {
                     ToggleTelekinesisPullEffect.toggleTelekinesisPull(player);
-                    player.removeStatusEffect(ModEffects.TOGGLE_TELEKINESIS_PUSH);
+                    player.removeStatusEffect(TOGGLE_TELEKINESIS_PUSH);
                 }
             });
         });
 
         ServerPlayNetworking.registerGlobalReceiver(TELEKINESIS_MOVE_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(ModEffects.TELEKINESIS)) {
+                if (player.hasStatusEffect(TELEKINESIS)) {
                     ToggleTelekinesisMoveEffect.toggleTelekinesisMove(player);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(CHIMAERA_MORPH_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(CHIMAERA_MORPH)) {
+                    player.removeStatusEffect(CHIMAERA_MORPH);
+                } else {
+                    player.addStatusEffect(new StatusEffectInstance(CHIMAERA_MORPH, Integer.MAX_VALUE, 0, false, false, false));
+                    player.removeStatusEffect(CHIMAERA_CALL);
+                    player.removeStatusEffect(MARK_TARGET_FOR_WOLF);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(CHIMAERA_CALL_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(CHIMAERA_CALL)) {
+                    player.removeStatusEffect(CHIMAERA_CALL);
+                } else {
+                    player.addStatusEffect(new StatusEffectInstance(CHIMAERA_CALL, Integer.MAX_VALUE, 0, false, false, false));
+                    player.removeStatusEffect(MARK_TARGET_FOR_WOLF);
+                    player.removeStatusEffect(CHIMAERA_MORPH);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(MARK_TARGET_FOR_WOLF_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(MARK_TARGET_FOR_WOLF)) {
+                    player.removeStatusEffect(MARK_TARGET_FOR_WOLF);
+                } else {
+                    player.addStatusEffect(new StatusEffectInstance(MARK_TARGET_FOR_WOLF, Integer.MAX_VALUE, 0, false, false, false));
+                    player.removeStatusEffect(CHIMAERA_MORPH);
+                    player.removeStatusEffect(CHIMAERA_CALL);
                 }
             });
         });

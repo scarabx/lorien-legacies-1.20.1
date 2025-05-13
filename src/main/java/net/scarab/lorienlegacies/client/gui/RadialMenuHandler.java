@@ -100,6 +100,22 @@ public class RadialMenuHandler {
         optionsPages.add(utilityOptions);
         packetPages.add(utilityPackets);
         pageColors.add(0x808080); // Gray
+
+        // Page 4 - Chimaera Control
+        pageNames.add("Chimaera");
+        List<String> chimaeraOptions = List.of(
+                "Morph",
+                "Mark",
+                "Call"
+        );
+        List<Identifier> chimaeraPackets = List.of(
+                LorienLegaciesModNetworking.CHIMAERA_MORPH_PACKET,
+                LorienLegaciesModNetworking.MARK_TARGET_FOR_WOLF_PACKET,
+                LorienLegaciesModNetworking.CHIMAERA_CALL_PACKET
+        );
+        optionsPages.add(chimaeraOptions);
+        packetPages.add(chimaeraPackets);
+        pageColors.add(0x00FF00); // Green
     }
 
     public static void closeMenu() {

@@ -7,8 +7,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.scarab.lorienlegacies.LorienLegaciesMod;
 import net.scarab.lorienlegacies.effect.active_effects.*;
-import net.scarab.lorienlegacies.effect.chimaera_effects.ChimaeraEssenceEffect;
-import net.scarab.lorienlegacies.effect.toggle_effects.ToggleTravelModeEffect;
+import net.scarab.lorienlegacies.effect.chimaera_effects.*;
 import net.scarab.lorienlegacies.effect.passive_effects.*;
 import net.scarab.lorienlegacies.effect.toggle_effects.*;
 
@@ -102,8 +101,14 @@ public class ModEffects {
     public static final StatusEffect CHIMAERA_ESSENCE = registerStatusEffect("chimaera_essence",
             new ChimaeraEssenceEffect(StatusEffectCategory.BENEFICIAL, 0x00AA00/*Dark Green*/));
 
-    public static final StatusEffect TOGGLE_TRAVEL_MODE = registerStatusEffect("toggle_travel_mode",
-            new ToggleTravelModeEffect(StatusEffectCategory.BENEFICIAL, 0x00AA00/*Dark Green*/));
+    public static final StatusEffect CHIMAERA_MORPH = registerStatusEffect("chimaera_morph",
+            new ChimaeraMorphEffect(StatusEffectCategory.BENEFICIAL, 0x00AA00/*Dark Green*/));
+
+    public static final StatusEffect MARK_TARGET_FOR_WOLF = registerStatusEffect("mark_target_for_wolf",
+            new MarkTargetForWolfEffect(StatusEffectCategory.BENEFICIAL, 0x00AA00/*Dark Green*/));
+
+    public static final StatusEffect CHIMAERA_CALL = registerStatusEffect("chimaera_call",
+            new ChimaeraCallEffect(StatusEffectCategory.BENEFICIAL, 0x00AA00/*Dark Green*/));
 
     private static StatusEffect registerStatusEffect(String name, StatusEffect statusEffect) {
         return Registry.register(Registries.STATUS_EFFECT, new Identifier(LorienLegaciesMod.MOD_ID, name), statusEffect);

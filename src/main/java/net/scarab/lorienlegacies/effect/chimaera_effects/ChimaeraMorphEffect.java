@@ -4,28 +4,15 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.passive.*;
 
-public class ChimaeraEssenceEffect extends StatusEffect {
+public class ChimaeraMorphEffect extends StatusEffect {
 
-    public ChimaeraEssenceEffect(StatusEffectCategory category, int color) {
+    public ChimaeraMorphEffect(StatusEffectCategory category, int color) {
         super(category, color);
     }
 
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-
-        // Only apply to tamed wolves, parrots, horses, or axolotls
-        boolean allowed = (entity instanceof WolfEntity wolf && wolf.isTamed())
-                || (entity instanceof ParrotEntity parrot && parrot.isTamed())
-                || (entity instanceof HorseEntity horse && horse.isTame())
-                || (entity instanceof AxolotlEntity);
-
-        if (!allowed) {
-            entity.removeStatusEffect(this);
-            return;
-        }
 
         // Reapply invisibly if needed
         StatusEffectInstance current = entity.getStatusEffect(this);
@@ -39,12 +26,6 @@ public class ChimaeraEssenceEffect extends StatusEffect {
                     false,
                     false
             ));
-        }
-
-        if(entity instanceof WolfEntity wolf) {
-            wolf.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 100, 0, false, false, false));
-            wolf.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 100, 2, false, false, false));
-            wolf.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 100, 0, false, false, false));
         }
         super.applyUpdateEffect(entity, amplifier);
     }

@@ -1,18 +1,19 @@
-package net.scarab.lorienlegacies.effect.toggle_effects;
+package net.scarab.lorienlegacies.effect.chimaera_effects;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 
-public class ToggleTravelModeEffect extends StatusEffect {
+public class ChimaeraCallEffect extends StatusEffect {
 
-    public ToggleTravelModeEffect(StatusEffectCategory category, int color) {
+    public ChimaeraCallEffect(StatusEffectCategory category, int color) {
         super(category, color);
     }
 
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
+
         // Reapply invisibly if needed
         StatusEffectInstance current = entity.getStatusEffect(this);
         if (current != null && (current.shouldShowParticles() || current.shouldShowIcon())) {

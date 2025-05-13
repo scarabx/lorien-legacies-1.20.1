@@ -6,7 +6,6 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.scarab.lorienlegacies.effect.ModEffects;
-import net.scarab.lorienlegacies.item.ChimaeraStaffItem;
 
 import java.util.List;
 
