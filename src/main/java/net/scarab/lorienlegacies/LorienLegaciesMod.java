@@ -2,6 +2,7 @@ package net.scarab.lorienlegacies;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ActionResult;
@@ -14,6 +15,7 @@ import net.scarab.lorienlegacies.entity.ModEntities;
 import net.scarab.lorienlegacies.event.LorienLegacyEventHandler;
 import net.scarab.lorienlegacies.item.ModItemGroup;
 import net.scarab.lorienlegacies.item.ModItems;
+import net.scarab.lorienlegacies.legacy.LegacyRegistration;
 import net.scarab.lorienlegacies.network.LorienLegaciesModNetworking;
 import net.scarab.lorienlegacies.potion.ModPotions;
 import net.scarab.lorienlegacies.util.ModRegistries;
@@ -56,5 +58,7 @@ public class LorienLegaciesMod implements ModInitializer {
 		ModRegistries.registerModStuffs();
 
 		MorphHandler.registerMorphHandler();
+
+		LegacyRegistration.registerLegacies();
 	}
 }
