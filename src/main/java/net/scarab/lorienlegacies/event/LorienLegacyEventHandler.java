@@ -1,11 +1,14 @@
 package net.scarab.lorienlegacies.event;
 
+import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.scarab.lorienlegacies.effect.ModEffects;
+import net.scarab.lorienlegacies.legacy_bestowal.LegacyBestowalHandler;
 
 import java.util.List;
 
@@ -47,6 +50,13 @@ public class LorienLegacyEventHandler {
                         ));
                     }
                 }
+            }
+        });
+
+        ServerLivingEntityEvents.AFTER_DEATH.register((entity,damageSource)->
+            {
+            if (entity instanceof TameableEntity tameable && tameable.getOwner() instanceof ServerPlayerEntity owner) {
+                LegacyBestowalHandler.onPetDeath(owner);
             }
         });
     }

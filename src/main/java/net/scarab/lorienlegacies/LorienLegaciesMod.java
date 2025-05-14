@@ -16,7 +16,7 @@ import net.scarab.lorienlegacies.entity.ModEntities;
 import net.scarab.lorienlegacies.event.LorienLegacyEventHandler;
 import net.scarab.lorienlegacies.item.ModItemGroup;
 import net.scarab.lorienlegacies.item.ModItems;
-import net.scarab.lorienlegacies.legacy_acquirement.LegacyAcquirementHandler;
+import net.scarab.lorienlegacies.legacy_bestowal.LegacyBestowalHandler;
 import net.scarab.lorienlegacies.network.LorienLegaciesModNetworking;
 import net.scarab.lorienlegacies.potion.ModPotions;
 import net.scarab.lorienlegacies.util.ModRegistries;
@@ -44,7 +44,7 @@ public class LorienLegaciesMod implements ModInitializer {
 		ServerTickEvents.START_SERVER_TICK.register(server -> {
 			server.getPlayerManager().getPlayerList().forEach(player -> {
 				if (player instanceof ServerPlayerEntity) {
-					LegacyAcquirementHandler.stressManager(player);
+					LegacyBestowalHandler.stressManager(player);
 				}
 			});
 		});
@@ -69,6 +69,6 @@ public class LorienLegaciesMod implements ModInitializer {
 
 		MorphHandler.registerMorphHandler();
 
-		LegacyAcquirementHandler.registerLegacyAcquirementHandler();
+		LegacyBestowalHandler.registerLegacyBestowalHandler();
 	}
 }
