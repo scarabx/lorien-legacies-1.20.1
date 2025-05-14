@@ -102,13 +102,13 @@ public class ModEffects {
             new ChimaeraEssenceEffect(StatusEffectCategory.BENEFICIAL, 0x00AA00/*Dark Green*/));
 
     public static final StatusEffect CHIMAERA_MORPH = registerStatusEffect("chimaera_morph",
-            new ChimaeraMorphEffect(StatusEffectCategory.BENEFICIAL, 0x00AA00/*Dark Green*/));
+            new ChimaeraMorphEffect(StatusEffectCategory.BENEFICIAL, 0xA52A2A/*Brown*/));
 
     public static final StatusEffect MARK_TARGET_FOR_WOLF = registerStatusEffect("mark_target_for_wolf",
-            new MarkTargetForWolfEffect(StatusEffectCategory.BENEFICIAL, 0x00AA00/*Dark Green*/));
+            new MarkTargetForWolfEffect(StatusEffectCategory.BENEFICIAL, 0x90EE90/*Light Green*/));
 
     public static final StatusEffect CHIMAERA_CALL = registerStatusEffect("chimaera_call",
-            new ChimaeraCallEffect(StatusEffectCategory.BENEFICIAL, 0x00AA00/*Dark Green*/));
+            new ChimaeraCallEffect(StatusEffectCategory.BENEFICIAL, 0xFF7F50/*Coral*/));
 
     private static StatusEffect registerStatusEffect(String name, StatusEffect statusEffect) {
         return Registry.register(Registries.STATUS_EFFECT, new Identifier(LorienLegaciesMod.MOD_ID, name), statusEffect);

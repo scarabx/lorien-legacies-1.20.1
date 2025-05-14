@@ -2,9 +2,10 @@ package net.scarab.lorienlegacies;
 
 import net.fabricmc.api.ModInitializer;
 
-import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.scarab.lorienlegacies.block.ModBlocks;
 import net.scarab.lorienlegacies.chimaera.MorphHandler;
@@ -15,8 +16,7 @@ import net.scarab.lorienlegacies.entity.ModEntities;
 import net.scarab.lorienlegacies.event.LorienLegacyEventHandler;
 import net.scarab.lorienlegacies.item.ModItemGroup;
 import net.scarab.lorienlegacies.item.ModItems;
-import net.scarab.lorienlegacies.legacy.TelekinesisLegacy;
-import net.scarab.lorienlegacies.legacy.TelekinesisManager;
+import net.scarab.lorienlegacies.legacy_acquirement.LegacyAcquirementHandler;
 import net.scarab.lorienlegacies.network.LorienLegaciesModNetworking;
 import net.scarab.lorienlegacies.potion.ModPotions;
 import net.scarab.lorienlegacies.util.ModRegistries;
@@ -40,6 +40,15 @@ public class LorienLegaciesMod implements ModInitializer {
 			return ActionResult.PASS;
 		});
 
+		// Registering the server tick event to run stressManager on each player every tick
+		ServerTickEvents.START_SERVER_TICK.register(server -> {
+			server.getPlayerManager().getPlayerList().forEach(player -> {
+				if (player instanceof ServerPlayerEntity) {
+					LegacyAcquirementHandler.stressManager(player);
+				}
+			});
+		});
+
 		ModItemGroup.registerItemGroups();
 
 		ModItems.registerModItems();
@@ -60,8 +69,6 @@ public class LorienLegaciesMod implements ModInitializer {
 
 		MorphHandler.registerMorphHandler();
 
-		TelekinesisLegacy.registerTelekinesisLegacy();
-
-		TelekinesisManager.register();
+		LegacyAcquirementHandler.registerLegacyAcquirementHandler();
 	}
 }

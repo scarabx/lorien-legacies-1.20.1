@@ -30,27 +30,6 @@ public class RegenerasEffect extends StatusEffect {
                     false
             ));
         }
-
-        applyRegenerationEffect(entity);
-
-        super.applyUpdateEffect(entity, amplifier);
-    }
-
-    public static void applyRegenerationEffect(LivingEntity entity) {
-
-        if (!entity.getWorld().isClient()
-                && entity.hasStatusEffect(REGENERAS)
-                && entity.hasStatusEffect(TOGGLE_REGENERAS)) {
-
-            entity.addStatusEffect(new StatusEffectInstance(
-                    StatusEffects.REGENERATION,
-                    100,
-                    4,
-                    false,
-                    false,
-                    false
-            ));
-        }
     }
 
     @Override
