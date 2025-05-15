@@ -5,6 +5,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.util.Identifier;
 
 import net.scarab.lorienlegacies.chimaera.MorphHandler;
+import net.scarab.lorienlegacies.effect.ModEffects;
 import net.scarab.lorienlegacies.effect.active_effects.GlacenEffect;
 import net.scarab.lorienlegacies.effect.active_effects.LumenEffect;
 import net.scarab.lorienlegacies.effect.active_effects.PondusEffect;
@@ -130,8 +131,12 @@ public class LorienLegaciesModNetworking {
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_SHOOT_FIREBALL_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 if (player.hasStatusEffect(LUMEN)) {
+                    boolean wasToggledOn = !player.hasStatusEffect(TOGGLE_SHOOT_FIREBALL); // this means it's being enabled
                     ToggleShootFireballEffect.toggleShootFireball(player);
                     player.removeStatusEffect(TOGGLE_SHOOT_ICEBALL);
+                    if (wasToggledOn) {
+                        player.addStatusEffect(new StatusEffectInstance(ModEffects.STAMINA, 6000, 0, false, false, false));
+                    }
                 }
             });
         });

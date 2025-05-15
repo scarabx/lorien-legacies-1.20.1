@@ -110,6 +110,12 @@ public class ModEffects {
     public static final StatusEffect CHIMAERA_CALL = registerStatusEffect("chimaera_call",
             new ChimaeraCallEffect(StatusEffectCategory.BENEFICIAL, 0xFF7F50/*Coral*/));
 
+    public static final StatusEffect STAMINA = registerStatusEffect("stamina",
+            new StaminaEffect(StatusEffectCategory.BENEFICIAL, 0xFFFF00/*Yellow*/));
+
+    public static final StatusEffect TIRED = registerStatusEffect("tired",
+            new TiredEffect(StatusEffectCategory.BENEFICIAL, 0xFF0000/*Red*/));
+
     private static StatusEffect registerStatusEffect(String name, StatusEffect statusEffect) {
         return Registry.register(Registries.STATUS_EFFECT, new Identifier(LorienLegaciesMod.MOD_ID, name), statusEffect);
     }

@@ -65,7 +65,8 @@ public class LumenEffect extends StatusEffect {
 
         if (!entity.getWorld().isClient()
                 && entity.hasStatusEffect(ModEffects.LUMEN)
-                && entity.hasStatusEffect(TOGGLE_SHOOT_FIREBALL))
+                && entity.hasStatusEffect(TOGGLE_SHOOT_FIREBALL)
+                && !entity.hasStatusEffect(TIRED))
 
             if (!entity.getWorld().isClient() && entity instanceof ServerPlayerEntity) {
                 ServerWorld world = ((ServerWorld) entity.getWorld());
