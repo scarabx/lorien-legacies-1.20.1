@@ -6,7 +6,8 @@
     "EntityMixin",
     "ExampleMixin",
     "PlayerEntityMixin",
-    "ProjectileEntityMixin"
+    "ProjectileEntityMixin",
+    "ServerPlayerEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -42,7 +42,7 @@ public class LegacyBestowalHandler {
             ModEffects.REGENERAS
     );
 
-    private static final long LEGACY_COOLDOWN_TICKS = 20 * 60 * 5; // 5 minutes cooldown (20 ticks * 60 sec * 5 min)
+    private static final long LEGACY_COOLDOWN_TICKS = 20 * 60 * 5; // 5 minutes cooldown
     private static final int TICKS_PER_SECOND = 20;
     private static final int THROTTLE_TICKS = TICKS_PER_SECOND * 5; // 5 seconds throttle
     private static final int MAX_STRESS = 150;
@@ -58,9 +58,7 @@ public class LegacyBestowalHandler {
             lastLowHealthTime.put(id, time);
         }
 
-        // Increase: Multiple dangers (throttled)
-        if (player.hasStatusEffect(StatusEffects.POISON) || player.isOnFire() ||
-                player.isSubmergedInWater() || player.getAir() < player.getMaxAir() ||
+        if ((player.hasStatusEffect(StatusEffects.POISON) || player.isOnFire() || (player.isSubmergedInWater() && player.getAir() <= 0)) &&
                 time - lastMultiThreatTime.getOrDefault(id, 0L) > THROTTLE_TICKS) {
             stress += 5;
             lastMultiThreatTime.put(id, time);
@@ -192,5 +190,23 @@ public class LegacyBestowalHandler {
 
     public static void registerLegacyBestowalHandler() {
         LorienLegaciesMod.LOGGER.info("Registering Legacy Acquirement Handler for " + LorienLegaciesMod.MOD_ID);
+    }
+
+    // --- Added getter/setter for NBT saving/loading ---
+
+    public static int getStress(ServerPlayerEntity player) {
+        return playerStress.getOrDefault(player.getUuid(), 0);
+    }
+
+    public static void setStress(ServerPlayerEntity player, int stress) {
+        playerStress.put(player.getUuid(), stress);
+    }
+
+    public static long getLastLegacyTime(ServerPlayerEntity player) {
+        return lastLegacyTime.getOrDefault(player.getUuid(), 0L);
+    }
+
+    public static void setLastLegacyTime(ServerPlayerEntity player, long time) {
+        lastLegacyTime.put(player.getUuid(), time);
     }
 }
