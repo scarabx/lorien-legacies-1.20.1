@@ -64,7 +64,7 @@ public class GlacenEffect extends StatusEffect {
     public static void shootIceball(LivingEntity entity) {
 
         if (!entity.getWorld().isClient()
-                && entity.hasStatusEffect(ModEffects.GlACEN)
+                && entity.hasStatusEffect(ModEffects.GLACEN)
                 && entity.hasStatusEffect(TOGGLE_SHOOT_ICEBALL)) {
 
             if (!entity.getWorld().isClient() && entity instanceof ServerPlayerEntity) {
@@ -82,7 +82,7 @@ public class GlacenEffect extends StatusEffect {
     public static void icicles(LivingEntity user, Entity target) {
 
         if (!user.getWorld().isClient()
-                && user.hasStatusEffect(ModEffects.GlACEN)
+                && user.hasStatusEffect(ModEffects.GLACEN)
                 && user.hasStatusEffect(TOGGLE_ICICLES)) {
 
             World world = user.getWorld();
@@ -102,7 +102,7 @@ public class GlacenEffect extends StatusEffect {
     public static void iceHands(LivingEntity user, Entity target) {
 
         if (!user.getWorld().isClient()
-                && user.hasStatusEffect(GlACEN)
+                && user.hasStatusEffect(GLACEN)
                 && user.hasStatusEffect(TOGGLE_ICE_HANDS)) {
 
             if (target instanceof LivingEntity livingEntity) {

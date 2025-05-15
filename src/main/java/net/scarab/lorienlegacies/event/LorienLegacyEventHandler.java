@@ -2,7 +2,6 @@ package net.scarab.lorienlegacies.event;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.passive.TameableEntity;
@@ -30,7 +29,7 @@ public class LorienLegacyEventHandler {
                         ModEffects.TELEKINESIS, ModEffects.TOGGLE_TELEKINESIS_PUSH, ModEffects.TOGGLE_TELEKINESIS_PULL, ModEffects.TOGGLE_TELEKINESIS_MOVE,
                         ModEffects.CHIMAERA_CALL, ModEffects.CHIMAERA_MORPH, ModEffects.MARK_TARGET_FOR_WOLF,
                         ModEffects.FORTEM, ModEffects.TOGGLE_FORTEM,
-                        ModEffects.GlACEN, ModEffects.TOGGLE_FREEZE_WATER, ModEffects.TOGGLE_ICE_HANDS, ModEffects.TOGGLE_ICICLES, ModEffects.TOGGLE_SHOOT_ICEBALL,
+                        ModEffects.GLACEN, ModEffects.TOGGLE_FREEZE_WATER, ModEffects.TOGGLE_ICE_HANDS, ModEffects.TOGGLE_ICICLES, ModEffects.TOGGLE_SHOOT_ICEBALL,
                         ModEffects.LUMEN, ModEffects.TOGGLE_FLAMING_HANDS, ModEffects.TOGGLE_HUMAN_FIREBALL_AOE, ModEffects.TOGGLE_SHOOT_FIREBALL,
                         ModEffects.NOVIS, ModEffects.TOGGLE_NOVIS,
                         ModEffects.NOXEN, ModEffects.NOXEN,

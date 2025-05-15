@@ -97,7 +97,7 @@ public class LorienLegaciesModNetworking {
 
         ServerPlayNetworking.registerGlobalReceiver(SHOOT_ICEBALL_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(GlACEN)) {
+                if (player.hasStatusEffect(GLACEN)) {
                     GlacenEffect.shootIceball(player);
                 }
             });
@@ -105,7 +105,7 @@ public class LorienLegaciesModNetworking {
 
         ServerPlayNetworking.registerGlobalReceiver(ICICLES_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(GlACEN)) {
+                if (player.hasStatusEffect(GLACEN)) {
                     ToggleIciclesEffect.toggleIcicles(player);
                 }
             });
@@ -113,7 +113,7 @@ public class LorienLegaciesModNetworking {
 
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_ICE_HANDS_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(GlACEN)) {
+                if (player.hasStatusEffect(GLACEN)) {
                     ToggleIceHandsEffect.toggleIceHands(player);
                 }
             });
@@ -121,7 +121,7 @@ public class LorienLegaciesModNetworking {
 
         ServerPlayNetworking.registerGlobalReceiver(FREEZE_WATER_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(GlACEN)) {
+                if (player.hasStatusEffect(GLACEN)) {
                     GlacenEffect.freezeWater(player);
                 }
             });
@@ -138,7 +138,7 @@ public class LorienLegaciesModNetworking {
 
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_SHOOT_ICEBALL_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(GlACEN)) {
+                if (player.hasStatusEffect(GLACEN)) {
                     ToggleShootIceballEffect.toggleShootIceball(player);
                     player.removeStatusEffect(TOGGLE_SHOOT_FIREBALL);
                 }
@@ -150,7 +150,7 @@ public class LorienLegaciesModNetworking {
                 if (player.hasStatusEffect(LUMEN)) {
                     LumenEffect.shootFireball(player);
                 }
-                if (player.hasStatusEffect(GlACEN)) {
+                if (player.hasStatusEffect(GLACEN)) {
                     GlacenEffect.shootIceball(player);
                 }
             });
@@ -178,7 +178,7 @@ public class LorienLegaciesModNetworking {
 
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_FREEZE_WATER_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(GlACEN)) {
+                if (player.hasStatusEffect(GLACEN)) {
                     ToggleFreezeWaterEffect.toggleFreezeWater(player);
                 }
             });

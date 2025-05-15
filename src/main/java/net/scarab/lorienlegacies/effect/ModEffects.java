@@ -23,7 +23,7 @@ public class ModEffects {
     public static final StatusEffect TOGGLE_FLAMING_HANDS = registerStatusEffect("toggle_flaming_hands",
             new ToggleFlamingHandsEffect(StatusEffectCategory.BENEFICIAL, 0xFFA5000/*Orange*/));
 
-    public static final StatusEffect GlACEN = registerStatusEffect("glacen",
+    public static final StatusEffect GLACEN = registerStatusEffect("glacen",
             new GlacenEffect(StatusEffectCategory.BENEFICIAL, 0x0000AA/*Dark Blue*/));
 
     public static final StatusEffect TOGGLE_ICICLES = registerStatusEffect("toggle_icicles",

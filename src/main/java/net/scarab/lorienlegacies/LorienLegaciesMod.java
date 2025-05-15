@@ -4,7 +4,9 @@ import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.scarab.lorienlegacies.block.ModBlocks;
@@ -22,6 +24,8 @@ import net.scarab.lorienlegacies.potion.ModPotions;
 import net.scarab.lorienlegacies.util.ModRegistries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static net.scarab.lorienlegacies.legacy_bestowal.LegacyBestowalHandler.resetStress;
 
 public class LorienLegaciesMod implements ModInitializer {
 	public static final String MOD_ID = "lorienlegacies";
@@ -47,6 +51,14 @@ public class LorienLegaciesMod implements ModInitializer {
 					LegacyBestowalHandler.stressManager(player);
 				}
 			});
+		});
+
+		ServerTickEvents.END_SERVER_TICK.register(server -> {
+			for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
+				if (player.getHealth() <= 0) {
+					resetStress(player.getUuid());
+				}
+			}
 		});
 
 		ModItemGroup.registerItemGroups();
