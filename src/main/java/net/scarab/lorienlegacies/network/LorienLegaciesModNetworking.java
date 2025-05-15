@@ -131,10 +131,10 @@ public class LorienLegaciesModNetworking {
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_SHOOT_FIREBALL_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 if (player.hasStatusEffect(LUMEN)) {
-                    boolean wasToggledOn = !player.hasStatusEffect(TOGGLE_SHOOT_FIREBALL); // this means it's being enabled
+                    boolean wasToggledOn = !player.hasStatusEffect(TOGGLE_SHOOT_FIREBALL); // being turned on
                     ToggleShootFireballEffect.toggleShootFireball(player);
                     player.removeStatusEffect(TOGGLE_SHOOT_ICEBALL);
-                    if (wasToggledOn) {
+                    if (wasToggledOn && !player.hasStatusEffect(ModEffects.STAMINA)) {
                         player.addStatusEffect(new StatusEffectInstance(ModEffects.STAMINA, 6000, 0, false, false, false));
                     }
                 }
