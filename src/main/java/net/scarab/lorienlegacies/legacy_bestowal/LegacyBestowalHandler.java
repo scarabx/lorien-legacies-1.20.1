@@ -11,10 +11,7 @@ import net.minecraft.util.Formatting;
 import net.scarab.lorienlegacies.LorienLegaciesMod;
 import net.scarab.lorienlegacies.effect.ModEffects;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class LegacyBestowalHandler {
@@ -29,42 +26,41 @@ public class LegacyBestowalHandler {
     private static final Map<UUID, Long> lastSleepTime = new HashMap<>();
     private static final Map<UUID, Long> lastEatingTime = new HashMap<>();
 
-    private static final List<StatusEffect> LEGACY_POOL = List.of(
-            ModEffects.TELEKINESIS,
-            ModEffects.LUMEN,
-            ModEffects.AVEX,
-            ModEffects.PONDUS,
-            ModEffects.GLACEN,
-            ModEffects.ACCELIX,
-            ModEffects.FORTEM,
-            ModEffects.NOVIS,
-            ModEffects.NOXEN,
-            ModEffects.REGENERAS
+    private static final Map<StatusEffect, Integer> LEGACY_POOL = Map.of(
+            ModEffects.TELEKINESIS, 10,
+            ModEffects.LUMEN, 8,
+            ModEffects.AVEX, 6,
+            ModEffects.PONDUS, 4,
+            ModEffects.GLACEN, 4,
+            ModEffects.ACCELIX, 3,
+            ModEffects.FORTEM, 2,
+            ModEffects.NOVIS, 2,
+            ModEffects.NOXEN, 1,
+            ModEffects.REGENERAS, 1
     );
 
-    private static final long LEGACY_COOLDOWN_TICKS = 20 * 60 * 5; // 5 minutes cooldown
+    private static final long LEGACY_COOLDOWN_TICKS = 100; // 5 minutes (20 ticks * 60s * 5m)
     private static final int TICKS_PER_SECOND = 20;
-    private static final int THROTTLE_TICKS = TICKS_PER_SECOND * 5; // 5 seconds throttle
-    private static final int MAX_STRESS = 150;
+    private static final int THROTTLE_TICKS = TICKS_PER_SECOND * 10; // 10 seconds
+    private static final int MAX_STRESS = 20;
 
     public static void stressManager(ServerPlayerEntity player) {
         UUID id = player.getUuid();
         long time = player.getServerWorld().getTime();
         int stress = playerStress.getOrDefault(id, 0);
 
-        // Increase: Low health (throttled)
+        // Increase stress
         if (player.getHealth() <= 2 && time - lastLowHealthTime.getOrDefault(id, 0L) > THROTTLE_TICKS) {
-            stress += 5;
+            stress += 3;
             lastLowHealthTime.put(id, time);
         }
 
         if ((player.hasStatusEffect(StatusEffects.POISON) || player.isOnFire() || (player.isSubmergedInWater() && player.getAir() <= 0)) &&
                 time - lastMultiThreatTime.getOrDefault(id, 0L) > THROTTLE_TICKS) {
-            stress += 5;
+            stress += 3;
             lastMultiThreatTime.put(id, time);
         }
 
-        // Increase: Nearby hostiles (throttled)
         if (player.getWorld() instanceof ServerWorld serverWorld) {
             long nearbyHostiles = serverWorld.getEntitiesByClass(
                     HostileEntity.class,
@@ -72,19 +68,18 @@ public class LegacyBestowalHandler {
                     e -> true
             ).stream().count();
             if (nearbyHostiles >= 3 && time - lastMultiThreatTime.getOrDefault(id, 0L) > THROTTLE_TICKS) {
-                stress += 5;
+                stress += 3;
                 lastMultiThreatTime.put(id, time);
             }
         }
 
-        // Decrease: Full health (throttled)
+        // Decrease stress
         if (player.getHealth() == player.getMaxHealth() &&
                 time - lastFullHealthTime.getOrDefault(id, 0L) > THROTTLE_TICKS) {
             stress -= 1;
             lastFullHealthTime.put(id, time);
         }
 
-        // Decrease: Resting state (throttled)
         if (!player.hasStatusEffect(StatusEffects.POISON)
                 && !player.isOnFire()
                 && !player.isSubmergedInWater()
@@ -95,32 +90,27 @@ public class LegacyBestowalHandler {
             lastRestingTime.put(id, time);
         }
 
-        // Decrease: Sleeping (throttled)
         if (player.isSleeping() &&
                 time - lastSleepTime.getOrDefault(id, 0L) > THROTTLE_TICKS) {
             stress -= 1;
             lastSleepTime.put(id, time);
         }
 
-        // Decrease: Eating (throttled)
         if (player.isUsingItem() && player.getActiveItem().getItem().isFood() &&
                 time - lastEatingTime.getOrDefault(id, 0L) > THROTTLE_TICKS) {
             stress -= 1;
             lastEatingTime.put(id, time);
         }
 
-        // Clamp stress and reset if max reached
         if (stress < 0) stress = 0;
         if (stress >= MAX_STRESS) {
             stress = 0;
         }
 
-        // Check cooldown
         boolean onCooldown = lastLegacyTime.containsKey(id) &&
                 (time - lastLegacyTime.get(id) < LEGACY_COOLDOWN_TICKS);
 
-        // Grant legacy immediately when stress >= 100 and not on cooldown
-        if ((stress >= 100) && !onCooldown) {
+        if ((stress >= 10) && !onCooldown) {
             giveLegacy(player);
             stress = 0;
             lastLegacyTime.put(id, time);
@@ -128,7 +118,6 @@ public class LegacyBestowalHandler {
 
         playerStress.put(id, stress);
 
-        // Compose combined action bar message with separate colors for stress and cooldown
         Text stressText = Text.literal("Stress: " + stress)
                 .formatted(stress >= 100 ? Formatting.RED : stress >= 60 ? Formatting.GOLD : Formatting.GREEN);
 
@@ -142,15 +131,7 @@ public class LegacyBestowalHandler {
                 int seconds = totalSeconds % 60;
                 double ratio = (double) cooldownLeft / LEGACY_COOLDOWN_TICKS;
 
-                Formatting cooldownColor;
-                if (ratio <= 0.2) {
-                    cooldownColor = Formatting.GREEN;
-                } else if (ratio <= 0.6) {
-                    cooldownColor = Formatting.GOLD;
-                } else {
-                    cooldownColor = Formatting.RED;
-                }
-
+                Formatting cooldownColor = ratio <= 0.2 ? Formatting.GREEN : ratio <= 0.6 ? Formatting.GOLD : Formatting.RED;
                 String timeString = minutes > 0
                         ? String.format("%dm %02ds", minutes, seconds)
                         : String.format("%ds", seconds);
@@ -169,19 +150,41 @@ public class LegacyBestowalHandler {
     public static void onPetDeath(ServerPlayerEntity owner) {
         UUID id = owner.getUuid();
         int stress = playerStress.getOrDefault(id, 0);
-        stress += 5;
+        stress += 3;
         if (stress > MAX_STRESS) stress = MAX_STRESS;
         playerStress.put(id, stress);
     }
 
     public static void giveLegacy(ServerPlayerEntity player) {
-        StatusEffect randomEffect = LEGACY_POOL.get(ThreadLocalRandom.current().nextInt(LEGACY_POOL.size()));
+        // 90% chance to "fail"
+        if (ThreadLocalRandom.current().nextDouble() >= 0.1) {
+            player.sendMessage(Text.literal("You felt a surge of power... but nothing happened."), false);
+            return;
+        }
+
+        StatusEffect randomEffect = getRandomLegacyWeighted();
+
         if (!player.hasStatusEffect(randomEffect)) {
             player.addStatusEffect(new StatusEffectInstance(randomEffect, Integer.MAX_VALUE, 0, false, false, false));
-            player.sendMessage(Text.literal("You have received the " + randomEffect.getName().getString() + " legacy!"), false);
+            // Removed color formatting here
+            player.sendMessage(Text.literal("You have been bestowed upon the " + randomEffect.getName().getString() + " legacy!"), false);
         } else {
-            player.sendMessage(Text.literal(player.getName().getString() + " already has the " + randomEffect.getName().getString() + " legacy."), false);
+            player.sendMessage(Text.literal(player.getName().getString() + " already has been bestowed upon the " + randomEffect.getName().getString() + " legacy."), false);
         }
+    }
+
+    private static StatusEffect getRandomLegacyWeighted() {
+        int totalWeight = LEGACY_POOL.values().stream().mapToInt(Integer::intValue).sum();
+        int random = ThreadLocalRandom.current().nextInt(totalWeight);
+        int cumulative = 0;
+
+        for (Map.Entry<StatusEffect, Integer> entry : LEGACY_POOL.entrySet()) {
+            cumulative += entry.getValue();
+            if (random < cumulative) {
+                return entry.getKey();
+            }
+        }
+        return null;
     }
 
     public static void resetStress(UUID playerId) {
@@ -189,10 +192,8 @@ public class LegacyBestowalHandler {
     }
 
     public static void registerLegacyBestowalHandler() {
-        LorienLegaciesMod.LOGGER.info("Registering Legacy Acquirement Handler for " + LorienLegaciesMod.MOD_ID);
+        LorienLegaciesMod.LOGGER.info("Registering Legacy Bestowal Handler for " + LorienLegaciesMod.MOD_ID);
     }
-
-    // --- Added getter/setter for NBT saving/loading ---
 
     public static int getStress(ServerPlayerEntity player) {
         return playerStress.getOrDefault(player.getUuid(), 0);
@@ -209,4 +210,19 @@ public class LegacyBestowalHandler {
     public static void setLastLegacyTime(ServerPlayerEntity player, long time) {
         lastLegacyTime.put(player.getUuid(), time);
     }
+
+    // Used for testing legacy bestowal weighting
+    /*public static void testLegacyWeightDistribution(int trials) {
+        Map<StatusEffect, Integer> counts = new HashMap<>();
+        for (int i = 0; i < trials; i++) {
+            StatusEffect chosen = getRandomLegacyWeighted();
+            counts.put(chosen, counts.getOrDefault(chosen, 0) + 1);
+        }
+
+        System.out.println("Legacy Weight Distribution after " + trials + " trials:");
+        for (Map.Entry<StatusEffect, Integer> entry : counts.entrySet()) {
+            double percentage = 100.0 * entry.getValue() / trials;
+            System.out.printf("%s: %d times (%.2f%%)%n", entry.getKey().getName().getString(), entry.getValue(), percentage);
+        }
+    }*/
 }

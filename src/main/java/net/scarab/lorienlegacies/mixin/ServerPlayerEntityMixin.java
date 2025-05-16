@@ -3,7 +3,6 @@ package net.scarab.lorienlegacies.mixin;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.scarab.lorienlegacies.legacy_bestowal.LegacyBestowalHandler;
-import net.scarab.lorienlegacies.stats.KillTracker;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -22,9 +21,6 @@ public abstract class ServerPlayerEntityMixin {
 
         nbt.putInt("lorien_stress", stress);
         nbt.putLong("lorien_lastLegacyTime", lastLegacyTime);
-
-        // Save kill count
-        nbt.putInt("LorienKillCount", KillTracker.getKills(player));
     }
 
     @Inject(method = "readCustomDataFromNbt", at = @At("RETURN"))
@@ -37,11 +33,6 @@ public abstract class ServerPlayerEntityMixin {
         }
         if (nbt.contains("lorien_lastLegacyTime")) {
             LegacyBestowalHandler.setLastLegacyTime(player, nbt.getLong("lorien_lastLegacyTime"));
-        }
-
-        // Load kill count
-        if (nbt.contains("LorienKillCount")) {
-            KillTracker.setKills(player, nbt.getInt("LorienKillCount"));
         }
     }
 }
