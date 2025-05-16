@@ -21,7 +21,6 @@ public class StaminaEffect extends StatusEffect {
         if (entity instanceof PlayerEntity player) {
             if (player.getDataTracker().get(ModDataTrackers.SKIP_STAMINA_REMOVAL)) {
                 player.getDataTracker().set(ModDataTrackers.SKIP_STAMINA_REMOVAL, false);
-                System.out.println("Reset SKIP_STAMINA_REMOVAL to false during stamina update");
             }
         }
 
@@ -48,7 +47,7 @@ public class StaminaEffect extends StatusEffect {
         if (entity instanceof PlayerEntity player) {
             boolean skip = player.getDataTracker().get(ModDataTrackers.SKIP_STAMINA_REMOVAL);
             if (!skip) {
-                player.addStatusEffect(new StatusEffectInstance(ModEffects.TIRED, 100, 0, false, false));
+                player.addStatusEffect(new StatusEffectInstance(ModEffects.TIRED, 200, 0, false, false));
             } else {
                 player.getDataTracker().set(ModDataTrackers.SKIP_STAMINA_REMOVAL, false);
             }

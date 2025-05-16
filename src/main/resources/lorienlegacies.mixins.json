@@ -5,6 +5,7 @@
   "mixins": [
     "EntityMixin",
     "ExampleMixin",
+    "LivingEntityMixin",
     "PlayerEntityMixin",
     "ProjectileEntityMixin",
     "ServerPlayerEntityMixin"
