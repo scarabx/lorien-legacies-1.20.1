@@ -11,7 +11,9 @@ import net.minecraft.util.Formatting;
 import net.scarab.lorienlegacies.LorienLegaciesMod;
 import net.scarab.lorienlegacies.effect.ModEffects;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class LegacyBestowalHandler {
@@ -39,10 +41,10 @@ public class LegacyBestowalHandler {
             ModEffects.REGENERAS, 1
     );
 
-    private static final long LEGACY_COOLDOWN_TICKS = 100; // 5 minutes (20 ticks * 60s * 5m)
+    private static final long LEGACY_COOLDOWN_TICKS = 20 * 60 * 5; // 5 minutes
     private static final int TICKS_PER_SECOND = 20;
     private static final int THROTTLE_TICKS = TICKS_PER_SECOND * 10; // 10 seconds
-    private static final int MAX_STRESS = 20;
+    private static final int MAX_STRESS = 150;
 
     public static void stressManager(ServerPlayerEntity player) {
         UUID id = player.getUuid();
@@ -110,7 +112,7 @@ public class LegacyBestowalHandler {
         boolean onCooldown = lastLegacyTime.containsKey(id) &&
                 (time - lastLegacyTime.get(id) < LEGACY_COOLDOWN_TICKS);
 
-        if ((stress >= 10) && !onCooldown) {
+        if ((stress >= 100) && !onCooldown) {
             giveLegacy(player);
             stress = 0;
             lastLegacyTime.put(id, time);
@@ -156,8 +158,8 @@ public class LegacyBestowalHandler {
     }
 
     public static void giveLegacy(ServerPlayerEntity player) {
-        // 90% chance to "fail"
-        if (ThreadLocalRandom.current().nextDouble() >= 0.1) {
+        // ~67% chance for failure, 33% chance for success
+        if (ThreadLocalRandom.current().nextDouble() >= 0.33) {
             player.sendMessage(Text.literal("You felt a surge of power... but nothing happened."), false);
             return;
         }
@@ -166,7 +168,6 @@ public class LegacyBestowalHandler {
 
         if (!player.hasStatusEffect(randomEffect)) {
             player.addStatusEffect(new StatusEffectInstance(randomEffect, Integer.MAX_VALUE, 0, false, false, false));
-            // Removed color formatting here
             player.sendMessage(Text.literal("You have been bestowed upon the " + randomEffect.getName().getString() + " legacy!"), false);
         } else {
             player.sendMessage(Text.literal(player.getName().getString() + " already has been bestowed upon the " + randomEffect.getName().getString() + " legacy."), false);
@@ -203,26 +204,19 @@ public class LegacyBestowalHandler {
         playerStress.put(player.getUuid(), stress);
     }
 
+    public static long getCooldownLeft(ServerPlayerEntity player) {
+        long currentTime = player.getServerWorld().getTime();
+        long lastTime = getLastLegacyTime(player);
+        return Math.max(0, LEGACY_COOLDOWN_TICKS - (currentTime - lastTime));
+    }
+
     public static long getLastLegacyTime(ServerPlayerEntity player) {
         return lastLegacyTime.getOrDefault(player.getUuid(), 0L);
     }
 
-    public static void setLastLegacyTime(ServerPlayerEntity player, long time) {
-        lastLegacyTime.put(player.getUuid(), time);
+    public static void setLastLegacyTimeFromCooldown(ServerPlayerEntity player, long cooldownLeft) {
+        long currentTime = player.getServerWorld().getTime();
+        long adjustedTime = currentTime - (LEGACY_COOLDOWN_TICKS - cooldownLeft);
+        lastLegacyTime.put(player.getUuid(), adjustedTime);
     }
-
-    // Used for testing legacy bestowal weighting
-    /*public static void testLegacyWeightDistribution(int trials) {
-        Map<StatusEffect, Integer> counts = new HashMap<>();
-        for (int i = 0; i < trials; i++) {
-            StatusEffect chosen = getRandomLegacyWeighted();
-            counts.put(chosen, counts.getOrDefault(chosen, 0) + 1);
-        }
-
-        System.out.println("Legacy Weight Distribution after " + trials + " trials:");
-        for (Map.Entry<StatusEffect, Integer> entry : counts.entrySet()) {
-            double percentage = 100.0 * entry.getValue() / trials;
-            System.out.printf("%s: %d times (%.2f%%)%n", entry.getKey().getName().getString(), entry.getValue(), percentage);
-        }
-    }*/
 }

@@ -15,24 +15,24 @@ public abstract class ServerPlayerEntityMixin {
     private void onWriteCustomDataToNbt(NbtCompound nbt, CallbackInfo ci) {
         ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
 
-        // Save stress and legacy cooldown data
         int stress = LegacyBestowalHandler.getStress(player);
-        long lastLegacyTime = LegacyBestowalHandler.getLastLegacyTime(player);
+        long cooldownLeft = LegacyBestowalHandler.getCooldownLeft(player);
 
         nbt.putInt("lorien_stress", stress);
-        nbt.putLong("lorien_lastLegacyTime", lastLegacyTime);
+        nbt.putLong("lorien_legacyCooldownLeft", cooldownLeft);
     }
 
     @Inject(method = "readCustomDataFromNbt", at = @At("RETURN"))
     private void onReadCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci) {
         ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
 
-        // Load stress and legacy cooldown data
         if (nbt.contains("lorien_stress")) {
             LegacyBestowalHandler.setStress(player, nbt.getInt("lorien_stress"));
         }
-        if (nbt.contains("lorien_lastLegacyTime")) {
-            LegacyBestowalHandler.setLastLegacyTime(player, nbt.getLong("lorien_lastLegacyTime"));
+
+        if (nbt.contains("lorien_legacyCooldownLeft")) {
+            long cooldownLeft = nbt.getLong("lorien_legacyCooldownLeft");
+            LegacyBestowalHandler.setLastLegacyTimeFromCooldown(player, cooldownLeft);
         }
     }
 }

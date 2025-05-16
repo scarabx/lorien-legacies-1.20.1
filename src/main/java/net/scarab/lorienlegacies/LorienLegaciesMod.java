@@ -82,8 +82,5 @@ public class LorienLegaciesMod implements ModInitializer {
 		MorphHandler.registerMorphHandler();
 
 		LegacyBestowalHandler.registerLegacyBestowalHandler();
-
-		// Used for testing legacy bestowal weighting
-		//LegacyBestowalHandler.testLegacyWeightDistribution(1000);
 	}
 }
