@@ -30,6 +30,21 @@ public class RegenerasEffect extends StatusEffect {
                     false
             ));
         }
+
+        // Apply regeneration if health is low
+        if (!entity.getWorld().isClient() && entity.getHealth() <= 10) {
+            StatusEffectInstance regen = entity.getStatusEffect(StatusEffects.REGENERATION);
+            if (regen == null || regen.getAmplifier() < 4) {
+                entity.addStatusEffect(new StatusEffectInstance(
+                        StatusEffects.REGENERATION,
+                        100,
+                        4,
+                        false,
+                        false,
+                        false
+                ));
+            }
+        }
     }
 
     @Override

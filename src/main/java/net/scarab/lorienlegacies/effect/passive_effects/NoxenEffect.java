@@ -1,12 +1,11 @@
 package net.scarab.lorienlegacies.effect.passive_effects;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-
-import static net.scarab.lorienlegacies.effect.ModEffects.*;
 
 public class NoxenEffect extends StatusEffect {
 
@@ -31,26 +30,27 @@ public class NoxenEffect extends StatusEffect {
             ));
         }
 
-        applyNightVisionEffect(entity);
-
-        super.applyUpdateEffect(entity, amplifier);
-    }
-
-    public static void applyNightVisionEffect(LivingEntity entity) {
-
-        if (!entity.getWorld().isClient()
-                && entity.hasStatusEffect(NOXEN)
-                && entity.hasStatusEffect(TOGGLE_NOXEN)) {
-
-            entity.addStatusEffect(new StatusEffectInstance(
-                    StatusEffects.NIGHT_VISION,
-                    400,
-                    0,
-                    false,
-                    false,
-                    false
-            ));
+        // Apply or remove Night Vision based on time
+        if (!entity.getWorld().isClient()) {
+            if (entity.getWorld().isNight()) {
+                // Only reapply if not already active or about to expire
+                StatusEffectInstance nightVision = entity.getStatusEffect(StatusEffects.NIGHT_VISION);
+                if (nightVision == null || nightVision.getDuration() < 210) { // Less than 10.5s left
+                    entity.addStatusEffect(new StatusEffectInstance(
+                            StatusEffects.NIGHT_VISION,
+                            400,
+                            0,
+                            false,
+                            false,
+                            false
+                    ));
+                }
+            } else {
+                // Remove Night Vision when it's no longer night
+                entity.removeStatusEffect(StatusEffects.NIGHT_VISION);
+            }
         }
+        super.applyUpdateEffect(entity, amplifier);
     }
 
     @Override

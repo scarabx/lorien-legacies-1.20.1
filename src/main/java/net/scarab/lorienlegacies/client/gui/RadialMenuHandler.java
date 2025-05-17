@@ -55,21 +55,7 @@ public class RadialMenuHandler {
         packetPages.add(combatPackets);
         pageColors.add(0xFF0000); // Red
 
-        // Page 2 - Movement Abilities
-        pageNames.add("Movement");
-        List<String> movementOptions = List.of(
-                "Accelix",
-                "Avex"
-        );
-        List<Identifier> movementPackets = List.of(
-                LorienLegaciesModNetworking.TOGGLE_ACCELIX_PACKET,
-                LorienLegaciesModNetworking.TOGGLE_AVEX_PACKET
-        );
-        optionsPages.add(movementOptions);
-        packetPages.add(movementPackets);
-        pageColors.add(0xFFFF00); // Yellow
-
-        // Page 3 - Defense Abilities
+        // Page 2 - Defense Abilities
         pageNames.add("Defense");
         List<String> defenseOptions = List.of(
                 "Impenetrable Skin",
@@ -83,19 +69,15 @@ public class RadialMenuHandler {
         packetPages.add(defensePackets);
         pageColors.add(0xFF4682B4); // Steel Blue
 
-        // Page 4 - Utility Abilities
+        // Page 3 - Utility Abilities
         pageNames.add("Utility");
         List<String> utilityOptions = List.of(
                 "Freeze Water",
-                "Noxen",
-                "Novis",
-                "Regeneras"
+                "Novis"
         );
         List<Identifier> utilityPackets = List.of(
                 LorienLegaciesModNetworking.TOGGLE_FREEZE_WATER_PACKET,
-                LorienLegaciesModNetworking.TOGGLE_NOXEN_PACKET,
-                LorienLegaciesModNetworking.TOGGLE_NOVIS_PACKET,
-                LorienLegaciesModNetworking.TOGGLE_REGENERAS_PACKET
+                LorienLegaciesModNetworking.TOGGLE_NOVIS_PACKET
         );
         optionsPages.add(utilityOptions);
         packetPages.add(utilityPackets);

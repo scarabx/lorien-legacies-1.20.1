@@ -22,7 +22,7 @@ public class LorienLegacyEventHandler {
             if (!alive) {
                 // List of effects that should persist through death
                 List<StatusEffect> persistentEffects = List.of(
-                        ModEffects.ACCELIX, ModEffects.TOGGLE_ACCELIX,
+                        ModEffects.ACCELIX,
                         ModEffects.AVEX, ModEffects.TOGGLE_AVEX,
                         ModEffects.PONDUS, ModEffects.TOGGLE_IMPENETRABLE_SKIN,
                         ModEffects.TOGGLE_INTANGIBILITY,
@@ -33,7 +33,7 @@ public class LorienLegacyEventHandler {
                         ModEffects.LUMEN, ModEffects.TOGGLE_FLAMING_HANDS, ModEffects.TOGGLE_HUMAN_FIREBALL_AOE, ModEffects.TOGGLE_SHOOT_FIREBALL,
                         ModEffects.NOVIS, ModEffects.TOGGLE_NOVIS,
                         ModEffects.NOXEN, ModEffects.NOXEN,
-                        ModEffects.REGENERAS, ModEffects.TOGGLE_REGENERAS
+                        ModEffects.REGENERAS
                         // Add more effects as needed
                 );
 

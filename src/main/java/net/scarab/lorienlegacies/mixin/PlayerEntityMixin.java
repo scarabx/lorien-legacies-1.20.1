@@ -71,11 +71,14 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     // Simulate Avex fall flying without Elytra
     @Inject(method = "tick", at = @At("HEAD"))
     private void simulateFallFlyingWithoutElytra(CallbackInfo ci) {
-        PlayerEntity player = (PlayerEntity) (Object) this;
 
-        if (player.hasStatusEffect(ModEffects.AVEX) && player.hasStatusEffect(ModEffects.TOGGLE_AVEX)) {
+        PlayerEntity player = (PlayerEntity) (Object) this;
+        if (player.hasStatusEffect(ModEffects.AVEX)) {
             if (!player.isFallFlying()) {
-                player.startFallFlying();
+                // Detect jump: player not on ground but velocity.y > 0 (rising)
+                if (!player.isOnGround() && player.getVelocity().y > 0 && player.isSneaking()) {
+                    player.startFallFlying();
+                }
             }
         }
     }

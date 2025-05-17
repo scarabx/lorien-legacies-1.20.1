@@ -40,21 +40,13 @@ public class LorienLegaciesModNetworking {
 
     public static final Identifier TOGGLE_FREEZE_WATER_PACKET = new Identifier("lorienlegacies", "toggle_freeze_water");
 
-    public static final Identifier TOGGLE_REGENERAS_PACKET = new Identifier("lorienlegacies", "toggle_regeneras");
-
-    public static final Identifier TOGGLE_ACCELIX_PACKET = new Identifier("lorienlegacies", "toggle_accelix");
-
     public static final Identifier TOGGLE_FORTEM_PACKET = new Identifier("lorienlegacies", "toggle_fortem");
 
     public static final Identifier TOGGLE_NOVIS_PACKET = new Identifier("lorienlegacies", "toggle_novis");
 
-    public static final Identifier TOGGLE_NOXEN_PACKET = new Identifier("lorienlegacies", "toggle_noxen");
-
     public static final Identifier TOGGLE_IMPENETRABLE_SKIN_PACKET = new Identifier("lorienlegacies", "toggle_impenetrable_skin");
 
     public static final Identifier TOGGLE_INTANGIBILITY_PACKET = new Identifier("lorienlegacies", "toggle_intangibility");
-
-    public static final Identifier TOGGLE_AVEX_PACKET = new Identifier("lorienlegacies", "toggle_avex");
 
     public static final Identifier START_AVEX_FLIGHT_PACKET = new Identifier("lorienlegacies", "start_avex_flight");
 
@@ -189,22 +181,6 @@ public class LorienLegaciesModNetworking {
             });
         });
 
-        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_ACCELIX_PACKET, (server, player, handler, buf, responseSender) -> {
-            server.execute(() -> {
-                if (player.hasStatusEffect(ACCELIX)) {
-                    ToggleAccelixEffect.toggleAccelix(player);
-                }
-            });
-        });
-
-        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_REGENERAS_PACKET, (server, player, handler, buf, responseSender) -> {
-            server.execute(() -> {
-                if (player.hasStatusEffect(REGENERAS)) {
-                    ToggleRegenerasEffect.toggleRegeneras(player);
-                }
-            });
-        });
-
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_FORTEM_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 if (player.hasStatusEffect(FORTEM)) {
@@ -217,14 +193,6 @@ public class LorienLegaciesModNetworking {
             server.execute(() -> {
                 if (player.hasStatusEffect(NOVIS)) {
                     ToggleNovisEffect.toggleNovis(player);
-                }
-            });
-        });
-
-        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_NOXEN_PACKET, (server, player, handler, buf, responseSender) -> {
-            server.execute(() -> {
-                if (player.hasStatusEffect(NOXEN)) {
-                    ToggleNoxenEffect.toggleNoxen(player);
                 }
             });
         });
@@ -244,17 +212,9 @@ public class LorienLegaciesModNetworking {
             });
         });
 
-        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_AVEX_PACKET, (server, player, handler, buf, responseSender) -> {
-            server.execute(() -> {
-                if (player.hasStatusEffect(AVEX)) {
-                    ToggleAvexEffect.toggleAvex(player);
-                }
-            });
-        });
-
         ServerPlayNetworking.registerGlobalReceiver(START_AVEX_FLIGHT_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(AVEX) && player.hasStatusEffect(TOGGLE_AVEX)) {
+                if (player.hasStatusEffect(AVEX)) {
                     player.startFallFlying();
                 }
             });

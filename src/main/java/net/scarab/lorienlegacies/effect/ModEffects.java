@@ -56,17 +56,8 @@ public class ModEffects {
     public static final StatusEffect NOVIS = registerStatusEffect("novis",
             new NovisEffect(StatusEffectCategory.BENEFICIAL, 0x55FFFF/*Light Blue*/));
 
-    public static final StatusEffect TOGGLE_REGENERAS = registerStatusEffect("toggle_regeneras",
-            new ToggleRegenerasEffect(StatusEffectCategory.BENEFICIAL, 0xFFC0CB/*Pink*/));
-
     public static final StatusEffect TOGGLE_FORTEM = registerStatusEffect("toggle_fortem",
             new ToggleFortemEffect(StatusEffectCategory.BENEFICIAL, 0xFF0000/*Red*/));
-
-    public static final StatusEffect TOGGLE_ACCELIX = registerStatusEffect("toggle_accelix",
-            new ToggleAccelixEffect(StatusEffectCategory.BENEFICIAL, 0xFFFF00/*Yellow*/));
-
-    public static final StatusEffect TOGGLE_NOXEN = registerStatusEffect("toggle_noxen",
-            new ToggleNoxenEffect(StatusEffectCategory.BENEFICIAL, 0x00FF00/*Green*/));
 
     public static final StatusEffect TOGGLE_NOVIS = registerStatusEffect("toggle_novis",
             new NovisEffect(StatusEffectCategory.BENEFICIAL, 0x55FFFF/*Light Blue*/));
