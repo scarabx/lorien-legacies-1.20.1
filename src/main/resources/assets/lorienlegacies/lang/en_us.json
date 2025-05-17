@@ -6,8 +6,6 @@
 
   "item.lorienlegacies.leather_sleeve": "Leather Sleeve",
 
-  "item.lorienlegacies.chimaera_staff": "Chimaera Staff",
-
   "item.lorienlegacies.iceball": "Iceball",
 
   "item.lorienlegacies.lorien_book": "Lorien Book",
@@ -71,6 +69,10 @@
   "effect.lorienlegacies.toggle_telekinesis_pull": "Toggle Telekinesis Pull",
 
   "effect.lorienlegacies.toggle_telekinesis_move": "Toggle telekinesis Move",
+
+  "effect.lorienlegacies.stamina": "Stamina",
+
+  "effect.lorienlegacies.tired": "Tired",
 
   "effect.lorienlegacies.axolotl_follow": "Axolotl Follow",
 
