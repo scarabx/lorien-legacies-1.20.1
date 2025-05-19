@@ -84,7 +84,7 @@ public class LumenEffect extends StatusEffect {
         }
 
         // Toggle the AOE fire effect (enable or disable)
-        public static void humanFireball (LivingEntity entity){
+        public static void humanFireball (LivingEntity entity) {
 
             if (!entity.getWorld().isClient() && entity instanceof ServerPlayerEntity) {
                 ServerPlayerEntity player = (ServerPlayerEntity) entity;
@@ -146,7 +146,8 @@ public class LumenEffect extends StatusEffect {
 
             if (!user.getWorld().isClient()
                     && user.hasStatusEffect(ModEffects.LUMEN)
-                    && user.hasStatusEffect(TOGGLE_FLAMING_HANDS)) {
+                    && user.hasStatusEffect(TOGGLE_FLAMING_HANDS)
+                    && !user.hasStatusEffect(TIRED)) {
 
                 target.setOnFireFor(20);
             }

@@ -5,6 +5,8 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.scarab.lorienlegacies.effect.ModEffects;
+import net.scarab.lorienlegacies.util.ModDataTrackers;
 
 import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_FLAMING_HANDS;
 
@@ -35,6 +37,11 @@ public class ToggleFlamingHandsEffect extends StatusEffect {
     public static void toggleFlamingHands(ServerPlayerEntity player) {
 
         if (player.hasStatusEffect(TOGGLE_FLAMING_HANDS)) {
+            // Mark that the next stamina removal should not cause TIRED
+            if (player.hasStatusEffect(ModEffects.STAMINA)) {
+                player.getDataTracker().set(ModDataTrackers.SKIP_STAMINA_REMOVAL, true);
+            }
+            // Remove the toggle only
             player.removeStatusEffect(TOGGLE_FLAMING_HANDS);
         } else {
             // Apply the status effect invisibly: no ambient, no particles, no icon

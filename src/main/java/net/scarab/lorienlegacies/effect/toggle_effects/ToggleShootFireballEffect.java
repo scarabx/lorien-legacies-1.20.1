@@ -8,8 +8,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.scarab.lorienlegacies.effect.ModEffects;
 import net.scarab.lorienlegacies.util.ModDataTrackers;
 
-import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_SHOOT_FIREBALL;
-
 public class ToggleShootFireballEffect extends StatusEffect {
 
     public ToggleShootFireballEffect(StatusEffectCategory category, int color) {
@@ -31,12 +29,12 @@ public class ToggleShootFireballEffect extends StatusEffect {
     }
 
     public static void toggleShootFireball(ServerPlayerEntity player) {
+
         if (player.hasStatusEffect(ModEffects.TOGGLE_SHOOT_FIREBALL)) {
             // Mark that the next stamina removal should not cause TIRED
             if (player.hasStatusEffect(ModEffects.STAMINA)) {
                 player.getDataTracker().set(ModDataTrackers.SKIP_STAMINA_REMOVAL, true);
             }
-
             // Remove the toggle only
             player.removeStatusEffect(ModEffects.TOGGLE_SHOOT_FIREBALL);
         } else {
@@ -44,7 +42,9 @@ public class ToggleShootFireballEffect extends StatusEffect {
                     ModEffects.TOGGLE_SHOOT_FIREBALL,
                     Integer.MAX_VALUE,
                     0,
-                    false, false, false
+                    false,
+                    false,
+                    false
             ));
         }
     }
