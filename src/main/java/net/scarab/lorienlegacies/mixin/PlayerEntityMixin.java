@@ -43,7 +43,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     private void injectFortemStrength(Entity target, CallbackInfo ci) {
         PlayerEntity player = (PlayerEntity)(Object)this;
 
-        if (/*target instanceof LivingEntity &&*/ target instanceof Monster || target instanceof IronGolemEntity && player.hasStatusEffect(ModEffects.FORTEM) /*&& player.hasStatusEffect(ModEffects.TOGGLE_FORTEM)*/) {
+        if (/*target instanceof LivingEntity &&*/ (target instanceof Monster || target instanceof IronGolemEntity) && player.hasStatusEffect(ModEffects.FORTEM) /*&& player.hasStatusEffect(ModEffects.TOGGLE_FORTEM)*/) {
             player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 20, 4, false, false, false));
         }
     }

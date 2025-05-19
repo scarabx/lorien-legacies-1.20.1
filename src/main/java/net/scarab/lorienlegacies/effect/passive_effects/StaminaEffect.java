@@ -17,12 +17,7 @@ public class StaminaEffect extends StatusEffect {
 
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-
-        if (entity instanceof PlayerEntity player) {
-            if (player.getDataTracker().get(ModDataTrackers.SKIP_STAMINA_REMOVAL)) {
-                player.getDataTracker().set(ModDataTrackers.SKIP_STAMINA_REMOVAL, false);
-            }
-        }
+        // Removed reset of SKIP_STAMINA_REMOVAL here to prevent premature clearing
 
         StatusEffectInstance current = entity.getStatusEffect(this);
         if (current != null && (current.shouldShowParticles() || current.shouldShowIcon())) {
@@ -46,11 +41,11 @@ public class StaminaEffect extends StatusEffect {
     public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
         if (entity instanceof PlayerEntity player) {
             boolean skip = player.getDataTracker().get(ModDataTrackers.SKIP_STAMINA_REMOVAL);
-            if (!skip) {
+            if (!skip /* && player.hasStatusEffect(ModEffects.TOGGLE_SHOOT_FIREBALL) */) {
                 player.addStatusEffect(new StatusEffectInstance(ModEffects.TIRED, 200, 0, false, false));
-            } else {
-                player.getDataTracker().set(ModDataTrackers.SKIP_STAMINA_REMOVAL, false);
             }
+            // Reset the skip flag only here, after checking
+            player.getDataTracker().set(ModDataTrackers.SKIP_STAMINA_REMOVAL, false);
         }
         super.onRemoved(entity, attributes, amplifier);
     }
