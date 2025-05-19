@@ -50,6 +50,8 @@ public class LorienLegaciesModNetworking {
 
     public static final Identifier START_AVEX_FLIGHT_PACKET = new Identifier("lorienlegacies", "start_avex_flight");
 
+    public static final Identifier INTANGIFLY_PACKET = new Identifier("lorienlegacies", "intangifly");
+
     public static final Identifier TELEKINESIS_PUSH_PACKET = new Identifier("lorienlegacies", "telekinesis_push");
 
     public static final Identifier TELEKINESIS_PULL_PACKET = new Identifier("lorienlegacies", "telekinesis_pull");
@@ -208,6 +210,14 @@ public class LorienLegaciesModNetworking {
             server.execute(() -> {
                 if (player.hasStatusEffect(PONDUS)) {
                     PondusEffect.applyIntangibility(player);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(INTANGIFLY_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(AVEX)) {
+                    IntangiFlyEffect.toggleIntangiFly(player);
                 }
             });
         });

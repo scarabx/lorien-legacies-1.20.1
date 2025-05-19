@@ -6,11 +6,11 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_AVEX;
+import static net.scarab.lorienlegacies.effect.ModEffects.INTANGIFLY;
 
-public class ToggleAvexEffect extends StatusEffect {
+public class IntangiFlyEffect extends StatusEffect {
 
-    public ToggleAvexEffect(StatusEffectCategory category, int color) {
+    public IntangiFlyEffect(StatusEffectCategory category, int color) {
         super(category, color);
     }
 
@@ -30,12 +30,12 @@ public class ToggleAvexEffect extends StatusEffect {
         }
     }
 
-    public static void toggleAvex(ServerPlayerEntity player) {
-        if (player.hasStatusEffect(TOGGLE_AVEX)) {
-            player.removeStatusEffect(TOGGLE_AVEX);
+    public static void toggleIntangiFly(ServerPlayerEntity player) {
+        if (player.hasStatusEffect(INTANGIFLY)) {
+            player.removeStatusEffect(INTANGIFLY);
         } else {
             player.addStatusEffect(new StatusEffectInstance(
-                    TOGGLE_AVEX,
+                    INTANGIFLY,
                     Integer.MAX_VALUE,
                     0,
                     false,

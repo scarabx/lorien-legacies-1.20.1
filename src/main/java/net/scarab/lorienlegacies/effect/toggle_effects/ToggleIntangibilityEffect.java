@@ -39,7 +39,7 @@ public class ToggleIntangibilityEffect extends StatusEffect {
         player.noClip = true;
 
         boolean insideBlock = player.getWorld().getBlockCollisions(player, player.getBoundingBox()).iterator().hasNext();
-        boolean hasAvex = player.hasStatusEffect(ModEffects.TOGGLE_AVEX);
+        boolean hasAvex = player.hasStatusEffect(ModEffects.INTANGIFLY);
 
         if (hasAvex) {
             // If Avex is also active, disable creative flying
@@ -78,7 +78,7 @@ public class ToggleIntangibilityEffect extends StatusEffect {
             player.noClip = false;
 
             // Only remove creative flight if Avex isn’t active
-            if (!player.hasStatusEffect(ModEffects.TOGGLE_AVEX)) {
+            if (!player.hasStatusEffect(ModEffects.INTANGIFLY)) {
                 player.getAbilities().flying = false;
                 player.getAbilities().allowFlying = false;
             }

@@ -74,8 +74,8 @@ public class ModEffects {
     public static final StatusEffect AVEX = registerStatusEffect("avex",
             new AvexEffect(StatusEffectCategory.BENEFICIAL, 0x87CEEB/*Sky Blue*/));
 
-    public static final StatusEffect TOGGLE_AVEX = registerStatusEffect("toggle_avex",
-            new ToggleAvexEffect(StatusEffectCategory.BENEFICIAL, 0x87CEEB/*Sky Blue*/));
+    public static final StatusEffect INTANGIFLY = registerStatusEffect("intangifly",
+            new IntangiFlyEffect(StatusEffectCategory.BENEFICIAL, 0x87CEEB/*Sky Blue*/));
 
     public static final StatusEffect TELEKINESIS = registerStatusEffect("telekinesis",
             new TelekinesisEffect(StatusEffectCategory.BENEFICIAL, 0x9b4f96/*Purple*/));

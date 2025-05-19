@@ -55,6 +55,18 @@ public class RadialMenuHandler {
         packetPages.add(combatPackets);
         pageColors.add(0xFF0000); // Red
 
+        // Page 1 - Movement Abilities
+        pageNames.add("Movement");
+        List<String> movementOptions = List.of(
+                "Intangifly"
+        );
+        List<Identifier> movementPackets = List.of(
+                LorienLegaciesModNetworking.INTANGIFLY_PACKET
+        );
+        optionsPages.add(movementOptions);
+        packetPages.add(movementPackets);
+        pageColors.add(0xFF0000); // Red
+
         // Page 2 - Defense Abilities
         pageNames.add("Defense");
         List<String> defenseOptions = List.of(
