@@ -36,7 +36,7 @@ public class TiredEffect extends StatusEffect {
 
     @Override
     public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
-        if (entity instanceof PlayerEntity player /*&& player.hasStatusEffect(ModEffects.TOGGLE_SHOOT_FIREBALL)*/) {
+        if (entity instanceof PlayerEntity player && player.getHealth() <= 5) {
             player.addStatusEffect(new StatusEffectInstance(ModEffects.STAMINA, 200, 0, false, false));
         }
         super.onRemoved(entity, attributes, amplifier);

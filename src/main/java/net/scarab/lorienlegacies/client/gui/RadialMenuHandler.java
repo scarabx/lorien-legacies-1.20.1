@@ -217,4 +217,9 @@ public class RadialMenuHandler {
             }
         }
     }
+
+    public static void setToggledOptions(Set<Identifier> newToggles) {
+        toggledOptions.clear();
+        toggledOptions.addAll(newToggles);
+    }
 }

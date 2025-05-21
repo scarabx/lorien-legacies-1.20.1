@@ -20,6 +20,7 @@ public class LegacyBestowalHandler {
 
     private static final Map<UUID, Integer> playerStress = new HashMap<>();
     private static final Map<UUID, Long> lastLowHealthTime = new HashMap<>();
+    private static final Map<UUID, Long> lastHungerTime = new HashMap<>();
     private static final Map<UUID, Long> lastMultiThreatTime = new HashMap<>();
     private static final Map<UUID, Long> lastFullHealthTime = new HashMap<>();
     private static final Map<UUID, Long> lastRestingTime = new HashMap<>();
@@ -55,6 +56,12 @@ public class LegacyBestowalHandler {
             lastLowHealthTime.put(id, time);
         }
 
+        if (player.getHungerManager().getFoodLevel() <= 6 &&
+                time - lastHungerTime.getOrDefault(id, 0L) > THROTTLE_TICKS) {
+            stress += 3;
+            lastHungerTime.put(id, time);
+        }
+
         if ((player.hasStatusEffect(StatusEffects.POISON) || player.isOnFire() || (player.isSubmergedInWater() && player.getAir() <= 0)) &&
                 time - lastMultiThreatTime.getOrDefault(id, 0L) > THROTTLE_TICKS) {
             stress += 3;
@@ -84,7 +91,9 @@ public class LegacyBestowalHandler {
                 && !player.isOnFire()
                 && !player.isSubmergedInWater()
                 && player.getAir() >= player.getMaxAir()
-                && player.getAttacker() == null &&
+                && player.getAttacker() == null
+                && !(player.getHealth() <= 2)
+                && !(player.getHungerManager().getFoodLevel() <= 6) &&
                 time - lastRestingTime.getOrDefault(id, 0L) > THROTTLE_TICKS) {
             stress -= 1;
             lastRestingTime.put(id, time);
@@ -133,7 +142,38 @@ public class LegacyBestowalHandler {
             cooldownText = Text.literal(" | Legacy Cooldown: " + timeString).formatted(cooldownColor);
         }
 
-        Text combinedText = Text.empty().append(stressText).append(cooldownText);
+        Text staminaText = Text.empty();
+
+        StatusEffectInstance staminaEffect = player.getStatusEffect(ModEffects.STAMINA);
+        StatusEffectInstance tiredEffect = player.getStatusEffect(ModEffects.TIRED);
+
+        if (staminaEffect != null) {
+            int ticksLeft = staminaEffect.getDuration();
+            int totalSeconds = ticksLeft / TICKS_PER_SECOND;
+            int minutes = totalSeconds / 60;
+            int seconds = totalSeconds % 60;
+            String timeString = minutes > 0
+                    ? String.format("%dm %02ds", minutes, seconds)
+                    : String.format("%ds", seconds);
+
+            staminaText = Text.literal(" | Stamina: " + timeString).formatted(Formatting.YELLOW);
+        } else if (tiredEffect != null) {
+            int ticksLeft = tiredEffect.getDuration();
+            int totalSeconds = ticksLeft / TICKS_PER_SECOND;
+            int minutes = totalSeconds / 60;
+            int seconds = totalSeconds % 60;
+            String timeString = minutes > 0
+                    ? String.format("%dm %02ds", minutes, seconds)
+                    : String.format("%ds", seconds);
+
+            staminaText = Text.literal(" | Tired: " + timeString).formatted(Formatting.RED);
+        }
+
+        Text combinedText = Text.empty()
+                .append(stressText)
+                .append(cooldownText)
+                .append(staminaText);
+
         player.sendMessage(combinedText, true);
     }
 
@@ -157,6 +197,8 @@ public class LegacyBestowalHandler {
             player.addStatusEffect(new StatusEffectInstance(randomEffect, Integer.MAX_VALUE, 0, false, false, false));
             player.addStatusEffect(new StatusEffectInstance(ModEffects.LEGACY_COOLDOWN, LEGACY_COOLDOWN_TICKS, 0, false, false, false));
             player.sendMessage(Text.literal("You have been bestowed upon the " + randomEffect.getName().getString() + " legacy!"), false);
+            // Add the milk warning message in red color
+            player.sendMessage(Text.literal("NEVER DRINK MILK OR YOU WILL LOSE YOUR LEGACY").formatted(Formatting.RED), false);
         } else {
             player.sendMessage(Text.literal(player.getName().getString() + " already has been bestowed upon the " + randomEffect.getName().getString() + " legacy."), false);
         }
