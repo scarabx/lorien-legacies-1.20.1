@@ -12,6 +12,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.scarab.lorienlegacies.effect.ModEffects;
 
 import java.util.Optional;
 
@@ -52,7 +53,8 @@ public class SturmaEffect extends StatusEffect {
 
         if (!player.getWorld().isClient()
                 && player.hasStatusEffect(STURMA)
-                && player.hasStatusEffect(TOGGLE_CONJURE_RAIN)) {
+                && player.hasStatusEffect(TOGGLE_CONJURE_RAIN)
+                && !player.hasStatusEffect(TIRED)) {
 
             if (!player.getWorld().isClient() && !player.getWorld().isRaining() && !player.getWorld().isThundering()) {
                 serverWorld.setWeather(0, 1200, true, false);
@@ -64,7 +66,8 @@ public class SturmaEffect extends StatusEffect {
 
         if (!player.getWorld().isClient()
                 && player.hasStatusEffect(STURMA)
-                && player.hasStatusEffect(TOGGLE_CONJURE_THUNDER)) {
+                && player.hasStatusEffect(TOGGLE_CONJURE_THUNDER)
+                && !player.hasStatusEffect(TIRED)) {
 
             if (!player.getWorld().isClient() && player.getWorld().isRaining() && !player.getWorld().isThundering()) {
                 serverWorld.setWeather(0, 3600, true, true);
@@ -76,7 +79,8 @@ public class SturmaEffect extends StatusEffect {
 
         if (!player.getWorld().isClient()
                 && player.hasStatusEffect(STURMA)
-                && player.hasStatusEffect(TOGGLE_CONJURE_CLEAR_WEATHER)) {
+                && player.hasStatusEffect(TOGGLE_CONJURE_CLEAR_WEATHER)
+                && !player.hasStatusEffect(TIRED)) {
 
             if (!player.getWorld().isClient() && player.getWorld().isRaining() && player.getWorld().isThundering()) {
                 serverWorld.setWeather(24000, 0, false, false);
@@ -88,7 +92,8 @@ public class SturmaEffect extends StatusEffect {
 
         if (!player.getWorld().isClient()
                 && player.hasStatusEffect(STURMA)
-                && player.hasStatusEffect(TOGGLE_LIGHTNING_STRIKE)) {
+                && player.hasStatusEffect(TOGGLE_LIGHTNING_STRIKE)
+                && !player.hasStatusEffect(TIRED)) {
 
             double maxDistance = 10.0;
             Vec3d eyePos = player.getCameraPosVec(1.0F);

@@ -49,7 +49,8 @@ public class GlacenEffect extends StatusEffect {
         }
 
         if (entity instanceof ServerPlayerEntity player) {
-            if (player.hasStatusEffect(TOGGLE_FREEZE_WATER))
+            if (player.hasStatusEffect(TOGGLE_FREEZE_WATER)
+                    && !player.hasStatusEffect(TIRED))
                 freezeWater(player);
         }
         super.applyUpdateEffect(entity, amplifier);
@@ -65,7 +66,8 @@ public class GlacenEffect extends StatusEffect {
 
         if (!entity.getWorld().isClient()
                 && entity.hasStatusEffect(ModEffects.GLACEN)
-                && entity.hasStatusEffect(TOGGLE_SHOOT_ICEBALL)) {
+                && entity.hasStatusEffect(TOGGLE_SHOOT_ICEBALL)
+                && !entity.hasStatusEffect(TIRED)) {
 
             if (!entity.getWorld().isClient() && entity instanceof ServerPlayerEntity) {
                 ServerWorld world = (ServerWorld) entity.getWorld();
@@ -83,7 +85,8 @@ public class GlacenEffect extends StatusEffect {
 
         if (!user.getWorld().isClient()
                 && user.hasStatusEffect(ModEffects.GLACEN)
-                && user.hasStatusEffect(TOGGLE_ICICLES)) {
+                && user.hasStatusEffect(TOGGLE_ICICLES)
+                && !user.hasStatusEffect(TIRED)) {
 
             World world = user.getWorld();
 
@@ -103,7 +106,8 @@ public class GlacenEffect extends StatusEffect {
 
         if (!user.getWorld().isClient()
                 && user.hasStatusEffect(GLACEN)
-                && user.hasStatusEffect(TOGGLE_ICE_HANDS)) {
+                && user.hasStatusEffect(TOGGLE_ICE_HANDS)
+                && !user.hasStatusEffect(TIRED)) {
 
             if (target instanceof LivingEntity livingEntity) {
                 livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 4, false, false, false));

@@ -10,6 +10,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
+import net.scarab.lorienlegacies.effect.ModEffects;
 import net.scarab.lorienlegacies.network.LorienLegaciesModNetworking;
 
 public class AvexEffect extends StatusEffect {
@@ -39,30 +40,32 @@ public class AvexEffect extends StatusEffect {
 
         if (!(entity instanceof PlayerEntity player)) return;
         if (!player.getWorld().isClient) return;
+        if (!player.hasStatusEffect(ModEffects.TIRED)) {
 
-        // Start flying if not already and the player is in the air (jumped and not on ground or flying)
-        if (!player.isFallFlying() && !player.isOnGround() && player.getVelocity().y > 0 && player.isSneaking()) {
-            ClientPlayNetworking.send(
-                    LorienLegaciesModNetworking.START_AVEX_FLIGHT_PACKET,
-                    PacketByteBufs.empty()
-            );
-        }
-
-        // Apply forward motion while flying
-        if (player.isFallFlying()) {
-            Vec3d look = player.getRotationVec(1.0F);
-            Vec3d boosted = player.getVelocity().add(look.multiply(0.05));
-
-            double maxSpeed = 1.5;
-            if (boosted.length() > maxSpeed) {
-                boosted = boosted.normalize().multiply(maxSpeed);
+            // Start flying if not already and the player is in the air (jumped and not on ground or flying)
+            if (!player.isFallFlying() && !player.isOnGround() && player.getVelocity().y > 0 && player.isSneaking()) {
+                ClientPlayNetworking.send(
+                        LorienLegaciesModNetworking.START_AVEX_FLIGHT_PACKET,
+                        PacketByteBufs.empty()
+                );
             }
 
-            player.setVelocity(boosted);
+            // Apply forward motion while flying
+            if (player.isFallFlying()) {
+                Vec3d look = player.getRotationVec(1.0F);
+                Vec3d boosted = player.getVelocity().add(look.multiply(0.05));
 
-            // Optional: stop flight gently when landing
-            if (player.isOnGround()) {
-                player.stopFallFlying();
+                double maxSpeed = 1.5;
+                if (boosted.length() > maxSpeed) {
+                    boosted = boosted.normalize().multiply(maxSpeed);
+                }
+
+                player.setVelocity(boosted);
+
+                // Optional: stop flight gently when landing
+                if (player.isOnGround()) {
+                    player.stopFallFlying();
+                }
             }
         }
     }

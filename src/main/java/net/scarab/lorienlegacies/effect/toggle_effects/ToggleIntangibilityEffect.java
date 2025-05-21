@@ -11,6 +11,9 @@ import net.scarab.lorienlegacies.effect.ModEffects;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+import static net.scarab.lorienlegacies.effect.ModEffects.TIRED;
+import static net.scarab.lorienlegacies.effect.active_effects.PondusEffect.applyIntangibility;
+
 public class ToggleIntangibilityEffect extends StatusEffect {
 
     private static final Map<PlayerEntity, Integer> flightGrace = new WeakHashMap<>();
@@ -32,7 +35,9 @@ public class ToggleIntangibilityEffect extends StatusEffect {
         }
 
         // Apply intangibility behavior
-        applyIntangibility(player);
+        if (!player.hasStatusEffect(TIRED)) {
+            applyIntangibility(player);
+        }
     }
 
     private void applyIntangibility(PlayerEntity player) {

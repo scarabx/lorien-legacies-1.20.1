@@ -50,13 +50,13 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     private void cancelDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         PlayerEntity player = (PlayerEntity) (Object) this;
 
-        if (player.hasStatusEffect(ModEffects.PONDUS) && player.hasStatusEffect(ModEffects.TOGGLE_INTANGIBILITY)) {
+        if (player.hasStatusEffect(ModEffects.PONDUS) && player.hasStatusEffect(ModEffects.TOGGLE_INTANGIBILITY) && !player.hasStatusEffect(ModEffects.TIRED)) {
             if (source.isOf(DamageTypes.GENERIC_KILL)) return;
             cir.setReturnValue(false);
             return;
         }
 
-        if (player.hasStatusEffect(ModEffects.PONDUS) && player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN)) {
+        if (player.hasStatusEffect(ModEffects.PONDUS) && player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !player.hasStatusEffect(ModEffects.TIRED)) {
             boolean allowed = source.isOf(DamageTypes.OUT_OF_WORLD)
                     || source.isOf(DamageTypes.STARVE)
                     || source.isOf(DamageTypes.GENERIC_KILL)
