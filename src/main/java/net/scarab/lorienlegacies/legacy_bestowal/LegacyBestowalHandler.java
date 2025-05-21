@@ -19,8 +19,6 @@ import java.util.concurrent.ThreadLocalRandom;
 public class LegacyBestowalHandler {
 
     private static final Map<UUID, Integer> playerStress = new HashMap<>();
-    private static final Map<UUID, Long> lastLegacyTime = new HashMap<>();
-
     private static final Map<UUID, Long> lastLowHealthTime = new HashMap<>();
     private static final Map<UUID, Long> lastMultiThreatTime = new HashMap<>();
     private static final Map<UUID, Long> lastFullHealthTime = new HashMap<>();
@@ -41,10 +39,10 @@ public class LegacyBestowalHandler {
             ModEffects.REGENERAS, 1
     );
 
-    private static final long LEGACY_COOLDOWN_TICKS = 20 * 60 * 5; // 5 minutes
     private static final int TICKS_PER_SECOND = 20;
     private static final int THROTTLE_TICKS = TICKS_PER_SECOND * 10; // 10 seconds
     private static final int MAX_STRESS = 150;
+    private static final int LEGACY_COOLDOWN_TICKS = 20 * 60 * 5; // 5 minutes
 
     public static void stressManager(ServerPlayerEntity player) {
         UUID id = player.getUuid();
@@ -105,17 +103,13 @@ public class LegacyBestowalHandler {
         }
 
         if (stress < 0) stress = 0;
-        if (stress >= MAX_STRESS) {
-            stress = 0;
-        }
+        if (stress >= MAX_STRESS) stress = 0;
 
-        boolean onCooldown = lastLegacyTime.containsKey(id) &&
-                (time - lastLegacyTime.get(id) < LEGACY_COOLDOWN_TICKS);
+        boolean onCooldown = player.hasStatusEffect(ModEffects.LEGACY_COOLDOWN);
 
         if ((stress >= 100) && !onCooldown) {
             giveLegacy(player);
             stress = 0;
-            lastLegacyTime.put(id, time);
         }
 
         playerStress.put(id, stress);
@@ -123,29 +117,23 @@ public class LegacyBestowalHandler {
         Text stressText = Text.literal("Stress: " + stress)
                 .formatted(stress >= 100 ? Formatting.RED : stress >= 60 ? Formatting.GOLD : Formatting.GREEN);
 
-        Text cooldownText = Text.literal("");
-        if (lastLegacyTime.containsKey(id)) {
-            long timePassed = time - lastLegacyTime.get(id);
-            long cooldownLeft = LEGACY_COOLDOWN_TICKS - timePassed;
-            if (cooldownLeft > 0) {
-                int totalSeconds = (int) (cooldownLeft / TICKS_PER_SECOND);
-                int minutes = totalSeconds / 60;
-                int seconds = totalSeconds % 60;
-                double ratio = (double) cooldownLeft / LEGACY_COOLDOWN_TICKS;
+        Text cooldownText = Text.empty();
+        if (onCooldown) {
+            int ticksLeft = player.getStatusEffect(ModEffects.LEGACY_COOLDOWN).getDuration();
+            int totalSeconds = ticksLeft / TICKS_PER_SECOND;
+            int minutes = totalSeconds / 60;
+            int seconds = totalSeconds % 60;
+            double ratio = (double) ticksLeft / LEGACY_COOLDOWN_TICKS;
+            Formatting cooldownColor = ratio <= 0.2 ? Formatting.GREEN : ratio <= 0.6 ? Formatting.GOLD : Formatting.RED;
 
-                Formatting cooldownColor = ratio <= 0.2 ? Formatting.GREEN : ratio <= 0.6 ? Formatting.GOLD : Formatting.RED;
-                String timeString = minutes > 0
-                        ? String.format("%dm %02ds", minutes, seconds)
-                        : String.format("%ds", seconds);
+            String timeString = minutes > 0
+                    ? String.format("%dm %02ds", minutes, seconds)
+                    : String.format("%ds", seconds);
 
-                cooldownText = Text.literal(" | Legacy Cooldown: " + timeString).formatted(cooldownColor);
-            }
+            cooldownText = Text.literal(" | Legacy Cooldown: " + timeString).formatted(cooldownColor);
         }
 
-        Text combinedText = Text.empty()
-                .append(stressText)
-                .append(cooldownText);
-
+        Text combinedText = Text.empty().append(stressText).append(cooldownText);
         player.sendMessage(combinedText, true);
     }
 
@@ -158,7 +146,6 @@ public class LegacyBestowalHandler {
     }
 
     public static void giveLegacy(ServerPlayerEntity player) {
-        // ~67% chance for failure, 33% chance for success
         if (ThreadLocalRandom.current().nextDouble() >= 0.33) {
             player.sendMessage(Text.literal("You felt a surge of power... but nothing happened."), false);
             return;
@@ -168,6 +155,7 @@ public class LegacyBestowalHandler {
 
         if (!player.hasStatusEffect(randomEffect)) {
             player.addStatusEffect(new StatusEffectInstance(randomEffect, Integer.MAX_VALUE, 0, false, false, false));
+            player.addStatusEffect(new StatusEffectInstance(ModEffects.LEGACY_COOLDOWN, LEGACY_COOLDOWN_TICKS, 0, false, false, false));
             player.sendMessage(Text.literal("You have been bestowed upon the " + randomEffect.getName().getString() + " legacy!"), false);
         } else {
             player.sendMessage(Text.literal(player.getName().getString() + " already has been bestowed upon the " + randomEffect.getName().getString() + " legacy."), false);
@@ -202,21 +190,5 @@ public class LegacyBestowalHandler {
 
     public static void setStress(ServerPlayerEntity player, int stress) {
         playerStress.put(player.getUuid(), stress);
-    }
-
-    public static long getCooldownLeft(ServerPlayerEntity player) {
-        long currentTime = player.getServerWorld().getTime();
-        long lastTime = getLastLegacyTime(player);
-        return Math.max(0, LEGACY_COOLDOWN_TICKS - (currentTime - lastTime));
-    }
-
-    public static long getLastLegacyTime(ServerPlayerEntity player) {
-        return lastLegacyTime.getOrDefault(player.getUuid(), 0L);
-    }
-
-    public static void setLastLegacyTimeFromCooldown(ServerPlayerEntity player, long cooldownLeft) {
-        long currentTime = player.getServerWorld().getTime();
-        long adjustedTime = currentTime - (LEGACY_COOLDOWN_TICKS - cooldownLeft);
-        lastLegacyTime.put(player.getUuid(), adjustedTime);
     }
 }

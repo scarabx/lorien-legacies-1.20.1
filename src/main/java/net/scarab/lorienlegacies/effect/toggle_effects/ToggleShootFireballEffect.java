@@ -6,7 +6,6 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.scarab.lorienlegacies.effect.ModEffects;
-import net.scarab.lorienlegacies.util.ModDataTrackers;
 
 public class ToggleShootFireballEffect extends StatusEffect {
 
@@ -32,9 +31,9 @@ public class ToggleShootFireballEffect extends StatusEffect {
 
         if (player.hasStatusEffect(ModEffects.TOGGLE_SHOOT_FIREBALL)) {
             // Mark that the next stamina removal should not cause TIRED
-            if (player.hasStatusEffect(ModEffects.STAMINA)) {
-                player.getDataTracker().set(ModDataTrackers.SKIP_STAMINA_REMOVAL, true);
-            }
+            //if (player.hasStatusEffect(ModEffects.STAMINA)) {
+                //player.getDataTracker().set(ModDataTrackers.SKIP_STAMINA_REMOVAL, true);
+            //}
             // Remove the toggle only
             player.removeStatusEffect(ModEffects.TOGGLE_SHOOT_FIREBALL);
         } else {

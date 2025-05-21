@@ -3,7 +3,6 @@ package net.scarab.lorienlegacies.mixin;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -14,8 +13,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.world.World;
 import net.scarab.lorienlegacies.effect.ModEffects;
-import net.scarab.lorienlegacies.effect.passive_effects.FortemEffect;
-import net.scarab.lorienlegacies.util.ModDataTrackers;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -46,12 +43,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         if (/*target instanceof LivingEntity &&*/ (target instanceof Monster || target instanceof IronGolemEntity) && player.hasStatusEffect(ModEffects.FORTEM) /*&& player.hasStatusEffect(ModEffects.TOGGLE_FORTEM)*/) {
             player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 20, 4, false, false, false));
         }
-    }
-
-    // Register custom data trackers
-    @Inject(method = "initDataTracker", at = @At("HEAD"))
-    private void initTrackedData(CallbackInfo ci) {
-        this.dataTracker.startTracking(ModDataTrackers.SKIP_STAMINA_REMOVAL, false);
     }
 
     // Intangibility and Impenetrable Skin damage immunity logic

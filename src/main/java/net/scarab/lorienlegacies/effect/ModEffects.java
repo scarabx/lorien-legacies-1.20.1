@@ -107,6 +107,9 @@ public class ModEffects {
     public static final StatusEffect TIRED = registerStatusEffect("tired",
             new TiredEffect(StatusEffectCategory.BENEFICIAL, 0xFF0000/*Red*/));
 
+    public static final StatusEffect LEGACY_COOLDOWN = registerStatusEffect("legacy_cooldown",
+            new LegacyCooldownEffect(StatusEffectCategory.BENEFICIAL, 0xFFFF00/*Yellow*/));
+
     private static StatusEffect registerStatusEffect(String name, StatusEffect statusEffect) {
         return Registry.register(Registries.STATUS_EFFECT, new Identifier(LorienLegaciesMod.MOD_ID, name), statusEffect);
     }

@@ -5,7 +5,6 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.scarab.lorienlegacies.block.ModBlocks;
@@ -20,7 +19,6 @@ import net.scarab.lorienlegacies.item.ModItems;
 import net.scarab.lorienlegacies.legacy_bestowal.LegacyBestowalHandler;
 import net.scarab.lorienlegacies.network.LorienLegaciesModNetworking;
 import net.scarab.lorienlegacies.potion.ModPotions;
-import net.scarab.lorienlegacies.util.ModDataTrackers;
 import net.scarab.lorienlegacies.util.ModRegistries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +37,9 @@ public class LorienLegaciesMod implements ModInitializer {
 				GlacenEffect.icicles(player, target);
 				GlacenEffect.iceHands(player, target);
 				LumenEffect.flamingHands(player, target);
-				LumenEffect.burnOnHit(player, target);
+				if (!player.hasStatusEffect(ModEffects.TIRED)) {
+					LumenEffect.burnOnHit(player, target);
+				}
 			}
 			return ActionResult.PASS;
 		});

@@ -7,7 +7,6 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.scarab.lorienlegacies.effect.ModEffects;
-import net.scarab.lorienlegacies.util.ModDataTrackers;
 
 public class StaminaEffect extends StatusEffect {
 
@@ -39,13 +38,13 @@ public class StaminaEffect extends StatusEffect {
 
     @Override
     public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
-        if (entity instanceof PlayerEntity player) {
-            boolean skip = player.getDataTracker().get(ModDataTrackers.SKIP_STAMINA_REMOVAL);
-            if (!skip) {
-                player.addStatusEffect(new StatusEffectInstance(ModEffects.TIRED, 200, 0, false, false));
+        if (entity instanceof PlayerEntity player && player.getHealth() <= 5) {
+            /*boolean skip = player.getDataTracker().get(ModDataTrackers.SKIP_STAMINA_REMOVAL);
+            if (!skip)*/ {
+                player.addStatusEffect(new StatusEffectInstance(ModEffects.TIRED, 100, 0, false, false));
             }
             // Reset the skip flag only here, after checking
-            player.getDataTracker().set(ModDataTrackers.SKIP_STAMINA_REMOVAL, false);
+            //player.getDataTracker().set(ModDataTrackers.SKIP_STAMINA_REMOVAL, false);
         }
         super.onRemoved(entity, attributes, amplifier);
     }

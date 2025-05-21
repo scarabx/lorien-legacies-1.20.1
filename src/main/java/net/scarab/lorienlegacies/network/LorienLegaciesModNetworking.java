@@ -85,11 +85,11 @@ public class LorienLegaciesModNetworking {
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_FLAMING_HANDS_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 if (player.hasStatusEffect(LUMEN)) {
-                    boolean wasFlamingHandsToggledOn = !player.hasStatusEffect(TOGGLE_FLAMING_HANDS); // being turned on
+                    //boolean wasFlamingHandsToggledOn = !player.hasStatusEffect(TOGGLE_FLAMING_HANDS); // being turned on
                     ToggleFlamingHandsEffect.toggleFlamingHands(player);
-                    if (wasFlamingHandsToggledOn && !player.hasStatusEffect(STAMINA)) {
-                        player.addStatusEffect(new StatusEffectInstance(ModEffects.STAMINA, 6000, 0, false, false, false));
-                    }
+                    //if (wasFlamingHandsToggledOn && !player.hasStatusEffect(STAMINA)) {
+                        //player.addStatusEffect(new StatusEffectInstance(ModEffects.STAMINA, 6000, 0, false, false, false));
+                    //}
                 }
             });
         });
@@ -129,12 +129,12 @@ public class LorienLegaciesModNetworking {
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_SHOOT_FIREBALL_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 if (player.hasStatusEffect(LUMEN)) {
-                    boolean wasFireballToggledOn = !player.hasStatusEffect(TOGGLE_SHOOT_FIREBALL); // being turned on
+                    //boolean wasFireballToggledOn = !player.hasStatusEffect(TOGGLE_SHOOT_FIREBALL); // being turned on
                     ToggleShootFireballEffect.toggleShootFireball(player);
                     player.removeStatusEffect(TOGGLE_SHOOT_ICEBALL);
-                    if (wasFireballToggledOn && !player.hasStatusEffect(ModEffects.STAMINA)) {
-                        player.addStatusEffect(new StatusEffectInstance(ModEffects.STAMINA, 6000, 0, false, false, false));
-                    }
+                    //if (wasFireballToggledOn && !player.hasStatusEffect(ModEffects.STAMINA)) {
+                        //player.addStatusEffect(new StatusEffectInstance(ModEffects.STAMINA, 6000, 0, false, false, false));
+                    //}
                 }
             });
         });

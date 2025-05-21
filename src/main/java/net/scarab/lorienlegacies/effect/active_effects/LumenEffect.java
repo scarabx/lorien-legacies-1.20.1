@@ -102,32 +102,36 @@ public class LumenEffect extends StatusEffect {
         }
 
         // AOE Fire effect: Burn mobs, animals, and blocks around the player
-        public static void humanFireballAOE (ServerPlayerEntity player,int radius, int fireSeconds){
+        public static void humanFireballAOE (ServerPlayerEntity player,int radius, int fireSeconds) {
 
-            World world = player.getWorld();
-            BlockPos playerPos = player.getBlockPos();
+            if (!player.getWorld().isClient()
+                    && !player.hasStatusEffect(TIRED)) {
 
-            // --- 1. Set mobs/animals on fire ---
-            Box box = new Box(
-                    player.getX() - radius, player.getY() - radius, player.getZ() - radius,
-                    player.getX() + radius, player.getY() + radius, player.getZ() + radius
-            );
+                World world = player.getWorld();
+                BlockPos playerPos = player.getBlockPos();
 
-            for (Entity entity : world.getOtherEntities(player, box)) {
-                if (entity instanceof MobEntity || entity instanceof AnimalEntity) {
-                    entity.setOnFireFor(fireSeconds);
+                // --- 1. Set mobs/animals on fire ---
+                Box box = new Box(
+                        player.getX() - radius, player.getY() - radius, player.getZ() - radius,
+                        player.getX() + radius, player.getY() + radius, player.getZ() + radius
+                );
+
+                for (Entity entity : world.getOtherEntities(player, box)) {
+                    if (entity instanceof MobEntity || entity instanceof AnimalEntity) {
+                        entity.setOnFireFor(fireSeconds);
+                    }
                 }
-            }
 
-            // --- 2. Set air blocks on fire if block below is solid ---
-            for (int x = -radius; x <= radius; x++) {
-                for (int y = -1; y <= 1; y++) {
-                    for (int z = -radius; z <= radius; z++) {
-                        BlockPos targetPos = playerPos.add(x, y, z);
-                        if (world.isAir(targetPos)) {
-                            BlockPos belowPos = targetPos.down();
-                            if (world.getBlockState(belowPos).isSolidBlock(world, belowPos)) {
-                                world.setBlockState(targetPos, Blocks.FIRE.getDefaultState());
+                // --- 2. Set air blocks on fire if block below is solid ---
+                for (int x = -radius; x <= radius; x++) {
+                    for (int y = -1; y <= 1; y++) {
+                        for (int z = -radius; z <= radius; z++) {
+                            BlockPos targetPos = playerPos.add(x, y, z);
+                            if (world.isAir(targetPos)) {
+                                BlockPos belowPos = targetPos.down();
+                                if (world.getBlockState(belowPos).isSolidBlock(world, belowPos)) {
+                                    world.setBlockState(targetPos, Blocks.FIRE.getDefaultState());
+                                }
                             }
                         }
                     }

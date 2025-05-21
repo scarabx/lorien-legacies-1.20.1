@@ -16,10 +16,7 @@ public abstract class ServerPlayerEntityMixin {
         ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
 
         int stress = LegacyBestowalHandler.getStress(player);
-        long cooldownLeft = LegacyBestowalHandler.getCooldownLeft(player);
-
         nbt.putInt("lorien_stress", stress);
-        nbt.putLong("lorien_legacyCooldownLeft", cooldownLeft);
     }
 
     @Inject(method = "readCustomDataFromNbt", at = @At("RETURN"))
@@ -28,11 +25,6 @@ public abstract class ServerPlayerEntityMixin {
 
         if (nbt.contains("lorien_stress")) {
             LegacyBestowalHandler.setStress(player, nbt.getInt("lorien_stress"));
-        }
-
-        if (nbt.contains("lorien_legacyCooldownLeft")) {
-            long cooldownLeft = nbt.getLong("lorien_legacyCooldownLeft");
-            LegacyBestowalHandler.setLastLegacyTimeFromCooldown(player, cooldownLeft);
         }
     }
 }

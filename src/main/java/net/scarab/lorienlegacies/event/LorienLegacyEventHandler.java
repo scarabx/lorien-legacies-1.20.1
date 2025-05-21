@@ -34,7 +34,7 @@ public class LorienLegacyEventHandler {
                         ModEffects.NOVIS, ModEffects.TOGGLE_NOVIS,
                         ModEffects.NOXEN, ModEffects.NOXEN,
                         ModEffects.REGENERAS
-                        // Add more effects as needed
+                        // Removed LEGACY_COOLDOWN here to handle separately below
                 );
 
                 for (StatusEffect effect : persistentEffects) {
@@ -49,14 +49,27 @@ public class LorienLegacyEventHandler {
                         ));
                     }
                 }
+
+                // Handle LEGACY_COOLDOWN separately to preserve remaining duration
+                StatusEffectInstance cooldownEffect = oldPlayer.getStatusEffect(ModEffects.LEGACY_COOLDOWN);
+                if (cooldownEffect != null) {
+                    newPlayer.addStatusEffect(new StatusEffectInstance(
+                            ModEffects.LEGACY_COOLDOWN,
+                            cooldownEffect.getDuration(),
+                            cooldownEffect.getAmplifier(),
+                            cooldownEffect.isAmbient(),
+                            cooldownEffect.shouldShowParticles(),
+                            cooldownEffect.shouldShowIcon()
+                    ));
+                }
             }
         });
 
-        ServerLivingEntityEvents.AFTER_DEATH.register((entity,damageSource)->
-            {
+        ServerLivingEntityEvents.AFTER_DEATH.register((entity, damageSource) -> {
             if (entity instanceof TameableEntity tameable && tameable.getOwner() instanceof ServerPlayerEntity owner) {
                 LegacyBestowalHandler.onPetDeath(owner);
             }
         });
     }
 }
+
