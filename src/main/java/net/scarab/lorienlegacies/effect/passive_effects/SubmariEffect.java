@@ -6,11 +6,9 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 
-import static net.scarab.lorienlegacies.effect.ModEffects.*;
+public class SubmariEffect extends StatusEffect {
 
-public class RegenerasEffect extends StatusEffect {
-
-    public RegenerasEffect(StatusEffectCategory category, int color) {
+    public SubmariEffect(StatusEffectCategory category, int color) {
         super(category, color);
     }
 
@@ -30,23 +28,12 @@ public class RegenerasEffect extends StatusEffect {
                     false
             ));
         }
-
-        // Apply regeneration if health is low
-        if (!entity.getWorld().isClient() && entity.getHealth() <= 10) {
-            StatusEffectInstance regen = entity.getStatusEffect(StatusEffects.REGENERATION);
-            if (regen == null || regen.getAmplifier() < 4) {
-                entity.addStatusEffect(new StatusEffectInstance(
-                        StatusEffects.REGENERATION,
-                        100,
-                        4,
-                        false,
-                        false,
-                        false
-                ));
-            }
-        } else if (entity.getHealth() == entity.getMaxHealth()) {
-            entity.removeStatusEffect(StatusEffects.REGENERATION);
+        if (!entity.getWorld().isClient() && entity.isSubmergedInWater()) {
+            entity.addStatusEffect(new StatusEffectInstance(StatusEffects.WATER_BREATHING, 100, 0, false, false, false));
+        } else {
+            entity.removeStatusEffect(StatusEffects.WATER_BREATHING);
         }
+        super.applyUpdateEffect(entity, amplifier);
     }
 
     @Override
@@ -54,10 +41,3 @@ public class RegenerasEffect extends StatusEffect {
         return true;
     }
 }
-
-
-
-
-
-
-

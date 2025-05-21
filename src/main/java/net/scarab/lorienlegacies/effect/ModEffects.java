@@ -56,6 +56,9 @@ public class ModEffects {
     public static final StatusEffect NOVIS = registerStatusEffect("novis",
             new NovisEffect(StatusEffectCategory.BENEFICIAL, 0x55FFFF/*Light Blue*/));
 
+    public static final StatusEffect SUBMARI = registerStatusEffect("submari",
+            new SubmariEffect(StatusEffectCategory.BENEFICIAL, 0x0077BE/*Ocean Blue*/));
+
     public static final StatusEffect TOGGLE_FORTEM = registerStatusEffect("toggle_fortem",
             new ToggleFortemEffect(StatusEffectCategory.BENEFICIAL, 0xFF0000/*Red*/));
 
