@@ -59,6 +59,21 @@ public class ModEffects {
     public static final StatusEffect SUBMARI = registerStatusEffect("submari",
             new SubmariEffect(StatusEffectCategory.BENEFICIAL, 0x0077BE/*Ocean Blue*/));
 
+    public static final StatusEffect STURMA = registerStatusEffect("sturma",
+            new SturmaEffect(StatusEffectCategory.BENEFICIAL, 0x000000/*Black*/));
+
+    public static final StatusEffect TOGGLE_CONJURE_RAIN = registerStatusEffect("toggle_conjure_rain",
+            new ToggleConjureRainEffect(StatusEffectCategory.BENEFICIAL, 0x0000FF/*Blue*/));
+
+    public static final StatusEffect TOGGLE_CONJURE_THUNDER = registerStatusEffect("toggle_conjure_thunder",
+            new ToggleConjureThunderEffect(StatusEffectCategory.BENEFICIAL, 0xFFFF00/*Yellow*/));
+
+    public static final StatusEffect TOGGLE_CONJURE_CLEAR_WEATHER = registerStatusEffect("toggle_conjure_clear_weather",
+            new ToggleConjureClearWeatherEffect(StatusEffectCategory.BENEFICIAL, 0xFFFFFF/*White*/));
+
+    public static final StatusEffect TOGGLE_LIGHTNING_STRIKE = registerStatusEffect("toggle_lightning_strike",
+            new ToggleLightningStrikeEffect(StatusEffectCategory.BENEFICIAL, 0xFFFF00/*Yellow*/));
+
     public static final StatusEffect TOGGLE_FORTEM = registerStatusEffect("toggle_fortem",
             new ToggleFortemEffect(StatusEffectCategory.BENEFICIAL, 0xFF0000/*Red*/));
 

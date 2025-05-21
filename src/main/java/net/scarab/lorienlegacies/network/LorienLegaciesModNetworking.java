@@ -4,14 +4,12 @@ import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 
 import net.scarab.lorienlegacies.chimaera.MorphHandler;
 import net.scarab.lorienlegacies.effect.ModEffects;
-import net.scarab.lorienlegacies.effect.active_effects.GlacenEffect;
-import net.scarab.lorienlegacies.effect.active_effects.LumenEffect;
-import net.scarab.lorienlegacies.effect.active_effects.PondusEffect;
-import net.scarab.lorienlegacies.effect.active_effects.TelekinesisEffect;
+import net.scarab.lorienlegacies.effect.active_effects.*;
 import net.scarab.lorienlegacies.effect.toggle_effects.*;
 
 import java.util.HashSet;
@@ -64,6 +62,14 @@ public class LorienLegaciesModNetworking {
     public static final Identifier TELEKINESIS_PULL_PACKET = new Identifier("lorienlegacies", "telekinesis_pull");
 
     public static final Identifier TELEKINESIS_MOVE_PACKET = new Identifier("lorienlegacies", "telekinesis_move");
+
+    public static final Identifier TOGGLE_LIGHTNING_STRIKE_PACKET = new Identifier("lorienlegacies", "toggle_lightning_strike");
+
+    public static final Identifier TOGGLE_CONJURE_RAIN_PACKET = new Identifier("lorienlegacies", "toggle_conjure_rain");
+
+    public static final Identifier TOGGLE_CONJURE_THUNDER_PACKET = new Identifier("lorienlegacies", "toggle_conjure_thunder");
+
+    public static final Identifier TOGGLE_CONJURE_CLEAR_WEATHER_PACKET = new Identifier("lorienlegacies", "toggle_conjure_clear_weather");
 
     public static final Identifier CHIMAERA_MORPH_PACKET = new Identifier("lorienlegacies", "chimaera_morph");
 
@@ -176,6 +182,9 @@ public class LorienLegaciesModNetworking {
                 }
                 if (player.hasStatusEffect(GLACEN)) {
                     GlacenEffect.shootIceball(player);
+                }
+                if (player.hasStatusEffect(STURMA)) {
+                    SturmaEffect.lightningStrike(player);
                 }
             });
         });
@@ -295,6 +304,71 @@ public class LorienLegaciesModNetworking {
             server.execute(() -> {
                 if (player.hasStatusEffect(TELEKINESIS)) {
                     ToggleTelekinesisMoveEffect.toggleTelekinesisMove(player);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_LIGHTNING_STRIKE_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(STURMA)) {
+                    ToggleLightningStrikeEffect.toggleLightningStrike(player);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_CONJURE_RAIN_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(STURMA)) {
+                    ToggleConjureRainEffect.toggleConjureRain(player);
+                    SturmaEffect.conjureRain(player, (ServerWorld) player.getWorld());
+                    player.removeStatusEffect(TOGGLE_CONJURE_CLEAR_WEATHER);
+
+                    // Sync to client
+                    PacketByteBuf syncBuf = new PacketByteBuf(Unpooled.buffer());
+                    Set<Identifier> toggled = new HashSet<>();
+                    if (player.hasStatusEffect(TOGGLE_CONJURE_RAIN)) toggled.add(TOGGLE_CONJURE_RAIN_PACKET);
+                    if (player.hasStatusEffect(TOGGLE_CONJURE_CLEAR_WEATHER)) toggled.add(TOGGLE_CONJURE_CLEAR_WEATHER_PACKET);
+                    syncBuf.writeVarInt(toggled.size());
+                    for (Identifier id : toggled) syncBuf.writeIdentifier(id);
+                    ServerPlayNetworking.send(player, SYNC_TOGGLES_PACKET, syncBuf);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_CONJURE_THUNDER_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(STURMA)) {
+                    ToggleConjureThunderEffect.toggleConjureThunder(player);
+                    SturmaEffect.conjureThunder(player, (ServerWorld) player.getWorld());
+                    player.removeStatusEffect(TOGGLE_CONJURE_RAIN);
+
+                    // Sync to client
+                    PacketByteBuf syncBuf = new PacketByteBuf(Unpooled.buffer());
+                    Set<Identifier> toggled = new HashSet<>();
+                    if (player.hasStatusEffect(TOGGLE_CONJURE_THUNDER)) toggled.add(TOGGLE_CONJURE_THUNDER_PACKET);
+                    if (player.hasStatusEffect(TOGGLE_CONJURE_RAIN)) toggled.add(TOGGLE_CONJURE_RAIN_PACKET);
+                    syncBuf.writeVarInt(toggled.size());
+                    for (Identifier id : toggled) syncBuf.writeIdentifier(id);
+                    ServerPlayNetworking.send(player, SYNC_TOGGLES_PACKET, syncBuf);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_CONJURE_CLEAR_WEATHER_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(STURMA)) {
+                    ToggleConjureClearWeatherEffect.toggleConjureClearWeather(player);
+                    SturmaEffect.conjureClearWeather(player, (ServerWorld) player.getWorld());
+                    player.removeStatusEffect(TOGGLE_CONJURE_THUNDER);
+
+                    // Sync to client
+                    PacketByteBuf syncBuf = new PacketByteBuf(Unpooled.buffer());
+                    Set<Identifier> toggled = new HashSet<>();
+                    if (player.hasStatusEffect(TOGGLE_CONJURE_CLEAR_WEATHER)) toggled.add(TOGGLE_CONJURE_CLEAR_WEATHER_PACKET);
+                    if (player.hasStatusEffect(TOGGLE_CONJURE_THUNDER)) toggled.add(TOGGLE_CONJURE_THUNDER_PACKET);
+                    syncBuf.writeVarInt(toggled.size());
+                    for (Identifier id : toggled) syncBuf.writeIdentifier(id);
+                    ServerPlayNetworking.send(player, SYNC_TOGGLES_PACKET, syncBuf);
                 }
             });
         });

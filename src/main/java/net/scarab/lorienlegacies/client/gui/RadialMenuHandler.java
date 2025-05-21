@@ -37,7 +37,8 @@ public class RadialMenuHandler {
                 "Shoot Iceball",
                 "Icicles",
                 "Toggle Ice Hands",
-                "Fortem"
+                "Fortem",
+                "Lightning"
         );
         List<Identifier> combatPackets = List.of(
                 LorienLegaciesModNetworking.TOGGLE_SHOOT_FIREBALL_PACKET,
@@ -49,7 +50,8 @@ public class RadialMenuHandler {
                 LorienLegaciesModNetworking.TOGGLE_SHOOT_ICEBALL_PACKET,
                 LorienLegaciesModNetworking.ICICLES_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_ICE_HANDS_PACKET,
-                LorienLegaciesModNetworking.TOGGLE_FORTEM_PACKET
+                LorienLegaciesModNetworking.TOGGLE_FORTEM_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_LIGHTNING_STRIKE_PACKET
         );
         optionsPages.add(combatOptions);
         packetPages.add(combatPackets);
@@ -85,10 +87,16 @@ public class RadialMenuHandler {
         pageNames.add("Utility");
         List<String> utilityOptions = List.of(
                 "Freeze Water",
+                "Rain",
+                "Thunder",
+                "Clear",
                 "Novis"
         );
         List<Identifier> utilityPackets = List.of(
                 LorienLegaciesModNetworking.TOGGLE_FREEZE_WATER_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_CONJURE_RAIN_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_CONJURE_THUNDER_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_CONJURE_CLEAR_WEATHER_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_NOVIS_PACKET
         );
         optionsPages.add(utilityOptions);
