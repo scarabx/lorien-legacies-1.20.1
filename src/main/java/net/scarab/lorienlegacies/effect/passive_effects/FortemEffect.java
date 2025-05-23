@@ -32,6 +32,12 @@ public class FortemEffect extends StatusEffect {
             ));
         }
 
+        // Don't apply strength if the entity is tired
+        if (entity.hasStatusEffect(TIRED)) {
+            entity.removeStatusEffect(StatusEffects.STRENGTH);
+            return;
+        }
+
         applyStrengthEffect(entity);
 
         super.applyUpdateEffect(entity, amplifier);
@@ -41,8 +47,7 @@ public class FortemEffect extends StatusEffect {
 
         if (!entity.getWorld().isClient()
                 && entity.hasStatusEffect(FORTEM)
-                && entity.hasStatusEffect(TOGGLE_FORTEM)
-                && !entity.hasStatusEffect(ModEffects.TIRED)) {
+                && entity.hasStatusEffect(TOGGLE_FORTEM)) {
 
             entity.addStatusEffect(new StatusEffectInstance(
                     StatusEffects.STRENGTH,

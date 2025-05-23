@@ -26,6 +26,11 @@ public class TiredEffect extends StatusEffect {
                     false, false, false
             ));
         }
+
+        if (entity instanceof PlayerEntity player) {
+            player.stopFallFlying();
+        }
+
         super.applyUpdateEffect(entity, amplifier);
     }
 
