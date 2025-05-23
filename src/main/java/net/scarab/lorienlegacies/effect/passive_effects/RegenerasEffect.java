@@ -44,7 +44,7 @@ public class RegenerasEffect extends StatusEffect {
             if (regen == null || regen.getAmplifier() < 4) {
                 entity.addStatusEffect(new StatusEffectInstance(
                         StatusEffects.REGENERATION,
-                        100,
+                        400,
                         4,
                         false,
                         false,

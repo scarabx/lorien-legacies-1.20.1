@@ -8,6 +8,8 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.scarab.lorienlegacies.effect.ModEffects;
 
+import static net.scarab.lorienlegacies.effect.ModEffects.TIRED;
+
 public class NoxenEffect extends StatusEffect {
 
     public NoxenEffect(StatusEffectCategory category, int color) {
@@ -31,9 +33,15 @@ public class NoxenEffect extends StatusEffect {
             ));
         }
 
+        // Don't apply regeneration if the entity is tired
+        //if (entity.hasStatusEffect(TIRED)) {
+            //entity.removeStatusEffect(StatusEffects.NIGHT_VISION);
+            //return;
+        //}
+
         // Apply or remove Night Vision based on time
         if (!entity.getWorld().isClient()) {
-            if (entity.getWorld().isNight() && !entity.hasStatusEffect(ModEffects.TIRED)) {
+            if ((entity.getWorld().isNight() || entity.isSubmergedInWater()) && !entity.hasStatusEffect(TIRED)) {
                 // Only reapply if not already active or about to expire
                 StatusEffectInstance nightVision = entity.getStatusEffect(StatusEffects.NIGHT_VISION);
                 if (nightVision == null || nightVision.getDuration() < 210) { // Less than 10.5s left

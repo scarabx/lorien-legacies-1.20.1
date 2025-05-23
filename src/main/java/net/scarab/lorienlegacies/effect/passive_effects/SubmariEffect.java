@@ -30,7 +30,11 @@ public class SubmariEffect extends StatusEffect {
             ));
         }
         if (!entity.getWorld().isClient() && entity.isSubmergedInWater() && !entity.hasStatusEffect(ModEffects.TIRED)) {
-            entity.addStatusEffect(new StatusEffectInstance(StatusEffects.WATER_BREATHING, 100, 0, false, false, false));
+            // Only reapply if not already active or about to expire
+            StatusEffectInstance waterBreathing = entity.getStatusEffect(StatusEffects.WATER_BREATHING);
+            if (waterBreathing == null || waterBreathing.getDuration() < 200) { // Less than 10.5s left
+                entity.addStatusEffect(new StatusEffectInstance(StatusEffects.WATER_BREATHING, 400, 0, false, false, false));
+            }
         } else {
             entity.removeStatusEffect(StatusEffects.WATER_BREATHING);
         }

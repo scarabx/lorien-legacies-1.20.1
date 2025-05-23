@@ -8,9 +8,16 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.scarab.lorienlegacies.effect.ModEffects;
 
+import java.util.Map;
+import java.util.WeakHashMap;
+
+import static net.scarab.lorienlegacies.effect.ModEffects.TIRED;
 import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_INTANGIBILITY;
 
 public class PondusEffect extends StatusEffect {
+
+    private static final Map<PlayerEntity, Integer> flightGrace = new WeakHashMap<>();
+    private static final int GRACE_TICKS = 100;
 
     public PondusEffect(StatusEffectCategory category, int color) {
         super(category, color);
@@ -33,6 +40,15 @@ public class PondusEffect extends StatusEffect {
             ));
         }
 
+        if (entity instanceof PlayerEntity player) {
+
+            // Apply intangibility behavior
+            if (player.hasStatusEffect(TOGGLE_INTANGIBILITY)
+                && !player.hasStatusEffect(TIRED)) {
+                applyIntangibility(player);
+            }
+        }
+
         if (entity.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !entity.hasStatusEffect(ModEffects.TIRED)) {
             entity.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 100, 4, false, false, false));
         }
@@ -44,10 +60,35 @@ public class PondusEffect extends StatusEffect {
     }
 
     public static void applyIntangibility(PlayerEntity player) {
-        if (player.hasStatusEffect(TOGGLE_INTANGIBILITY)) {
-            player.removeStatusEffect(TOGGLE_INTANGIBILITY);
+
+        player.noClip = true;
+
+        boolean insideBlock = player.getWorld().getBlockCollisions(player, player.getBoundingBox()).iterator().hasNext();
+        boolean hasAvex = player.hasStatusEffect(ModEffects.INTANGIFLY);
+
+        if (hasAvex) {
+            // If Avex is also active, disable creative flying
+            player.getAbilities().flying = false;
+            player.getAbilities().allowFlying = false;
+            flightGrace.remove(player);
+        } else if (insideBlock) {
+            // If not Avex and inside block, enable creative flight and reset grace
+            player.getAbilities().flying = true;
+            player.getAbilities().allowFlying = true;
+            flightGrace.put(player, GRACE_TICKS);
         } else {
-            player.addStatusEffect(new StatusEffectInstance(TOGGLE_INTANGIBILITY, Integer.MAX_VALUE, 0, false, false, false));
+            // Outside block, rely on grace period
+            int ticksLeft = flightGrace.getOrDefault(player, 0);
+            if (ticksLeft > 0) {
+                player.getAbilities().flying = true;
+                player.getAbilities().allowFlying = true;
+                flightGrace.put(player, ticksLeft - 1);
+            } else {
+                player.getAbilities().flying = false;
+                player.getAbilities().allowFlying = false;
+            }
         }
+
+        player.sendAbilitiesUpdate();
     }
 }

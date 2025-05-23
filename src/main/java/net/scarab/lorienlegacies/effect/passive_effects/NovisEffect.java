@@ -44,14 +44,18 @@ public class NovisEffect extends StatusEffect {
                 && entity.hasStatusEffect(TOGGLE_NOVIS)
                 && !entity.hasStatusEffect(ModEffects.TIRED)) {
 
-            entity.addStatusEffect(new StatusEffectInstance(
-                    StatusEffects.INVISIBILITY,
-                    200,
-                    0,
-                    false,
-                    false,
-                    false
-            ));
+            // Only reapply if not already active or about to expire
+            StatusEffectInstance invisibility = entity.getStatusEffect(StatusEffects.INVISIBILITY);
+            if (invisibility == null || invisibility.getDuration() < 200) { // Less than 10.5s left
+                entity.addStatusEffect(new StatusEffectInstance(
+                        StatusEffects.INVISIBILITY,
+                        400,
+                        0,
+                        false,
+                        false,
+                        false
+                ));
+            }
         } else {
             entity.removeStatusEffect(StatusEffects.INVISIBILITY);
         }

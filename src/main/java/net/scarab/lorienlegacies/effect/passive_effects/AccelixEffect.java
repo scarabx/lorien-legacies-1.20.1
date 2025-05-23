@@ -33,38 +33,33 @@ public class AccelixEffect extends StatusEffect {
 
             // SPEED: sprinting and not in water
             if (entity.isSprinting() && !entity.isSubmergedInWater() && !entity.hasStatusEffect(ModEffects.TIRED)) {
-                StatusEffectInstance speed = entity.getStatusEffect(StatusEffects.SPEED);
-                if (speed == null || speed.getDuration() < 100) {
-                    entity.addStatusEffect(new StatusEffectInstance(
-                            StatusEffects.SPEED,
-                            200,
-                            4,
-                            false,
-                            false,
-                            false
-                    ));
-                }
-            } else {
-                entity.removeStatusEffect(StatusEffects.SPEED);
+                entity.addStatusEffect(new StatusEffectInstance(
+                        StatusEffects.SPEED,
+                        400,
+                        4,
+                        false,
+                        false,
+                        false
+                ));
             }
-
-            // DOLPHIN'S GRACE: sprinting and submerged
-            if (entity.isSprinting() && entity.isSubmergedInWater() && !entity.hasStatusEffect(ModEffects.TIRED)) {
-                StatusEffectInstance dolphinsGrace = entity.getStatusEffect(StatusEffects.DOLPHINS_GRACE);
-                if (dolphinsGrace == null || dolphinsGrace.getDuration() < 100) {
-                    entity.addStatusEffect(new StatusEffectInstance(
-                            StatusEffects.DOLPHINS_GRACE,
-                            200,
-                            4,
-                            false,
-                            false,
-                            false
-                    ));
-                }
-            } else {
-                entity.removeStatusEffect(StatusEffects.DOLPHINS_GRACE);
-            }
+        } else {
+            entity.removeStatusEffect(StatusEffects.SPEED);
         }
+
+        // DOLPHIN'S GRACE: sprinting and submerged
+        if (entity.isSprinting() && entity.isSubmergedInWater() && !entity.hasStatusEffect(ModEffects.TIRED)) {
+            entity.addStatusEffect(new StatusEffectInstance(
+                    StatusEffects.DOLPHINS_GRACE,
+                    400,
+                    4,
+                    false,
+                    false,
+                    false
+            ));
+        } else {
+            entity.removeStatusEffect(StatusEffects.DOLPHINS_GRACE);
+        }
+
         super.applyUpdateEffect(entity, amplifier);
     }
 

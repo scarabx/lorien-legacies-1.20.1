@@ -6,18 +6,17 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.scarab.lorienlegacies.effect.ModEffects;
 
 import java.util.Map;
 import java.util.WeakHashMap;
 
-import static net.scarab.lorienlegacies.effect.ModEffects.TIRED;
-import static net.scarab.lorienlegacies.effect.active_effects.PondusEffect.applyIntangibility;
+import static net.scarab.lorienlegacies.effect.ModEffects.*;
 
 public class ToggleIntangibilityEffect extends StatusEffect {
 
     private static final Map<PlayerEntity, Integer> flightGrace = new WeakHashMap<>();
-    private static final int GRACE_TICKS = 100;
 
     public ToggleIntangibilityEffect(StatusEffectCategory category, int color) {
         super(category, color);
@@ -33,48 +32,6 @@ public class ToggleIntangibilityEffect extends StatusEffect {
             player.removeStatusEffect(this);
             player.addStatusEffect(new StatusEffectInstance(this, current.getDuration(), current.getAmplifier(), false, false, false));
         }
-
-        // Apply intangibility behavior
-        if (!player.hasStatusEffect(TIRED)) {
-            applyIntangibility(player);
-        }
-    }
-
-    private void applyIntangibility(PlayerEntity player) {
-        player.noClip = true;
-
-        boolean insideBlock = player.getWorld().getBlockCollisions(player, player.getBoundingBox()).iterator().hasNext();
-        boolean hasAvex = player.hasStatusEffect(ModEffects.INTANGIFLY);
-
-        if (hasAvex) {
-            // If Avex is also active, disable creative flying
-            player.getAbilities().flying = false;
-            player.getAbilities().allowFlying = false;
-            flightGrace.remove(player);
-        } else if (insideBlock) {
-            // If not Avex and inside block, enable creative flight and reset grace
-            player.getAbilities().flying = true;
-            player.getAbilities().allowFlying = true;
-            flightGrace.put(player, GRACE_TICKS);
-        } else {
-            // Outside block, rely on grace period
-            int ticksLeft = flightGrace.getOrDefault(player, 0);
-            if (ticksLeft > 0) {
-                player.getAbilities().flying = true;
-                player.getAbilities().allowFlying = true;
-                flightGrace.put(player, ticksLeft - 1);
-            } else {
-                player.getAbilities().flying = false;
-                player.getAbilities().allowFlying = false;
-            }
-        }
-
-        player.sendAbilitiesUpdate();
-    }
-
-    @Override
-    public boolean canApplyUpdateEffect(int duration, int amplifier) {
-        return true;
     }
 
     @Override
@@ -94,4 +51,23 @@ public class ToggleIntangibilityEffect extends StatusEffect {
 
         super.onRemoved(entity, attributes, amplifier);
     }
+
+    // Toggle helper method for safely enabling/disabling the effect invisibly
+    public static void toggleIntangibility(ServerPlayerEntity player) {
+
+        if (player.hasStatusEffect(TOGGLE_INTANGIBILITY)) {
+            player.removeStatusEffect(TOGGLE_INTANGIBILITY);
+        } else {
+            // Apply the status effect invisibly: no ambient, no particles, no icon
+            player.addStatusEffect(new StatusEffectInstance(
+                    TOGGLE_INTANGIBILITY,
+                    Integer.MAX_VALUE,
+                    0,
+                    false,
+                    false,
+                    false
+            ));
+        }
+    }
 }
+

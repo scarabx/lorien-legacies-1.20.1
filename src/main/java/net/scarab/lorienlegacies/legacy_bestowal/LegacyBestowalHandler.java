@@ -4,12 +4,18 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.potion.PotionUtil;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.scarab.lorienlegacies.LorienLegaciesMod;
 import net.scarab.lorienlegacies.effect.ModEffects;
+import net.scarab.lorienlegacies.item.ModItems;
+import net.scarab.lorienlegacies.potion.ModPotions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,17 +33,19 @@ public class LegacyBestowalHandler {
     private static final Map<UUID, Long> lastSleepTime = new HashMap<>();
     private static final Map<UUID, Long> lastEatingTime = new HashMap<>();
 
-    private static final Map<StatusEffect, Integer> LEGACY_POOL = Map.of(
-            ModEffects.TELEKINESIS, 10,
-            ModEffects.LUMEN, 8,
-            ModEffects.AVEX, 6,
-            ModEffects.PONDUS, 4,
-            ModEffects.GLACEN, 4,
-            ModEffects.ACCELIX, 3,
-            ModEffects.FORTEM, 2,
-            ModEffects.NOVIS, 2,
-            ModEffects.NOXEN, 1,
-            ModEffects.REGENERAS, 1
+    private static final Map<StatusEffect, Integer> LEGACY_POOL = Map.ofEntries(
+            Map.entry(ModEffects.TELEKINESIS, 11),
+            Map.entry(ModEffects.LUMEN, 2),
+            Map.entry(ModEffects.AVEX, 1),
+            Map.entry(ModEffects.PONDUS, 3),
+            Map.entry(ModEffects.GLACEN, 4),
+            Map.entry(ModEffects.ACCELIX, 6),
+            Map.entry(ModEffects.FORTEM, 5),
+            Map.entry(ModEffects.NOVIS, 1),
+            Map.entry(ModEffects.NOXEN, 8),
+            Map.entry(ModEffects.REGENERAS, 1),
+            Map.entry(ModEffects.SUBMARI, 7),
+            Map.entry(ModEffects.STURMA, 1)
     );
 
     private static final int TICKS_PER_SECOND = 20;
@@ -197,6 +205,9 @@ public class LegacyBestowalHandler {
             player.addStatusEffect(new StatusEffectInstance(randomEffect, Integer.MAX_VALUE, 0, false, false, false));
             player.addStatusEffect(new StatusEffectInstance(ModEffects.LEGACY_COOLDOWN, LEGACY_COOLDOWN_TICKS, 0, false, false, false));
             player.sendMessage(Text.literal("You have been bestowed upon the " + randomEffect.getName().getString() + " legacy!"), false);
+            // Give splash potion of Chimaera Essence
+            ItemStack splashPotion = PotionUtil.setPotion(new ItemStack(Items.SPLASH_POTION), ModPotions.CHIMAERA_ESSENCE);
+            player.giveItemStack(splashPotion);
             // Add the milk warning message in red color
             player.sendMessage(Text.literal("NEVER DRINK MILK OR YOU WILL LOSE YOUR LEGACY").formatted(Formatting.RED), false);
         } else {
