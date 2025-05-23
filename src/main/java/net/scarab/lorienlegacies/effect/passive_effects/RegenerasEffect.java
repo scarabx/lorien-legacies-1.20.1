@@ -5,6 +5,7 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.scarab.lorienlegacies.effect.ModEffects;
 
 import static net.scarab.lorienlegacies.effect.ModEffects.*;
 
@@ -29,6 +30,12 @@ public class RegenerasEffect extends StatusEffect {
                     false,
                     false
             ));
+        }
+
+        // Don't apply regeneration if the entity is tired
+        if (entity.hasStatusEffect(TIRED)) {
+            entity.removeStatusEffect(StatusEffects.REGENERATION);
+            return;
         }
 
         // Apply regeneration if health is low

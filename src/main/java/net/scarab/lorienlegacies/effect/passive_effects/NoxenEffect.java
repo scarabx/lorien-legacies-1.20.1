@@ -6,6 +6,7 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.scarab.lorienlegacies.effect.ModEffects;
 
 public class NoxenEffect extends StatusEffect {
 
@@ -32,7 +33,7 @@ public class NoxenEffect extends StatusEffect {
 
         // Apply or remove Night Vision based on time
         if (!entity.getWorld().isClient()) {
-            if (entity.getWorld().isNight()) {
+            if (entity.getWorld().isNight() && !entity.hasStatusEffect(ModEffects.TIRED)) {
                 // Only reapply if not already active or about to expire
                 StatusEffectInstance nightVision = entity.getStatusEffect(StatusEffects.NIGHT_VISION);
                 if (nightVision == null || nightVision.getDuration() < 210) { // Less than 10.5s left

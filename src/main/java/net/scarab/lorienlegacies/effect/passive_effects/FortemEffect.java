@@ -5,6 +5,7 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.scarab.lorienlegacies.effect.ModEffects;
 
 import static net.scarab.lorienlegacies.effect.ModEffects.*;
 
@@ -40,7 +41,8 @@ public class FortemEffect extends StatusEffect {
 
         if (!entity.getWorld().isClient()
                 && entity.hasStatusEffect(FORTEM)
-                && entity.hasStatusEffect(TOGGLE_FORTEM)) {
+                && entity.hasStatusEffect(TOGGLE_FORTEM)
+                && !entity.hasStatusEffect(ModEffects.TIRED)) {
 
             entity.addStatusEffect(new StatusEffectInstance(
                     StatusEffects.STRENGTH,

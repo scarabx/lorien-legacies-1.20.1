@@ -5,6 +5,7 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.scarab.lorienlegacies.effect.ModEffects;
 
 import static net.scarab.lorienlegacies.effect.ModEffects.*;
 
@@ -40,7 +41,8 @@ public class NovisEffect extends StatusEffect {
 
         if (!entity.getWorld().isClient()
                 && entity.hasStatusEffect(NOVIS)
-                && entity.hasStatusEffect(TOGGLE_NOVIS)) {
+                && entity.hasStatusEffect(TOGGLE_NOVIS)
+                && !entity.hasStatusEffect(ModEffects.TIRED)) {
 
             entity.addStatusEffect(new StatusEffectInstance(
                     StatusEffects.INVISIBILITY,
@@ -50,6 +52,8 @@ public class NovisEffect extends StatusEffect {
                     false,
                     false
             ));
+        } else {
+            entity.removeStatusEffect(StatusEffects.INVISIBILITY);
         }
     }
 

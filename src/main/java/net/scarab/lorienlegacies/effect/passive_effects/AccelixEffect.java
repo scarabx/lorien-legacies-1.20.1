@@ -5,6 +5,7 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.scarab.lorienlegacies.effect.ModEffects;
 
 public class AccelixEffect extends StatusEffect {
 
@@ -31,7 +32,7 @@ public class AccelixEffect extends StatusEffect {
         if (!entity.getWorld().isClient()) {
 
             // SPEED: sprinting and not in water
-            if (entity.isSprinting() && !entity.isSubmergedInWater()) {
+            if (entity.isSprinting() && !entity.isSubmergedInWater() && !entity.hasStatusEffect(ModEffects.TIRED)) {
                 StatusEffectInstance speed = entity.getStatusEffect(StatusEffects.SPEED);
                 if (speed == null || speed.getDuration() < 100) {
                     entity.addStatusEffect(new StatusEffectInstance(
@@ -48,7 +49,7 @@ public class AccelixEffect extends StatusEffect {
             }
 
             // DOLPHIN'S GRACE: sprinting and submerged
-            if (entity.isSprinting() && entity.isSubmergedInWater()) {
+            if (entity.isSprinting() && entity.isSubmergedInWater() && !entity.hasStatusEffect(ModEffects.TIRED)) {
                 StatusEffectInstance dolphinsGrace = entity.getStatusEffect(StatusEffects.DOLPHINS_GRACE);
                 if (dolphinsGrace == null || dolphinsGrace.getDuration() < 100) {
                     entity.addStatusEffect(new StatusEffectInstance(

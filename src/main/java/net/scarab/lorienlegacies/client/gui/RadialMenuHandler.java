@@ -57,7 +57,7 @@ public class RadialMenuHandler {
         packetPages.add(combatPackets);
         pageColors.add(0xFF0000); // Red
 
-        // Page 1 - Movement Abilities
+        // Page 2 - Movement Abilities
         pageNames.add("Movement");
         List<String> movementOptions = List.of(
                 "Intangifly"
@@ -69,7 +69,7 @@ public class RadialMenuHandler {
         packetPages.add(movementPackets);
         pageColors.add(0xFF0000); // Red
 
-        // Page 2 - Defense Abilities
+        // Page 3 - Defense Abilities
         pageNames.add("Defense");
         List<String> defenseOptions = List.of(
                 "Impenetrable Skin",
@@ -83,7 +83,7 @@ public class RadialMenuHandler {
         packetPages.add(defensePackets);
         pageColors.add(0xFF4682B4); // Steel Blue
 
-        // Page 3 - Utility Abilities
+        // Page 4 - Utility Abilities
         pageNames.add("Utility");
         List<String> utilityOptions = List.of(
                 "Freeze Water",
@@ -103,7 +103,7 @@ public class RadialMenuHandler {
         packetPages.add(utilityPackets);
         pageColors.add(0x808080); // Gray
 
-        // Page 4 - Chimaera Control
+        // Page 5 - Chimaera Control
         pageNames.add("Chimaera");
         List<String> chimaeraOptions = List.of(
                 "Morph",

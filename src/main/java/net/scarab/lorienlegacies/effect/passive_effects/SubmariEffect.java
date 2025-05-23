@@ -5,6 +5,7 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.scarab.lorienlegacies.effect.ModEffects;
 
 public class SubmariEffect extends StatusEffect {
 
@@ -28,7 +29,7 @@ public class SubmariEffect extends StatusEffect {
                     false
             ));
         }
-        if (!entity.getWorld().isClient() && entity.isSubmergedInWater()) {
+        if (!entity.getWorld().isClient() && entity.isSubmergedInWater() && !entity.hasStatusEffect(ModEffects.TIRED)) {
             entity.addStatusEffect(new StatusEffectInstance(StatusEffects.WATER_BREATHING, 100, 0, false, false, false));
         } else {
             entity.removeStatusEffect(StatusEffects.WATER_BREATHING);

@@ -33,7 +33,7 @@ public class PondusEffect extends StatusEffect {
             ));
         }
 
-        if (entity.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN)) {
+        if (entity.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !entity.hasStatusEffect(ModEffects.TIRED)) {
             entity.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 100, 4, false, false, false));
         }
     }
