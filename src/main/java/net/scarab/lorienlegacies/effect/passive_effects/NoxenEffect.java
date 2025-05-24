@@ -33,12 +33,6 @@ public class NoxenEffect extends StatusEffect {
             ));
         }
 
-        // Don't apply regeneration if the entity is tired
-        //if (entity.hasStatusEffect(TIRED)) {
-            //entity.removeStatusEffect(StatusEffects.NIGHT_VISION);
-            //return;
-        //}
-
         // Apply or remove Night Vision based on time
         if (!entity.getWorld().isClient()) {
             if ((entity.getWorld().isNight() || entity.isSubmergedInWater()) && !entity.hasStatusEffect(TIRED)) {

@@ -44,17 +44,18 @@ public class LumenEffect extends StatusEffect {
             ));
         }
 
-        // Only reapply if not already active or about to expire
+        // Refresh fire resistance
         StatusEffectInstance fireResistance = entity.getStatusEffect(StatusEffects.FIRE_RESISTANCE);
-        if (fireResistance == null || fireResistance.getDuration() < 200) { // Less than 10.5s left
-            // Apply fire resistance
+        if (fireResistance == null || fireResistance.getDuration() < 200) {
             entity.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 400, 0, false, false, false), entity);
-            // Check if the entity is a ServerPlayerEntity and if they're on fire
-            if (entity instanceof ServerPlayerEntity player && player.isOnFire()) {
-                // If the player is on fire and AOE fire is enabled, trigger the AOE fire
-                if (player.hasStatusEffect(TOGGLE_HUMAN_FIREBALL_AOE))
-                    humanFireballAOE(player, 5, 20); // radius 5, fire duration 5 seconds
-            }
+        }
+
+        // Apply AOE fire logic while on fire and toggle is active
+        if (entity instanceof ServerPlayerEntity player
+                && player.isOnFire()
+                && player.hasStatusEffect(TOGGLE_HUMAN_FIREBALL_AOE)
+                && !player.hasStatusEffect(TIRED)) {
+            humanFireballAOE(player, 5, 20); // radius 5, fire for 5 seconds
         }
         super.applyUpdateEffect(entity, amplifier);
     }

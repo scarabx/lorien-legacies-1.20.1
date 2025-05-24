@@ -239,8 +239,9 @@ public class LorienLegaciesModNetworking {
 
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_IMPENETRABLE_SKIN_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                // Just toggle the TOGGLE_ status effect; do NOT directly add/remove IMPENETRABLE_SKIN here
-                ToggleImpenetrableSkinEffect.toggleImpenetrableSkin(player);
+                if (player.hasStatusEffect(PONDUS)) {
+                    ToggleImpenetrableSkinEffect.toggleImpenetrableSkin(player);
+                }
             });
         });
 

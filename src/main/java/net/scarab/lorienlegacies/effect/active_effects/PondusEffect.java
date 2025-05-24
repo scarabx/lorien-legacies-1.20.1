@@ -50,7 +50,10 @@ public class PondusEffect extends StatusEffect {
         }
 
         if (entity.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !entity.hasStatusEffect(ModEffects.TIRED)) {
-            entity.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 100, 4, false, false, false));
+            StatusEffectInstance strength = entity.getStatusEffect(StatusEffects.STRENGTH);
+            if (strength == null || strength.getAmplifier() < 4) {
+                entity.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 400, 4, false, false, false));
+            }
         }
     }
 
