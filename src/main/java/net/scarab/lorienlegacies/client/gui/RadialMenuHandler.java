@@ -42,16 +42,16 @@ public class RadialMenuHandler {
         );
         List<Identifier> combatPackets = List.of(
                 LorienLegaciesModNetworking.TOGGLE_SHOOT_FIREBALL_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_FLAMING_HANDS_PACKET,
                 LorienLegaciesModNetworking.TELEKINESIS_PUSH_PACKET,
                 LorienLegaciesModNetworking.TELEKINESIS_PULL_PACKET,
                 LorienLegaciesModNetworking.TELEKINESIS_MOVE_PACKET,
-                LorienLegaciesModNetworking.HUMAN_FIREBALL_PACKET,
-                LorienLegaciesModNetworking.TOGGLE_FLAMING_HANDS_PACKET,
-                LorienLegaciesModNetworking.TOGGLE_SHOOT_ICEBALL_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_LIGHTNING_STRIKE_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_FORTEM_PACKET,
                 LorienLegaciesModNetworking.ICICLES_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_ICE_HANDS_PACKET,
-                LorienLegaciesModNetworking.TOGGLE_FORTEM_PACKET,
-                LorienLegaciesModNetworking.TOGGLE_LIGHTNING_STRIKE_PACKET
+                LorienLegaciesModNetworking.TOGGLE_SHOOT_ICEBALL_PACKET,
+                LorienLegaciesModNetworking.HUMAN_FIREBALL_PACKET
         );
         optionsPages.add(combatOptions);
         packetPages.add(combatPackets);

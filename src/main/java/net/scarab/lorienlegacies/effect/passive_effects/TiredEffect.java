@@ -16,6 +16,7 @@ public class TiredEffect extends StatusEffect {
 
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
+        // Maintain hidden effect (prevents visual flickering)
         StatusEffectInstance current = entity.getStatusEffect(this);
         if (current != null && (current.shouldShowParticles() || current.shouldShowIcon())) {
             entity.removeStatusEffect(this);
@@ -41,10 +42,11 @@ public class TiredEffect extends StatusEffect {
 
     @Override
     public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
-
         if (entity instanceof PlayerEntity player && player.getHealth() <= 5) {
+            // Apply STAMINA when Tired ends if still low on health
             player.addStatusEffect(new StatusEffectInstance(ModEffects.STAMINA, 200, 0, false, false));
         }
+
         super.onRemoved(entity, attributes, amplifier);
     }
 }

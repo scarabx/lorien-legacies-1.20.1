@@ -16,7 +16,11 @@ public abstract class LivingEntityMixin {
     @Inject(method = "damage", at = @At("TAIL"))
     private void onDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if ((Object) this instanceof PlayerEntity player) {
-            if (player.getHealth() <= 5.0F && !player.hasStatusEffect(ModEffects.TIRED)) {
+            if (player.getHealth() <= 5.0F &&
+                    !player.hasStatusEffect(ModEffects.TIRED) &&
+                    !player.hasStatusEffect(ModEffects.STAMINA)) {
+
+                // Start the loop
                 player.addStatusEffect(new StatusEffectInstance(ModEffects.TIRED, 100, 0, false, false, false));
             }
         }

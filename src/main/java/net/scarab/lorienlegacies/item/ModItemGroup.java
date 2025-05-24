@@ -28,8 +28,6 @@ public class ModItemGroup {
 
                         entries.add(ModBlocks.LORALITE_ORE);
 
-                        entries.add(ModItems.ICEBALL);
-
                     }).build());
 
     public static void registerItemGroups() {

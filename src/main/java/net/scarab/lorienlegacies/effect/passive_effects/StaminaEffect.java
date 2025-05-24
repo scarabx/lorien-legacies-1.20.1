@@ -16,8 +16,6 @@ public class StaminaEffect extends StatusEffect {
 
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-        // Removed reset of SKIP_STAMINA_REMOVAL here to prevent premature clearing
-
         StatusEffectInstance current = entity.getStatusEffect(this);
         if (current != null && (current.shouldShowParticles() || current.shouldShowIcon())) {
             entity.removeStatusEffect(this);
@@ -28,6 +26,7 @@ public class StaminaEffect extends StatusEffect {
                     false, false, false
             ));
         }
+
         super.applyUpdateEffect(entity, amplifier);
     }
 
@@ -38,10 +37,11 @@ public class StaminaEffect extends StatusEffect {
 
     @Override
     public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
-
         if (entity instanceof PlayerEntity player && player.getHealth() <= 5) {
+            // Apply TIRED when Stamina ends if still low on health
             player.addStatusEffect(new StatusEffectInstance(ModEffects.TIRED, 100, 0, false, false));
         }
+
         super.onRemoved(entity, attributes, amplifier);
     }
 }

@@ -7,6 +7,8 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.scarab.lorienlegacies.effect.ModEffects;
 
+import static net.scarab.lorienlegacies.effect.ModEffects.TIRED;
+
 public class AccelixEffect extends StatusEffect {
 
     public AccelixEffect(StatusEffectCategory category, int color) {
@@ -29,10 +31,16 @@ public class AccelixEffect extends StatusEffect {
             ));
         }
 
+        // Don't apply regeneration if the entity is tired
+        if (entity.hasStatusEffect(TIRED)) {
+            entity.removeStatusEffect(StatusEffects.SPEED);
+            return;
+        }
+
         if (!entity.getWorld().isClient()) {
 
             // SPEED: sprinting and not in water
-            if (entity.isSprinting() && !entity.isSubmergedInWater() && !entity.hasStatusEffect(ModEffects.TIRED)) {
+            if (entity.isSprinting() && !entity.isSubmergedInWater()) {
                 entity.addStatusEffect(new StatusEffectInstance(
                         StatusEffects.SPEED,
                         400,
@@ -47,7 +55,7 @@ public class AccelixEffect extends StatusEffect {
         }
 
         // DOLPHIN'S GRACE: sprinting and submerged
-        if (entity.isSprinting() && entity.isSubmergedInWater() && !entity.hasStatusEffect(ModEffects.TIRED)) {
+        if (entity.isSprinting() && entity.isSubmergedInWater()) {
             entity.addStatusEffect(new StatusEffectInstance(
                     StatusEffects.DOLPHINS_GRACE,
                     400,
