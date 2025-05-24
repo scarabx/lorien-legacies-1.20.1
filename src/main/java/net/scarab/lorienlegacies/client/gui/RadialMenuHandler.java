@@ -28,17 +28,17 @@ public class RadialMenuHandler {
         // Page 1 - Combat Abilities
         pageNames.add("Combat");
         List<String> combatOptions = List.of(
-                "Shoot Fireball",
+                "Fireball",
+                "Flaming Hands",
                 "Push",
                 "Pull",
                 "Move",
-                "Human Fireball",
-                "Toggle Flaming Hands",
-                "Shoot Iceball",
-                "Icicles",
-                "Toggle Ice Hands",
+                "Lightning",
                 "Fortem",
-                "Lightning"
+                "Icicles",
+                "Ice Hands",
+                "Iceball",
+                "Human Fireball"
         );
         List<Identifier> combatPackets = List.of(
                 LorienLegaciesModNetworking.TOGGLE_SHOOT_FIREBALL_PACKET,
@@ -67,7 +67,7 @@ public class RadialMenuHandler {
         );
         optionsPages.add(movementOptions);
         packetPages.add(movementPackets);
-        pageColors.add(0xFF0000); // Red
+        pageColors.add(0xFFFF00); // Yellow
 
         // Page 3 - Defense Abilities
         pageNames.add("Defense");
