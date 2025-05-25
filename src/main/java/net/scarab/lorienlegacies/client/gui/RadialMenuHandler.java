@@ -22,7 +22,7 @@ public class RadialMenuHandler {
     private static int currentPage = 0;
 
     // Store toggled state
-    private static final Set<Identifier> toggledOptions = new HashSet<>();
+    //private static final Set<Identifier> toggledOptions = new HashSet<>();
 
     static {
         // Page 1 - Combat Abilities
@@ -34,7 +34,6 @@ public class RadialMenuHandler {
                 "Pull",
                 "Move",
                 "Lightning",
-                "Fortem",
                 "Icicles",
                 "Ice Hands",
                 "Iceball",
@@ -47,7 +46,6 @@ public class RadialMenuHandler {
                 LorienLegaciesModNetworking.TELEKINESIS_PULL_PACKET,
                 LorienLegaciesModNetworking.TELEKINESIS_MOVE_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_LIGHTNING_STRIKE_PACKET,
-                LorienLegaciesModNetworking.TOGGLE_FORTEM_PACKET,
                 LorienLegaciesModNetworking.ICICLES_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_ICE_HANDS_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_SHOOT_ICEBALL_PACKET,
@@ -167,10 +165,9 @@ public class RadialMenuHandler {
             int optionY = centerY + (int) (radius * Math.sin(angle));
 
             boolean hovered = Math.hypot(mouseX - optionX, mouseY - optionY) < 20;
-            boolean toggled = toggledOptions.contains(packetId);
 
-            // Both hovered and selected options are regular blue
-            int color = (hovered || toggled) ? 0xFF0000FF : 0xFFFFFFFF;
+            // Only hovered options are highlighted blue; others are white
+            int color = hovered ? 0xFF0000FF : 0xFFFFFFFF;
 
             drawContext.drawCenteredTextWithShadow(
                     client.textRenderer,
@@ -211,23 +208,11 @@ public class RadialMenuHandler {
             if (hovered) {
                 Identifier packetId = packets.get(i);
 
-                // Toggle selection state
-                if (toggledOptions.contains(packetId)) {
-                    toggledOptions.remove(packetId);
-                } else {
-                    toggledOptions.add(packetId);
-                }
-
                 ClientPlayNetworking.send(packetId, new PacketByteBuf(Unpooled.buffer()));
                 closeMenu();
                 MinecraftClient.getInstance().setScreen(null);
                 break;
             }
         }
-    }
-
-    public static void setToggledOptions(Set<Identifier> newToggles) {
-        toggledOptions.clear();
-        toggledOptions.addAll(newToggles);
     }
 }

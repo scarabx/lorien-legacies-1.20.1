@@ -21,6 +21,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import static net.scarab.lorienlegacies.effect.ModEffects.TIRED;
+import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_IMPENETRABLE_SKIN;
+
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
 
@@ -34,20 +37,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Shadow
     public abstract boolean damage(DamageSource source, float amount);
-
-    // Fortem: Apply Strength immediately before hitting a hostile mob
-    @Inject(method = "attack", at = @At("HEAD"))
-    private void injectFortemStrength(Entity target, CallbackInfo ci) {
-        PlayerEntity player = (PlayerEntity) (Object) this;
-
-        if ((target instanceof Monster || target instanceof IronGolemEntity) && player.hasStatusEffect(ModEffects.FORTEM) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN)) {
-            // Refresh fire resistance
-            StatusEffectInstance strength = player.getStatusEffect(StatusEffects.STRENGTH);
-            if (strength == null || strength.getAmplifier() < 4) {
-                player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 20, 4, false, false, false));
-            }
-        }
-    }
 
     // Intangibility and Impenetrable Skin damage immunity logic
     @Inject(method = "damage", at = @At("HEAD"), cancellable = true)

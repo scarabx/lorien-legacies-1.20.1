@@ -39,13 +39,9 @@ public class LorienLegaciesModNetworking {
 
     public static final Identifier RIGHT_CLICK_PACKET = new Identifier("lorienlegacies", "right_click");
 
-    public static final Identifier SYNC_TOGGLES_PACKET = new Identifier("lorienlegacies", "sync_toggles");
-
     public static final Identifier TOGGLE_SHOOT_ICEBALL_PACKET = new Identifier("lorienlegacies", "toggle_shoot_iceball");
 
     public static final Identifier TOGGLE_FREEZE_WATER_PACKET = new Identifier("lorienlegacies", "toggle_freeze_water");
-
-    public static final Identifier TOGGLE_FORTEM_PACKET = new Identifier("lorienlegacies", "toggle_fortem");
 
     public static final Identifier TOGGLE_NOVIS_PACKET = new Identifier("lorienlegacies", "toggle_novis");
 
@@ -98,11 +94,7 @@ public class LorienLegaciesModNetworking {
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_FLAMING_HANDS_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 if (player.hasStatusEffect(LUMEN)) {
-                    //boolean wasFlamingHandsToggledOn = !player.hasStatusEffect(TOGGLE_FLAMING_HANDS); // being turned on
                     ToggleFlamingHandsEffect.toggleFlamingHands(player);
-                    //if (wasFlamingHandsToggledOn && !player.hasStatusEffect(STAMINA)) {
-                        //player.addStatusEffect(new StatusEffectInstance(ModEffects.STAMINA, 6000, 0, false, false, false));
-                    //}
                 }
             });
         });
@@ -145,16 +137,6 @@ public class LorienLegaciesModNetworking {
                     ToggleShootFireballEffect.toggleShootFireball(player);
                     player.removeStatusEffect(TOGGLE_SHOOT_ICEBALL);
                     player.removeStatusEffect(TOGGLE_LIGHTNING_STRIKE);
-
-                    // Sync to client
-                    PacketByteBuf syncBuf = new PacketByteBuf(Unpooled.buffer());
-                    Set<Identifier> toggled = new HashSet<>();
-                    if (player.hasStatusEffect(TOGGLE_SHOOT_FIREBALL)) toggled.add(TOGGLE_SHOOT_FIREBALL_PACKET);
-                    if (player.hasStatusEffect(TOGGLE_SHOOT_ICEBALL)) toggled.add(TOGGLE_SHOOT_ICEBALL_PACKET);
-                    if (player.hasStatusEffect(TOGGLE_LIGHTNING_STRIKE)) toggled.add(TOGGLE_LIGHTNING_STRIKE_PACKET);
-                    syncBuf.writeVarInt(toggled.size());
-                    for (Identifier id : toggled) syncBuf.writeIdentifier(id);
-                    ServerPlayNetworking.send(player, SYNC_TOGGLES_PACKET, syncBuf);
                 }
             });
         });
@@ -165,16 +147,6 @@ public class LorienLegaciesModNetworking {
                     ToggleShootIceballEffect.toggleShootIceball(player);
                     player.removeStatusEffect(TOGGLE_SHOOT_FIREBALL);
                     player.removeStatusEffect(TOGGLE_LIGHTNING_STRIKE);
-
-                    // Sync to client
-                    PacketByteBuf syncBuf = new PacketByteBuf(Unpooled.buffer());
-                    Set<Identifier> toggled = new HashSet<>();
-                    if (player.hasStatusEffect(TOGGLE_SHOOT_ICEBALL)) toggled.add(TOGGLE_SHOOT_ICEBALL_PACKET);
-                    if (player.hasStatusEffect(TOGGLE_SHOOT_FIREBALL)) toggled.add(SHOOT_FIREBALL_PACKET);
-                    if (player.hasStatusEffect(TOGGLE_LIGHTNING_STRIKE)) toggled.add(TOGGLE_LIGHTNING_STRIKE_PACKET);
-                    syncBuf.writeVarInt(toggled.size());
-                    for (Identifier id : toggled) syncBuf.writeIdentifier(id);
-                    ServerPlayNetworking.send(player, SYNC_TOGGLES_PACKET, syncBuf);
                 }
             });
         });
@@ -217,14 +189,6 @@ public class LorienLegaciesModNetworking {
             server.execute(() -> {
                 if (player.hasStatusEffect(GLACEN)) {
                     ToggleFreezeWaterEffect.toggleFreezeWater(player);
-                }
-            });
-        });
-
-        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_FORTEM_PACKET, (server, player, handler, buf, responseSender) -> {
-            server.execute(() -> {
-                if (player.hasStatusEffect(FORTEM)) {
-                    ToggleFortemEffect.toggleFortem(player);
                 }
             });
         });
@@ -277,18 +241,6 @@ public class LorienLegaciesModNetworking {
                     player.removeStatusEffect(CHIMAERA_MORPH);
                     player.removeStatusEffect(CHIMAERA_CALL);
                     player.removeStatusEffect(MARK_TARGET_FOR_WOLF);
-
-                    // Sync to client
-                    PacketByteBuf syncBuf = new PacketByteBuf(Unpooled.buffer());
-                    Set<Identifier> toggled = new HashSet<>();
-                    if (player.hasStatusEffect(TOGGLE_TELEKINESIS_PUSH)) toggled.add(TELEKINESIS_PUSH_PACKET);
-                    if (player.hasStatusEffect(TOGGLE_TELEKINESIS_PULL)) toggled.add(TELEKINESIS_PULL_PACKET);
-                    if (player.hasStatusEffect(CHIMAERA_MORPH)) toggled.add(CHIMAERA_MORPH_PACKET);
-                    if (player.hasStatusEffect(CHIMAERA_CALL)) toggled.add(CHIMAERA_CALL_PACKET);
-                    if (player.hasStatusEffect(MARK_TARGET_FOR_WOLF)) toggled.add(MARK_TARGET_FOR_WOLF_PACKET);
-                    syncBuf.writeVarInt(toggled.size());
-                    for (Identifier id : toggled) syncBuf.writeIdentifier(id);
-                    ServerPlayNetworking.send(player, SYNC_TOGGLES_PACKET, syncBuf);
                 }
             });
         });
@@ -301,18 +253,6 @@ public class LorienLegaciesModNetworking {
                     player.removeStatusEffect(CHIMAERA_MORPH);
                     player.removeStatusEffect(CHIMAERA_CALL);
                     player.removeStatusEffect(MARK_TARGET_FOR_WOLF);
-
-                    // Sync to client
-                    PacketByteBuf syncBuf = new PacketByteBuf(Unpooled.buffer());
-                    Set<Identifier> toggled = new HashSet<>();
-                    if (player.hasStatusEffect(TOGGLE_TELEKINESIS_PULL)) toggled.add(TELEKINESIS_PULL_PACKET);
-                    if (player.hasStatusEffect(TOGGLE_TELEKINESIS_PUSH)) toggled.add(TELEKINESIS_PUSH_PACKET);
-                    if (player.hasStatusEffect(CHIMAERA_MORPH)) toggled.add(CHIMAERA_MORPH_PACKET);
-                    if (player.hasStatusEffect(CHIMAERA_CALL)) toggled.add(CHIMAERA_CALL_PACKET);
-                    if (player.hasStatusEffect(MARK_TARGET_FOR_WOLF)) toggled.add(MARK_TARGET_FOR_WOLF_PACKET);
-                    syncBuf.writeVarInt(toggled.size());
-                    for (Identifier id : toggled) syncBuf.writeIdentifier(id);
-                    ServerPlayNetworking.send(player, SYNC_TOGGLES_PACKET, syncBuf);
                 }
             });
         });
@@ -331,16 +271,6 @@ public class LorienLegaciesModNetworking {
                     ToggleLightningStrikeEffect.toggleLightningStrike(player);
                     player.removeStatusEffect(TOGGLE_SHOOT_FIREBALL);
                     player.removeStatusEffect(TOGGLE_SHOOT_ICEBALL);
-
-                    // Sync to client
-                    PacketByteBuf syncBuf = new PacketByteBuf(Unpooled.buffer());
-                    Set<Identifier> toggled = new HashSet<>();
-                    if (player.hasStatusEffect(TOGGLE_LIGHTNING_STRIKE)) toggled.add(TOGGLE_LIGHTNING_STRIKE_PACKET);
-                    if (player.hasStatusEffect(TOGGLE_SHOOT_FIREBALL)) toggled.add(TOGGLE_SHOOT_FIREBALL_PACKET);
-                    if (player.hasStatusEffect(TOGGLE_SHOOT_ICEBALL)) toggled.add(SHOOT_ICEBALL_PACKET);
-                    syncBuf.writeVarInt(toggled.size());
-                    for (Identifier id : toggled) syncBuf.writeIdentifier(id);
-                    ServerPlayNetworking.send(player, SYNC_TOGGLES_PACKET, syncBuf);
                 }
             });
         });
@@ -351,14 +281,6 @@ public class LorienLegaciesModNetworking {
                     ToggleConjureRainEffect.toggleConjureRain(player);
                     SturmaEffect.conjureRain(player, (ServerWorld) player.getWorld());
                     player.removeStatusEffect(TOGGLE_CONJURE_RAIN);
-
-                    // Sync to client
-                    PacketByteBuf syncBuf = new PacketByteBuf(Unpooled.buffer());
-                    Set<Identifier> toggled = new HashSet<>();
-                    if (player.hasStatusEffect(TOGGLE_CONJURE_RAIN)) toggled.add(TOGGLE_CONJURE_RAIN_PACKET);
-                    syncBuf.writeVarInt(toggled.size());
-                    for (Identifier id : toggled) syncBuf.writeIdentifier(id);
-                    ServerPlayNetworking.send(player, SYNC_TOGGLES_PACKET, syncBuf);
                 }
             });
         });
@@ -369,14 +291,6 @@ public class LorienLegaciesModNetworking {
                     ToggleConjureThunderEffect.toggleConjureThunder(player);
                     SturmaEffect.conjureThunder(player, (ServerWorld) player.getWorld());
                     player.removeStatusEffect(TOGGLE_CONJURE_THUNDER);
-
-                    // Sync to client
-                    PacketByteBuf syncBuf = new PacketByteBuf(Unpooled.buffer());
-                    Set<Identifier> toggled = new HashSet<>();
-                    if (player.hasStatusEffect(TOGGLE_CONJURE_THUNDER)) toggled.add(TOGGLE_CONJURE_THUNDER_PACKET);
-                    syncBuf.writeVarInt(toggled.size());
-                    for (Identifier id : toggled) syncBuf.writeIdentifier(id);
-                    ServerPlayNetworking.send(player, SYNC_TOGGLES_PACKET, syncBuf);
                 }
             });
         });
@@ -387,14 +301,6 @@ public class LorienLegaciesModNetworking {
                     ToggleConjureClearWeatherEffect.toggleConjureClearWeather(player);
                     SturmaEffect.conjureClearWeather(player, (ServerWorld) player.getWorld());
                     player.removeStatusEffect(TOGGLE_CONJURE_CLEAR_WEATHER);
-
-                    // Sync to client
-                    PacketByteBuf syncBuf = new PacketByteBuf(Unpooled.buffer());
-                    Set<Identifier> toggled = new HashSet<>();
-                    if (player.hasStatusEffect(TOGGLE_CONJURE_CLEAR_WEATHER)) toggled.add(TOGGLE_CONJURE_CLEAR_WEATHER_PACKET);
-                    syncBuf.writeVarInt(toggled.size());
-                    for (Identifier id : toggled) syncBuf.writeIdentifier(id);
-                    ServerPlayNetworking.send(player, SYNC_TOGGLES_PACKET, syncBuf);
                 }
             });
         });
@@ -410,18 +316,6 @@ public class LorienLegaciesModNetworking {
                     player.removeStatusEffect(TOGGLE_TELEKINESIS_PUSH);
                     player.removeStatusEffect(TOGGLE_TELEKINESIS_PULL);
                 }
-
-                // Sync to client
-                PacketByteBuf syncBuf = new PacketByteBuf(Unpooled.buffer());
-                Set<Identifier> toggled = new HashSet<>();
-                if (player.hasStatusEffect(CHIMAERA_CALL)) toggled.add(CHIMAERA_CALL_PACKET);
-                if (player.hasStatusEffect(CHIMAERA_MORPH)) toggled.add(CHIMAERA_MORPH_PACKET);
-                if (player.hasStatusEffect(MARK_TARGET_FOR_WOLF)) toggled.add(MARK_TARGET_FOR_WOLF_PACKET);
-                if (player.hasStatusEffect(TOGGLE_TELEKINESIS_PUSH)) toggled.add(TELEKINESIS_PUSH_PACKET);
-                if (player.hasStatusEffect(TOGGLE_TELEKINESIS_PULL)) toggled.add(TELEKINESIS_PULL_PACKET);
-                syncBuf.writeVarInt(toggled.size());
-                for (Identifier id : toggled) syncBuf.writeIdentifier(id);
-                ServerPlayNetworking.send(player, SYNC_TOGGLES_PACKET, syncBuf);
             });
         });
 
@@ -436,18 +330,6 @@ public class LorienLegaciesModNetworking {
                     player.removeStatusEffect(TOGGLE_TELEKINESIS_PUSH);
                     player.removeStatusEffect(TOGGLE_TELEKINESIS_PULL);
                 }
-
-                // Sync to client
-                PacketByteBuf syncBuf = new PacketByteBuf(Unpooled.buffer());
-                Set<Identifier> toggled = new HashSet<>();
-                if (player.hasStatusEffect(CHIMAERA_MORPH)) toggled.add(CHIMAERA_MORPH_PACKET);
-                if (player.hasStatusEffect(CHIMAERA_CALL)) toggled.add(CHIMAERA_CALL_PACKET);
-                if (player.hasStatusEffect(MARK_TARGET_FOR_WOLF)) toggled.add(MARK_TARGET_FOR_WOLF_PACKET);
-                if (player.hasStatusEffect(TOGGLE_TELEKINESIS_PUSH)) toggled.add(TELEKINESIS_PUSH_PACKET);
-                if (player.hasStatusEffect(TOGGLE_TELEKINESIS_PULL)) toggled.add(TELEKINESIS_PULL_PACKET);
-                syncBuf.writeVarInt(toggled.size());
-                for (Identifier id : toggled) syncBuf.writeIdentifier(id);
-                ServerPlayNetworking.send(player, SYNC_TOGGLES_PACKET, syncBuf);
             });
         });
 
@@ -462,18 +344,6 @@ public class LorienLegaciesModNetworking {
                     player.removeStatusEffect(TOGGLE_TELEKINESIS_PUSH);
                     player.removeStatusEffect(TOGGLE_TELEKINESIS_PULL);
                 }
-
-                // Sync to client
-                PacketByteBuf syncBuf = new PacketByteBuf(Unpooled.buffer());
-                Set<Identifier> toggled = new HashSet<>();
-                if (player.hasStatusEffect(CHIMAERA_MORPH)) toggled.add(CHIMAERA_MORPH_PACKET);
-                if (player.hasStatusEffect(CHIMAERA_CALL)) toggled.add(CHIMAERA_CALL_PACKET);
-                if (player.hasStatusEffect(MARK_TARGET_FOR_WOLF)) toggled.add(MARK_TARGET_FOR_WOLF_PACKET);
-                if (player.hasStatusEffect(TOGGLE_TELEKINESIS_PUSH)) toggled.add(TELEKINESIS_PUSH_PACKET);
-                if (player.hasStatusEffect(TOGGLE_TELEKINESIS_PULL)) toggled.add(TELEKINESIS_PULL_PACKET);
-                syncBuf.writeVarInt(toggled.size());
-                for (Identifier id : toggled) syncBuf.writeIdentifier(id);
-                ServerPlayNetworking.send(player, SYNC_TOGGLES_PACKET, syncBuf);
             });
         });
     }

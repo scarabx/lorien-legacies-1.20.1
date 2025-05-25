@@ -4,7 +4,6 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.potion.PotionUtil;
@@ -14,7 +13,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.scarab.lorienlegacies.LorienLegaciesMod;
 import net.scarab.lorienlegacies.effect.ModEffects;
-import net.scarab.lorienlegacies.item.ModItems;
 import net.scarab.lorienlegacies.potion.ModPotions;
 
 import java.util.HashMap;
@@ -39,12 +37,11 @@ public class LegacyBestowalHandler {
             Map.entry(ModEffects.AVEX, 1),
             Map.entry(ModEffects.PONDUS, 3),
             Map.entry(ModEffects.GLACEN, 4),
-            Map.entry(ModEffects.ACCELIX, 6),
-            Map.entry(ModEffects.FORTEM, 5),
+            Map.entry(ModEffects.ACCELIX, 5),
             Map.entry(ModEffects.NOVIS, 1),
-            Map.entry(ModEffects.NOXEN, 8),
+            Map.entry(ModEffects.NOXEN, 7),
             Map.entry(ModEffects.REGENERAS, 1),
-            Map.entry(ModEffects.SUBMARI, 7),
+            Map.entry(ModEffects.SUBMARI, 6),
             Map.entry(ModEffects.STURMA, 1)
     );
 

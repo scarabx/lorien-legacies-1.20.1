@@ -44,9 +44,6 @@ public class ModEffects {
     public static final StatusEffect REGENERAS = registerStatusEffect("regeneras",
             new RegenerasEffect(StatusEffectCategory.BENEFICIAL, 0xFFC0CB/*Pink*/));
 
-    public static final StatusEffect FORTEM = registerStatusEffect("fortem",
-            new FortemEffect(StatusEffectCategory.BENEFICIAL, 0xFF0000/*Red*/));
-
     public static final StatusEffect ACCELIX = registerStatusEffect("accelix",
             new AccelixEffect(StatusEffectCategory.BENEFICIAL, 0xFFFF00/*Yellow*/));
 
@@ -73,9 +70,6 @@ public class ModEffects {
 
     public static final StatusEffect TOGGLE_LIGHTNING_STRIKE = registerStatusEffect("toggle_lightning_strike",
             new ToggleLightningStrikeEffect(StatusEffectCategory.BENEFICIAL, 0xFFFF00/*Yellow*/));
-
-    public static final StatusEffect TOGGLE_FORTEM = registerStatusEffect("toggle_fortem",
-            new ToggleFortemEffect(StatusEffectCategory.BENEFICIAL, 0xFF0000/*Red*/));
 
     public static final StatusEffect TOGGLE_NOVIS = registerStatusEffect("toggle_novis",
             new NovisEffect(StatusEffectCategory.BENEFICIAL, 0x55FFFF/*Light Blue*/));
