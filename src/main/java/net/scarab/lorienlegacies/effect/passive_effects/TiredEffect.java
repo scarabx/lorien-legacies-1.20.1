@@ -29,9 +29,14 @@ public class TiredEffect extends StatusEffect {
         }
 
         if (entity instanceof PlayerEntity player) {
-            player.stopFallFlying();
+            if (player.hasStatusEffect(ModEffects.AVEX) && player.isFallFlying()) {
+                player.stopFallFlying();
+            }
+            if (player.hasStatusEffect(ModEffects.PONDUS) && player.hasStatusEffect(ModEffects.TOGGLE_INTANGIBILITY)) {
+                player.getAbilities().flying = false;
+                player.getAbilities().allowFlying = false;
+            }
         }
-
         super.applyUpdateEffect(entity, amplifier);
     }
 
@@ -45,8 +50,11 @@ public class TiredEffect extends StatusEffect {
         if (entity instanceof PlayerEntity player && player.getHealth() <= 5) {
             // Apply STAMINA when Tired ends if still low on health
             player.addStatusEffect(new StatusEffectInstance(ModEffects.STAMINA, 200, 0, false, false));
+            if (player.hasStatusEffect(ModEffects.PONDUS) && player.hasStatusEffect(ModEffects.TOGGLE_INTANGIBILITY)) {
+                player.getAbilities().flying = true;
+                player.getAbilities().allowFlying = true;
+            }
         }
-
         super.onRemoved(entity, attributes, amplifier);
     }
 }

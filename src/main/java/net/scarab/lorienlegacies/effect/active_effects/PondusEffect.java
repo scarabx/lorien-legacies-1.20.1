@@ -88,7 +88,6 @@ public class PondusEffect extends StatusEffect {
                 player.getAbilities().allowFlying = false;
             }
         }
-
         player.sendAbilitiesUpdate();
     }
 }

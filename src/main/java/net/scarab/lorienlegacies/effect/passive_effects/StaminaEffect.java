@@ -26,7 +26,6 @@ public class StaminaEffect extends StatusEffect {
                     false, false, false
             ));
         }
-
         super.applyUpdateEffect(entity, amplifier);
     }
 
@@ -41,7 +40,6 @@ public class StaminaEffect extends StatusEffect {
             // Apply TIRED when Stamina ends if still low on health
             player.addStatusEffect(new StatusEffectInstance(ModEffects.TIRED, 100, 0, false, false));
         }
-
         super.onRemoved(entity, attributes, amplifier);
     }
 }

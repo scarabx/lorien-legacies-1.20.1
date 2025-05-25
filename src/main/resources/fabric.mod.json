@@ -3,13 +3,13 @@
 	"id": "lorienlegacies",
 	"version": "${version}",
 	"name": "Lorien Legacies Mod",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Adds superpowers based on the Lorien Legacies book series.",
 	"authors": [
 		"scarabx"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/scarabx/lorien-legacies-1.20.1",
+		"sources": "https://github.com/scarabx/lorien-legacies-1.20.1"
 	},
 	"license": "MIT",
 	"icon": "assets/lorienlegacies/lorienlegacies.png",
@@ -37,7 +37,9 @@
 		"java": ">=17",
 		"fabric-api": "*"
 	},
-	"suggests": {
-		"another-mod": "*"
+	"custom": {
+		"modmenu": {
+			"icon": "assets/lorienlegacies/lorienlegacies.png"
+		}
 	}
 }
