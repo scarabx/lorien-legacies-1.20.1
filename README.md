@@ -5,10 +5,20 @@ This mod is based on the sci-fi book series of the same name by Pittacus Lore. B
 ## Features
 
 - Legacies
+
+
 - Inheritance items
+
+
 - Chimaera
+
+
 - Loric blocks and items
+
+
 - World generation
+
+
 - Mobs and bosses
 
 ## Manual
