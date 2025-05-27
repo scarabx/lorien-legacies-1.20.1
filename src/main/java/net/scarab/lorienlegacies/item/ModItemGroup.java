@@ -22,8 +22,6 @@ public class ModItemGroup {
 
                         entries.add(ModItems.LEATHER_SLEEVE);
 
-                        entries.add(ModItems.LORIEN_BOOK);
-
                         entries.add(ModBlocks.LORALITE_BLOCK);
 
                         entries.add(ModBlocks.LORALITE_ORE);
