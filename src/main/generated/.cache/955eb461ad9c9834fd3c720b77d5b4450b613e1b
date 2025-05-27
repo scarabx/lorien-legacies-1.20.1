@@ -1,4 +1,4 @@
-// 1.20.1	2025-05-13T12:05:57.842469	Lorien Legacies Mod/Recipes
+// 1.20.1	2025-05-27T14:02:35.985168	Lorien Legacies Mod/Recipes
 e603a7ea41352669fccebf9fd9672a4626641884 data/lorienlegacies/recipes/loralite.json
 47852b8042f7cef7a8f550588502a81aa6822296 data/lorienlegacies/recipes/loralite_from_smelting_loralite.json
 36f398bdd9c4f81dd53072709e92516e8ce0d3fd data/lorienlegacies/advancements/recipes/misc/loralite_from_smelting_loralite.json
@@ -7,7 +7,6 @@ e603a7ea41352669fccebf9fd9672a4626641884 data/lorienlegacies/recipes/loralite.js
 4f2a9437c01776f3b22e138dd5625e20981693af data/lorienlegacies/advancements/recipes/misc/loralite.json
 c209ba19ed1060c936e390d074960003ff454399 data/lorienlegacies/recipes/loralite_from_blasting_loralite.json
 339e2a1145ca82f05e7a66a14e3c695c494bda1a data/lorienlegacies/advancements/recipes/misc/leather_sleeve_.json
-2c7b09dd6653581aa5a71021e88ef22d9c4bfa21 data/lorienlegacies/advancements/recipes/misc/lorien_book_.json
 86334211be9ab8d6a78221975f73b8a1c719b881 data/lorienlegacies/advancements/recipes/misc/loric_stone_.json
 5f3e40392d349df27d1eb692b16b0accf9954d34 data/lorienlegacies/recipes/loralite_from_smelting_loralite_ore.json
 75a1a00c20ac8f084b041f8dd268fa95871d3b8d data/lorienlegacies/advancements/recipes/misc/loralite_from_blasting_loralite_ore.json
@@ -15,5 +14,4 @@ c209ba19ed1060c936e390d074960003ff454399 data/lorienlegacies/recipes/loralite_fr
 04097b34908cf20aa610fe14ed7a923c75f6fb22 data/lorienlegacies/advancements/recipes/misc/loralite_from_blasting_loralite.json
 af96657ac0f0734df9d9fe6f0902455964423984 data/lorienlegacies/advancements/recipes/misc/loralite_block.json
 7c66d0eb5c1eae42ea142f02e122495b00499048 data/lorienlegacies/advancements/recipes/misc/loralite_from_smelting_loralite_ore.json
-e824c65466114dea454f4358404acd18e5f32fb3 data/lorienlegacies/recipes/lorien_book_.json
 0afe67129a2e9b59b1b672b2bb1644fad232cda8 data/lorienlegacies/recipes/loralite_from_blasting_loralite_ore.json

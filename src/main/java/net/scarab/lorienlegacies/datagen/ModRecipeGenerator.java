@@ -42,13 +42,6 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 .criterion(hasItem(ModItems.LORALITE), conditionsFromItem(ModItems.LORALITE))
                 .offerTo(exporter, new Identifier(getRecipeName(ModItems.LEATHER_SLEEVE) + "_"));
 
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.LORIEN_BOOK)
-                        .input(ModItems.LORALITE)
-                        .input(Items.BOOK)
-                        .criterion(hasItem(Items.BOOK), conditionsFromItem(Items.BOOK))
-                        .criterion(hasItem(ModItems.LORALITE), conditionsFromItem(ModItems.LORALITE))
-                        .offerTo(exporter, new Identifier(getRecipeName(ModItems.LORIEN_BOOK) + "_"));
-
         offerReversibleCompactingRecipes(exporter, RecipeCategory.MISC, ModItems.LORALITE, RecipeCategory.MISC, ModBlocks.LORALITE_BLOCK);
 
         offerSmelting(exporter, List.of(ModItems.LORALITE, ModBlocks.LORALITE_ORE), RecipeCategory.MISC, ModItems.LORALITE,

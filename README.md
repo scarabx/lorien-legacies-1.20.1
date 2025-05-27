@@ -134,39 +134,50 @@ of Active Legacy Inhibition. You can do this indefinitely until the Inhibitor Re
 
 Powerful items given to the Garde to assist them in their survival on earth. Found as random loot in Loric chests inside Mogadorian bases.
 
+
 - **Strand of Green Stones:**
   Creates a blackhole.
+
 
 - **X-ray Stone:**
   Grants x-ray vision.
 
+
 - **Diamond-blade dagger:**
   Hilt wraps around your wrist.
 
+
 - **Joust Staff:**
+
   Two-sided spear with red, glowing and molten-hot blades.
+
 
 - **Red Bracelet:**
   Warns you from danger and deploys a shield in reaction to attacks.
 
+
 - **Porcupine Ball:**
   Thrown ball projectile that increases in size, destroys blocks and kills mobs on hit.
 
+
 - **Leather Sleeve:**
   Sleeve housing a sharp, retractable needle blade.
+
 
 - **Green Stone:**
   Propels user through water.
 
 ### Chimaera
 
-Shapeshifting animals sent with the Garde to protect them on earth. Native to Lorien. Acquiring your own Chimaera is done by splashing your tamed wolf with Chimaera Essence which is given to the player when he receives a Legacy. To command your Chimaera, choose commands on page 5, titled Chimaera, in the radial menu. **These modes can't be used simultaneously. Previous mode is automatically deselected when next mode is chosen. Activate these modes with right-click:**
+Morphing animals sent with the Garde to protect them on earth. Native to Lorien. Acquiring your own Chimaera is done by splashing your tamed wolf with Chimaera Essence which is given to the player when he receives a Legacy. To command your Chimaera, choose commands on page 5, titled Chimaera, in the radial menu. **These modes can't be used simultaneously. Previous mode is automatically deselected when next mode is chosen. Activate these modes with right-click:**
 
 - **Morph:**
   Right-click while looking at wolf (can be done from a distance) to cycle between forms, wolf -> parrot -> axolotl (with a bucket of tropical fish, used to make axolotl follow you) -> horse (with a saddle)-> wolf. **Be careful of turning Chimaera into parrot when badly hurt as forms share health.**
 
+
 - **Mark Target:**
   Right-click while looking at target and wolf will attack it.
+
 
 - **Call:**
   Right-click to tp all Chimaeras owned by you, to you. Doesn't work over long distances because Chimaeras' chunks get unloaded. For teleporting long distances, flying long distances with Avex and walking long distances, morph your Chimaera into a parrot and put it onto your shoulder.
@@ -186,14 +197,18 @@ Mogadorian bases, West Virginia Mountain Base and Ashwood Estates.
 - Mogadorian soldiers:
   Armed with energy blasters and life-draining swords.
 
+
 - Pikens:
   Broad-shouldered, nightmarish monsters with red eyes, large horns and sharp teeth that are almost too big for their mouths.
+
 
 - Krauls:
   Small, fast and deadly monsters.
 
+
 - Setrakus Ra:
   Supreme leader of all Mogadorian-kind and enforcer of the Great Book. Be sure to be armed to the teeth if you plan on meeting him.
+
 
 - Warship:
   Massive, forcefield protected spaceship with a lot health that bombards the world.
@@ -202,9 +217,12 @@ Mogadorian bases, West Virginia Mountain Base and Ashwood Estates.
 
 - Lumen, Glacen, Pondus, Avex, Telekinesis, Accelix, Regeneras, Noxen, Novis, Sturma, and Submari Legacies
 
+
 - Legacy Bestowal system that randomly grants random Legacies to the player when stressed.
 
+
 - Legacy triggering via a radial menu.
+
 
 - Legacy stamina system
 
@@ -212,17 +230,22 @@ Mogadorian bases, West Virginia Mountain Base and Ashwood Estates.
 
 - Blocks and items
 
+
 - Chimaera
 
 ### Planned features:
 
 - All other 25 Legacies
 
+
 - Inhibitors
+
 
 - Inheritance items
 
+
 - World Generation
+
 
 - Mobs and bosses
 
@@ -234,17 +257,24 @@ Mogadorian bases, West Virginia Mountain Base and Ashwood Estates.
 
 - Fireball Throwing - Iceball Throwing and Lightning Strike
 
+
 - Iceball Throwing - Fireball Throwing and Lightning Strike
+
 
 - Lightning Strike - Fireball Throwing and Iceball Throwing
 
+
 - Chimaera Call - Chimaera Morph, Chimaera Mark and Telekinesis Push and Pull
+
 
 - Chimaera Morph - Chimaera Mark, Chimaera Call and Telekinesis Push and Pull
 
+
 - Chimaera Mark - Chimaera Call, Chimaera Morph and Telekinesis Push and Pull
 
+
 - Telekinesis Push - Telekinesis Pull, Chimaera Morph, Chimaera Mark and Chimaera Call
+
 
 - Telekinesis Pull - Telekinesis Push, Chimaera Morph, Chimaera Mark and Chimaera Call
 
@@ -256,11 +286,15 @@ Mogadorian bases, West Virginia Mountain Base and Ashwood Estates.
 
 - Page 1, Combat - Fireball, Flaming Hands, Telekinesis Pull, Telekinesis Push, Telekinesis Move, Lightning Strike, Ice Hands and Human Fireball
 
+
 - Page 2, Movement - Intangifly
+
 
 - Page 3, Defense - Impenetrable Skin and Intangibility
 
+
 - Page 4, Utility - Freeze Water, Conjure Rain, Conjure Thunder, Conjure Clear Weather and Novis
+
 
 - Page 5, Chimaera - Morph, Mark, Call
 
@@ -270,10 +304,17 @@ Mogadorian bases, West Virginia Mountain Base and Ashwood Estates.
 
 - Wait a little bit before choosing next option in the cycle when controlling the weather.
 
+
 - Avex flight can only be activated while standing still.
+
 
 - Don't fly through water or log out while Avex, Intangibility and Intangifly is active.
 
+
 - If done by accident, fix by disabling Intangifly and unsneaking.
 
+
 - Legacy icons in inventory will take a while to reappear after death, but their functionality isn't affected except for moving through blocks while Intangible (only until all icons reappear and other features of Intangibility still works).
+
+
+- Make sure your Chimaera isn't near you when activating Human Fireball (Self-ignition).
