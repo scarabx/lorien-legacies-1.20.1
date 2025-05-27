@@ -160,7 +160,7 @@ Powerful items given to the Garde to assist them in their survival on earth. Fou
 
 ### Chimaera
 
-Shapeshifting animals sent with the Garde to protect them on earth. Native to Lorien. Acquiring your own Chimaera is done by splashing your tamed wolf with Chimaera Essence which is given to the player when he receives a Legacy. To command your Chimaera, choose commands on page 5, titled Chimaera, in the radial menu. **These modes can't be used simultaneously. **Previous mode is automatically deselected when next mode is chosen. Activate these modes with right-click:**
+Shapeshifting animals sent with the Garde to protect them on earth. Native to Lorien. Acquiring your own Chimaera is done by splashing your tamed wolf with Chimaera Essence which is given to the player when he receives a Legacy. To command your Chimaera, choose commands on page 5, titled Chimaera, in the radial menu. **These modes can't be used simultaneously. Previous mode is automatically deselected when next mode is chosen. Activate these modes with right-click:**
 
 - **Morph:**
   Right-click while looking at wolf (can be done from a distance) to cycle between forms, wolf -> parrot -> axolotl (with a bucket of tropical fish, used to make axolotl follow you) -> horse (with a saddle)-> wolf. **Be careful of turning Chimaera into parrot when badly hurt as forms share health.**
