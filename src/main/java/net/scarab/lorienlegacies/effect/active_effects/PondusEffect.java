@@ -43,13 +43,15 @@ public class PondusEffect extends StatusEffect {
         if (entity instanceof PlayerEntity player) {
 
             // Apply intangibility behavior
-            if (player.hasStatusEffect(TOGGLE_INTANGIBILITY)
+            if (!player.getWorld().isClient()
+                && player.hasStatusEffect(TOGGLE_INTANGIBILITY)
                     && !player.hasStatusEffect(TIRED)) {
                 applyIntangibility(player);
             }
         }
 
-        if (entity.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !entity.hasStatusEffect(ModEffects.TIRED)) {
+        if (!entity.getWorld().isClient()
+            && entity.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !entity.hasStatusEffect(ModEffects.TIRED)) {
             entity.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 400, 4, false, false, false));
         } else {
             entity.removeStatusEffect(StatusEffects.STRENGTH);

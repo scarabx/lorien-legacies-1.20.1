@@ -42,20 +42,20 @@ public class LegacyBestowalHandler {
             Map.entry(ModEffects.NOXEN, 7),
             Map.entry(ModEffects.REGENERAS, 1),
             Map.entry(ModEffects.SUBMARI, 6),
-            Map.entry(ModEffects.STURMA, 1)
+            Map.entry(ModEffects.STURMA, 1),
+            Map.entry(ModEffects.XIMIC, 12)
     );
 
     private static final int TICKS_PER_SECOND = 20;
-    private static final int THROTTLE_TICKS = TICKS_PER_SECOND * 10; // 10 seconds
+    private static final int THROTTLE_TICKS = TICKS_PER_SECOND * 10;
     private static final int MAX_STRESS = 150;
-    private static final int LEGACY_COOLDOWN_TICKS = 20 * 60 * 5; // 5 minutes
+    private static final int LEGACY_COOLDOWN_TICKS = 20 * 60 * 5;
 
     public static void stressManager(ServerPlayerEntity player) {
         UUID id = player.getUuid();
         long time = player.getServerWorld().getTime();
         int stress = playerStress.getOrDefault(id, 0);
 
-        // Increase stress
         if (player.getHealth() <= 2 && time - lastLowHealthTime.getOrDefault(id, 0L) > THROTTLE_TICKS) {
             stress += 3;
             lastLowHealthTime.put(id, time);
@@ -85,7 +85,6 @@ public class LegacyBestowalHandler {
             }
         }
 
-        // Decrease stress
         if (player.getHealth() == player.getMaxHealth() &&
                 time - lastFullHealthTime.getOrDefault(id, 0L) > THROTTLE_TICKS) {
             stress -= 1;
@@ -196,34 +195,48 @@ public class LegacyBestowalHandler {
             return;
         }
 
-        StatusEffect randomEffect = getRandomLegacyWeighted();
+        StatusEffect randomEffect = getRandomLegacyWeighted(player);
 
         if (!player.hasStatusEffect(randomEffect)) {
-            player.addStatusEffect(new StatusEffectInstance(randomEffect, Integer.MAX_VALUE, 0, false, false, false));
+            player.addStatusEffect(new StatusEffectInstance(randomEffect, -1, 0, false, false, false));
             player.addStatusEffect(new StatusEffectInstance(ModEffects.LEGACY_COOLDOWN, LEGACY_COOLDOWN_TICKS, 0, false, false, false));
             player.sendMessage(Text.literal("You have been bestowed upon the " + randomEffect.getName().getString() + " legacy!"), false);
-            // Give splash potion of Chimaera Essence
             ItemStack splashPotion = PotionUtil.setPotion(new ItemStack(Items.SPLASH_POTION), ModPotions.CHIMAERA_ESSENCE);
             player.giveItemStack(splashPotion);
-            // Add the milk warning message in red color
             player.sendMessage(Text.literal("NEVER DRINK MILK OR YOU WILL LOSE YOUR LEGACY").formatted(Formatting.RED), false);
         } else {
             player.sendMessage(Text.literal(player.getName().getString() + " already has been bestowed upon the " + randomEffect.getName().getString() + " legacy."), false);
         }
     }
 
-    private static StatusEffect getRandomLegacyWeighted() {
-        int totalWeight = LEGACY_POOL.values().stream().mapToInt(Integer::intValue).sum();
+    private static StatusEffect getRandomLegacyWeighted(ServerPlayerEntity player) {
+        int totalWeight = 0;
+        Map<StatusEffect, Integer> filtered = new HashMap<>();
+
+        long legacyCount = player.getStatusEffects().stream()
+                .map(StatusEffectInstance::getEffectType)
+                .filter(LEGACY_POOL::containsKey)
+                .count();
+
+        for (Map.Entry<StatusEffect, Integer> entry : LEGACY_POOL.entrySet()) {
+            StatusEffect effect = entry.getKey();
+            int weight = entry.getValue();
+            if (effect == ModEffects.XIMIC && legacyCount < 5) continue;
+            filtered.put(effect, weight);
+            totalWeight += weight;
+        }
+
         int random = ThreadLocalRandom.current().nextInt(totalWeight);
         int cumulative = 0;
 
-        for (Map.Entry<StatusEffect, Integer> entry : LEGACY_POOL.entrySet()) {
+        for (Map.Entry<StatusEffect, Integer> entry : filtered.entrySet()) {
             cumulative += entry.getValue();
             if (random < cumulative) {
                 return entry.getKey();
             }
         }
-        return null;
+
+        return ModEffects.TELEKINESIS;
     }
 
     public static void resetStress(UUID playerId) {

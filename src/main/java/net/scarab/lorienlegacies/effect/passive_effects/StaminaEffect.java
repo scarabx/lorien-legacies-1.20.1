@@ -36,7 +36,7 @@ public class StaminaEffect extends StatusEffect {
 
     @Override
     public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
-        if (entity instanceof PlayerEntity player && player.getHealth() <= 5) {
+        if (!entity.getWorld().isClient() && entity instanceof PlayerEntity player && player.getHealth() <= 5) {
             // Apply TIRED when Stamina ends if still low on health
             player.addStatusEffect(new StatusEffectInstance(ModEffects.TIRED, 100, 0, false, false));
         }

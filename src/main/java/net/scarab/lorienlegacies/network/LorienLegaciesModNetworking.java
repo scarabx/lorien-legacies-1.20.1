@@ -67,6 +67,28 @@ public class LorienLegaciesModNetworking {
 
     public static final Identifier TOGGLE_CONJURE_CLEAR_WEATHER_PACKET = new Identifier("lorienlegacies", "toggle_conjure_clear_weather");
 
+    public static final Identifier TOGGLE_XIMIC_ACCELIX_PACKET = new Identifier("lorienlegacies", "toggle_ximic_accelix");
+
+    public static final Identifier TOGGLE_XIMIC_AVEX_PACKET = new Identifier("lorienlegacies", "toggle_ximic_avex");
+
+    public static final Identifier TOGGLE_XIMIC_GLACEN_PACKET = new Identifier("lorienlegacies", "toggle_ximic_glacen");
+
+    public static final Identifier TOGGLE_XIMIC_LUMEN_PACKET = new Identifier("lorienlegacies", "toggle_ximic_lumen");
+
+    public static final Identifier TOGGLE_XIMIC_NOVIS_PACKET = new Identifier("lorienlegacies", "toggle_ximic_novis");
+
+    public static final Identifier TOGGLE_XIMIC_NOXEN_PACKET = new Identifier("lorienlegacies", "toggle_ximic_noxen");
+
+    public static final Identifier TOGGLE_XIMIC_PONDUS_PACKET = new Identifier("lorienlegacies", "toggle_ximic_pondus");
+
+    public static final Identifier TOGGLE_XIMIC_REGENERAS_PACKET = new Identifier("lorienlegacies", "toggle_ximic_regeneras");
+
+    public static final Identifier TOGGLE_XIMIC_STURMA_PACKET = new Identifier("lorienlegacies", "toggle_ximic_sturma");
+
+    public static final Identifier TOGGLE_XIMIC_SUBMARI_PACKET = new Identifier("lorienlegacies", "toggle_ximic_submari");
+
+    public static final Identifier TOGGLE_XIMIC_TELEKINESIS_PACKET = new Identifier("lorienlegacies", "toggle_ximic_telekinesis");
+
     public static final Identifier CHIMAERA_MORPH_PACKET = new Identifier("lorienlegacies", "chimaera_morph");
 
     public static final Identifier CHIMAERA_CALL_PACKET = new Identifier("lorienlegacies", "chimaera_call");
@@ -301,6 +323,116 @@ public class LorienLegaciesModNetworking {
                     ToggleConjureClearWeatherEffect.toggleConjureClearWeather(player);
                     SturmaEffect.conjureClearWeather(player, (ServerWorld) player.getWorld());
                     player.removeStatusEffect(TOGGLE_CONJURE_CLEAR_WEATHER);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_ACCELIX_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(XIMIC)) {
+                    ToggleXimicAccelixEffect.toggleXimicAccelix(player);
+                    XimicEffect.applyXimicAccelix(player);
+                    player.removeStatusEffect(TOGGLE_XIMIC_ACCELIX);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_AVEX_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(XIMIC)) {
+                    ToggleXimicAvexEffect.toggleXimicAvex(player);
+                    XimicEffect.applyXimicAvex(player);
+                    player.removeStatusEffect(TOGGLE_XIMIC_AVEX);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_GLACEN_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(XIMIC)) {
+                    ToggleXimicGlacenEffect.toggleXimicGlacen(player);
+                    XimicEffect.applyXimicGlacen(player);
+                    player.removeStatusEffect(TOGGLE_XIMIC_GLACEN);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_LUMEN_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(XIMIC)) {
+                    ToggleXimicLumenEffect.toggleXimicLumen(player);
+                    XimicEffect.applyXimicLumen(player);
+                    player.removeStatusEffect(TOGGLE_XIMIC_LUMEN);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_NOVIS_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(XIMIC)) {
+                    ToggleXimicNovisEffect.toggleXimicNovis(player);
+                    XimicEffect.applyXimicNovis(player);
+                    player.removeStatusEffect(TOGGLE_XIMIC_NOVIS);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_NOXEN_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(XIMIC)) {
+                    ToggleXimicNoxenEffect.toggleXimicNoxen(player);
+                    XimicEffect.applyXimicNoxen(player);
+                    player.removeStatusEffect(TOGGLE_XIMIC_NOXEN);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_PONDUS_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(XIMIC)) {
+                    ToggleXimicPondusEffect.toggleXimicPondus(player);
+                    XimicEffect.applyXimicPondus(player);
+                    player.removeStatusEffect(TOGGLE_XIMIC_PONDUS);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_REGENERAS_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(XIMIC)) {
+                    ToggleXimicRegenerasEffect.toggleXimicRegeneras(player);
+                    XimicEffect.applyXimicRegeneras(player);
+                    player.removeStatusEffect(TOGGLE_XIMIC_REGENERAS);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_STURMA_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(XIMIC)) {
+                    ToggleXimicSturmaEffect.toggleXimicSturma(player);
+                    XimicEffect.applyXimicSturma(player);
+                    player.removeStatusEffect(TOGGLE_XIMIC_STURMA);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_SUBMARI_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(XIMIC)) {
+                    ToggleXimicSubmariEffect.toggleXimicSubmari(player);
+                    XimicEffect.applyXimicSubmari(player);
+                    player.removeStatusEffect(TOGGLE_XIMIC_SUBMARI);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_TELEKINESIS_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(XIMIC)) {
+                    ToggleXimicTelekinesisEffect.toggleXimicTelekinesis(player);
+                    XimicEffect.applyXimicTelekinesis(player);
+                    player.removeStatusEffect(TOGGLE_XIMIC_TELEKINESIS);
                 }
             });
         });

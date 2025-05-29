@@ -116,6 +116,38 @@ public class RadialMenuHandler {
         optionsPages.add(chimaeraOptions);
         packetPages.add(chimaeraPackets);
         pageColors.add(0x00FF00); // Green
+
+        // Page 6 - Ximic
+        pageNames.add("Ximic");
+        List<String> ximicOptions = List.of(
+                "Accelix",
+                "Avex",
+                "Glacen",
+                "Lumen",
+                "Novis",
+                "Noxen",
+                "Pondus",
+                "Regeneras",
+                "Sturma",
+                "Submari",
+                "Telekinesis"
+        );
+        List<Identifier> ximicPackets = List.of(
+                LorienLegaciesModNetworking.TOGGLE_XIMIC_ACCELIX_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_XIMIC_AVEX_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_XIMIC_GLACEN_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_XIMIC_LUMEN_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_XIMIC_NOVIS_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_XIMIC_NOXEN_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_XIMIC_PONDUS_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_XIMIC_REGENERAS_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_XIMIC_STURMA_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_XIMIC_SUBMARI_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_XIMIC_TELEKINESIS_PACKET
+        );
+        optionsPages.add(ximicOptions);
+        packetPages.add(ximicPackets);
+        pageColors.add(0xFFFFFF); // White
     }
 
     public static void closeMenu() {

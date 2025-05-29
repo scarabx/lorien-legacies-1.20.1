@@ -39,7 +39,7 @@ public class AvexEffect extends StatusEffect {
         entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 400, 0, false, false, false));
 
         if (!(entity instanceof PlayerEntity player)) return;
-        if (!player.getWorld().isClient) return;
+        if (!player.getWorld().isClient()) return;
         if (!player.hasStatusEffect(ModEffects.TIRED)) {
 
             // Start flying if not already and the player is in the air (jumped and not on ground or flying)
