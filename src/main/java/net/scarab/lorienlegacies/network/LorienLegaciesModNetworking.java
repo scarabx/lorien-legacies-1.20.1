@@ -1,19 +1,19 @@
 package net.scarab.lorienlegacies.network;
 
 import io.netty.buffer.Unpooled;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.packet.s2c.play.CustomPayloadS2CPacket;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 
 import net.scarab.lorienlegacies.chimaera.MorphHandler;
-import net.scarab.lorienlegacies.effect.ModEffects;
 import net.scarab.lorienlegacies.effect.active_effects.*;
 import net.scarab.lorienlegacies.effect.toggle_effects.*;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import static net.scarab.lorienlegacies.effect.ModEffects.*;
 
@@ -88,6 +88,10 @@ public class LorienLegaciesModNetworking {
     public static final Identifier TOGGLE_XIMIC_SUBMARI_PACKET = new Identifier("lorienlegacies", "toggle_ximic_submari");
 
     public static final Identifier TOGGLE_XIMIC_TELEKINESIS_PACKET = new Identifier("lorienlegacies", "toggle_ximic_telekinesis");
+
+    public static final Identifier TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER_PACKET = new Identifier("lorienlegacies", "toggle_tactile_consciousness_transfer");
+
+    public static final Identifier RESET_TACTILE_CONSCIOUSNESS_TRANSFER_PACKET = new Identifier("lorienlegacies", "reset_tactile_consciousness_transfer");
 
     public static final Identifier CHIMAERA_MORPH_PACKET = new Identifier("lorienlegacies", "chimaera_morph");
 
@@ -437,6 +441,14 @@ public class LorienLegaciesModNetworking {
             });
         });
 
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(TACTILE_CONSCIOUSNESS_TRANSFER)) {
+                    ToggleTactileConsciousnessTransferEffect.toggleTactileConsciousnessTransfer(player);
+                }
+            });
+        });
+
         ServerPlayNetworking.registerGlobalReceiver(CHIMAERA_MORPH_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 if (player.hasStatusEffect(CHIMAERA_MORPH)) {
@@ -477,6 +489,18 @@ public class LorienLegaciesModNetworking {
                     player.removeStatusEffect(TOGGLE_TELEKINESIS_PULL);
                 }
             });
+        });
+    }
+
+    public static CustomPayloadS2CPacket create() {
+        return new CustomPayloadS2CPacket(RESET_TACTILE_CONSCIOUSNESS_TRANSFER_PACKET, new PacketByteBuf(Unpooled.buffer()));
+    }
+
+    @Environment(EnvType.CLIENT)
+    public static void handle(PacketByteBuf buf) {
+        MinecraftClient client = MinecraftClient.getInstance();
+        client.execute(() -> {
+            client.setCameraEntity(client.player);
         });
     }
 }

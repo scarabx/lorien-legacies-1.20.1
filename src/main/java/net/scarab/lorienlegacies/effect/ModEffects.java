@@ -137,6 +137,12 @@ public class ModEffects {
     public static final StatusEffect TOGGLE_XIMIC_TELEKINESIS = registerStatusEffect("toggle_ximic_telekinesis",
             new ToggleXimicTelekinesisEffect(StatusEffectCategory.BENEFICIAL, 0x9b4f96/*Purple*/));
 
+    public static final StatusEffect TACTILE_CONSCIOUSNESS_TRANSFER = registerStatusEffect("tactile_consciousness_transfer",
+            new TactileConsciousnessTransferEffect(StatusEffectCategory.BENEFICIAL, 0x9b4f96/*Purple*/));
+
+    public static final StatusEffect TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER = registerStatusEffect("toggle_tactile_consciousness_transfer",
+            new ToggleTactileConsciousnessTransferEffect(StatusEffectCategory.BENEFICIAL, 0x9b4f96/*Purple*/));
+
     public static final StatusEffect CHIMAERA_ESSENCE = registerStatusEffect("chimaera_essence",
             new ChimaeraEssenceEffect(StatusEffectCategory.BENEFICIAL, 0x00AA00/*Dark Green*/));
 

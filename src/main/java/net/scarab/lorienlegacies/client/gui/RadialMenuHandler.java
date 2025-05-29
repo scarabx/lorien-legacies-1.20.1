@@ -88,14 +88,16 @@ public class RadialMenuHandler {
                 "Rain",
                 "Thunder",
                 "Clear",
-                "Novis"
+                "Novis",
+                "TCT"
         );
         List<Identifier> utilityPackets = List.of(
                 LorienLegaciesModNetworking.TOGGLE_FREEZE_WATER_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_CONJURE_RAIN_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_CONJURE_THUNDER_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_CONJURE_CLEAR_WEATHER_PACKET,
-                LorienLegaciesModNetworking.TOGGLE_NOVIS_PACKET
+                LorienLegaciesModNetworking.TOGGLE_NOVIS_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER_PACKET
         );
         optionsPages.add(utilityOptions);
         packetPages.add(utilityPackets);

@@ -11,6 +11,10 @@ import net.scarab.lorienlegacies.entity.ModEntities;
 import net.scarab.lorienlegacies.entity.client.*;
 import net.scarab.lorienlegacies.entity.layer.ModModelLayers;
 
+import static javax.swing.text.html.parser.DTDConstants.ID;
+import static net.scarab.lorienlegacies.network.LorienLegaciesModNetworking.RESET_TACTILE_CONSCIOUSNESS_TRANSFER_PACKET;
+import static net.scarab.lorienlegacies.network.LorienLegaciesModNetworking.handle;
+
 public class LorienLegaciesModClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
@@ -25,5 +29,8 @@ public class LorienLegaciesModClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(ModEntities.CHIMAERA_PARROT, ChimaeraParrotEntityRenderer::new);
 
+        ClientPlayNetworking.registerGlobalReceiver(RESET_TACTILE_CONSCIOUSNESS_TRANSFER_PACKET, (client, handler, buf, responseSender) -> {
+            handle(buf); // << THIS IS WHAT YOU MISSED
+        });
     }
 }
