@@ -21,6 +21,11 @@ public class ModEntities {
             FabricEntityTypeBuilder.<IceballProjectileEntity>create(SpawnGroup.MISC, IceballProjectileEntity::new)
                     .dimensions(EntityDimensions.fixed(0.25f, 0.25f)).build());
 
+    public static final EntityType<ShockCollarProjectileEntity> THROWN_SHOCK_COLLAR_PROJECTILE = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(LorienLegaciesMod.MOD_ID, "shock_collar_projectile"),
+            FabricEntityTypeBuilder.<ShockCollarProjectileEntity>create(SpawnGroup.MISC, ShockCollarProjectileEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.25f, 0.25f)).build());
+
     public static final EntityType<IciclesEntity> ICICLES = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(LorienLegaciesMod.MOD_ID, "icicles"),
             FabricEntityTypeBuilder.<IciclesEntity>create(SpawnGroup.MISC, IciclesEntity::new)

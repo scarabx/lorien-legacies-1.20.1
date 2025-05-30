@@ -25,6 +25,9 @@ public class ModItems {
     public static final Item ICEBALL = registerItem("iceball",
             new IceballItem(new FabricItemSettings()));
 
+    public static final Item SHOCK_COLLAR = registerItem("shock_collar",
+            new ShockCollarItem(new FabricItemSettings()));
+
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, new Identifier(LorienLegaciesMod.MOD_ID, name), item);
     }

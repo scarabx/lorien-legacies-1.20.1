@@ -11,14 +11,15 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
+import net.scarab.lorienlegacies.effect.ModEffects;
 
-public class IceballProjectileEntity extends ThrownItemEntity {
-    public IceballProjectileEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
+public class ShockCollarProjectileEntity extends ThrownItemEntity {
+    public ShockCollarProjectileEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
         super(entityType, world);
     }
 
-    public IceballProjectileEntity(LivingEntity livingEntity, World world) {
-        super(ModEntities.THROWN_ICEBALL_PROJECTILE, livingEntity, world);
+    public ShockCollarProjectileEntity(LivingEntity livingEntity, World world) {
+        super(ModEntities.THROWN_SHOCK_COLLAR_PROJECTILE, livingEntity, world);
     }
 
     @Override
@@ -36,10 +37,9 @@ public class IceballProjectileEntity extends ThrownItemEntity {
         super.onEntityHit(entityHitResult);
 
         if (entityHitResult.getEntity() instanceof LivingEntity target) {
-            target.damage(target.getWorld().getDamageSources().thrown(this, this.getOwner()), 5.0F);
 
-            // Apply Slowness effect to the target
-            target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 6, false, false, false)); // 100 ticks (5 seconds) with level 5 slowness
+            // Apply Active Legacy Inhibition effect to the target
+            target.addStatusEffect(new StatusEffectInstance(ModEffects.ACTIVE_LEGACY_INHIBITION, 100, 0, false, false, false));
         }
     }
 }
