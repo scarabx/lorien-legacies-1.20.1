@@ -1,13 +1,19 @@
 package net.scarab.lorienlegacies;
 
+import io.netty.buffer.Unpooled;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
+import net.minecraft.client.util.InputUtil;
+import net.minecraft.network.PacketByteBuf;
 import net.scarab.lorienlegacies.entity.ModEntities;
 import net.scarab.lorienlegacies.entity.client.*;
 import net.scarab.lorienlegacies.entity.layer.ModModelLayers;
+import net.scarab.lorienlegacies.network.LorienLegaciesModNetworking;
+import org.lwjgl.glfw.GLFW;
 
 import static net.scarab.lorienlegacies.network.LorienLegaciesModNetworking.RESET_TACTILE_CONSCIOUSNESS_TRANSFER_PACKET;
 import static net.scarab.lorienlegacies.network.LorienLegaciesModNetworking.handle;

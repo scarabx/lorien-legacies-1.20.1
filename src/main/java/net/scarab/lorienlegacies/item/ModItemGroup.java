@@ -24,6 +24,10 @@ public class ModItemGroup {
 
                         entries.add(ModItems.SHOCK_COLLAR);
 
+                        entries.add(ModItems.INHIBITOR_ITEM);
+
+                        entries.add(ModItems.INHIBITOR_REMOTE_ITEM);
+
                         entries.add(ModBlocks.LORALITE_BLOCK);
 
                         entries.add(ModBlocks.LORALITE_ORE);

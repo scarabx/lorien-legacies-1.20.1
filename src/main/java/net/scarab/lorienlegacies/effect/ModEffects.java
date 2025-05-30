@@ -161,6 +161,9 @@ public class ModEffects {
     public static final StatusEffect TIRED = registerStatusEffect("tired",
             new TiredEffect(StatusEffectCategory.BENEFICIAL, 0xFF0000/*Red*/));
 
+    public static final StatusEffect LEGACY_INHIBITION = registerStatusEffect("legacy_inhibition",
+            new LegacyInhibition(StatusEffectCategory.BENEFICIAL, 0xFF0000/*Red*/));
+
     public static final StatusEffect ACTIVE_LEGACY_INHIBITION = registerStatusEffect("active_legacy_inhibition",
             new ActiveLegacyInhibition(StatusEffectCategory.BENEFICIAL, 0xFF0000/*Red*/));
 
