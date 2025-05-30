@@ -50,7 +50,8 @@ public class GlacenEffect extends StatusEffect {
 
         if (entity instanceof ServerPlayerEntity player) {
             if (player.hasStatusEffect(TOGGLE_FREEZE_WATER)
-                    && !player.hasStatusEffect(TIRED))
+                    && !player.hasStatusEffect(TIRED)
+                    && entity.hasStatusEffect(ACTIVE_LEGACY_INHIBITION))
                 freezeWater(player);
         }
         super.applyUpdateEffect(entity, amplifier);
@@ -67,7 +68,8 @@ public class GlacenEffect extends StatusEffect {
         if (!entity.getWorld().isClient()
                 && entity.hasStatusEffect(ModEffects.GLACEN)
                 && entity.hasStatusEffect(TOGGLE_SHOOT_ICEBALL)
-                && !entity.hasStatusEffect(TIRED)) {
+                && !entity.hasStatusEffect(TIRED)
+                && entity.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             if (!entity.getWorld().isClient() && entity instanceof ServerPlayerEntity) {
                 ServerWorld world = (ServerWorld) entity.getWorld();
@@ -86,7 +88,8 @@ public class GlacenEffect extends StatusEffect {
         if (!user.getWorld().isClient()
                 && user.hasStatusEffect(ModEffects.GLACEN)
                 && user.hasStatusEffect(TOGGLE_ICICLES)
-                && !user.hasStatusEffect(TIRED)) {
+                && !user.hasStatusEffect(TIRED)
+                && user.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             World world = user.getWorld();
 
@@ -97,7 +100,7 @@ public class GlacenEffect extends StatusEffect {
             target.damage(target.getWorld().getDamageSources().thrown(user, target), 10.0F);
 
             if (target instanceof LivingEntity livingEntity) {
-                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 4, false, false, false)); // 100 ticks (5 seconds) with level 5 slowness
+                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 6, false, false, false)); // 100 ticks (5 seconds) with level 6 slowness
             }
         }
     }
@@ -107,10 +110,11 @@ public class GlacenEffect extends StatusEffect {
         if (!user.getWorld().isClient()
                 && user.hasStatusEffect(GLACEN)
                 && user.hasStatusEffect(TOGGLE_ICE_HANDS)
-                && !user.hasStatusEffect(TIRED)) {
+                && !user.hasStatusEffect(TIRED)
+                && user.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             if (target instanceof LivingEntity livingEntity) {
-                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 4, false, false, false));
+                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 6, false, false, false));
             }
         }
     }

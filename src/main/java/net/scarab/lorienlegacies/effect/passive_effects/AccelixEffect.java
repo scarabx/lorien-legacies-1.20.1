@@ -7,6 +7,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.scarab.lorienlegacies.effect.ModEffects;
 
+import static net.scarab.lorienlegacies.effect.ModEffects.ACTIVE_LEGACY_INHIBITION;
 import static net.scarab.lorienlegacies.effect.ModEffects.TIRED;
 
 public class AccelixEffect extends StatusEffect {
@@ -31,8 +32,9 @@ public class AccelixEffect extends StatusEffect {
             ));
         }
 
-        // Don't apply regeneration if the entity is tired
-        if (entity.hasStatusEffect(TIRED)) {
+        // Don't apply speed if the entity is tired
+        if (entity.hasStatusEffect(TIRED)
+            && entity.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
             entity.removeStatusEffect(StatusEffects.SPEED);
             return;
         }

@@ -40,7 +40,7 @@ public class IceballProjectileEntity extends ThrownItemEntity {
             target.damage(target.getWorld().getDamageSources().thrown(this, this.getOwner()), 5.0F);
 
             // Apply Slowness effect to the target
-            target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 4, false, false, false)); // 100 ticks (5 seconds) with level 5 slowness
+            target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 6, false, false, false)); // 100 ticks (5 seconds) with level 5 slowness
         }
     }
 }
