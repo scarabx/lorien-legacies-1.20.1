@@ -54,7 +54,8 @@ public class SturmaEffect extends StatusEffect {
         if (!player.getWorld().isClient()
                 && player.hasStatusEffect(STURMA)
                 && player.hasStatusEffect(TOGGLE_CONJURE_RAIN)
-                && !player.hasStatusEffect(TIRED)) {
+                && !player.hasStatusEffect(TIRED)
+                && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             if (!player.getWorld().isClient() && !player.getWorld().isRaining() && !player.getWorld().isThundering()) {
                 serverWorld.setWeather(0, 1200, true, false);
@@ -67,7 +68,8 @@ public class SturmaEffect extends StatusEffect {
         if (!player.getWorld().isClient()
                 && player.hasStatusEffect(STURMA)
                 && player.hasStatusEffect(TOGGLE_CONJURE_THUNDER)
-                && !player.hasStatusEffect(TIRED)) {
+                && !player.hasStatusEffect(TIRED)
+                && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             if (!player.getWorld().isClient() && player.getWorld().isRaining() && !player.getWorld().isThundering()) {
                 serverWorld.setWeather(0, 3600, true, true);
@@ -80,7 +82,8 @@ public class SturmaEffect extends StatusEffect {
         if (!player.getWorld().isClient()
                 && player.hasStatusEffect(STURMA)
                 && player.hasStatusEffect(TOGGLE_CONJURE_CLEAR_WEATHER)
-                && !player.hasStatusEffect(TIRED)) {
+                && !player.hasStatusEffect(TIRED)
+                && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             if (!player.getWorld().isClient() && player.getWorld().isRaining() && player.getWorld().isThundering()) {
                 serverWorld.setWeather(24000, 0, false, false);
@@ -93,7 +96,8 @@ public class SturmaEffect extends StatusEffect {
         if (!player.getWorld().isClient()
                 && player.hasStatusEffect(STURMA)
                 && player.hasStatusEffect(TOGGLE_LIGHTNING_STRIKE)
-                && !player.hasStatusEffect(TIRED)) {
+                && !player.hasStatusEffect(TIRED)
+                && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             double maxDistance = 10.0;
             Vec3d eyePos = player.getCameraPosVec(1.0F);

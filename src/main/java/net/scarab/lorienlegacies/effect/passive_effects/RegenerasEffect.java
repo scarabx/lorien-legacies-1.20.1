@@ -33,7 +33,8 @@ public class RegenerasEffect extends StatusEffect {
         }
 
         // Don't apply regeneration if the entity is tired
-        if (entity.hasStatusEffect(TIRED)) {
+        if (entity.hasStatusEffect(TIRED)
+            && entity.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
             entity.removeStatusEffect(StatusEffects.REGENERATION);
             return;
         }

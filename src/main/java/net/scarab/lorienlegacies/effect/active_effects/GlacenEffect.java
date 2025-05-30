@@ -69,7 +69,7 @@ public class GlacenEffect extends StatusEffect {
                 && entity.hasStatusEffect(ModEffects.GLACEN)
                 && entity.hasStatusEffect(TOGGLE_SHOOT_ICEBALL)
                 && !entity.hasStatusEffect(TIRED)
-                && entity.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
+                && !entity.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             if (!entity.getWorld().isClient() && entity instanceof ServerPlayerEntity) {
                 ServerWorld world = (ServerWorld) entity.getWorld();
@@ -89,7 +89,7 @@ public class GlacenEffect extends StatusEffect {
                 && user.hasStatusEffect(ModEffects.GLACEN)
                 && user.hasStatusEffect(TOGGLE_ICICLES)
                 && !user.hasStatusEffect(TIRED)
-                && user.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
+                && !user.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             World world = user.getWorld();
 
@@ -111,7 +111,7 @@ public class GlacenEffect extends StatusEffect {
                 && user.hasStatusEffect(GLACEN)
                 && user.hasStatusEffect(TOGGLE_ICE_HANDS)
                 && !user.hasStatusEffect(TIRED)
-                && user.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
+                && !user.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             if (target instanceof LivingEntity livingEntity) {
                 livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 6, false, false, false));

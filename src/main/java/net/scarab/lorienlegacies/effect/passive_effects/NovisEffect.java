@@ -42,7 +42,8 @@ public class NovisEffect extends StatusEffect {
         if (!entity.getWorld().isClient()
                 && entity.hasStatusEffect(NOVIS)
                 && entity.hasStatusEffect(TOGGLE_NOVIS)
-                && !entity.hasStatusEffect(ModEffects.TIRED)) {
+                && !entity.hasStatusEffect(ModEffects.TIRED)
+                && !entity.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             // Only reapply if not already active or about to expire
             StatusEffectInstance invisibility = entity.getStatusEffect(StatusEffects.INVISIBILITY);

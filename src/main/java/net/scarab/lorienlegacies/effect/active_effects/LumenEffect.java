@@ -55,7 +55,7 @@ public class LumenEffect extends StatusEffect {
                 && player.isOnFire()
                 && player.hasStatusEffect(TOGGLE_HUMAN_FIREBALL_AOE)
                 && !player.hasStatusEffect(TIRED)
-                && entity.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
+                && !entity.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
             humanFireballAOE(player, 5, 20); // radius 5, fire for 5 seconds
         }
         super.applyUpdateEffect(entity, amplifier);
@@ -73,7 +73,7 @@ public class LumenEffect extends StatusEffect {
                 && entity.hasStatusEffect(ModEffects.LUMEN)
                 && entity.hasStatusEffect(TOGGLE_SHOOT_FIREBALL)
                 && !entity.hasStatusEffect(TIRED)
-                && entity.hasStatusEffect(ACTIVE_LEGACY_INHIBITION))
+                && !entity.hasStatusEffect(ACTIVE_LEGACY_INHIBITION))
 
             if (!entity.getWorld().isClient() && entity instanceof ServerPlayerEntity) {
                 ServerWorld world = ((ServerWorld) entity.getWorld());
@@ -113,7 +113,7 @@ public class LumenEffect extends StatusEffect {
 
             if (!player.getWorld().isClient()
                     && !player.hasStatusEffect(TIRED)
-                    && player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
+                    && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
                 World world = player.getWorld();
                 BlockPos playerPos = player.getBlockPos();
@@ -160,7 +160,7 @@ public class LumenEffect extends StatusEffect {
                     && user.hasStatusEffect(ModEffects.LUMEN)
                     && user.hasStatusEffect(TOGGLE_FLAMING_HANDS)
                     && !user.hasStatusEffect(TIRED)
-                    && user.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
+                    && !user.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
                 target.setOnFireFor(20);
             }

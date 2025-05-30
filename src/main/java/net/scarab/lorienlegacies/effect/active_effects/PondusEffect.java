@@ -11,8 +11,7 @@ import net.scarab.lorienlegacies.effect.ModEffects;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-import static net.scarab.lorienlegacies.effect.ModEffects.TIRED;
-import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_INTANGIBILITY;
+import static net.scarab.lorienlegacies.effect.ModEffects.*;
 
 public class PondusEffect extends StatusEffect {
 
@@ -45,13 +44,14 @@ public class PondusEffect extends StatusEffect {
             // Apply intangibility behavior
             if (!player.getWorld().isClient()
                 && player.hasStatusEffect(TOGGLE_INTANGIBILITY)
-                    && !player.hasStatusEffect(TIRED)) {
+                    && !player.hasStatusEffect(TIRED)
+                    && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
                 applyIntangibility(player);
             }
         }
 
         if (!entity.getWorld().isClient()
-            && entity.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !entity.hasStatusEffect(ModEffects.TIRED)) {
+            && entity.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !entity.hasStatusEffect(ModEffects.TIRED) && !entity.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
             entity.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 400, 4, false, false, false));
         } else {
             entity.removeStatusEffect(StatusEffects.STRENGTH);

@@ -12,6 +12,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import static net.scarab.lorienlegacies.effect.ModEffects.ACTIVE_LEGACY_INHIBITION;
+
 @Mixin(ProjectileEntity.class)
 public abstract class ProjectileEntityMixin {
 
@@ -26,8 +28,8 @@ public abstract class ProjectileEntityMixin {
             if (entity instanceof PlayerEntity player &&
                     player.hasStatusEffect(ModEffects.PONDUS)) {
 
-                boolean hasImpenetrableSkin = player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !player.hasStatusEffect(ModEffects.TIRED);
-                boolean hasIntangibility = player.hasStatusEffect(ModEffects.TOGGLE_INTANGIBILITY) && !player.hasStatusEffect(ModEffects.TIRED);
+                boolean hasImpenetrableSkin = player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION);
+                boolean hasIntangibility = player.hasStatusEffect(ModEffects.TOGGLE_INTANGIBILITY) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION);
 
                 // Only deflect if Impenetrable Skin is active or both are active
                 if ((hasImpenetrableSkin && !hasIntangibility) || (hasImpenetrableSkin && hasIntangibility)) {
@@ -48,8 +50,8 @@ public abstract class ProjectileEntityMixin {
         if (target instanceof PlayerEntity player &&
                 player.hasStatusEffect(ModEffects.PONDUS)) {
 
-            boolean hasImpenetrableSkin = player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !player.hasStatusEffect(ModEffects.TIRED);
-            boolean hasIntangibility = player.hasStatusEffect(ModEffects.TOGGLE_INTANGIBILITY) && !player.hasStatusEffect(ModEffects.TIRED);
+            boolean hasImpenetrableSkin = player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION);
+            boolean hasIntangibility = player.hasStatusEffect(ModEffects.TOGGLE_INTANGIBILITY) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION);
 
             // If only Impenetrable Skin is active, or both are active, deflect the projectile
             if ((hasImpenetrableSkin && !hasIntangibility) || (hasImpenetrableSkin && hasIntangibility)) {
@@ -86,8 +88,8 @@ public abstract class ProjectileEntityMixin {
         if (entity instanceof PlayerEntity player &&
                 player.hasStatusEffect(ModEffects.PONDUS)) {
 
-            boolean hasImpenetrableSkin = player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !player.hasStatusEffect(ModEffects.TIRED);
-            boolean hasIntangibility = player.hasStatusEffect(ModEffects.TOGGLE_INTANGIBILITY) && !player.hasStatusEffect(ModEffects.TIRED);
+            boolean hasImpenetrableSkin = player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION);
+            boolean hasIntangibility = player.hasStatusEffect(ModEffects.TOGGLE_INTANGIBILITY) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION);
 
             // If only Intangibility is active, allow projectiles to pass through
             if (hasIntangibility && !hasImpenetrableSkin) {
@@ -111,8 +113,8 @@ public abstract class ProjectileEntityMixin {
         if (target instanceof PlayerEntity player &&
                 player.hasStatusEffect(ModEffects.PONDUS)) {
 
-            boolean hasImpenetrableSkin = player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !player.hasStatusEffect(ModEffects.TIRED);
-            boolean hasIntangibility = player.hasStatusEffect(ModEffects.TOGGLE_INTANGIBILITY) && !player.hasStatusEffect(ModEffects.TIRED);
+            boolean hasImpenetrableSkin = player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION);
+            boolean hasIntangibility = player.hasStatusEffect(ModEffects.TOGGLE_INTANGIBILITY) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION);
 
             // If Intangibility is active, skip the hit (pass through), else if Impenetrable Skin is active or both, bounce off
             if (hasIntangibility && !hasImpenetrableSkin) {

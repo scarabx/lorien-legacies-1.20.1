@@ -43,7 +43,7 @@ public class AvexEffect extends StatusEffect {
         if (!(entity instanceof PlayerEntity player)) return;
         if (!player.getWorld().isClient()) return;
         if (!player.hasStatusEffect(ModEffects.TIRED)
-                && entity.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
+                && !entity.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             // Start flying if not already and the player is in the air (jumped and not on ground or flying)
             if (!player.isFallFlying() && !player.isOnGround() && player.getVelocity().y > 0 && player.isSneaking()) {

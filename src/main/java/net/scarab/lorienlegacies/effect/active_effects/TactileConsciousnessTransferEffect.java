@@ -12,8 +12,7 @@ import net.minecraft.world.World;
 
 import java.util.Optional;
 
-import static net.scarab.lorienlegacies.effect.ModEffects.TIRED;
-import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER;
+import static net.scarab.lorienlegacies.effect.ModEffects.*;
 
 public class TactileConsciousnessTransferEffect extends StatusEffect {
 
@@ -39,7 +38,8 @@ public class TactileConsciousnessTransferEffect extends StatusEffect {
 
         if (player.getWorld().isClient()
             && player.hasStatusEffect(TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER)
-            && !player.hasStatusEffect(TIRED)) {
+            && !player.hasStatusEffect(TIRED)
+                && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             double maxDistance = 10.0;
             Vec3d eyePos = player.getCameraPosVec(1.0F);

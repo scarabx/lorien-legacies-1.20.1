@@ -42,7 +42,8 @@ public class XimicEffect extends StatusEffect {
 
         if (!player.getWorld().isClient()
             && player.hasStatusEffect(TOGGLE_XIMIC_ACCELIX)
-            && !player.hasStatusEffect(TIRED)) {
+            && !player.hasStatusEffect(TIRED)
+                && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             player.addStatusEffect(new StatusEffectInstance(ACCELIX, -1, 0, false, false, false));
         }
@@ -52,7 +53,8 @@ public class XimicEffect extends StatusEffect {
 
         if (!player.getWorld().isClient()
             && player.hasStatusEffect(TOGGLE_XIMIC_AVEX)
-            && !player.hasStatusEffect(TIRED)) {
+            && !player.hasStatusEffect(TIRED)
+                && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             player.addStatusEffect(new StatusEffectInstance(AVEX, -1, 0, false, false, false));
         }
@@ -62,7 +64,8 @@ public class XimicEffect extends StatusEffect {
 
         if (!player.getWorld().isClient()
             && player.hasStatusEffect(TOGGLE_XIMIC_GLACEN)
-            && !player.hasStatusEffect(TIRED)) {
+            && !player.hasStatusEffect(TIRED)
+                && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             player.addStatusEffect(new StatusEffectInstance(GLACEN, -1, 0, false, false, false));
         }
@@ -72,7 +75,8 @@ public class XimicEffect extends StatusEffect {
 
         if (!player.getWorld().isClient()
             && player.hasStatusEffect(TOGGLE_XIMIC_LUMEN)
-            && !player.hasStatusEffect(TIRED)) {
+            && !player.hasStatusEffect(TIRED)
+                && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             player.addStatusEffect(new StatusEffectInstance(LUMEN, -1, 0, false, false, false));
         }
@@ -82,7 +86,8 @@ public class XimicEffect extends StatusEffect {
 
         if (!player.getWorld().isClient()
             && player.hasStatusEffect(TOGGLE_XIMIC_NOVIS)
-            && !player.hasStatusEffect(TIRED)) {
+            && !player.hasStatusEffect(TIRED)
+                && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             player.addStatusEffect(new StatusEffectInstance(NOVIS, -1, 0, false, false, false));
         }
@@ -92,7 +97,8 @@ public class XimicEffect extends StatusEffect {
 
         if (!player.getWorld().isClient()
             && player.hasStatusEffect(TOGGLE_XIMIC_NOXEN)
-            && !player.hasStatusEffect(TIRED)) {
+            && !player.hasStatusEffect(TIRED)
+                && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             player.addStatusEffect(new StatusEffectInstance(NOXEN, -1, 0, false, false, false));
         }
@@ -102,7 +108,8 @@ public class XimicEffect extends StatusEffect {
 
         if (!player.getWorld().isClient()
             && player.hasStatusEffect(TOGGLE_XIMIC_PONDUS)
-            && !player.hasStatusEffect(TIRED)) {
+            && !player.hasStatusEffect(TIRED)
+                && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             player.addStatusEffect(new StatusEffectInstance(PONDUS, -1, 0, false, false, false));
         }
@@ -112,7 +119,8 @@ public class XimicEffect extends StatusEffect {
 
         if (!player.getWorld().isClient()
             && player.hasStatusEffect(TOGGLE_XIMIC_REGENERAS)
-            && !player.hasStatusEffect(TIRED)) {
+            && !player.hasStatusEffect(TIRED)
+                && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             player.addStatusEffect(new StatusEffectInstance(REGENERAS, -1, 0, false, false, false));
         }
@@ -122,7 +130,8 @@ public class XimicEffect extends StatusEffect {
 
         if (!player.getWorld().isClient()
             && player.hasStatusEffect(TOGGLE_XIMIC_STURMA)
-            && !player.hasStatusEffect(TIRED)) {
+            && !player.hasStatusEffect(TIRED)
+                && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             player.addStatusEffect(new StatusEffectInstance(STURMA, -1, 0, false, false, false));
         }
@@ -132,7 +141,8 @@ public class XimicEffect extends StatusEffect {
 
         if (!player.getWorld().isClient()
             && player.hasStatusEffect(TOGGLE_XIMIC_SUBMARI)
-            && !player.hasStatusEffect(TIRED)) {
+            && !player.hasStatusEffect(TIRED)
+                && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             player.addStatusEffect(new StatusEffectInstance(SUBMARI, -1, 0, false, false, false));
         }
@@ -142,7 +152,8 @@ public class XimicEffect extends StatusEffect {
 
         if (!player.getWorld().isClient()
             && player.hasStatusEffect(TOGGLE_XIMIC_TELEKINESIS)
-            && !player.hasStatusEffect(TIRED)) {
+            && !player.hasStatusEffect(TIRED)
+                && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             player.addStatusEffect(new StatusEffectInstance(TELEKINESIS, -1, 0, false, false, false));
         }

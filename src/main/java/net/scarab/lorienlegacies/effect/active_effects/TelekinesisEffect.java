@@ -40,7 +40,8 @@ public class TelekinesisEffect extends StatusEffect {
 
         if (entity instanceof ServerPlayerEntity player) {
             if (player.hasStatusEffect(TOGGLE_TELEKINESIS_MOVE)
-                    && !player.hasStatusEffect(TIRED))
+                    && !player.hasStatusEffect(TIRED)
+                    && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION))
                 move(player);
         }
     }
@@ -55,7 +56,8 @@ public class TelekinesisEffect extends StatusEffect {
         if (!player.getWorld().isClient()
                 && player.hasStatusEffect(ModEffects.TELEKINESIS)
                 && player.hasStatusEffect(TOGGLE_TELEKINESIS_PUSH)
-                && !player.hasStatusEffect(TIRED)) {
+                && !player.hasStatusEffect(TIRED)
+                && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             Vec3d look = player.getRotationVec(1.0F);
             World world = player.getWorld();
@@ -75,7 +77,8 @@ public class TelekinesisEffect extends StatusEffect {
         if (!player.getWorld().isClient()
                 && player.hasStatusEffect(ModEffects.TELEKINESIS)
                 && player.hasStatusEffect(TOGGLE_TELEKINESIS_PULL)
-                && !player.hasStatusEffect(TIRED)) {
+                && !player.hasStatusEffect(TIRED)
+                && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             Vec3d playerPos = player.getPos();
             World world = player.getWorld();
@@ -96,7 +99,8 @@ public class TelekinesisEffect extends StatusEffect {
         if (!player.getWorld().isClient()
                 && player.hasStatusEffect(ModEffects.TELEKINESIS)
                 && player.hasStatusEffect(TOGGLE_TELEKINESIS_MOVE)
-                && !player.hasStatusEffect(TIRED)) {
+                && !player.hasStatusEffect(TIRED)
+                && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             Vec3d look = player.getRotationVec(1.0F);
             Vec3d eyePos = player.getEyePos();
