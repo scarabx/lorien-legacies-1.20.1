@@ -36,7 +36,7 @@ public class IntangiFlyEffect extends StatusEffect {
         } else {
             player.addStatusEffect(new StatusEffectInstance(
                     INTANGIFLY,
-                    Integer.MAX_VALUE,
+                    -1,
                     0,
                     false,
                     false,

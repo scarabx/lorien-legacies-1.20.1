@@ -41,7 +41,7 @@ public class ToggleIceHandsEffect extends StatusEffect {
             // Apply the status effect invisibly: no ambient, no particles, no icon
             player.addStatusEffect(new StatusEffectInstance(
                     TOGGLE_ICE_HANDS,
-                    Integer.MAX_VALUE,
+                    -1,
                     0,
                     false,
                     false,

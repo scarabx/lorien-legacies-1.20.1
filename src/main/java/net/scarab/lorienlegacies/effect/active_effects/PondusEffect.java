@@ -50,11 +50,13 @@ public class PondusEffect extends StatusEffect {
             }
         }
 
-        if (!entity.getWorld().isClient()
-            && entity.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !entity.hasStatusEffect(ModEffects.TIRED) && !entity.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
-            entity.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 400, 4, false, false, false));
-        } else {
-            entity.removeStatusEffect(StatusEffects.STRENGTH);
+        if (entity instanceof PlayerEntity player) {
+            if (!player.getWorld().isClient()
+                    && player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, -1, 4, false, false, false));
+            } else {
+                player.removeStatusEffect(StatusEffects.STRENGTH);
+            }
         }
     }
 

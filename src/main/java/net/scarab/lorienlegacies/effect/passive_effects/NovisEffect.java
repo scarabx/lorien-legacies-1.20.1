@@ -5,6 +5,7 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
 import net.scarab.lorienlegacies.effect.ModEffects;
 
 import static net.scarab.lorienlegacies.effect.ModEffects.*;
@@ -32,25 +33,27 @@ public class NovisEffect extends StatusEffect {
             ));
         }
 
-        applyInvisibilityEffect(entity);
+        if (entity instanceof PlayerEntity player) {
+            applyInvisibilityEffect(player);
+        }
 
         super.applyUpdateEffect(entity, amplifier);
     }
 
-    public static void applyInvisibilityEffect(LivingEntity entity) {
+    public static void applyInvisibilityEffect(PlayerEntity player) {
 
-        if (!entity.getWorld().isClient()
-                && entity.hasStatusEffect(NOVIS)
-                && entity.hasStatusEffect(TOGGLE_NOVIS)
-                && !entity.hasStatusEffect(ModEffects.TIRED)
-                && !entity.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
+        if (!player.getWorld().isClient()
+                && player.hasStatusEffect(NOVIS)
+                && player.hasStatusEffect(TOGGLE_NOVIS)
+                && !player.hasStatusEffect(ModEffects.TIRED)
+                && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             // Only reapply if not already active or about to expire
-            StatusEffectInstance invisibility = entity.getStatusEffect(StatusEffects.INVISIBILITY);
+            StatusEffectInstance invisibility = player.getStatusEffect(StatusEffects.INVISIBILITY);
             if (invisibility == null || invisibility.getDuration() < 200) { // Less than 10.5s left
-                entity.addStatusEffect(new StatusEffectInstance(
+                player.addStatusEffect(new StatusEffectInstance(
                         StatusEffects.INVISIBILITY,
-                        400,
+                        -1,
                         0,
                         false,
                         false,
@@ -58,7 +61,7 @@ public class NovisEffect extends StatusEffect {
                 ));
             }
         } else {
-            entity.removeStatusEffect(StatusEffects.INVISIBILITY);
+            player.removeStatusEffect(StatusEffects.INVISIBILITY);
         }
     }
 

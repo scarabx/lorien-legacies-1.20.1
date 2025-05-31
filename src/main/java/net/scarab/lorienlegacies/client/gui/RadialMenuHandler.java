@@ -30,6 +30,7 @@ public class RadialMenuHandler {
         List<String> combatOptions = List.of(
                 "Fireball",
                 "Flaming Hands",
+                "Kinetic Detonation",
                 "Push",
                 "Pull",
                 "Move",
@@ -42,6 +43,7 @@ public class RadialMenuHandler {
         List<Identifier> combatPackets = List.of(
                 LorienLegaciesModNetworking.TOGGLE_SHOOT_FIREBALL_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_FLAMING_HANDS_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_KINETIC_DETONATION,
                 LorienLegaciesModNetworking.TELEKINESIS_PUSH_PACKET,
                 LorienLegaciesModNetworking.TELEKINESIS_PULL_PACKET,
                 LorienLegaciesModNetworking.TELEKINESIS_MOVE_PACKET,
@@ -58,10 +60,12 @@ public class RadialMenuHandler {
         // Page 2 - Movement Abilities
         pageNames.add("Movement");
         List<String> movementOptions = List.of(
-                "Intangifly"
+                "Intangifly",
+                "Teleport"
         );
         List<Identifier> movementPackets = List.of(
-                LorienLegaciesModNetworking.INTANGIFLY_PACKET
+                LorienLegaciesModNetworking.INTANGIFLY_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_TELETRAS_PACKET
         );
         optionsPages.add(movementOptions);
         packetPages.add(movementPackets);
@@ -88,16 +92,16 @@ public class RadialMenuHandler {
                 "Rain",
                 "Thunder",
                 "Clear",
-                "Novis",
-                "TCT"
+                "Novis"//,
+                //"TCT"
         );
         List<Identifier> utilityPackets = List.of(
                 LorienLegaciesModNetworking.TOGGLE_FREEZE_WATER_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_CONJURE_RAIN_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_CONJURE_THUNDER_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_CONJURE_CLEAR_WEATHER_PACKET,
-                LorienLegaciesModNetworking.TOGGLE_NOVIS_PACKET,
-                LorienLegaciesModNetworking.TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER_PACKET
+                LorienLegaciesModNetworking.TOGGLE_NOVIS_PACKET//,
+                //LorienLegaciesModNetworking.TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER_PACKET
         );
         optionsPages.add(utilityOptions);
         packetPages.add(utilityPackets);

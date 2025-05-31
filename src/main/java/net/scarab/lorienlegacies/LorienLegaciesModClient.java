@@ -28,6 +28,8 @@ public class LorienLegaciesModClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(ModEntities.THROWN_ICEBALL_PROJECTILE, FlyingItemEntityRenderer::new);
 
+        EntityRendererRegistry.register(ModEntities.THROWN_KINETIC_PROJECTILE, FlyingItemEntityRenderer::new);
+
         EntityRendererRegistry.register(ModEntities.THROWN_SHOCK_COLLAR_PROJECTILE, FlyingItemEntityRenderer::new);
 
         EntityRendererRegistry.register(ModEntities.ICICLES, IciclesEntityRenderer::new);

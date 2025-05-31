@@ -1,16 +1,20 @@
-package net.scarab.lorienlegacies.effect.passive_effects;
+package net.scarab.lorienlegacies.effect.active_effects;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
+
 import net.minecraft.entity.player.PlayerEntity;
-import net.scarab.lorienlegacies.effect.ModEffects;
+import net.minecraft.item.ItemStack;
 
-public class SubmariEffect extends StatusEffect {
+import net.scarab.lorienlegacies.item.ModItems;
 
-    public SubmariEffect(StatusEffectCategory category, int color) {
+import static net.scarab.lorienlegacies.effect.ModEffects.*;
+
+public class KineticDetonationEffect extends StatusEffect {
+
+    public KineticDetonationEffect(StatusEffectCategory category, int color) {
         super(category, color);
     }
 
@@ -31,15 +35,18 @@ public class SubmariEffect extends StatusEffect {
             ));
         }
 
-        if (entity instanceof PlayerEntity player) {
-            if (!player.getWorld().isClient() && player.isSubmergedInWater() && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ModEffects.ACTIVE_LEGACY_INHIBITION)) {
-                // Only reapply if not already active or about to expire
-                StatusEffectInstance waterBreathing = player.getStatusEffect(StatusEffects.WATER_BREATHING);
-                if (waterBreathing == null || waterBreathing.getDuration() < 200) { // Less than 10.5s left
-                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.WATER_BREATHING, -1, 0, false, false, false));
+        if (!entity.getWorld().isClient()
+                && entity.hasStatusEffect(KINETIC_DETONATION)
+                && entity.hasStatusEffect(TOGGLE_KINETIC_DETONATION)
+                && !entity.hasStatusEffect(TIRED)
+                && !entity.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
+
+            if (entity instanceof PlayerEntity player) {
+                ItemStack mainHand = player.getMainHandStack();
+                if (!mainHand.isEmpty()) {
+                    mainHand.decrement(1);
+                    player.getInventory().insertStack(new ItemStack(ModItems.KINETIC_PROJECTILE));
                 }
-            } else {
-                player.removeStatusEffect(StatusEffects.WATER_BREATHING);
             }
         }
         super.applyUpdateEffect(entity, amplifier);

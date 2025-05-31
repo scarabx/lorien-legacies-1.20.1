@@ -8,6 +8,7 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -51,7 +52,7 @@ public class GlacenEffect extends StatusEffect {
         if (entity instanceof ServerPlayerEntity player) {
             if (player.hasStatusEffect(TOGGLE_FREEZE_WATER)
                     && !player.hasStatusEffect(TIRED)
-                    && entity.hasStatusEffect(ACTIVE_LEGACY_INHIBITION))
+                    && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION))
                 freezeWater(player);
         }
         super.applyUpdateEffect(entity, amplifier);
@@ -85,36 +86,40 @@ public class GlacenEffect extends StatusEffect {
 
     public static void icicles(LivingEntity user, Entity target) {
 
-        if (!user.getWorld().isClient()
-                && user.hasStatusEffect(ModEffects.GLACEN)
-                && user.hasStatusEffect(TOGGLE_ICICLES)
-                && !user.hasStatusEffect(TIRED)
-                && !user.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
+        if (user instanceof PlayerEntity player) {
+            if (!user.getWorld().isClient()
+                    && player.hasStatusEffect(ModEffects.GLACEN)
+                    && player.hasStatusEffect(TOGGLE_ICICLES)
+                    && !player.hasStatusEffect(TIRED)
+                    && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
-            World world = user.getWorld();
+                World world = player.getWorld();
 
-            IciclesEntity icicles = new IciclesEntity(ModEntities.ICICLES, world);
-            icicles.setPos(target.getX(), target.getY(), target.getZ());
-            world.spawnEntity(icicles);
+                IciclesEntity icicles = new IciclesEntity(ModEntities.ICICLES, world);
+                icicles.setPos(target.getX(), target.getY(), target.getZ());
+                world.spawnEntity(icicles);
 
-            target.damage(target.getWorld().getDamageSources().thrown(user, target), 10.0F);
+                target.damage(target.getWorld().getDamageSources().thrown(user, target), 10.0F);
 
-            if (target instanceof LivingEntity livingEntity) {
-                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 6, false, false, false)); // 100 ticks (5 seconds) with level 6 slowness
+                if (target instanceof LivingEntity livingEntity) {
+                    livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 6, false, false, false)); // 100 ticks (5 seconds) with level 6 slowness
+                }
             }
         }
     }
 
     public static void iceHands(LivingEntity user, Entity target) {
 
-        if (!user.getWorld().isClient()
-                && user.hasStatusEffect(GLACEN)
-                && user.hasStatusEffect(TOGGLE_ICE_HANDS)
-                && !user.hasStatusEffect(TIRED)
-                && !user.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
+        if (user instanceof PlayerEntity player) {
+            if (!user.getWorld().isClient()
+                    && player.hasStatusEffect(GLACEN)
+                    && player.hasStatusEffect(TOGGLE_ICE_HANDS)
+                    && !player.hasStatusEffect(TIRED)
+                    && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
-            if (target instanceof LivingEntity livingEntity) {
-                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 6, false, false, false));
+                if (target instanceof LivingEntity livingEntity) {
+                    livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 6, false, false, false));
+                }
             }
         }
     }

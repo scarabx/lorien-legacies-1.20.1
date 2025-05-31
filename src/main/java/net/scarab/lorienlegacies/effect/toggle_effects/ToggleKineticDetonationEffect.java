@@ -6,12 +6,12 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_CONJURE_RAIN;
-import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_CONJURE_THUNDER;
+import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_KINETIC_DETONATION;
+import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_NOVIS;
 
-public class ToggleConjureThunderEffect extends StatusEffect {
+public class ToggleKineticDetonationEffect extends StatusEffect {
 
-    public ToggleConjureThunderEffect(StatusEffectCategory category, int color) {
+    public ToggleKineticDetonationEffect(StatusEffectCategory category, int color) {
         super(category, color);
     }
 
@@ -34,14 +34,14 @@ public class ToggleConjureThunderEffect extends StatusEffect {
     }
 
     // Toggle helper method for safely enabling/disabling the effect invisibly
-    public static void toggleConjureThunder(ServerPlayerEntity player) {
+    public static void toggleKineticDetonation(ServerPlayerEntity player) {
 
-        if (player.hasStatusEffect(TOGGLE_CONJURE_THUNDER)) {
-            player.removeStatusEffect(TOGGLE_CONJURE_THUNDER);
+        if (player.hasStatusEffect(TOGGLE_KINETIC_DETONATION)) {
+            player.removeStatusEffect(TOGGLE_KINETIC_DETONATION);
         } else {
             // Apply the status effect invisibly: no ambient, no particles, no icon
             player.addStatusEffect(new StatusEffectInstance(
-                    TOGGLE_CONJURE_THUNDER,
+                    TOGGLE_KINETIC_DETONATION,
                     -1,
                     0,
                     false,

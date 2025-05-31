@@ -35,7 +35,7 @@ public class ToggleTelekinesisPullEffect extends StatusEffect {
         } else {
             player.addStatusEffect(new StatusEffectInstance(
                     ModEffects.TOGGLE_TELEKINESIS_PULL,
-                    Integer.MAX_VALUE,
+                    -1,
                     0,
                     false,
                     false,

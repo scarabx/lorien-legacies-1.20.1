@@ -41,7 +41,7 @@ public class ToggleLightningStrikeEffect extends StatusEffect {
             // Apply the status effect invisibly: no ambient, no particles, no icon
             player.addStatusEffect(new StatusEffectInstance(
                     TOGGLE_LIGHTNING_STRIKE,
-                    Integer.MAX_VALUE,
+                    -1,
                     0,
                     false,
                     false,

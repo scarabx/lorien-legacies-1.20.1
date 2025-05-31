@@ -30,16 +30,11 @@ public class ToggleShootFireballEffect extends StatusEffect {
     public static void toggleShootFireball(ServerPlayerEntity player) {
 
         if (player.hasStatusEffect(ModEffects.TOGGLE_SHOOT_FIREBALL)) {
-            // Mark that the next stamina removal should not cause TIRED
-            //if (player.hasStatusEffect(ModEffects.STAMINA)) {
-                //player.getDataTracker().set(ModDataTrackers.SKIP_STAMINA_REMOVAL, true);
-            //}
-            // Remove the toggle only
             player.removeStatusEffect(ModEffects.TOGGLE_SHOOT_FIREBALL);
         } else {
             player.addStatusEffect(new StatusEffectInstance(
                     ModEffects.TOGGLE_SHOOT_FIREBALL,
-                    Integer.MAX_VALUE,
+                    -1,
                     0,
                     false,
                     false,

@@ -25,6 +25,9 @@ public class ModItems {
     public static final Item ICEBALL = registerItem("iceball",
             new IceballItem(new FabricItemSettings()));
 
+    public static final Item KINETIC_PROJECTILE = registerItem("kinetic_projectile",
+            new KineticProjectileItem(new FabricItemSettings()));
+
     public static final Item SHOCK_COLLAR = registerItem("shock_collar",
             new ShockCollarItem(new FabricItemSettings()));
 

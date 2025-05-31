@@ -6,6 +6,7 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
 import net.scarab.lorienlegacies.effect.ModEffects;
 
 import static net.scarab.lorienlegacies.effect.ModEffects.TIRED;
@@ -33,24 +34,26 @@ public class NoxenEffect extends StatusEffect {
             ));
         }
 
-        // Apply or remove Night Vision based on time
-        if (!entity.getWorld().isClient()) {
-            if ((entity.getWorld().isNight() || entity.isSubmergedInWater() || entity.getWorld().getBlockCollisions(entity, entity.getBoundingBox()).iterator().hasNext()) && !entity.hasStatusEffect(TIRED)) {
-                // Only reapply if not already active or about to expire
-                StatusEffectInstance nightVision = entity.getStatusEffect(StatusEffects.NIGHT_VISION);
-                if (nightVision == null || nightVision.getDuration() < 210) { // Less than 10.5s left
-                    entity.addStatusEffect(new StatusEffectInstance(
-                            StatusEffects.NIGHT_VISION,
-                            400,
-                            0,
-                            false,
-                            false,
-                            false
-                    ));
+        if (entity instanceof PlayerEntity player) {
+            // Apply or remove Night Vision based on time
+            if (!player.getWorld().isClient()) {
+                if ((player.getWorld().isNight() || player.isSubmergedInWater() || player.getWorld().getBlockCollisions(entity, entity.getBoundingBox()).iterator().hasNext()) && !entity.hasStatusEffect(TIRED)) {
+                    // Only reapply if not already active or about to expire
+                    StatusEffectInstance nightVision = player.getStatusEffect(StatusEffects.NIGHT_VISION);
+                    if (nightVision == null || nightVision.getDuration() < 210) { // Less than 10.5s left
+                        player.addStatusEffect(new StatusEffectInstance(
+                                StatusEffects.NIGHT_VISION,
+                                -1,
+                                0,
+                                false,
+                                false,
+                                false
+                        ));
+                    }
+                } else {
+                    // Remove Night Vision when it's no longer night
+                    player.removeStatusEffect(StatusEffects.NIGHT_VISION);
                 }
-            } else {
-                // Remove Night Vision when it's no longer night
-                entity.removeStatusEffect(StatusEffects.NIGHT_VISION);
             }
         }
         super.applyUpdateEffect(entity, amplifier);

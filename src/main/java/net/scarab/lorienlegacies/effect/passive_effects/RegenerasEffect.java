@@ -5,6 +5,7 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
 import net.scarab.lorienlegacies.effect.ModEffects;
 
 import static net.scarab.lorienlegacies.effect.ModEffects.*;
@@ -32,28 +33,30 @@ public class RegenerasEffect extends StatusEffect {
             ));
         }
 
-        // Don't apply regeneration if the entity is tired
-        if (entity.hasStatusEffect(TIRED)
-            && entity.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
-            entity.removeStatusEffect(StatusEffects.REGENERATION);
-            return;
-        }
-
-        // Apply regeneration if health is low
-        if (!entity.getWorld().isClient() && entity.getHealth() <= 10) {
-            StatusEffectInstance regen = entity.getStatusEffect(StatusEffects.REGENERATION);
-            if (regen == null || regen.getAmplifier() < 4) {
-                entity.addStatusEffect(new StatusEffectInstance(
-                        StatusEffects.REGENERATION,
-                        400,
-                        4,
-                        false,
-                        false,
-                        false
-                ));
+        if (entity instanceof PlayerEntity player) {
+            // Don't apply regeneration if the entity is tired
+            if (player.hasStatusEffect(TIRED)
+                    && player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
+                player.removeStatusEffect(StatusEffects.REGENERATION);
+                return;
             }
-        } else if (entity.getHealth() == entity.getMaxHealth()) {
-            entity.removeStatusEffect(StatusEffects.REGENERATION);
+
+            // Apply regeneration if health is low
+            if (!player.getWorld().isClient() && entity.getHealth() <= 10) {
+                StatusEffectInstance regen = player.getStatusEffect(StatusEffects.REGENERATION);
+                if (regen == null || regen.getAmplifier() < 4) {
+                    player.addStatusEffect(new StatusEffectInstance(
+                            StatusEffects.REGENERATION,
+                            -1,
+                            4,
+                            false,
+                            false,
+                            false
+                    ));
+                }
+            } else if (player.getHealth() == player.getMaxHealth()) {
+                player.removeStatusEffect(StatusEffects.REGENERATION);
+            }
         }
     }
 

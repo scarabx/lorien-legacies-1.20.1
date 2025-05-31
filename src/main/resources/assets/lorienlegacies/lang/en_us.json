@@ -8,6 +8,8 @@
 
   "item.lorienlegacies.iceball": "Iceball",
 
+  "item.lorienlegacies.kinetic_projectile": "Kinetic Projectile",
+
   "item.lorienlegacies.shock_collar": "Shock Collar",
 
   "item.lorienlegacies.inhibitor": "Inhibitor",
@@ -86,9 +88,21 @@
 
   "effect.lorienlegacies.toggle_tactile_consciousness_transfer": "Toggle Tactile Consciousness Transfer",
 
+  "effect.lorienlegacies.kinetic_detonation": "Kinetic Detonation",
+
+  "effect.lorienlegacies.toggle_kinetic_detonation": "Toggle Kinetic Detonation",
+
+  "effect.lorienlegacies.teletras": "Teletras",
+
+  "effect.lorienlegacies.toggle_teletras": "Toggle Teletras",
+
   "effect.lorienlegacies.stamina": "Stamina",
 
   "effect.lorienlegacies.tired": "Tired",
+
+  "effect.lorienlegacies.legacy_inhibition": "Legacy Inhibition",
+
+  "effect.lorienlegacies.active_legacy_inhibition": "Active Legacy Inhibition",
 
   "effect.lorienlegacies.legacy_cooldown": "Legacy Cooldown",
 

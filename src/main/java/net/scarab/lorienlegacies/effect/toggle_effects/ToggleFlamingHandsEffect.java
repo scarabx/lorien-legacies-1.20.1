@@ -45,7 +45,7 @@ public class ToggleFlamingHandsEffect extends StatusEffect {
             // Apply the status effect invisibly: no ambient, no particles, no icon
             player.addStatusEffect(new StatusEffectInstance(
                     TOGGLE_FLAMING_HANDS,
-                    Integer.MAX_VALUE,
+                    -1,
                     0,
                     false,
                     false,

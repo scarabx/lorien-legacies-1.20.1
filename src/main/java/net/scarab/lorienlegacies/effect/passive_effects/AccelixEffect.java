@@ -5,6 +5,7 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
 import net.scarab.lorienlegacies.effect.ModEffects;
 
 import static net.scarab.lorienlegacies.effect.ModEffects.ACTIVE_LEGACY_INHIBITION;
@@ -39,37 +40,38 @@ public class AccelixEffect extends StatusEffect {
             return;
         }
 
-        if (!entity.getWorld().isClient()) {
+        if (entity instanceof PlayerEntity player) {
+            if (!player.getWorld().isClient()) {
 
-            // SPEED: sprinting and not in water
-            if (entity.isSprinting() && !entity.isSubmergedInWater()) {
-                entity.addStatusEffect(new StatusEffectInstance(
-                        StatusEffects.SPEED,
+                // SPEED: sprinting and not in water
+                if (player.isSprinting() && !player.isSubmergedInWater()) {
+                    player.addStatusEffect(new StatusEffectInstance(
+                            StatusEffects.SPEED,
+                            -1,
+                            4,
+                            false,
+                            false,
+                            false
+                    ));
+                }
+            } else {
+                player.removeStatusEffect(StatusEffects.SPEED);
+            }
+
+            // DOLPHIN'S GRACE: sprinting and submerged
+            if (player.isSprinting() && player.isSubmergedInWater()) {
+                player.addStatusEffect(new StatusEffectInstance(
+                        StatusEffects.DOLPHINS_GRACE,
                         400,
-                        4,
+                        -1,
                         false,
                         false,
                         false
                 ));
+            } else {
+                player.removeStatusEffect(StatusEffects.DOLPHINS_GRACE);
             }
-        } else {
-            entity.removeStatusEffect(StatusEffects.SPEED);
         }
-
-        // DOLPHIN'S GRACE: sprinting and submerged
-        if (entity.isSprinting() && entity.isSubmergedInWater()) {
-            entity.addStatusEffect(new StatusEffectInstance(
-                    StatusEffects.DOLPHINS_GRACE,
-                    400,
-                    4,
-                    false,
-                    false,
-                    false
-            ));
-        } else {
-            entity.removeStatusEffect(StatusEffects.DOLPHINS_GRACE);
-        }
-
         super.applyUpdateEffect(entity, amplifier);
     }
 

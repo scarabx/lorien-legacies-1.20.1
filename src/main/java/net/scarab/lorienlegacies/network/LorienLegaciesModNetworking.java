@@ -5,15 +5,12 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.s2c.play.CustomPayloadS2CPacket;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 
-import net.minecraft.util.math.Vec3d;
 import net.scarab.lorienlegacies.chimaera.MorphHandler;
 import net.scarab.lorienlegacies.effect.active_effects.*;
 import net.scarab.lorienlegacies.effect.toggle_effects.*;
@@ -95,6 +92,10 @@ public class LorienLegaciesModNetworking {
     public static final Identifier TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER_PACKET = new Identifier("lorienlegacies", "toggle_tactile_consciousness_transfer");
 
     public static final Identifier RESET_TACTILE_CONSCIOUSNESS_TRANSFER_PACKET = new Identifier("lorienlegacies", "reset_tactile_consciousness_transfer");
+
+    public static final Identifier TOGGLE_KINETIC_DETONATION = new Identifier("lorienlegacies", "toggle_kinetic_detonation");
+
+    public static final Identifier TOGGLE_TELETRAS_PACKET = new Identifier("lorienlegacies", "toggle_teletras");
 
     public static final Identifier CHIMAERA_MORPH_PACKET = new Identifier("lorienlegacies", "chimaera_morph");
 
@@ -211,6 +212,9 @@ public class LorienLegaciesModNetworking {
                 if (player.hasStatusEffect(MARK_TARGET_FOR_WOLF)) {
                     MorphHandler.markTargetForWolf(player);
                 }
+                if (player.hasStatusEffect(TELETRAS)) {
+                    TeletrasEffect.teleport(player);
+                }
             });
         });
 
@@ -270,6 +274,7 @@ public class LorienLegaciesModNetworking {
                     player.removeStatusEffect(CHIMAERA_MORPH);
                     player.removeStatusEffect(CHIMAERA_CALL);
                     player.removeStatusEffect(MARK_TARGET_FOR_WOLF);
+                    player.removeStatusEffect(TOGGLE_TELETRAS);
                 }
             });
         });
@@ -282,6 +287,7 @@ public class LorienLegaciesModNetworking {
                     player.removeStatusEffect(CHIMAERA_MORPH);
                     player.removeStatusEffect(CHIMAERA_CALL);
                     player.removeStatusEffect(MARK_TARGET_FOR_WOLF);
+                    player.removeStatusEffect(TOGGLE_TELETRAS);
                 }
             });
         });
@@ -452,12 +458,30 @@ public class LorienLegaciesModNetworking {
             });
         });
 
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_KINETIC_DETONATION, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(KINETIC_DETONATION)) {
+                    ToggleKineticDetonationEffect.toggleKineticDetonation(player);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_TELETRAS_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(TELETRAS)) {
+                    ToggleTeletrasEffect.toggleTeletras(player);
+                    player.removeStatusEffect(TOGGLE_TELEKINESIS_PULL);
+                    player.removeStatusEffect(TOGGLE_TELEKINESIS_PUSH);
+                }
+            });
+        });
+
         ServerPlayNetworking.registerGlobalReceiver(CHIMAERA_MORPH_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 if (player.hasStatusEffect(CHIMAERA_MORPH)) {
                     player.removeStatusEffect(CHIMAERA_MORPH);
                 } else {
-                    player.addStatusEffect(new StatusEffectInstance(CHIMAERA_MORPH, Integer.MAX_VALUE, 0, false, false, false));
+                    player.addStatusEffect(new StatusEffectInstance(CHIMAERA_MORPH, -1, 0, false, false, false));
                     player.removeStatusEffect(CHIMAERA_CALL);
                     player.removeStatusEffect(MARK_TARGET_FOR_WOLF);
                     player.removeStatusEffect(TOGGLE_TELEKINESIS_PUSH);
@@ -471,11 +495,12 @@ public class LorienLegaciesModNetworking {
                 if (player.hasStatusEffect(CHIMAERA_CALL)) {
                     player.removeStatusEffect(CHIMAERA_CALL);
                 } else {
-                    player.addStatusEffect(new StatusEffectInstance(CHIMAERA_CALL, Integer.MAX_VALUE, 0, false, false, false));
+                    player.addStatusEffect(new StatusEffectInstance(CHIMAERA_CALL, -1, 0, false, false, false));
                     player.removeStatusEffect(MARK_TARGET_FOR_WOLF);
                     player.removeStatusEffect(CHIMAERA_MORPH);
                     player.removeStatusEffect(TOGGLE_TELEKINESIS_PUSH);
                     player.removeStatusEffect(TOGGLE_TELEKINESIS_PULL);
+                    player.removeStatusEffect(TOGGLE_TELETRAS);
                 }
             });
         });
@@ -485,11 +510,12 @@ public class LorienLegaciesModNetworking {
                 if (player.hasStatusEffect(MARK_TARGET_FOR_WOLF)) {
                     player.removeStatusEffect(MARK_TARGET_FOR_WOLF);
                 } else {
-                    player.addStatusEffect(new StatusEffectInstance(MARK_TARGET_FOR_WOLF, Integer.MAX_VALUE, 0, false, false, false));
+                    player.addStatusEffect(new StatusEffectInstance(MARK_TARGET_FOR_WOLF, -1, 0, false, false, false));
                     player.removeStatusEffect(CHIMAERA_MORPH);
                     player.removeStatusEffect(CHIMAERA_CALL);
                     player.removeStatusEffect(TOGGLE_TELEKINESIS_PUSH);
                     player.removeStatusEffect(TOGGLE_TELEKINESIS_PULL);
+                    player.removeStatusEffect(TOGGLE_TELETRAS);
                 }
             });
         });

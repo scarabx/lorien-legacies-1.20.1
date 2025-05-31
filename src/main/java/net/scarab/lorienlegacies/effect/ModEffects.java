@@ -138,10 +138,22 @@ public class ModEffects {
             new ToggleXimicTelekinesisEffect(StatusEffectCategory.BENEFICIAL, 0x9b4f96/*Purple*/));
 
     public static final StatusEffect TACTILE_CONSCIOUSNESS_TRANSFER = registerStatusEffect("tactile_consciousness_transfer",
-            new TactileConsciousnessTransferEffect(StatusEffectCategory.BENEFICIAL, 0x9b4f96/*Purple*/));
+            new TactileConsciousnessTransferEffect(StatusEffectCategory.BENEFICIAL, 0x55FFFF/*Light Blue*/));
 
     public static final StatusEffect TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER = registerStatusEffect("toggle_tactile_consciousness_transfer",
-            new ToggleTactileConsciousnessTransferEffect(StatusEffectCategory.BENEFICIAL, 0x9b4f96/*Purple*/));
+            new ToggleTactileConsciousnessTransferEffect(StatusEffectCategory.BENEFICIAL, 0x55FFFF/*Light Blue*/));
+
+    public static final StatusEffect KINETIC_DETONATION = registerStatusEffect("kinetic_detonation",
+            new KineticDetonationEffect(StatusEffectCategory.BENEFICIAL, 0xFF0000/*Red*/));
+
+    public static final StatusEffect TELETRAS = registerStatusEffect("teletras",
+            new TeletrasEffect(StatusEffectCategory.BENEFICIAL, 0x9b4f96/*Purple*/));
+
+    public static final StatusEffect TOGGLE_TELETRAS = registerStatusEffect("toggle_teletras",
+            new ToggleTeletrasEffect(StatusEffectCategory.BENEFICIAL, 0x9b4f96/*Purple*/));
+
+    public static final StatusEffect TOGGLE_KINETIC_DETONATION = registerStatusEffect("toggle_kinetic_detonation",
+            new ToggleKineticDetonationEffect(StatusEffectCategory.BENEFICIAL, 0xFF0000/*Red*/));
 
     public static final StatusEffect CHIMAERA_ESSENCE = registerStatusEffect("chimaera_essence",
             new ChimaeraEssenceEffect(StatusEffectCategory.BENEFICIAL, 0x00AA00/*Dark Green*/));

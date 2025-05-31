@@ -6,6 +6,7 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class ActiveLegacyInhibition extends StatusEffect {
 
@@ -30,10 +31,12 @@ public class ActiveLegacyInhibition extends StatusEffect {
             ));
         }
 
-        if (!entity.getWorld().isClient()) {
-            entity.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 100, 0, false, false, false));
-            entity.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 100, 0, false, false, false));
-            entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 6, false, false, false));
+        if (entity instanceof PlayerEntity player) {
+            if (!player.getWorld().isClient()) {
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 100, 0, false, false, false));
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 100, 0, false, false, false));
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 6, false, false, false));
+            }
         }
         super.applyUpdateEffect(entity, amplifier);
     }
@@ -46,10 +49,11 @@ public class ActiveLegacyInhibition extends StatusEffect {
     @Override
     public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
 
-        entity.removeStatusEffect(StatusEffects.BLINDNESS);
-        entity.removeStatusEffect(StatusEffects.WEAKNESS);
-        entity.removeStatusEffect(StatusEffects.SLOWNESS);
-
+        if (entity instanceof PlayerEntity player) {
+            player.removeStatusEffect(StatusEffects.BLINDNESS);
+            player.removeStatusEffect(StatusEffects.WEAKNESS);
+            player.removeStatusEffect(StatusEffects.SLOWNESS);
+        }
         super.onRemoved(entity, attributes, amplifier);
     }
 }

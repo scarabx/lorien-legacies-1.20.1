@@ -28,4 +28,9 @@ public class LegacyCooldownEffect extends StatusEffect {
             ));
         }
     }
+
+    @Override
+    public boolean canApplyUpdateEffect(int duration, int amplifier) {
+        return true;
+    }
 }
