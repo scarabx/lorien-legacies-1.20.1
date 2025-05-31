@@ -1,12 +1,14 @@
-// 1.20.1	2025-05-30T17:01:14.632722	Lorien Legacies Mod/Model Definitions
+// 1.20.1	2025-05-31T09:41:18.569007	Lorien Legacies Mod/Model Definitions
 323f63dc512354cf931542c708904799cbe88c38 assets/lorienlegacies/blockstates/loralite_block.json
 b804b933a181e9479a3fd84152a7781495dcc508 assets/lorienlegacies/blockstates/loralite_ore.json
+bdb7f945705c2aec445a5095bd8193f00de5a94c assets/lorienlegacies/models/item/inhibitor.json
+92fc832872fc687b163eac28ee9cc2d252d0dc6e assets/lorienlegacies/models/block/loralite_ore.json
 3eeca16fe5e0c23bbbfc6f755c1dac24d2dc30aa assets/lorienlegacies/models/item/loralite_ore.json
 44bfcdf8faba1f40eead36e8f66bdf0c54227b51 assets/lorienlegacies/models/item/shock_collar.json
 71c2cb8bf23f934a69e58bb8875172ce1a4b5eeb assets/lorienlegacies/models/item/iceball.json
 00f1bc75f8c73c54f4274179cad7093881bd10a7 assets/lorienlegacies/models/item/loralite.json
 02719879f0d464be8512b310b7464661f8e0a278 assets/lorienlegacies/models/item/loric_stone.json
-92fc832872fc687b163eac28ee9cc2d252d0dc6e assets/lorienlegacies/models/block/loralite_ore.json
+6d81aacd94e0f60568179a4a4037361689b75286 assets/lorienlegacies/models/item/inhibitor_remote.json
 e2309ef765428bb1c8dee5417b9647cd24fa86b4 assets/lorienlegacies/models/item/loralite_block.json
 afd85354a887f217400eee6dfdeea58217470df1 assets/lorienlegacies/models/item/leather_sleeve.json
 889b0dfc3a841f7336222b53aaf4c64477f26a9d assets/lorienlegacies/models/block/loralite_block.json

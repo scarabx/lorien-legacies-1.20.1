@@ -28,10 +28,10 @@ public class ModItems {
     public static final Item SHOCK_COLLAR = registerItem("shock_collar",
             new ShockCollarItem(new FabricItemSettings()));
 
-    public static final Item INHIBITOR_ITEM = registerItem("inhibitor_item",
+    public static final Item INHIBITOR_ITEM = registerItem("inhibitor",
             new InhibitorItem(new FabricItemSettings()));
 
-    public static final Item INHIBITOR_REMOTE_ITEM = registerItem("inhibitor_remote_item",
+    public static final Item INHIBITOR_REMOTE_ITEM = registerItem("inhibitor_remote",
             new InhibitorRemoteItem(new FabricItemSettings()));
 
     private static Item registerItem(String name, Item item) {
