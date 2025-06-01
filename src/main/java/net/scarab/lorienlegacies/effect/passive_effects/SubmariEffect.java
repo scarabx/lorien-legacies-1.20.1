@@ -36,7 +36,7 @@ public class SubmariEffect extends StatusEffect {
                 // Only reapply if not already active or about to expire
                 StatusEffectInstance waterBreathing = player.getStatusEffect(StatusEffects.WATER_BREATHING);
                 if (waterBreathing == null || waterBreathing.getDuration() < 200) { // Less than 10.5s left
-                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.WATER_BREATHING, -1, 0, false, false, false));
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.WATER_BREATHING, Integer.MAX_VALUE, 0, false, false, false));
                 }
             } else {
                 player.removeStatusEffect(StatusEffects.WATER_BREATHING);

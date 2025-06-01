@@ -43,7 +43,9 @@ public class LegacyBestowalHandler {
             Map.entry(ModEffects.REGENERAS, 1),
             Map.entry(ModEffects.SUBMARI, 6),
             Map.entry(ModEffects.STURMA, 1),
-            Map.entry(ModEffects.XIMIC, 12)
+            Map.entry(ModEffects.XIMIC, 1),
+            Map.entry(ModEffects.TELETRAS, 1),
+            Map.entry(ModEffects.KINETIC_DETONATION, 1)
     );
 
     private static final int TICKS_PER_SECOND = 20;
@@ -198,7 +200,7 @@ public class LegacyBestowalHandler {
         StatusEffect randomEffect = getRandomLegacyWeighted(player);
 
         if (!player.hasStatusEffect(randomEffect)) {
-            player.addStatusEffect(new StatusEffectInstance(randomEffect, -1, 0, false, false, false));
+            player.addStatusEffect(new StatusEffectInstance(randomEffect, Integer.MAX_VALUE, 0, false, false, false));
             player.addStatusEffect(new StatusEffectInstance(ModEffects.LEGACY_COOLDOWN, LEGACY_COOLDOWN_TICKS, 0, false, false, false));
             player.sendMessage(Text.literal("You have been bestowed upon the " + randomEffect.getName().getString() + " legacy!"), false);
             ItemStack splashPotion = PotionUtil.setPotion(new ItemStack(Items.SPLASH_POTION), ModPotions.CHIMAERA_ESSENCE);

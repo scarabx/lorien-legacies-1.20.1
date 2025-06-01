@@ -42,7 +42,7 @@ public class ToggleXimicAvexEffect extends StatusEffect {
             // Apply the status effect invisibly: no ambient, no particles, no icon
             player.addStatusEffect(new StatusEffectInstance(
                     TOGGLE_XIMIC_AVEX,
-                    -1,
+                    Integer.MAX_VALUE,
                     0,
                     false,
                     false,

@@ -38,12 +38,11 @@ public class NoxenEffect extends StatusEffect {
             // Apply or remove Night Vision based on time
             if (!player.getWorld().isClient()) {
                 if ((player.getWorld().isNight() || player.isSubmergedInWater() || player.getWorld().getBlockCollisions(entity, entity.getBoundingBox()).iterator().hasNext()) && !entity.hasStatusEffect(TIRED)) {
-                    // Only reapply if not already active or about to expire
                     StatusEffectInstance nightVision = player.getStatusEffect(StatusEffects.NIGHT_VISION);
                     if (nightVision == null || nightVision.getDuration() < 210) { // Less than 10.5s left
                         player.addStatusEffect(new StatusEffectInstance(
                                 StatusEffects.NIGHT_VISION,
-                                -1,
+                                Integer.MAX_VALUE,
                                 0,
                                 false,
                                 false,
@@ -64,6 +63,7 @@ public class NoxenEffect extends StatusEffect {
         return true;
     }
 }
+
 
 
 

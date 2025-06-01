@@ -217,13 +217,13 @@ public class MorphHandler {
         Vec3d reachVec = eyePos.add(lookVec.multiply(maxDistance));
         World world = player.getWorld();
 
-        // Raycast to find the hostile entity being looked at
+        // Raycast to find the entity being looked at
         Box box = player.getBoundingBox().stretch(lookVec.multiply(maxDistance)).expand(1.0);
         Entity target = null;
         double closestDistance = maxDistance * maxDistance;
 
         for (Entity entity : world.getOtherEntities(player, box, e ->
-                e instanceof Entity && !(e instanceof WolfEntity wolf && wolf.isTamed() && wolf.hasStatusEffect(ModEffects.CHIMAERA_ESSENCE)) && e.isAlive() && !e.isSpectator())) {
+                e instanceof LivingEntity living && !living.hasStatusEffect(ModEffects.CHIMAERA_ESSENCE) && e.isAlive() && !e.isSpectator())) {
             Box entityBox = entity.getBoundingBox().expand(0.3);
             Optional<Vec3d> optional = entityBox.raycast(eyePos, reachVec);
             if (optional.isPresent()) {

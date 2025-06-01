@@ -41,7 +41,7 @@ public class ToggleXimicGlacenEffect extends StatusEffect {
             // Apply the status effect invisibly: no ambient, no particles, no icon
             player.addStatusEffect(new StatusEffectInstance(
                     TOGGLE_XIMIC_GLACEN,
-                    -1,
+                    Integer.MAX_VALUE,
                     0,
                     false,
                     false,

@@ -52,7 +52,7 @@ public class ToggleTelekinesisMoveEffect extends StatusEffect {
         } else {
             player.addStatusEffect(new StatusEffectInstance(
                     ModEffects.TOGGLE_TELEKINESIS_MOVE,
-                    -1,
+                    Integer.MAX_VALUE,
                     0,
                     false,
                     false,

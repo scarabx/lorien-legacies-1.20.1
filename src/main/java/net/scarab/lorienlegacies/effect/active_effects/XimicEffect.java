@@ -45,7 +45,7 @@ public class XimicEffect extends StatusEffect {
             && !player.hasStatusEffect(TIRED)
                 && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
-            player.addStatusEffect(new StatusEffectInstance(ACCELIX, -1, 0, false, false, false));
+            player.addStatusEffect(new StatusEffectInstance(ACCELIX, Integer.MAX_VALUE, 0, false, false, false));
         }
     }
 
@@ -56,7 +56,7 @@ public class XimicEffect extends StatusEffect {
             && !player.hasStatusEffect(TIRED)
                 && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
-            player.addStatusEffect(new StatusEffectInstance(AVEX, -1, 0, false, false, false));
+            player.addStatusEffect(new StatusEffectInstance(AVEX, Integer.MAX_VALUE, 0, false, false, false));
         }
     }
 
@@ -67,7 +67,7 @@ public class XimicEffect extends StatusEffect {
             && !player.hasStatusEffect(TIRED)
                 && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
-            player.addStatusEffect(new StatusEffectInstance(GLACEN, -1, 0, false, false, false));
+            player.addStatusEffect(new StatusEffectInstance(GLACEN, Integer.MAX_VALUE, 0, false, false, false));
         }
     }
 
@@ -78,7 +78,7 @@ public class XimicEffect extends StatusEffect {
             && !player.hasStatusEffect(TIRED)
                 && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
-            player.addStatusEffect(new StatusEffectInstance(LUMEN, -1, 0, false, false, false));
+            player.addStatusEffect(new StatusEffectInstance(LUMEN, Integer.MAX_VALUE, 0, false, false, false));
         }
     }
 
@@ -89,7 +89,7 @@ public class XimicEffect extends StatusEffect {
             && !player.hasStatusEffect(TIRED)
                 && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
-            player.addStatusEffect(new StatusEffectInstance(NOVIS, -1, 0, false, false, false));
+            player.addStatusEffect(new StatusEffectInstance(NOVIS, Integer.MAX_VALUE, 0, false, false, false));
         }
     }
 
@@ -100,7 +100,7 @@ public class XimicEffect extends StatusEffect {
             && !player.hasStatusEffect(TIRED)
                 && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
-            player.addStatusEffect(new StatusEffectInstance(NOXEN, -1, 0, false, false, false));
+            player.addStatusEffect(new StatusEffectInstance(NOXEN, Integer.MAX_VALUE, 0, false, false, false));
         }
     }
 
@@ -111,7 +111,7 @@ public class XimicEffect extends StatusEffect {
             && !player.hasStatusEffect(TIRED)
                 && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
-            player.addStatusEffect(new StatusEffectInstance(PONDUS, -1, 0, false, false, false));
+            player.addStatusEffect(new StatusEffectInstance(PONDUS, Integer.MAX_VALUE, 0, false, false, false));
         }
     }
 
@@ -122,7 +122,7 @@ public class XimicEffect extends StatusEffect {
             && !player.hasStatusEffect(TIRED)
                 && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
-            player.addStatusEffect(new StatusEffectInstance(REGENERAS, -1, 0, false, false, false));
+            player.addStatusEffect(new StatusEffectInstance(REGENERAS, Integer.MAX_VALUE, 0, false, false, false));
         }
     }
 
@@ -133,7 +133,7 @@ public class XimicEffect extends StatusEffect {
             && !player.hasStatusEffect(TIRED)
                 && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
-            player.addStatusEffect(new StatusEffectInstance(STURMA, -1, 0, false, false, false));
+            player.addStatusEffect(new StatusEffectInstance(STURMA, Integer.MAX_VALUE, 0, false, false, false));
         }
     }
 
@@ -144,7 +144,7 @@ public class XimicEffect extends StatusEffect {
             && !player.hasStatusEffect(TIRED)
                 && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
-            player.addStatusEffect(new StatusEffectInstance(SUBMARI, -1, 0, false, false, false));
+            player.addStatusEffect(new StatusEffectInstance(SUBMARI, Integer.MAX_VALUE, 0, false, false, false));
         }
     }
 
@@ -155,7 +155,7 @@ public class XimicEffect extends StatusEffect {
             && !player.hasStatusEffect(TIRED)
                 && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
-            player.addStatusEffect(new StatusEffectInstance(TELEKINESIS, -1, 0, false, false, false));
+            player.addStatusEffect(new StatusEffectInstance(TELEKINESIS, Integer.MAX_VALUE, 0, false, false, false));
         }
     }
 }

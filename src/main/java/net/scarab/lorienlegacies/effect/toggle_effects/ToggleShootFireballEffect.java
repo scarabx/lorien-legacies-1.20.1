@@ -34,7 +34,7 @@ public class ToggleShootFireballEffect extends StatusEffect {
         } else {
             player.addStatusEffect(new StatusEffectInstance(
                     ModEffects.TOGGLE_SHOOT_FIREBALL,
-                    -1,
+                    Integer.MAX_VALUE,
                     0,
                     false,
                     false,

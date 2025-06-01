@@ -41,7 +41,7 @@ public class ToggleConjureClearWeatherEffect extends StatusEffect {
             // Apply the status effect invisibly: no ambient, no particles, no icon
             player.addStatusEffect(new StatusEffectInstance(
                     TOGGLE_CONJURE_CLEAR_WEATHER,
-                    -1,
+                    Integer.MAX_VALUE,
                     0,
                     false,
                     false,

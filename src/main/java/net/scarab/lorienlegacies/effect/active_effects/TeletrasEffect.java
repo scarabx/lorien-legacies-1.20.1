@@ -61,7 +61,7 @@ public class TeletrasEffect extends StatusEffect {
 
     public static void teleport(LivingEntity entity) {
 
-        if (!entity.getWorld().isClient() && entity instanceof ServerPlayerEntity player && !player.hasStatusEffect(TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
+        if (!entity.getWorld().isClient() && entity instanceof ServerPlayerEntity player && player.hasStatusEffect(TOGGLE_TELETRAS) && !player.hasStatusEffect(TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
             ServerWorld world = (ServerWorld) entity.getWorld();
 
             Vec3d start = entity.getCameraPosVec(1.0F);

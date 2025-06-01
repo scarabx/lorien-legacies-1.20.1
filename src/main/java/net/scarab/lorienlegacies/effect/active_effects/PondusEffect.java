@@ -53,7 +53,7 @@ public class PondusEffect extends StatusEffect {
         if (entity instanceof PlayerEntity player) {
             if (!player.getWorld().isClient()
                     && player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
-                player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, -1, 4, false, false, false));
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, Integer.MAX_VALUE, 4, false, false, false));
             } else {
                 player.removeStatusEffect(StatusEffects.STRENGTH);
             }
