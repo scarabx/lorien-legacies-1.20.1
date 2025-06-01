@@ -41,7 +41,7 @@ public class ToggleImpenetrableSkinEffect extends StatusEffect {
             // Apply the status effect invisibly: no ambient, no particles, no icon
             player.addStatusEffect(new StatusEffectInstance(
                     TOGGLE_IMPENETRABLE_SKIN,
-                    -1,
+                    Integer.MAX_VALUE,
                     0,
                     false,
                     false,

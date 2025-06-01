@@ -35,7 +35,7 @@ public class ToggleTelekinesisPushEffect extends StatusEffect {
         } else {
             player.addStatusEffect(new StatusEffectInstance(
                     ModEffects.TOGGLE_TELEKINESIS_PUSH,
-                    -1,
+                    Integer.MAX_VALUE,
                     0,
                     false,
                     false,

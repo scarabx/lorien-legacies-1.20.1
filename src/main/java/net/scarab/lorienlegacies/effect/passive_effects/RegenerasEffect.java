@@ -47,7 +47,7 @@ public class RegenerasEffect extends StatusEffect {
                 if (regen == null || regen.getAmplifier() < 4) {
                     player.addStatusEffect(new StatusEffectInstance(
                             StatusEffects.REGENERATION,
-                            -1,
+                            Integer.MAX_VALUE,
                             4,
                             false,
                             false,

@@ -38,7 +38,7 @@ public class AvexEffect extends StatusEffect {
             ));
         }
 
-        entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, -1, 0, false, false, false));
+        entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, Integer.MAX_VALUE, 0, false, false, false));
 
         if (!(entity instanceof PlayerEntity player)) return;
         if (!player.getWorld().isClient()) return;

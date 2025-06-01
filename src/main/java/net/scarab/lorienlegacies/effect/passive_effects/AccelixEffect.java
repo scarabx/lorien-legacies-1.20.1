@@ -47,7 +47,7 @@ public class AccelixEffect extends StatusEffect {
                 if (player.isSprinting() && !player.isSubmergedInWater()) {
                     player.addStatusEffect(new StatusEffectInstance(
                             StatusEffects.SPEED,
-                            -1,
+                            Integer.MAX_VALUE,
                             4,
                             false,
                             false,
@@ -62,8 +62,8 @@ public class AccelixEffect extends StatusEffect {
             if (player.isSprinting() && player.isSubmergedInWater()) {
                 player.addStatusEffect(new StatusEffectInstance(
                         StatusEffects.DOLPHINS_GRACE,
-                        400,
-                        -1,
+                        Integer.MAX_VALUE,
+                        4,
                         false,
                         false,
                         false

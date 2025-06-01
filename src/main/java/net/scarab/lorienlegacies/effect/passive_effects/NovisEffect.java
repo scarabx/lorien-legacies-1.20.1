@@ -50,10 +50,10 @@ public class NovisEffect extends StatusEffect {
 
             // Only reapply if not already active or about to expire
             StatusEffectInstance invisibility = player.getStatusEffect(StatusEffects.INVISIBILITY);
-            if (invisibility == null || invisibility.getDuration() < 200) { // Less than 10.5s left
+            if (invisibility == null || invisibility.getDuration() < 200) { // Less than 10s left
                 player.addStatusEffect(new StatusEffectInstance(
                         StatusEffects.INVISIBILITY,
-                        -1,
+                        Integer.MAX_VALUE,
                         0,
                         false,
                         false,

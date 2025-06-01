@@ -9,9 +9,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-import static javax.swing.text.html.parser.DTDConstants.ID;
 import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER;
-import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_XIMIC_ACCELIX;
 import static net.scarab.lorienlegacies.network.LorienLegaciesModNetworking.RESET_TACTILE_CONSCIOUSNESS_TRANSFER_PACKET;
 
 public class ToggleTactileConsciousnessTransferEffect extends StatusEffect {
@@ -50,7 +48,7 @@ public class ToggleTactileConsciousnessTransferEffect extends StatusEffect {
             // Apply the status effect invisibly: no ambient, no particles, no icon
             player.addStatusEffect(new StatusEffectInstance(
                     TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER,
-                    -1,
+                    Integer.MAX_VALUE,
                     0,
                     false,
                     false,

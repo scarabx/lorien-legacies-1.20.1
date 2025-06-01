@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.scarab.lorienlegacies.effect.ModEffects;
@@ -20,7 +21,7 @@ public class LorienLegacyEventHandler {
     private static void keepEffectsOnDeath() {
         ServerPlayerEvents.COPY_FROM.register((oldPlayer, newPlayer, alive) -> {
             if (!alive) {
-                // List of effects that should persist through death
+                // Effects that should always persist with infinite duration
                 List<StatusEffect> persistentEffects = List.of(
                         ModEffects.ACCELIX,
                         ModEffects.AVEX, ModEffects.INTANGIFLY,
@@ -33,8 +34,10 @@ public class LorienLegacyEventHandler {
                         ModEffects.NOXEN,
                         ModEffects.REGENERAS,
                         ModEffects.STURMA, ModEffects.TOGGLE_LIGHTNING_STRIKE,
-                        ModEffects.SUBMARI
-                        // Removed LEGACY_COOLDOWN here to handle separately below
+                        ModEffects.SUBMARI,
+                        ModEffects.XIMIC,
+                        ModEffects.KINETIC_DETONATION, ModEffects.TOGGLE_KINETIC_DETONATION,
+                        ModEffects.TELETRAS, ModEffects.TOGGLE_TELETRAS
                 );
 
                 for (StatusEffect effect : persistentEffects) {
@@ -50,7 +53,7 @@ public class LorienLegacyEventHandler {
                     }
                 }
 
-                // Handle LEGACY_COOLDOWN separately to preserve remaining duration
+                // Handle LEGACY_COOLDOWN
                 StatusEffectInstance cooldownEffect = oldPlayer.getStatusEffect(ModEffects.LEGACY_COOLDOWN);
                 if (cooldownEffect != null) {
                     newPlayer.addStatusEffect(new StatusEffectInstance(
@@ -60,6 +63,32 @@ public class LorienLegacyEventHandler {
                             cooldownEffect.isAmbient(),
                             cooldownEffect.shouldShowParticles(),
                             cooldownEffect.shouldShowIcon()
+                    ));
+                }
+
+                // Handle LEGACY_INHIBITION
+                StatusEffectInstance inhibitionEffect = oldPlayer.getStatusEffect(ModEffects.LEGACY_INHIBITION);
+                if (inhibitionEffect != null) {
+                    newPlayer.addStatusEffect(new StatusEffectInstance(
+                            ModEffects.LEGACY_INHIBITION,
+                            inhibitionEffect.getDuration(),
+                            inhibitionEffect.getAmplifier(),
+                            inhibitionEffect.isAmbient(),
+                            inhibitionEffect.shouldShowParticles(),
+                            inhibitionEffect.shouldShowIcon()
+                    ));
+                }
+
+                // Handle ACTIVE_LEGACY_INHIBITION
+                StatusEffectInstance activeInhibitionEffect = oldPlayer.getStatusEffect(ModEffects.ACTIVE_LEGACY_INHIBITION);
+                if (activeInhibitionEffect != null) {
+                    newPlayer.addStatusEffect(new StatusEffectInstance(
+                            ModEffects.ACTIVE_LEGACY_INHIBITION,
+                            activeInhibitionEffect.getDuration(),
+                            activeInhibitionEffect.getAmplifier(),
+                            activeInhibitionEffect.isAmbient(),
+                            activeInhibitionEffect.shouldShowParticles(),
+                            activeInhibitionEffect.shouldShowIcon()
                     ));
                 }
             }
@@ -72,4 +101,3 @@ public class LorienLegacyEventHandler {
         });
     }
 }
-
