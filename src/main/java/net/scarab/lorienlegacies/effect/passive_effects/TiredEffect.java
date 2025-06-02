@@ -48,7 +48,7 @@ public class TiredEffect extends StatusEffect {
     @Override
     public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
 
-        if (entity.getWorld().isClient() && entity instanceof PlayerEntity player && player.getHealth() <= 5) {
+        if (entity instanceof PlayerEntity player && player.getHealth() <= 5) {
             // Apply STAMINA when Tired ends if still low on health
             player.addStatusEffect(new StatusEffectInstance(ModEffects.STAMINA, 200, 0, false, false));
             if (player.hasStatusEffect(ModEffects.PONDUS) && player.hasStatusEffect(ModEffects.TOGGLE_INTANGIBILITY)) {

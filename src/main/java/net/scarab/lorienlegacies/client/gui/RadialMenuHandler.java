@@ -135,10 +135,11 @@ public class RadialMenuHandler {
                 "Pondus",
                 "Regeneras",
                 "Sturma",
-                "Submari",
+                "Tactile Consciousness Transfer",
                 "Telekinesis",
                 "Kinetic Detonation",
-                "Teletras"
+                "Teletras",
+                "Submari"
         );
         List<Identifier> ximicPackets = List.of(
                 LorienLegaciesModNetworking.TOGGLE_XIMIC_ACCELIX_PACKET,
@@ -150,10 +151,11 @@ public class RadialMenuHandler {
                 LorienLegaciesModNetworking.TOGGLE_XIMIC_PONDUS_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_XIMIC_REGENERAS_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_XIMIC_STURMA_PACKET,
-                LorienLegaciesModNetworking.TOGGLE_XIMIC_SUBMARI_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_XIMIC_TACTILE_CONSCIOUSNESS_TRANSFER_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_XIMIC_TELEKINESIS_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_XIMIC_KINETIC_DETONATION_PACKET,
-                LorienLegaciesModNetworking.TOGGLE_XIMIC_TELETRAS_PACKET
+                LorienLegaciesModNetworking.TOGGLE_XIMIC_TELETRAS_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_XIMIC_SUBMARI_PACKET
         );
         optionsPages.add(ximicOptions);
         packetPages.add(ximicPackets);

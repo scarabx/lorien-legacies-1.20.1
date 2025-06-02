@@ -4,9 +4,13 @@ import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
+import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.RangedWeaponItem;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.TypedActionResult;
 import net.scarab.lorienlegacies.block.ModBlocks;
 import net.scarab.lorienlegacies.chimaera.MorphHandler;
 import net.scarab.lorienlegacies.effect.active_effects.GlacenEffect;
@@ -43,6 +47,16 @@ public class LorienLegaciesMod implements ModInitializer {
 				}
 			}
 			return ActionResult.PASS;
+		});
+
+		UseItemCallback.EVENT.register((player, world, hand) -> {
+			if (player.hasStatusEffect(ModEffects.ACTIVE_TACTILE_CONSCIOUSNESS_TRANSFER)) {
+				ItemStack stack = player.getStackInHand(hand);
+				if (stack.getItem() instanceof RangedWeaponItem) {
+					return TypedActionResult.fail(stack); // Cancel the use
+				}
+			}
+			return TypedActionResult.pass(player.getStackInHand(hand));
 		});
 
 		// Registering the server tick event to run stressManager on each player every tick

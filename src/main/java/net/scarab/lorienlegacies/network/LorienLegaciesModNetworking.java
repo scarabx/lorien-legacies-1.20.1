@@ -93,6 +93,8 @@ public class LorienLegaciesModNetworking {
 
     public static final Identifier TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER_PACKET = new Identifier("lorienlegacies", "toggle_tactile_consciousness_transfer");
 
+    public static final Identifier TOGGLE_XIMIC_TACTILE_CONSCIOUSNESS_TRANSFER_PACKET = new Identifier("lorienlegacies", "toggle_ximic_tactile_consciousness_transfer");
+
     public static final Identifier CHIMAERA_MORPH_PACKET = new Identifier("lorienlegacies", "chimaera_morph");
 
     public static final Identifier CHIMAERA_CALL_PACKET = new Identifier("lorienlegacies", "chimaera_call");
@@ -466,6 +468,16 @@ public class LorienLegaciesModNetworking {
             });
         });
 
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_TACTILE_CONSCIOUSNESS_TRANSFER_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(XIMIC)) {
+                    ToggleXimicTactileConsciousnessTransferEffect.toggleXimicTactileConsciousnessTransfer(player);
+                    XimicEffect.applyXimicTactileConsciousnessTransfer(player);
+                    player.removeStatusEffect(TOGGLE_XIMIC_TACTILE_CONSCIOUSNESS_TRANSFER);
+                }
+            });
+        });
+
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_KINETIC_DETONATION, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 if (player.hasStatusEffect(KINETIC_DETONATION)) {
@@ -488,6 +500,11 @@ public class LorienLegaciesModNetworking {
             server.execute(() -> {
                 if (player.hasStatusEffect(TACTILE_CONSCIOUSNESS_TRANSFER)) {
                     ToggleTactileConsciousnessTransferEffect.toggleTactileConsciousnessTransfer(player);
+
+                    // Deactivate all clamping effects if toggled off
+                    if (!player.hasStatusEffect(TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER)) {
+                        TactileConsciousnessTransfer.deactivateTCT(player);
+                    }
                 }
             });
         });

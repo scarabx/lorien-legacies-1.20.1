@@ -180,4 +180,15 @@ public class XimicEffect extends StatusEffect {
             player.addStatusEffect(new StatusEffectInstance(TELETRAS, Integer.MAX_VALUE, 0, false, false, false));
         }
     }
+
+    public static void applyXimicTactileConsciousnessTransfer (PlayerEntity player) {
+
+        if (!player.getWorld().isClient()
+            && player.hasStatusEffect(TOGGLE_XIMIC_TACTILE_CONSCIOUSNESS_TRANSFER)
+            && !player.hasStatusEffect(TIRED)
+                && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
+
+            player.addStatusEffect(new StatusEffectInstance(TACTILE_CONSCIOUSNESS_TRANSFER, Integer.MAX_VALUE, 0, false, false, false));
+        }
+    }
 }
