@@ -1,13 +1,7 @@
 package net.scarab.lorienlegacies.network;
 
-import io.netty.buffer.Unpooled;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.packet.s2c.play.CustomPayloadS2CPacket;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 
@@ -89,13 +83,15 @@ public class LorienLegaciesModNetworking {
 
     public static final Identifier TOGGLE_XIMIC_TELEKINESIS_PACKET = new Identifier("lorienlegacies", "toggle_ximic_telekinesis");
 
-    public static final Identifier TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER_PACKET = new Identifier("lorienlegacies", "toggle_tactile_consciousness_transfer");
+    public static final Identifier TOGGLE_XIMIC_KINETIC_DETONATION_PACKET = new Identifier("lorienlegacies", "toggle_ximic_kinetic_detonation");
 
-    public static final Identifier RESET_TACTILE_CONSCIOUSNESS_TRANSFER_PACKET = new Identifier("lorienlegacies", "reset_tactile_consciousness_transfer");
+    public static final Identifier TOGGLE_XIMIC_TELETRAS_PACKET = new Identifier("lorienlegacies", "toggle_ximic_teletras_packet");
 
     public static final Identifier TOGGLE_KINETIC_DETONATION = new Identifier("lorienlegacies", "toggle_kinetic_detonation");
 
     public static final Identifier TOGGLE_TELETRAS_PACKET = new Identifier("lorienlegacies", "toggle_teletras");
+
+    public static final Identifier TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER_PACKET = new Identifier("lorienlegacies", "toggle_tactile_consciousness_transfer");
 
     public static final Identifier CHIMAERA_MORPH_PACKET = new Identifier("lorienlegacies", "chimaera_morph");
 
@@ -450,10 +446,22 @@ public class LorienLegaciesModNetworking {
             });
         });
 
-        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER_PACKET, (server, player, handler, buf, responseSender) -> {
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_KINETIC_DETONATION_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(TACTILE_CONSCIOUSNESS_TRANSFER)) {
-                    ToggleTactileConsciousnessTransferEffect.toggleTactileConsciousnessTransfer(player);
+                if (player.hasStatusEffect(XIMIC)) {
+                    ToggleXimicKineticDetonationEffect.toggleXimicKineticDetonation(player);
+                    XimicEffect.applyXimicKineticDetonation(player);
+                    player.removeStatusEffect(TOGGLE_XIMIC_KINETIC_DETONATION);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_TELETRAS_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(XIMIC)) {
+                    ToggleXimicTeletrasEffect.toggleXimicTeletras(player);
+                    XimicEffect.applyXimicTeletras(player);
+                    player.removeStatusEffect(TOGGLE_XIMIC_TELETRAS);
                 }
             });
         });
@@ -472,6 +480,14 @@ public class LorienLegaciesModNetworking {
                     ToggleTeletrasEffect.toggleTeletras(player);
                     player.removeStatusEffect(TOGGLE_TELEKINESIS_PULL);
                     player.removeStatusEffect(TOGGLE_TELEKINESIS_PUSH);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(TACTILE_CONSCIOUSNESS_TRANSFER)) {
+                    ToggleTactileConsciousnessTransferEffect.toggleTactileConsciousnessTransfer(player);
                 }
             });
         });
@@ -518,18 +534,6 @@ public class LorienLegaciesModNetworking {
                     player.removeStatusEffect(TOGGLE_TELETRAS);
                 }
             });
-        });
-    }
-
-    public static CustomPayloadS2CPacket create() {
-        return new CustomPayloadS2CPacket(RESET_TACTILE_CONSCIOUSNESS_TRANSFER_PACKET, new PacketByteBuf(Unpooled.buffer()));
-    }
-
-    @Environment(EnvType.CLIENT)
-    public static void handle(PacketByteBuf buf) {
-        MinecraftClient client = MinecraftClient.getInstance();
-        client.execute(() -> {
-            client.setCameraEntity(client.player);
         });
     }
 }

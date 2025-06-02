@@ -92,16 +92,16 @@ public class RadialMenuHandler {
                 "Rain",
                 "Thunder",
                 "Clear",
-                "Novis"//,
-                //"TCT"
+                "Novis",
+                "TCT"
         );
         List<Identifier> utilityPackets = List.of(
                 LorienLegaciesModNetworking.TOGGLE_FREEZE_WATER_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_CONJURE_RAIN_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_CONJURE_THUNDER_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_CONJURE_CLEAR_WEATHER_PACKET,
-                LorienLegaciesModNetworking.TOGGLE_NOVIS_PACKET//,
-                //LorienLegaciesModNetworking.TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER_PACKET
+                LorienLegaciesModNetworking.TOGGLE_NOVIS_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER_PACKET
         );
         optionsPages.add(utilityOptions);
         packetPages.add(utilityPackets);
@@ -136,7 +136,9 @@ public class RadialMenuHandler {
                 "Regeneras",
                 "Sturma",
                 "Submari",
-                "Telekinesis"
+                "Telekinesis",
+                "Kinetic Detonation",
+                "Teletras"
         );
         List<Identifier> ximicPackets = List.of(
                 LorienLegaciesModNetworking.TOGGLE_XIMIC_ACCELIX_PACKET,
@@ -149,7 +151,9 @@ public class RadialMenuHandler {
                 LorienLegaciesModNetworking.TOGGLE_XIMIC_REGENERAS_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_XIMIC_STURMA_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_XIMIC_SUBMARI_PACKET,
-                LorienLegaciesModNetworking.TOGGLE_XIMIC_TELEKINESIS_PACKET
+                LorienLegaciesModNetworking.TOGGLE_XIMIC_TELEKINESIS_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_XIMIC_KINETIC_DETONATION_PACKET,
+                LorienLegaciesModNetworking.TOGGLE_XIMIC_TELETRAS_PACKET
         );
         optionsPages.add(ximicOptions);
         packetPages.add(ximicPackets);

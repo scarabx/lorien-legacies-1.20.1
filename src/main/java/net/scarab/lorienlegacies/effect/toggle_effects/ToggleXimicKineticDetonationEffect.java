@@ -6,12 +6,12 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_NOVIS;
-import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER;
+import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_XIMIC_ACCELIX;
+import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_XIMIC_KINETIC_DETONATION;
 
-public class ToggleTactileConsciousnessTransferEffect extends StatusEffect {
+public class ToggleXimicKineticDetonationEffect extends StatusEffect {
 
-    public ToggleTactileConsciousnessTransferEffect(StatusEffectCategory category, int color) {
+    public ToggleXimicKineticDetonationEffect(StatusEffectCategory category, int color) {
         super(category, color);
     }
 
@@ -34,14 +34,14 @@ public class ToggleTactileConsciousnessTransferEffect extends StatusEffect {
     }
 
     // Toggle helper method for safely enabling/disabling the effect invisibly
-    public static void toggleTactileConsciousnessTransfer(ServerPlayerEntity player) {
+    public static void toggleXimicKineticDetonation(ServerPlayerEntity player) {
 
-        if (player.hasStatusEffect(TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER)) {
-            player.removeStatusEffect(TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER);
+        if (player.hasStatusEffect(TOGGLE_XIMIC_KINETIC_DETONATION)) {
+            player.removeStatusEffect(TOGGLE_XIMIC_KINETIC_DETONATION);
         } else {
             // Apply the status effect invisibly: no ambient, no particles, no icon
             player.addStatusEffect(new StatusEffectInstance(
-                    TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER,
+                    TOGGLE_XIMIC_KINETIC_DETONATION,
                     Integer.MAX_VALUE,
                     0,
                     false,

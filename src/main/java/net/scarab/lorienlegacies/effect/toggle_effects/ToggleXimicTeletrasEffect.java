@@ -6,12 +6,11 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_NOVIS;
-import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER;
+import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_XIMIC_TELETRAS;
 
-public class ToggleTactileConsciousnessTransferEffect extends StatusEffect {
+public class ToggleXimicTeletrasEffect extends StatusEffect {
 
-    public ToggleTactileConsciousnessTransferEffect(StatusEffectCategory category, int color) {
+    public ToggleXimicTeletrasEffect(StatusEffectCategory category, int color) {
         super(category, color);
     }
 
@@ -34,14 +33,14 @@ public class ToggleTactileConsciousnessTransferEffect extends StatusEffect {
     }
 
     // Toggle helper method for safely enabling/disabling the effect invisibly
-    public static void toggleTactileConsciousnessTransfer(ServerPlayerEntity player) {
+    public static void toggleXimicTeletras(ServerPlayerEntity player) {
 
-        if (player.hasStatusEffect(TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER)) {
-            player.removeStatusEffect(TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER);
+        if (player.hasStatusEffect(TOGGLE_XIMIC_TELETRAS)) {
+            player.removeStatusEffect(TOGGLE_XIMIC_TELETRAS);
         } else {
             // Apply the status effect invisibly: no ambient, no particles, no icon
             player.addStatusEffect(new StatusEffectInstance(
-                    TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER,
+                    TOGGLE_XIMIC_TELETRAS,
                     Integer.MAX_VALUE,
                     0,
                     false,

@@ -158,4 +158,26 @@ public class XimicEffect extends StatusEffect {
             player.addStatusEffect(new StatusEffectInstance(TELEKINESIS, Integer.MAX_VALUE, 0, false, false, false));
         }
     }
+
+    public static void applyXimicKineticDetonation (PlayerEntity player) {
+
+        if (!player.getWorld().isClient()
+            && player.hasStatusEffect(TOGGLE_XIMIC_KINETIC_DETONATION)
+            && !player.hasStatusEffect(TIRED)
+                && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
+
+            player.addStatusEffect(new StatusEffectInstance(KINETIC_DETONATION, Integer.MAX_VALUE, 0, false, false, false));
+        }
+    }
+
+    public static void applyXimicTeletras (PlayerEntity player) {
+
+        if (!player.getWorld().isClient()
+            && player.hasStatusEffect(TOGGLE_XIMIC_TELETRAS)
+            && !player.hasStatusEffect(TIRED)
+                && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
+
+            player.addStatusEffect(new StatusEffectInstance(TELETRAS, Integer.MAX_VALUE, 0, false, false, false));
+        }
+    }
 }
