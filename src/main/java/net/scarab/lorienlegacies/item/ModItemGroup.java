@@ -22,6 +22,8 @@ public class ModItemGroup {
 
                         entries.add(ModItems.LEATHER_SLEEVE);
 
+                        entries.add(ModItems.DIAMOND_DAGGER);
+
                         entries.add(ModItems.SHOCK_COLLAR);
 
                         entries.add(ModItems.INHIBITOR_ITEM);

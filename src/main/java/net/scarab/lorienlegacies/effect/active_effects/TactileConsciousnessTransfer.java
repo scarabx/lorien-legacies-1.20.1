@@ -85,15 +85,19 @@ public class TactileConsciousnessTransfer extends StatusEffect {
                 }
 
                 // Sync effects if the ridden entity is a PlayerEntity
-                if (data.entity instanceof PlayerEntity riddenPlayer) {
-                    List<StatusEffectInstance> copied = new ArrayList<>();
-                    for (StatusEffectInstance effect : riddenPlayer.getStatusEffects()) {
-                        if (!effect.getEffectType().isInstant()) {
-                            player.addStatusEffect(new StatusEffectInstance(effect)); // Give possessor the effect
-                            copied.add(effect); // Track it
+                if (data != null) {
+                    if (data.entity instanceof PlayerEntity riddenPlayer) {
+                        List<StatusEffectInstance> copied = new ArrayList<>();
+                        for (StatusEffectInstance effect : riddenPlayer.getStatusEffects()) {
+                            if (!effect.getEffectType().isInstant()) {
+                                player.addStatusEffect(new StatusEffectInstance(effect));
+                                copied.add(effect);
+                            }
                         }
+                        copiedEffects.put(player.getUuid(), copied);
                     }
-                    copiedEffects.put(player.getUuid(), copied); // Store for later cleanup
+                } else {
+                    deactivateTCT(player); // failsafe
                 }
 
                 // Deactivate if inhibition effects appear
@@ -305,7 +309,6 @@ public class TactileConsciousnessTransfer extends StatusEffect {
         }
         // Remove ACTIVE_TACTILE_CONSCIOUSNESS_TRANSFER flag
         player.removeStatusEffect(ACTIVE_TACTILE_CONSCIOUSNESS_TRANSFER);
-
         if (copiedEffects != null) {
             List<StatusEffectInstance> copied = copiedEffects.remove(player.getUuid());
             if (copied != null) {

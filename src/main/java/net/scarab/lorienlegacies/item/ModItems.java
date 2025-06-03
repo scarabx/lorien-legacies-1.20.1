@@ -5,9 +5,11 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
+import net.minecraft.item.SwordItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 import net.scarab.lorienlegacies.LorienLegaciesMod;
 import net.scarab.lorienlegacies.block.ModBlocks;
 
@@ -21,6 +23,9 @@ public class ModItems {
 
     public static final Item LEATHER_SLEEVE = registerItem("leather_sleeve",
             new Item(new FabricItemSettings()));
+
+    public static final Item DIAMOND_DAGGER = registerItem("diamond_dagger",
+            new DiamondDagger(new FabricItemSettings().maxDamage(500).rarity(Rarity.EPIC)));
 
     public static final Item ICEBALL = registerItem("iceball",
             new IceballItem(new FabricItemSettings()));
