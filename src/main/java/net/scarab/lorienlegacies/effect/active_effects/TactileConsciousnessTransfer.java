@@ -9,13 +9,18 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.mob.Angerable;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.scarab.lorienlegacies.effect.ModEffects;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 import static net.scarab.lorienlegacies.effect.ModEffects.*;
 
@@ -25,6 +30,11 @@ public class TactileConsciousnessTransfer extends StatusEffect {
     private static final UUID KNOCKBACK_RESISTANCE_UUID = UUID.fromString("c56f392f-6597-4b8e-8f35-7a63a88ad36f");
 
     private static final Map<UUID, AttachedEntityData> attachedEntities = new HashMap<>();
+
+    public static final Map<UUID, BlockPos> originalPositions = new HashMap<>();
+
+    // At class level
+    private static final Map<UUID, List<StatusEffectInstance>> copiedEffects = new HashMap<>();
 
     private static class AttachedEntityData {
         public final Entity entity;
@@ -56,6 +66,7 @@ public class TactileConsciousnessTransfer extends StatusEffect {
         }
 
         if (entity instanceof PlayerEntity player) {
+            // Trigger possession transfer if toggles are active and no inhibition
             if (player.hasStatusEffect(TACTILE_CONSCIOUSNESS_TRANSFER)
                     && player.hasStatusEffect(TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER)
                     && !player.hasStatusEffect(TIRED)
@@ -63,13 +74,40 @@ public class TactileConsciousnessTransfer extends StatusEffect {
                 transferConsciousness(player);
             }
 
-            if (player.hasStatusEffect(ACTIVE_TACTILE_CONSCIOUSNESS_TRANSFER)
-                    && attachedEntities.containsKey(player.getUuid())) {
-                attachSingleEntityBelow(player, player.getPos());
-            } else {
-                deactivateTCT(player); // Failsafe to clean up dangling effects
+            // While possessing...
+            if (player.hasStatusEffect(ACTIVE_TACTILE_CONSCIOUSNESS_TRANSFER)) {
+                AttachedEntityData data = attachedEntities.get(player.getUuid());
+
+                // Auto-deactivate if possessed mob died
+                if (data != null && !data.entity.isAlive()) {
+                    deactivateTCT(player);
+                    return;
+                }
+
+                // Sync effects if the ridden entity is a PlayerEntity
+                if (data.entity instanceof PlayerEntity riddenPlayer) {
+                    List<StatusEffectInstance> copied = new ArrayList<>();
+                    for (StatusEffectInstance effect : riddenPlayer.getStatusEffects()) {
+                        if (!effect.getEffectType().isInstant()) {
+                            player.addStatusEffect(new StatusEffectInstance(effect)); // Give possessor the effect
+                            copied.add(effect); // Track it
+                        }
+                    }
+                    copiedEffects.put(player.getUuid(), copied); // Store for later cleanup
+                }
+
+                // Deactivate if inhibition effects appear
+                if (player.hasStatusEffect(TIRED) || player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
+                    deactivateTCT(player);
+                } else if (attachedEntities.containsKey(player.getUuid())) {
+                    attachSingleEntityBelow(player, player.getPos());
+                    makeRiddenHostileMobAggroAllEntities(player);
+                } else {
+                    deactivateTCT(player); // Failsafe to clean up dangling effects
+                }
             }
         }
+
         super.applyUpdateEffect(entity, amplifier);
     }
 
@@ -78,7 +116,13 @@ public class TactileConsciousnessTransfer extends StatusEffect {
         return true;
     }
 
+    public static void activateTCT(PlayerEntity player) {
+        // Save original player position before possession
+        originalPositions.put(player.getUuid(), player.getBlockPos());
+    }
+
     public static void transferConsciousness(PlayerEntity player) {
+
         if (!player.getWorld().isClient()
                 && player.hasStatusEffect(TACTILE_CONSCIOUSNESS_TRANSFER)
                 && player.hasStatusEffect(TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER)
@@ -117,6 +161,9 @@ public class TactileConsciousnessTransfer extends StatusEffect {
             }
 
             if (lookedAtEntity != null) {
+                // Store original position before teleporting
+                activateTCT(player);
+
                 Vec3d entityTopCenter = new Vec3d(
                         lookedAtEntity.getX(),
                         lookedAtEntity.getBoundingBox().maxY,
@@ -164,14 +211,12 @@ public class TactileConsciousnessTransfer extends StatusEffect {
         World world = player.getWorld();
         Vec3d followTarget = baseFeetPos.subtract(0, 1.5, 0);
 
-        target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 2, 10, false, false, false));
-
         Vec3d current = target.getPos();
         Vec3d moveVec = followTarget.subtract(current).multiply(0.4);
 
-        // Clamp vertical rise to max 2 blocks above original Y
+        // Clamp vertical rise to max 5 blocks above original Y (changed from 2.0 to 5.0)
         double newY = current.y + moveVec.y;
-        double maxY = data.baseY + 2.0;
+        double maxY = data.baseY + 5.0;
         if (newY > maxY) {
             moveVec = new Vec3d(moveVec.x, maxY - current.y, moveVec.z);
         }
@@ -213,7 +258,7 @@ public class TactileConsciousnessTransfer extends StatusEffect {
     public static Vec3d closestPointOnLine(Vec3d a, Vec3d b, Vec3d p) {
         Vec3d ab = b.subtract(a);
         double t = p.subtract(a).dotProduct(ab) / ab.lengthSquared();
-        t = MathHelper.clamp(t, 0.0, 1.0);
+        t = MathHelper.clamp(t, 0, 1);
         return a.add(ab.multiply(t));
     }
 
@@ -223,8 +268,14 @@ public class TactileConsciousnessTransfer extends StatusEffect {
         if (data != null && data.entity != null) {
             data.entity.setNoGravity(false);
 
-            if (data.entity instanceof LivingEntity livingEntity) {
-                livingEntity.removeStatusEffect(StatusEffects.SLOWNESS);
+            // Clear forced aggro target
+            if (data.entity instanceof MobEntity mob) {
+                mob.setTarget(null);
+
+                // If the mob is angerable, clear anger
+                if (mob instanceof Angerable angerable) {
+                    angerable.stopAnger();
+                }
             }
         }
 
@@ -254,5 +305,64 @@ public class TactileConsciousnessTransfer extends StatusEffect {
         }
         // Remove ACTIVE_TACTILE_CONSCIOUSNESS_TRANSFER flag
         player.removeStatusEffect(ACTIVE_TACTILE_CONSCIOUSNESS_TRANSFER);
+
+        if (copiedEffects != null) {
+            List<StatusEffectInstance> copied = copiedEffects.remove(player.getUuid());
+            if (copied != null) {
+                for (StatusEffectInstance effect : copied) {
+                    if (effect != null && effect.getEffectType() != null) {
+                        player.removeStatusEffect(effect.getEffectType());
+                    }
+                }
+            }
+        }
+
+        // Teleport player back to original position if stored
+        BlockPos originalPos = originalPositions.remove(player.getUuid());
+        if (originalPos != null) {
+            player.requestTeleport(originalPos.getX() + 0.5, originalPos.getY(), originalPos.getZ() + 0.5);
+        }
     }
-}
+
+    public static void makeRiddenHostileMobAggroAllEntities(PlayerEntity player) {
+
+            AttachedEntityData data = attachedEntities.get(player.getUuid());
+            if (data == null) return;
+
+            Entity entity = data.entity;
+            if (!(entity instanceof MobEntity mob)) return;
+
+            World world = mob.getWorld();
+            double radius = 16.0;
+
+            Predicate<Entity> validTarget = e -> {
+                if (!(e instanceof LivingEntity living)) return false;
+                if (!living.isAlive()) return false;
+                if (e == mob) return false;
+                if (e == player) return false; // Prevent targeting rider
+                return true;
+            };
+
+            List<Entity> entitiesInRange = world.getEntitiesByClass(Entity.class, mob.getBoundingBox().expand(radius), validTarget);
+
+            Entity closestTarget = null;
+            double closestDistanceSq = radius * radius;
+
+            for (Entity candidate : entitiesInRange) {
+                double distSq = mob.squaredDistanceTo(candidate);
+                if (distSq < closestDistanceSq) {
+                    closestTarget = candidate;
+                    closestDistanceSq = distSq;
+                }
+            }
+
+            if (closestTarget instanceof LivingEntity targetLiving) {
+                mob.setTarget(targetLiving);
+            }
+
+            // Forcefully prevent mob from targeting the player
+            if (mob.getTarget() == player) {
+                mob.setTarget(null);
+            }
+        }
+    }
