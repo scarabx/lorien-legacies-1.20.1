@@ -19,6 +19,8 @@ public class LorienLegaciesModClient implements ClientModInitializer {
 
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.ICICLES, IciclesEntityModel::getTexturedModelData);
 
+        //EntityModelLayerRegistry.registerModelLayer(ModModelLayers.JOUST_STAFF, JoustStaffEntityModel::getTexturedModelData);
+
         EntityRendererRegistry.register(ModEntities.THROWN_ICEBALL_PROJECTILE, FlyingItemEntityRenderer::new);
 
         EntityRendererRegistry.register(ModEntities.THROWN_KINETIC_PROJECTILE, FlyingItemEntityRenderer::new);
@@ -28,6 +30,8 @@ public class LorienLegaciesModClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.ICICLES, IciclesEntityRenderer::new);
 
         EntityRendererRegistry.register(ModEntities.CHIMAERA_PARROT, ChimaeraParrotEntityRenderer::new);
+
+        //EntityRendererRegistry.register(ModEntities.JOUST_STAFF, JoustStaffEntityRenderer::new);
     }
 }
 

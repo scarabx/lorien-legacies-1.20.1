@@ -11,4 +11,7 @@ public class ModModelLayers {
 
     public static final EntityModelLayer ICICLES =
             new EntityModelLayer(new Identifier(LorienLegaciesMod.MOD_ID, "icicles"), "main");
+
+    /*public static final EntityModelLayer JOUST_STAFF =
+            new EntityModelLayer(new Identifier(LorienLegaciesMod.MOD_ID, "joust_staff"), "main");*/
 }

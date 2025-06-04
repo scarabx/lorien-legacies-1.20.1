@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.projectile.TridentEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -30,6 +31,11 @@ public class ModEntities {
             new Identifier(LorienLegaciesMod.MOD_ID, "shock_collar_projectile"),
             FabricEntityTypeBuilder.<ShockCollarProjectileEntity>create(SpawnGroup.MISC, ShockCollarProjectileEntity::new)
                     .dimensions(EntityDimensions.fixed(0.25f, 0.25f)).build());
+
+    /*public static final EntityType<JoustStaffEntity> JOUST_STAFF = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(LorienLegaciesMod.MOD_ID, "joust_staff"),
+            FabricEntityTypeBuilder.<JoustStaffEntity>create(SpawnGroup.MISC, JoustStaffEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.5F, 0.5F)).build());*/
 
     public static final EntityType<IciclesEntity> ICICLES = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(LorienLegaciesMod.MOD_ID, "icicles"),

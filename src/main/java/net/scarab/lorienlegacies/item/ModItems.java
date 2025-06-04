@@ -27,6 +27,9 @@ public class ModItems {
     public static final Item DIAMOND_DAGGER = registerItem("diamond_dagger",
             new DiamondDagger(new FabricItemSettings().maxDamage(500).rarity(Rarity.EPIC)));
 
+    /*public static final Item JOUST_STAFF = registerItem("joust_staff",
+            new JoustStaffItem(new FabricItemSettings().maxDamage(500).rarity(Rarity.EPIC)));*/
+
     public static final Item ICEBALL = registerItem("iceball",
             new IceballItem(new FabricItemSettings()));
 
