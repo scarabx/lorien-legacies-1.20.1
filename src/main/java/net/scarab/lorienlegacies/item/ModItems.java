@@ -5,7 +5,6 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
-import net.minecraft.item.SwordItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -29,6 +28,15 @@ public class ModItems {
 
     /*public static final Item JOUST_STAFF = registerItem("joust_staff",
             new JoustStaffItem(new FabricItemSettings().maxDamage(500).rarity(Rarity.EPIC)));*/
+
+    public static final Item SPIKY_YELLOW_BALL = registerItem("spiky_yellow_ball",
+            new SpikyYellowBallItem(new FabricItemSettings().rarity(Rarity.EPIC)));
+
+    public static final Item SPIKY_BLACK_BALL = registerItem("spiky_black_ball",
+            new SpikyBlackBallItem(new FabricItemSettings().rarity(Rarity.EPIC)));
+
+    public static final Item X_RAY_STONE = registerItem("x_ray_stone",
+            new XRayStoneItem(new FabricItemSettings().maxDamage(500).rarity(Rarity.EPIC)));
 
     public static final Item ICEBALL = registerItem("iceball",
             new IceballItem(new FabricItemSettings()));

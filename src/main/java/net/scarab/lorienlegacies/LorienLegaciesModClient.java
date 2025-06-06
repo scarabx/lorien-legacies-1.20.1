@@ -8,8 +8,10 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.scarab.lorienlegacies.entity.ModEntities;
+import net.scarab.lorienlegacies.entity.SpikyYellowBallEntity;
 import net.scarab.lorienlegacies.entity.client.*;
 import net.scarab.lorienlegacies.entity.layer.ModModelLayers;
+import net.scarab.lorienlegacies.util.ModModelPredicateProvider;
 
 public class LorienLegaciesModClient implements ClientModInitializer {
     @Override
@@ -31,7 +33,13 @@ public class LorienLegaciesModClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(ModEntities.CHIMAERA_PARROT, ChimaeraParrotEntityRenderer::new);
 
+        EntityRendererRegistry.register(ModEntities.SPIKY_YELLOW_BALL, SpikyYellowBallItemEntityRenderer::new);
+
+        EntityRendererRegistry.register(ModEntities.SPIKY_BLACK_BALL, SpikyBlackBallItemEntityRenderer::new);
+
         //EntityRendererRegistry.register(ModEntities.JOUST_STAFF, JoustStaffEntityRenderer::new);
+
+        ModModelPredicateProvider.registerModModels();
     }
 }
 

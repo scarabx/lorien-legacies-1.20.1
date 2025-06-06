@@ -2,6 +2,7 @@
     "parent": "builtin/entity",
     "gui_light": "front",
     "textures": {
+        "0": "lorienlegacies:item/joust_staff",
         "particle": "lorienlegacies:item/joust_staff"
     },
     "display": {

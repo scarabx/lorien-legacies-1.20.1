@@ -4,7 +4,6 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
-import net.minecraft.entity.projectile.TridentEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -31,6 +30,16 @@ public class ModEntities {
             new Identifier(LorienLegaciesMod.MOD_ID, "shock_collar_projectile"),
             FabricEntityTypeBuilder.<ShockCollarProjectileEntity>create(SpawnGroup.MISC, ShockCollarProjectileEntity::new)
                     .dimensions(EntityDimensions.fixed(0.25f, 0.25f)).build());
+
+    public static final EntityType<SpikyYellowBallEntity> SPIKY_YELLOW_BALL = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(LorienLegaciesMod.MOD_ID, "spiky_yellow_ball"),
+            FabricEntityTypeBuilder.<SpikyYellowBallEntity>create(SpawnGroup.MISC, SpikyYellowBallEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.5f, 0.5f)).trackRangeBlocks(4).trackedUpdateRate(10).build());
+
+    public static final EntityType<SpikyBlackBallEntity> SPIKY_BLACK_BALL = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(LorienLegaciesMod.MOD_ID, "spiky_black_ball"),
+            FabricEntityTypeBuilder.<SpikyBlackBallEntity>create(SpawnGroup.MISC, SpikyBlackBallEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.5f, 0.5f)).build());
 
     /*public static final EntityType<JoustStaffEntity> JOUST_STAFF = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(LorienLegaciesMod.MOD_ID, "joust_staff"),

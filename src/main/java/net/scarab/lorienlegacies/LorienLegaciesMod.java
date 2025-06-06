@@ -23,6 +23,7 @@ import net.scarab.lorienlegacies.item.ModItems;
 import net.scarab.lorienlegacies.legacy_bestowal.LegacyBestowalHandler;
 import net.scarab.lorienlegacies.network.LorienLegaciesModNetworking;
 import net.scarab.lorienlegacies.potion.ModPotions;
+import net.scarab.lorienlegacies.util.ModModelPredicateProvider;
 import net.scarab.lorienlegacies.util.ModRegistries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
