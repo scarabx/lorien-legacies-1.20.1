@@ -48,7 +48,7 @@ public class LumenEffect extends StatusEffect {
         // Refresh fire resistance
         //StatusEffectInstance fireResistance = entity.getStatusEffect(StatusEffects.FIRE_RESISTANCE);
         //if (fireResistance == null || fireResistance.getDuration() < 200) {
-            entity.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, Integer.MAX_VALUE, 0, false, false, false), entity);
+        entity.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, Integer.MAX_VALUE, 0, false, false, false), entity);
 
         // Apply AOE fire logic while on fire and toggle is active
         if (entity instanceof ServerPlayerEntity player
@@ -131,7 +131,7 @@ public class LumenEffect extends StatusEffect {
 
             // --- 2. Set air blocks on fire if block below is solid ---
             for (int x = -radius; x <= radius; x++) {
-                for (int y = Integer.MAX_VALUE; y <= 1; y++) {
+                for (int y = -radius; y <= radius; y++) {
                     for (int z = -radius; z <= radius; z++) {
                         BlockPos targetPos = playerPos.add(x, y, z);
                         if (world.isAir(targetPos)) {
@@ -145,7 +145,7 @@ public class LumenEffect extends StatusEffect {
             }
         }
     }
-
+    
     public static void burnOnHit(LivingEntity user, Entity target) {
 
         if (user instanceof PlayerEntity player) {

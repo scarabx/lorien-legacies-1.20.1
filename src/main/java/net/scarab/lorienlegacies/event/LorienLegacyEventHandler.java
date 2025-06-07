@@ -92,13 +92,26 @@ public class LorienLegacyEventHandler {
                             activeInhibitionEffect.shouldShowIcon()
                     ));
                 }
+
+                // Handle X_RAY_STONE_COOLDOWN
+                StatusEffectInstance xRayStoneCooldownEffect = oldPlayer.getStatusEffect(ModEffects.X_RAY_STONE_COOLDOWN);
+                if (xRayStoneCooldownEffect != null) {
+                    newPlayer.addStatusEffect(new StatusEffectInstance(
+                            ModEffects.X_RAY_STONE_COOLDOWN,
+                            xRayStoneCooldownEffect.getDuration(),
+                            xRayStoneCooldownEffect.getAmplifier(),
+                            xRayStoneCooldownEffect.isAmbient(),
+                            xRayStoneCooldownEffect.shouldShowParticles(),
+                            xRayStoneCooldownEffect.shouldShowIcon()
+                    ));
+                }
             }
         });
 
-        ServerLivingEntityEvents.AFTER_DEATH.register((entity, damageSource) -> {
-            if (entity instanceof TameableEntity tameable && tameable.getOwner() instanceof ServerPlayerEntity owner) {
-                LegacyBestowalHandler.onPetDeath(owner);
-            }
-        });
+        //ServerLivingEntityEvents.AFTER_DEATH.register((entity, damageSource) -> {
+            //if (entity instanceof TameableEntity tameable && tameable.getOwner() instanceof ServerPlayerEntity owner) {
+                //LegacyBestowalHandler.onPetDeath(owner);
+            //}
+        //});
     }
 }

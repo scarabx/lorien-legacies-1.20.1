@@ -16,6 +16,7 @@ public class SpikyYellowBallItem extends Item {
     }
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+
         ItemStack stack = user.getStackInHand(hand);
         if (!world.isClient) {
             SpikyYellowBallEntity entity = new SpikyYellowBallEntity(ModEntities.SPIKY_YELLOW_BALL, user, world);

@@ -12,6 +12,8 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import static net.scarab.lorienlegacies.effect.ModEffects.X_RAY_STONE_COOLDOWN;
+
 public class XRayStoneItem extends Item {
 
     public XRayStoneItem(Settings settings) {
@@ -21,13 +23,9 @@ public class XRayStoneItem extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
 
-        ItemStack stack = user.getStackInHand(hand);
-        if (!world.isClient()) {
-            // Check if cooldown active
-            if (user.getItemCooldownManager().isCoolingDown(this)) {
-                // Optionally notify player or just fail silently
-                return TypedActionResult.fail(stack);
-            }
+        if (!user.getWorld().isClient() && !user.hasStatusEffect(X_RAY_STONE_COOLDOWN)) {
+
+            // Apply glowing effect
             double radius = 30.0F;
             List<LivingEntity> nearbyEntities = world.getEntitiesByClass(
                     LivingEntity.class,
@@ -36,10 +34,13 @@ public class XRayStoneItem extends Item {
             );
             for (LivingEntity entity : nearbyEntities) {
                 entity.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 200, 0, false, false, false));
+                user.addStatusEffect(new StatusEffectInstance(X_RAY_STONE_COOLDOWN, 6000, 0, false, false, false));
             }
-            // Apply cooldown: 6000 ticks = 5 minutes
-            user.getItemCooldownManager().set(this, 6000);
         }
+
+        ItemStack stack = user.getStackInHand(hand);
+
         return TypedActionResult.success(stack, world.isClient());
     }
 }
+

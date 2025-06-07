@@ -3,6 +3,7 @@ package net.scarab.lorienlegacies.entity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.FlyingItemEntity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.world.World;
@@ -41,27 +42,16 @@ public class SpikyBlackBallEntity extends Entity implements FlyingItemEntity {
         ticksExisted++;
 
         if (!this.getWorld().isClient) {
-            if (ticksExisted == 20 && !exploded) {
-                this.getWorld().createExplosion(this, this.getX(), this.getY(), this.getZ(), 3.0f, World.ExplosionSourceType.MOB);
-                exploded = true;
-            } else if (ticksExisted == 40) {
-                spawnYellowBall();
-                this.discard();
-            }
+            this.getWorld().createExplosion(this, this.getX(), this.getY(), this.getZ(), 3.0f, World.ExplosionSourceType.MOB);
+            exploded = true;
+            spawnYellowBall();
+            this.discard();
         }
     }
 
     private void spawnYellowBall() {
         ItemStack yellowBallStack = new ItemStack(ModItems.SPIKY_YELLOW_BALL);
-        this.getWorld().spawnEntity(
-                new net.minecraft.entity.ItemEntity(
-                        this.getWorld(),
-                        this.getX(),
-                        this.getY(),
-                        this.getZ(),
-                        yellowBallStack
-                )
-        );
+        this.getWorld().spawnEntity(new ItemEntity(this.getWorld(), this.getX(), this.getY(), this.getZ(), yellowBallStack));
     }
 
     @Override

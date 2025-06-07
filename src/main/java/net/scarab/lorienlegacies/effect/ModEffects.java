@@ -194,6 +194,9 @@ public class ModEffects {
     public static final StatusEffect LEGACY_COOLDOWN = registerStatusEffect("legacy_cooldown",
             new LegacyCooldownEffect(StatusEffectCategory.BENEFICIAL, 0xFF0000/*Red*/));
 
+    public static final StatusEffect X_RAY_STONE_COOLDOWN = registerStatusEffect("x_ray_stone_cooldown",
+            new XRayStoneCooldownEffect(StatusEffectCategory.BENEFICIAL, 0xFF0000/*Red*/));
+
     private static StatusEffect registerStatusEffect(String name, StatusEffect statusEffect) {
         return Registry.register(Registries.STATUS_EFFECT, new Identifier(LorienLegaciesMod.MOD_ID, name), statusEffect);
     }

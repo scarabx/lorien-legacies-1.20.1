@@ -32,16 +32,16 @@ public class LegacyBestowalHandler {
     private static final Map<UUID, Long> lastEatingTime = new HashMap<>();
 
     private static final Map<StatusEffect, Integer> LEGACY_POOL = Map.ofEntries(
-            Map.entry(ModEffects.TELEKINESIS, 11),
+            Map.entry(ModEffects.TELEKINESIS, 10),
             Map.entry(ModEffects.LUMEN, 2),
             Map.entry(ModEffects.AVEX, 1),
-            Map.entry(ModEffects.PONDUS, 3),
-            Map.entry(ModEffects.GLACEN, 4),
-            Map.entry(ModEffects.ACCELIX, 5),
+            Map.entry(ModEffects.PONDUS, 1),
+            Map.entry(ModEffects.GLACEN, 3),
+            Map.entry(ModEffects.ACCELIX, 4),
             Map.entry(ModEffects.NOVIS, 1),
-            Map.entry(ModEffects.NOXEN, 7),
+            Map.entry(ModEffects.NOXEN, 6),
             Map.entry(ModEffects.REGENERAS, 1),
-            Map.entry(ModEffects.SUBMARI, 6),
+            Map.entry(ModEffects.SUBMARI, 5),
             Map.entry(ModEffects.STURMA, 1),
             Map.entry(ModEffects.XIMIC, 1),
             Map.entry(ModEffects.TELETRAS, 1),
@@ -58,10 +58,10 @@ public class LegacyBestowalHandler {
         long time = player.getServerWorld().getTime();
         int stress = playerStress.getOrDefault(id, 0);
 
-        if (player.getHealth() <= 2 && time - lastLowHealthTime.getOrDefault(id, 0L) > THROTTLE_TICKS) {
+        /*if (player.getHealth() <= 2 && time - lastLowHealthTime.getOrDefault(id, 0L) > THROTTLE_TICKS) {
             stress += 3;
             lastLowHealthTime.put(id, time);
-        }
+        }/*
 
         if (player.getHungerManager().getFoodLevel() <= 6 &&
                 time - lastHungerTime.getOrDefault(id, 0L) > THROTTLE_TICKS) {
@@ -85,15 +85,15 @@ public class LegacyBestowalHandler {
                 stress += 3;
                 lastMultiThreatTime.put(id, time);
             }
-        }
+        }*/
 
-        if (player.getHealth() == player.getMaxHealth() &&
+        /*if (player.getHealth() == player.getMaxHealth() &&
                 time - lastFullHealthTime.getOrDefault(id, 0L) > THROTTLE_TICKS) {
             stress -= 1;
             lastFullHealthTime.put(id, time);
-        }
+        }*/
 
-        if (!player.hasStatusEffect(StatusEffects.POISON)
+        /*if (!player.hasStatusEffect(StatusEffects.POISON)
                 && !player.isOnFire()
                 && !player.isSubmergedInWater()
                 && player.getAir() >= player.getMaxAir()
@@ -103,19 +103,19 @@ public class LegacyBestowalHandler {
                 time - lastRestingTime.getOrDefault(id, 0L) > THROTTLE_TICKS) {
             stress -= 1;
             lastRestingTime.put(id, time);
-        }
+        }*/
 
-        if (player.isSleeping() &&
+        /*if (player.isSleeping() &&
                 time - lastSleepTime.getOrDefault(id, 0L) > THROTTLE_TICKS) {
             stress -= 1;
             lastSleepTime.put(id, time);
-        }
+        }*/
 
-        if (player.isUsingItem() && player.getActiveItem().getItem().isFood() &&
+        /*if (player.isUsingItem() && player.getActiveItem().getItem().isFood() &&
                 time - lastEatingTime.getOrDefault(id, 0L) > THROTTLE_TICKS) {
             stress -= 1;
             lastEatingTime.put(id, time);
-        }
+        }*/
 
         if (stress < 0) stress = 0;
         if (stress >= MAX_STRESS) stress = 0;
@@ -183,13 +183,13 @@ public class LegacyBestowalHandler {
         player.sendMessage(combinedText, true);
     }
 
-    public static void onPetDeath(ServerPlayerEntity owner) {
+    /*public static void onPetDeath(ServerPlayerEntity owner) {
         UUID id = owner.getUuid();
         int stress = playerStress.getOrDefault(id, 0);
         stress += 3;
         if (stress > MAX_STRESS) stress = MAX_STRESS;
         playerStress.put(id, stress);
-    }
+    }*/
 
     public static void giveLegacy(ServerPlayerEntity player) {
         if (ThreadLocalRandom.current().nextDouble() >= 0.33) {
@@ -237,8 +237,7 @@ public class LegacyBestowalHandler {
                 return entry.getKey();
             }
         }
-
-        return ModEffects.TELEKINESIS;
+        return null;
     }
 
     public static void resetStress(UUID playerId) {

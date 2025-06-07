@@ -6,6 +6,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 import net.scarab.lorienlegacies.item.ModItems;
@@ -47,7 +48,7 @@ public class SpikyYellowBallEntity extends PersistentProjectileEntity implements
                 ticksSinceLanded = 0;
             } else {
                 ticksSinceLanded++;
-                if (ticksSinceLanded >= 20 && !this.getWorld().isClient) {
+                if (ticksSinceLanded >= 10 && !this.getWorld().isClient) {
                     spawnBlackBall();
                     this.discard();
                 }
@@ -77,5 +78,14 @@ public class SpikyYellowBallEntity extends PersistentProjectileEntity implements
     @Override
     public boolean hasNoGravity() {
         return true;
+    }
+
+    @Override
+    protected void onEntityHit(EntityHitResult entityHitResult) {
+        // Bounce logic
+        if (!this.getWorld().isClient) {
+            // Reverse the velocity (simple bounce)
+            this.setVelocity(this.getVelocity().multiply(-0.8)); // dampened bounce
+        }
     }
 }

@@ -5,6 +5,8 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
+import net.minecraft.item.ToolMaterial;
+import net.minecraft.item.ToolMaterials;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -24,16 +26,16 @@ public class ModItems {
             new Item(new FabricItemSettings()));
 
     public static final Item DIAMOND_DAGGER = registerItem("diamond_dagger",
-            new DiamondDagger(new FabricItemSettings().maxDamage(500).rarity(Rarity.EPIC)));
+            new DiamondDagger(ToolMaterials.IRON, 2, -2.4F, new Item.Settings()));
 
     /*public static final Item JOUST_STAFF = registerItem("joust_staff",
             new JoustStaffItem(new FabricItemSettings().maxDamage(500).rarity(Rarity.EPIC)));*/
 
     public static final Item SPIKY_YELLOW_BALL = registerItem("spiky_yellow_ball",
-            new SpikyYellowBallItem(new FabricItemSettings().rarity(Rarity.EPIC)));
+            new SpikyYellowBallItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
     public static final Item SPIKY_BLACK_BALL = registerItem("spiky_black_ball",
-            new SpikyBlackBallItem(new FabricItemSettings().rarity(Rarity.EPIC)));
+            new SpikyBlackBallItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
     public static final Item X_RAY_STONE = registerItem("x_ray_stone",
             new XRayStoneItem(new FabricItemSettings().maxDamage(500).rarity(Rarity.EPIC)));
@@ -42,16 +44,16 @@ public class ModItems {
             new IceballItem(new FabricItemSettings()));
 
     public static final Item KINETIC_PROJECTILE = registerItem("kinetic_projectile",
-            new KineticProjectileItem(new FabricItemSettings()));
+            new KineticProjectileItem(new FabricItemSettings().maxCount(1)));
 
     public static final Item SHOCK_COLLAR = registerItem("shock_collar",
-            new ShockCollarItem(new FabricItemSettings()));
+            new ShockCollarItem(new FabricItemSettings().maxCount(1)));
 
     public static final Item INHIBITOR_ITEM = registerItem("inhibitor",
-            new InhibitorItem(new FabricItemSettings()));
+            new InhibitorItem(new FabricItemSettings().maxDamage(1)));
 
     public static final Item INHIBITOR_REMOTE_ITEM = registerItem("inhibitor_remote",
-            new InhibitorRemoteItem(new FabricItemSettings()));
+            new InhibitorRemoteItem(new FabricItemSettings().maxDamage(500)));
 
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, new Identifier(LorienLegaciesMod.MOD_ID, name), item);
