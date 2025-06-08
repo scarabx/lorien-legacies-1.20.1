@@ -27,6 +27,8 @@ public class InhibitorRemoteItem extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
 
+        ItemStack stack = user.getStackInHand(hand);
+
         if (!world.isClient()) {
             double maxDistance = 10.0;
             Vec3d eyePos = user.getCameraPosVec(1.0F);
@@ -48,9 +50,10 @@ public class InhibitorRemoteItem extends Item {
             }
             if (lookedAtEntity instanceof PlayerEntity target && target.hasStatusEffect(LEGACY_INHIBITION)) {
                 target.addStatusEffect(new StatusEffectInstance(ACTIVE_LEGACY_INHIBITION, 100, 0));
+                stack.damage(1, user, p -> p.sendToolBreakStatus(hand));
             }
         }
         // Return success and consume the item if you want
-        return TypedActionResult.success(user.getStackInHand(hand), world.isClient);
+        return TypedActionResult.success(stack, world.isClient);
     }
 }

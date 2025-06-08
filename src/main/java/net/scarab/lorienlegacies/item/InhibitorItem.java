@@ -18,8 +18,9 @@ public class InhibitorItem extends Item {
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 
         if (target instanceof PlayerEntity player) {
-            player.addStatusEffect(new StatusEffectInstance(LEGACY_INHIBITION, -1, 0, false, false, false));
+            player.addStatusEffect(new StatusEffectInstance(LEGACY_INHIBITION, Integer.MAX_VALUE, 0, false, false, false));
         }
+        stack.damage(1, attacker, (entity) -> entity.sendToolBreakStatus(entity.getActiveHand()));
         return super.postHit(stack, target, attacker);
     }
 }

@@ -24,9 +24,9 @@ public class ModItemGroup {
 
                         entries.add(ModItems.SHOCK_COLLAR);
 
-                        entries.add(ModItems.INHIBITOR_ITEM);
+                        entries.add(ModItems.INHIBITOR);
 
-                        entries.add(ModItems.INHIBITOR_REMOTE_ITEM);
+                        entries.add(ModItems.INHIBITOR_REMOTE);
 
                         entries.add(ModItems.DIAMOND_DAGGER);
 

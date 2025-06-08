@@ -118,7 +118,7 @@ public class TelekinesisEffect extends StatusEffect {
             double closest = maxGrip;
 
             for (Entity entity : world.getOtherEntities(player, player.getBoundingBox().expand(maxGrip))) {
-                if (entity instanceof LivingEntity) {
+                if (entity instanceof LivingEntity && !((LivingEntity) entity).hasStatusEffect(CHIMAERA_ESSENCE)) {
                     double dist = eyePos.distanceTo(entity.getPos());
                     if (dist < closest) {
                         closest = dist;

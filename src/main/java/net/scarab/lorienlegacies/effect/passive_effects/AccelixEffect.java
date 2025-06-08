@@ -35,7 +35,7 @@ public class AccelixEffect extends StatusEffect {
 
         // Don't apply speed if the entity is tired
         if (entity.hasStatusEffect(TIRED)
-            && entity.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
+            || entity.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
             entity.removeStatusEffect(StatusEffects.SPEED);
             return;
         }

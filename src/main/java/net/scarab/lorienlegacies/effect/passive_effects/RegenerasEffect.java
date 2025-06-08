@@ -36,7 +36,7 @@ public class RegenerasEffect extends StatusEffect {
         if (entity instanceof PlayerEntity player) {
             // Don't apply regeneration if the entity is tired
             if (player.hasStatusEffect(TIRED)
-                    && player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
+                    || player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
                 player.removeStatusEffect(StatusEffects.REGENERATION);
                 return;
             }

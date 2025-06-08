@@ -5,15 +5,15 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.PlayerScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
-import net.minecraft.server.network.ServerPlayerEntity;
 
 import net.scarab.lorienlegacies.effect.ModEffects;
+import net.scarab.lorienlegacies.item.DiamondDagger;
 import net.scarab.lorienlegacies.item.ModItems;
 import net.scarab.lorienlegacies.legacy_bestowal.LegacyBestowalHandler;
 
@@ -32,11 +32,42 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         super(entityType, world);
     }
 
-    @Shadow @Final
+    @Shadow
+    @Final
     public PlayerScreenHandler playerScreenHandler;
 
     @Shadow
     public abstract boolean damage(DamageSource source, float amount);
+
+    @Inject(method = "dropItem(Lnet/minecraft/item/ItemStack;ZZ)Lnet/minecraft/entity/ItemEntity;",
+            at = @At("HEAD"), cancellable = true)
+    private void preventItemDrop(ItemStack stack, boolean throwRandomly, boolean retainOwnership, CallbackInfoReturnable<?> cir) {
+        PlayerEntity player = (PlayerEntity)(Object) this;
+
+        // Only prevent drop if it's a Diamond Dagger with WristWrap enabled
+        if (stack.getItem() instanceof DiamondDagger dagger && dagger.isWristWrapped(stack)) {
+            if (!player.getWorld().isClient) {
+                ItemStack currentStack = stack.copy();
+
+                // Try restoring it to the selected hotbar slot
+                int selectedSlot = player.getInventory().selectedSlot;
+                ItemStack existing = player.getInventory().getStack(selectedSlot);
+
+                if (existing.isEmpty()) {
+                    player.getInventory().setStack(selectedSlot, currentStack);
+                } else {
+                    // If the slot is occupied, try inserting into inventory
+                    if (!player.getInventory().insertStack(currentStack)) {
+                        // If all else fails, drop it
+                        player.dropItem(currentStack, false, retainOwnership);
+                    }
+                }
+            }
+
+            cir.setReturnValue(null);
+            cir.cancel();
+        }
+    }
 
     // Stress gain when damaged by hostile mobs
     @Inject(method = "damage", at = @At("HEAD"))
@@ -63,7 +94,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     // Cancel diamond dagger attack if cooldown active
     @Inject(method = "attack", at = @At("HEAD"), cancellable = true)
     private void cancelDaggerAttackIfCooldownActive(Entity target, CallbackInfo ci) {
-        PlayerEntity player = (PlayerEntity)(Object)this;
+        PlayerEntity player = (PlayerEntity) (Object) this;
         ItemStack mainHandStack = player.getStackInHand(Hand.MAIN_HAND);
 
         if (mainHandStack.getItem() == ModItems.DIAMOND_DAGGER &&
@@ -75,33 +106,40 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     // Intangibility and Impenetrable Skin damage immunity logic
     @Inject(method = "damage", at = @At("HEAD"), cancellable = true)
     private void cancelDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        PlayerEntity player = (PlayerEntity)(Object)this;
+        PlayerEntity player = (PlayerEntity) (Object) this;
 
         boolean inhibited = player.hasStatusEffect(ModEffects.TIRED) || player.hasStatusEffect(ModEffects.ACTIVE_LEGACY_INHIBITION);
 
-        if (player.hasStatusEffect(ModEffects.PONDUS) && !inhibited) {
-            if (player.hasStatusEffect(ModEffects.TOGGLE_INTANGIBILITY)) {
-                if (!source.isOf(DamageTypes.GENERIC_KILL)) {
-                    cir.setReturnValue(false);
-                    return;
-                }
-            }
+        boolean hasIntangibility = player.hasStatusEffect(ModEffects.PONDUS)
+                && player.hasStatusEffect(ModEffects.TOGGLE_INTANGIBILITY)
+                && !inhibited;
 
-            if (player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN)) {
-                boolean allowed = source.isOf(DamageTypes.OUT_OF_WORLD)
-                        || source.isOf(DamageTypes.STARVE)
-                        || source.isOf(DamageTypes.GENERIC_KILL)
-                        || source.isOf(DamageTypes.MAGIC)
-                        || source.isOf(DamageTypes.WITHER)
-                        || source.isOf(DamageTypes.DRAGON_BREATH)
-                        || source.isOf(DamageTypes.SONIC_BOOM)
-                        || source.isOf(DamageTypes.IN_WALL)
-                        || source.isOf(DamageTypes.THORNS)
-                        || source.isOf(DamageTypes.DROWN);
+        boolean hasTCTIntangibility = player.hasStatusEffect(ModEffects.TACTILE_CONSCIOUSNESS_TRANSFER)
+                && player.hasStatusEffect(ModEffects.ACTIVE_TACTILE_CONSCIOUSNESS_TRANSFER)
+                && !inhibited;
 
-                if (!allowed) {
-                    cir.setReturnValue(false);
-                }
+        if ((hasIntangibility || hasTCTIntangibility) && !source.isOf(DamageTypes.GENERIC_KILL)) {
+            cir.setReturnValue(false);
+            return;
+        }
+
+        if (player.hasStatusEffect(ModEffects.PONDUS)
+                && player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN)
+                && !inhibited) {
+
+            boolean allowed = source.isOf(DamageTypes.OUT_OF_WORLD)
+                    || source.isOf(DamageTypes.STARVE)
+                    || source.isOf(DamageTypes.GENERIC_KILL)
+                    || source.isOf(DamageTypes.MAGIC)
+                    || source.isOf(DamageTypes.WITHER)
+                    || source.isOf(DamageTypes.DRAGON_BREATH)
+                    || source.isOf(DamageTypes.SONIC_BOOM)
+                    || source.isOf(DamageTypes.IN_WALL)
+                    || source.isOf(DamageTypes.THORNS)
+                    || source.isOf(DamageTypes.DROWN);
+
+            if (!allowed) {
+                cir.setReturnValue(false);
             }
         }
     }
@@ -109,7 +147,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     // Simulate Avex fall flying without Elytra
     @Inject(method = "tick", at = @At("HEAD"))
     private void simulateFallFlyingWithoutElytra(CallbackInfo ci) {
-        PlayerEntity player = (PlayerEntity)(Object)this;
+        PlayerEntity player = (PlayerEntity) (Object) this;
 
         if (player.hasStatusEffect(ModEffects.AVEX)) {
             if (!player.isFallFlying() && !player.isOnGround() && player.getVelocity().y > 0 && player.isSneaking()) {

@@ -5,7 +5,6 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
-import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -26,7 +25,7 @@ public class ModItems {
             new Item(new FabricItemSettings()));
 
     public static final Item DIAMOND_DAGGER = registerItem("diamond_dagger",
-            new DiamondDagger(ToolMaterials.IRON, 2, -2.4F, new Item.Settings()));
+            new DiamondDagger(ToolMaterials.IRON, 2, -2.4F, new Item.Settings().maxDamage(2000)));
 
     /*public static final Item JOUST_STAFF = registerItem("joust_staff",
             new JoustStaffItem(new FabricItemSettings().maxDamage(500).rarity(Rarity.EPIC)));*/
@@ -49,10 +48,10 @@ public class ModItems {
     public static final Item SHOCK_COLLAR = registerItem("shock_collar",
             new ShockCollarItem(new FabricItemSettings().maxCount(1)));
 
-    public static final Item INHIBITOR_ITEM = registerItem("inhibitor",
+    public static final Item INHIBITOR = registerItem("inhibitor",
             new InhibitorItem(new FabricItemSettings().maxDamage(1)));
 
-    public static final Item INHIBITOR_REMOTE_ITEM = registerItem("inhibitor_remote",
+    public static final Item INHIBITOR_REMOTE = registerItem("inhibitor_remote",
             new InhibitorRemoteItem(new FabricItemSettings().maxDamage(500)));
 
     private static Item registerItem(String name, Item item) {

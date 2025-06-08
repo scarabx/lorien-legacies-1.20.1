@@ -26,9 +26,6 @@ import static net.scarab.lorienlegacies.effect.ModEffects.*;
 
 public class TactileConsciousnessTransfer extends StatusEffect {
 
-    // Knockback resistance UUID for player modifier
-    private static final UUID KNOCKBACK_RESISTANCE_UUID = UUID.fromString("c56f392f-6597-4b8e-8f35-7a63a88ad36f");
-
     private static final Map<UUID, AttachedEntityData> attachedEntities = new HashMap<>();
 
     public static final Map<UUID, BlockPos> originalPositions = new HashMap<>();
@@ -136,7 +133,7 @@ public class TactileConsciousnessTransfer extends StatusEffect {
             // Prevent double activation if already attached
             if (attachedEntities.containsKey(player.getUuid())) return;
 
-            double maxDistance = 10.0;
+            double maxDistance = 3.0;
             Vec3d eyePos = player.getCameraPosVec(1.0F);
             Vec3d lookVec = player.getRotationVec(1.0F);
             Vec3d reachVec = eyePos.add(lookVec.multiply(maxDistance));
@@ -184,21 +181,9 @@ public class TactileConsciousnessTransfer extends StatusEffect {
 
                 player.removeStatusEffect(TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER);
                 player.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, Integer.MAX_VALUE, 0, false, false, false));
-                player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, Integer.MAX_VALUE, 4, false, false, false));
                 player.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, Integer.MAX_VALUE, 0, false, false, false));
-                player.addStatusEffect(new StatusEffectInstance(StatusEffects.WATER_BREATHING, Integer.MAX_VALUE, 0, false, false, false));
                 player.addStatusEffect(new StatusEffectInstance(ACTIVE_TACTILE_CONSCIOUSNESS_TRANSFER, Integer.MAX_VALUE, 0, false, false, false));
 
-                EntityAttributeInstance knockbackResistAttribute = player.getAttributeInstance(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE);
-                if (knockbackResistAttribute != null && knockbackResistAttribute.getModifier(KNOCKBACK_RESISTANCE_UUID) == null) {
-                    EntityAttributeModifier knockbackResist = new EntityAttributeModifier(
-                            KNOCKBACK_RESISTANCE_UUID,
-                            "TCT knockback resistance",
-                            1.0,
-                            EntityAttributeModifier.Operation.ADDITION
-                    );
-                    knockbackResistAttribute.addPersistentModifier(knockbackResist);
-                }
                 // Store the lookedAt entity and base Y position
                 attachedEntities.put(player.getUuid(), new AttachedEntityData(lookedAtEntity));
             }
@@ -290,32 +275,17 @@ public class TactileConsciousnessTransfer extends StatusEffect {
         player.sendAbilitiesUpdate();
 
         // Remove invisibility and weakness if they were applied via TCT
-        if (player.hasStatusEffect(StatusEffects.INVISIBILITY)
-                && player.hasStatusEffect(StatusEffects.WEAKNESS)
-                && player.hasStatusEffect(StatusEffects.RESISTANCE)
-                && player.hasStatusEffect(StatusEffects.WATER_BREATHING)) {
-            player.removeStatusEffect(StatusEffects.INVISIBILITY);
-            player.removeStatusEffect(StatusEffects.RESISTANCE);
-            player.removeStatusEffect(StatusEffects.WEAKNESS);
-            player.removeStatusEffect(StatusEffects.WATER_BREATHING);
+        player.removeStatusEffect(StatusEffects.INVISIBILITY);
+        player.removeStatusEffect(StatusEffects.WEAKNESS);
+        //player.removeStatusEffect(StatusEffects.WATER_BREATHING);
 
-            EntityAttributeInstance knockbackResistAttribute = player.getAttributeInstance(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE);
-            if (knockbackResistAttribute != null) {
-                EntityAttributeModifier modifier = knockbackResistAttribute.getModifier(KNOCKBACK_RESISTANCE_UUID);
-                if (modifier != null) {
-                    knockbackResistAttribute.removeModifier(modifier);
-                }
-            }
-        }
         // Remove ACTIVE_TACTILE_CONSCIOUSNESS_TRANSFER flag
         player.removeStatusEffect(ACTIVE_TACTILE_CONSCIOUSNESS_TRANSFER);
-        if (copiedEffects != null) {
-            List<StatusEffectInstance> copied = copiedEffects.remove(player.getUuid());
-            if (copied != null) {
-                for (StatusEffectInstance effect : copied) {
-                    if (effect != null && effect.getEffectType() != null) {
-                        player.removeStatusEffect(effect.getEffectType());
-                    }
+        List<StatusEffectInstance> copied = copiedEffects.remove(player.getUuid());
+        if (copied != null) {
+            for (StatusEffectInstance effect : copied) {
+                if (effect != null && effect.getEffectType() != null) {
+                    player.removeStatusEffect(effect.getEffectType());
                 }
             }
         }

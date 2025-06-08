@@ -7,6 +7,9 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.LightType;
+import net.minecraft.world.World;
 import net.scarab.lorienlegacies.effect.ModEffects;
 
 import static net.scarab.lorienlegacies.effect.ModEffects.TIRED;
@@ -35,11 +38,24 @@ public class NoxenEffect extends StatusEffect {
         }
 
         if (entity instanceof PlayerEntity player) {
-            // Apply or remove Night Vision based on time
             if (!player.getWorld().isClient()) {
-                if ((player.getWorld().isNight() || player.isSubmergedInWater() || player.getWorld().getBlockCollisions(entity, entity.getBoundingBox()).iterator().hasNext()) && !entity.hasStatusEffect(TIRED)) {
+                World world = player.getWorld();
+                BlockPos pos = player.getBlockPos();
+
+                int blockLight = world.getLightLevel(LightType.BLOCK, pos);
+                int skyLight = world.getLightLevel(LightType.SKY, pos);
+                boolean isDark = (blockLight + skyLight) < 8;
+
+                boolean shouldApplyNightVision = (
+                        world.isNight() ||
+                                player.isSubmergedInWater() ||
+                                isDark ||
+                                world.getBlockCollisions(entity, entity.getBoundingBox()).iterator().hasNext()
+                ) && !entity.hasStatusEffect(TIRED);
+
+                if (shouldApplyNightVision) {
                     StatusEffectInstance nightVision = player.getStatusEffect(StatusEffects.NIGHT_VISION);
-                    if (nightVision == null || nightVision.getDuration() < 210) { // Less than 10.5s left
+                    if (nightVision == null || nightVision.getDuration() < 210) {
                         player.addStatusEffect(new StatusEffectInstance(
                                 StatusEffects.NIGHT_VISION,
                                 Integer.MAX_VALUE,
@@ -50,7 +66,6 @@ public class NoxenEffect extends StatusEffect {
                         ));
                     }
                 } else {
-                    // Remove Night Vision when it's no longer night
                     player.removeStatusEffect(StatusEffects.NIGHT_VISION);
                 }
             }

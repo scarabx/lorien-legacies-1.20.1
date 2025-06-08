@@ -2,6 +2,7 @@ package net.scarab.lorienlegacies.entity;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.FlyingItemEntity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -82,10 +83,10 @@ public class SpikyYellowBallEntity extends PersistentProjectileEntity implements
 
     @Override
     protected void onEntityHit(EntityHitResult entityHitResult) {
-        // Bounce logic
-        if (!this.getWorld().isClient) {
-            // Reverse the velocity (simple bounce)
-            this.setVelocity(this.getVelocity().multiply(-0.8)); // dampened bounce
-        }
+
+        this.discard();
+
+        ItemStack yellowBallStack = new ItemStack(ModItems.SPIKY_YELLOW_BALL);
+        this.getWorld().spawnEntity(new ItemEntity(this.getWorld(), this.getX(), this.getY(), this.getZ(), yellowBallStack));
     }
 }

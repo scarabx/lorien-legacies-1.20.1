@@ -37,8 +37,8 @@ public class ModModelProvider extends FabricModelProvider {
 
         itemModelGenerator.register(ModItems.SHOCK_COLLAR, Models.GENERATED);
 
-        itemModelGenerator.register(ModItems.INHIBITOR_ITEM, Models.GENERATED);
+        itemModelGenerator.register(ModItems.INHIBITOR, Models.GENERATED);
 
-        itemModelGenerator.register(ModItems.INHIBITOR_REMOTE_ITEM, Models.GENERATED);
+        itemModelGenerator.register(ModItems.INHIBITOR_REMOTE, Models.GENERATED);
     }
 }
