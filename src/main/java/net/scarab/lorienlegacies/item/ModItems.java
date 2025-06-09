@@ -5,7 +5,6 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
-import net.minecraft.item.ToolMaterials;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -25,19 +24,19 @@ public class ModItems {
             new Item(new FabricItemSettings()));
 
     public static final Item DIAMOND_DAGGER = registerItem("diamond_dagger",
-            new DiamondDagger(ToolMaterials.IRON, 2, -2.4F, new Item.Settings().maxDamage(2000)));
-
-    /*public static final Item JOUST_STAFF = registerItem("joust_staff",
-            new JoustStaffItem(new FabricItemSettings().maxDamage(500).rarity(Rarity.EPIC)));*/
+            new DiamondDagger(new FabricItemSettings()));
 
     public static final Item SPIKY_YELLOW_BALL = registerItem("spiky_yellow_ball",
             new SpikyYellowBallItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+
+    public static final Item JOUST_STAFF = registerItem("joust_staff",
+            new JoustStaffItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
     public static final Item SPIKY_BLACK_BALL = registerItem("spiky_black_ball",
             new SpikyBlackBallItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
     public static final Item X_RAY_STONE = registerItem("x_ray_stone",
-            new XRayStoneItem(new FabricItemSettings().maxDamage(500).rarity(Rarity.EPIC)));
+            new XRayStoneItem(new FabricItemSettings().rarity(Rarity.EPIC)));
 
     public static final Item ICEBALL = registerItem("iceball",
             new IceballItem(new FabricItemSettings()));

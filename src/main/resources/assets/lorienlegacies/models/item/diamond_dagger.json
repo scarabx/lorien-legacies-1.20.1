@@ -314,5 +314,13 @@
 		"fixed": {
 			"rotation": [0, 90, 0]
 		}
-	}
+	},
+	"overrides": [
+		{
+			"predicate": {
+				"lorienlegacies:wrist_wrapped": 1
+			},
+			"model": "lorienlegacies:item/wrist_wrapped_diamond_dagger"
+		}
+	]
 }

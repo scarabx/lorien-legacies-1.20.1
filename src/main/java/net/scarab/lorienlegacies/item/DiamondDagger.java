@@ -2,30 +2,20 @@ package net.scarab.lorienlegacies.item;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.SwordItem;
-import net.minecraft.item.ToolMaterial;
-import net.minecraft.item.ToolMaterials;
+import net.minecraft.item.*;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
-public class DiamondDagger extends SwordItem {
+public class DiamondDagger extends Item {
 
     public static final String WRIST_WRAPPED_KEY = "WristWrap";
 
-    // Store base attack damage and attack speed modifier passed in constructor
-    private final float baseAttackDamage;
-    private final float baseAttackSpeed;
-
-    public DiamondDagger(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
-        super(toolMaterial, attackDamage, attackSpeed, settings);
-        this.baseAttackDamage = attackDamage;
-        this.baseAttackSpeed = attackSpeed;
+    public DiamondDagger(Settings settings) {
+        super(settings);
     }
 
-    // Rest of your code unchanged...
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
@@ -45,26 +35,12 @@ public class DiamondDagger extends SwordItem {
 
     @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-
         if (!attacker.getWorld().isClient() && attacker instanceof PlayerEntity player) {
             boolean wristWrapped = isWristWrapped(stack);
-
-            float damage;
-            float attacksPerSecond;
-
-            if (wristWrapped) {
-                damage = ToolMaterials.DIAMOND.getAttackDamage() + 4.0F;
-                attacksPerSecond = 3.0F;
-            } else {
-                damage = baseAttackDamage;
-                attacksPerSecond = 4.0F + baseAttackSpeed;
-            }
-
-            int cooldown = (int) Math.ceil(20 / attacksPerSecond);
+            float damage = wristWrapped ? 8.0F : 4.0F;
 
             target.damage(player.getDamageSources().playerAttack(player), damage);
             stack.damage(1, player, e -> e.sendToolBreakStatus(Hand.MAIN_HAND));
-            player.getItemCooldownManager().set(this, cooldown);
         }
         return true;
     }
