@@ -5,9 +5,12 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 
+import net.minecraft.world.World;
 import net.scarab.lorienlegacies.chimaera.MorphHandler;
 import net.scarab.lorienlegacies.effect.active_effects.*;
 import net.scarab.lorienlegacies.effect.toggle_effects.*;
+import net.scarab.lorienlegacies.item.JoustStaffItem;
+import net.scarab.lorienlegacies.item.ModItems;
 
 import static net.scarab.lorienlegacies.effect.ModEffects.*;
 
@@ -101,6 +104,8 @@ public class LorienLegaciesModNetworking {
 
     public static final Identifier MARK_TARGET_FOR_WOLF_PACKET = new Identifier("lorienlegacies", "mark_target_for_wolf");
 
+    public static final Identifier PROJECTILE_DEFLECTION_PACKET = new Identifier("lorienlegacies", "projectile_deflection");
+
     public static void registerC2SPackets() {
 
         ServerPlayNetworking.registerGlobalReceiver(SHOOT_FIREBALL_PACKET, (server, player, handler, buf, responseSender) -> {
@@ -189,6 +194,9 @@ public class LorienLegaciesModNetworking {
                 }
                 if (player.hasStatusEffect(STURMA)) {
                     SturmaEffect.lightningStrike(player);
+                }
+                if (player.getMainHandStack().isOf(ModItems.JOUST_STAFF) && player.isSneaking()) {
+                    JoustStaffItem.applyProjectileDeflectionEffect(player);
                 }
             });
         });

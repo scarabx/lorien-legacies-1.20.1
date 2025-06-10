@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.world.World;
 
+import net.minecraft.world.explosion.Explosion;
 import net.scarab.lorienlegacies.item.ModItems;
 
 public class SpikyBlackBallEntity extends Entity implements FlyingItemEntity {
@@ -42,10 +43,13 @@ public class SpikyBlackBallEntity extends Entity implements FlyingItemEntity {
         ticksExisted++;
 
         if (!this.getWorld().isClient) {
-            this.getWorld().createExplosion(this, this.getX(), this.getY(), this.getZ(), 3.0f, World.ExplosionSourceType.MOB);
-            exploded = true;
-            spawnYellowBall();
-            this.discard();
+            if (ticksExisted == 10 && !exploded) {
+                this.getWorld().createExplosion(this, this.getX(), this.getY(), this.getZ(), 2.0F, World.ExplosionSourceType.MOB);
+                exploded = true;
+            } else if (ticksExisted == 15) {
+                spawnYellowBall();
+                this.discard();
+            }
         }
     }
 

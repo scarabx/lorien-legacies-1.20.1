@@ -49,7 +49,7 @@ public class SpikyYellowBallEntity extends PersistentProjectileEntity implements
                 ticksSinceLanded = 0;
             } else {
                 ticksSinceLanded++;
-                if (ticksSinceLanded >= 10 && !this.getWorld().isClient) {
+                if (ticksSinceLanded >= 5 && !this.getWorld().isClient) {
                     spawnBlackBall();
                     this.discard();
                 }
@@ -77,16 +77,17 @@ public class SpikyYellowBallEntity extends PersistentProjectileEntity implements
     }
 
     @Override
-    public boolean hasNoGravity() {
-        return true;
-    }
-
-    @Override
     protected void onEntityHit(EntityHitResult entityHitResult) {
 
-        this.discard();
+        // Fall and stop moving
+        this.setVelocity(0, 0, 0);
+        this.setNoGravity(false);
+        this.setOwner(null); // allows any player to pick it up
+        this.pickupType = PickupPermission.ALLOWED;
 
-        ItemStack yellowBallStack = new ItemStack(ModItems.SPIKY_YELLOW_BALL);
-        this.getWorld().spawnEntity(new ItemEntity(this.getWorld(), this.getX(), this.getY(), this.getZ(), yellowBallStack));
+        // Simulate "sticking" into ground or stopping after hit
+        this.setPosition(this.getX(), this.getY() - 0.1, this.getZ()); // nudge it to contact ground
+        this.inGround = true;
+        this.setNoClip(true); // prevent weird collision physics
     }
 }

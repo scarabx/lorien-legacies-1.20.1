@@ -8,11 +8,11 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
-public class DiamondDagger extends Item {
+public class DiamondDaggerItem extends Item {
 
     public static final String WRIST_WRAPPED_KEY = "WristWrap";
 
-    public DiamondDagger(Settings settings) {
+    public DiamondDaggerItem(Settings settings) {
         super(settings);
     }
 
@@ -21,14 +21,8 @@ public class DiamondDagger extends Item {
         ItemStack stack = player.getStackInHand(hand);
         boolean wristWrapped = isWristWrapped(stack);
         setWristWrapped(stack, !wristWrapped); // Toggle
-
-        if (!world.isClient) {
-            player.sendMessage(
-                    wristWrapped
-                            ? Text.literal("Diamond Dagger: Wrist Wrap Disabled")
-                            : Text.literal("Diamond Dagger: Wrist Wrap Enabled"),
-                    false
-            );
+        if (!world.isClient()) {
+            player.sendMessage(wristWrapped ? Text.literal("Diamond Dagger: Wrist Wrap Disabled") : Text.literal("Diamond Dagger: Wrist Wrap Enabled"), false);
         }
         return TypedActionResult.success(stack, world.isClient());
     }
@@ -38,7 +32,6 @@ public class DiamondDagger extends Item {
         if (!attacker.getWorld().isClient() && attacker instanceof PlayerEntity player) {
             boolean wristWrapped = isWristWrapped(stack);
             float damage = wristWrapped ? 8.0F : 4.0F;
-
             target.damage(player.getDamageSources().playerAttack(player), damage);
             stack.damage(1, player, e -> e.sendToolBreakStatus(Hand.MAIN_HAND));
         }

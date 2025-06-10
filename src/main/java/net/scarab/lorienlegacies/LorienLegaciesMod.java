@@ -6,7 +6,6 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -21,15 +20,13 @@ import net.scarab.lorienlegacies.effect.active_effects.LumenEffect;
 import net.scarab.lorienlegacies.effect.ModEffects;
 import net.scarab.lorienlegacies.entity.ModEntities;
 import net.scarab.lorienlegacies.event.LorienLegacyEventHandler;
-import net.scarab.lorienlegacies.item.DiamondDagger;
+import net.scarab.lorienlegacies.item.DiamondDaggerItem;
 import net.scarab.lorienlegacies.item.ModItemGroup;
 import net.scarab.lorienlegacies.item.ModItems;
-import net.scarab.lorienlegacies.item.XRayStoneItem;
 import net.scarab.lorienlegacies.legacy_bestowal.LegacyBestowalHandler;
 import net.scarab.lorienlegacies.network.LorienLegaciesModNetworking;
 import net.scarab.lorienlegacies.potion.ModPotions;
 import net.scarab.lorienlegacies.util.ModLootTableModifiers;
-import net.scarab.lorienlegacies.util.ModModelPredicateProvider;
 import net.scarab.lorienlegacies.util.ModRegistries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -92,7 +89,7 @@ public class LorienLegaciesMod implements ModInitializer {
 			int foundSlot = -1;
 			for (int i = 0; i < 9; i++) {
 				ItemStack stack = player.getInventory().getStack(i);
-				if (stack.getItem() instanceof DiamondDagger dagger && dagger.isWristWrapped(stack)) {
+				if (stack.getItem() instanceof DiamondDaggerItem dagger && dagger.isWristWrapped(stack)) {
 					foundSlot = i;
 					break;
 				}

@@ -179,6 +179,9 @@ public class ModEffects {
     public static final StatusEffect CHIMAERA_CALL = registerStatusEffect("chimaera_call",
             new ChimaeraCallEffect(StatusEffectCategory.BENEFICIAL, 0xFF7F50/*Coral*/));
 
+    public static final StatusEffect PROJECTILE_DEFLECTION = registerStatusEffect("projectile_deflection",
+            new ProjectileDeflectionEffect(StatusEffectCategory.BENEFICIAL, 0xFF4682B4/*Steel Blue*/));
+
     public static final StatusEffect STAMINA = registerStatusEffect("stamina",
             new StaminaEffect(StatusEffectCategory.BENEFICIAL, 0xFFFF00/*Yellow*/));
 

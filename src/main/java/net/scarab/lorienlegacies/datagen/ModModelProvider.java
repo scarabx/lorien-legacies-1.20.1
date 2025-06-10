@@ -29,8 +29,6 @@ public class ModModelProvider extends FabricModelProvider {
 
         itemModelGenerator.register(ModItems.LORIC_STONE, Models.GENERATED);
 
-        itemModelGenerator.register(ModItems.LEATHER_SLEEVE, Models.HANDHELD);
-
         itemModelGenerator.register(ModItems.ICEBALL, Models.GENERATED);
 
         itemModelGenerator.register(ModItems.KINETIC_PROJECTILE, Models.GENERATED);

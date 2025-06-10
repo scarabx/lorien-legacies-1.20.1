@@ -13,7 +13,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 import net.scarab.lorienlegacies.effect.ModEffects;
-import net.scarab.lorienlegacies.item.DiamondDagger;
+import net.scarab.lorienlegacies.item.DiamondDaggerItem;
 import net.scarab.lorienlegacies.item.ModItems;
 import net.scarab.lorienlegacies.legacy_bestowal.LegacyBestowalHandler;
 
@@ -45,7 +45,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         PlayerEntity player = (PlayerEntity)(Object) this;
 
         // Only prevent drop if it's a Diamond Dagger with WristWrap enabled
-        if (stack.getItem() instanceof DiamondDagger dagger && dagger.isWristWrapped(stack)) {
+        if (stack.getItem() instanceof DiamondDaggerItem dagger && dagger.isWristWrapped(stack)) {
             if (!player.getWorld().isClient) {
                 ItemStack currentStack = stack.copy();
 
@@ -88,18 +88,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                 int currentStress = LegacyBestowalHandler.getStress(player);
                 LegacyBestowalHandler.setStress(player, currentStress + 1);
             }
-        }
-    }
-
-    // Cancel diamond dagger attack if cooldown active
-    @Inject(method = "attack", at = @At("HEAD"), cancellable = true)
-    private void cancelDaggerAttackIfCooldownActive(Entity target, CallbackInfo ci) {
-        PlayerEntity player = (PlayerEntity) (Object) this;
-        ItemStack mainHandStack = player.getStackInHand(Hand.MAIN_HAND);
-
-        if (mainHandStack.getItem() == ModItems.DIAMOND_DAGGER &&
-                player.getItemCooldownManager().isCoolingDown(mainHandStack.getItem())) {
-            ci.cancel();
         }
     }
 

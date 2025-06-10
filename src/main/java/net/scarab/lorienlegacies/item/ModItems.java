@@ -20,11 +20,11 @@ public class ModItems {
     public static final Item LORIC_STONE = registerItem("loric_stone",
             new Item(new FabricItemSettings()));
 
-    public static final Item LEATHER_SLEEVE = registerItem("leather_sleeve",
-            new Item(new FabricItemSettings()));
+    public static final Item LEATHER_SLEEVE = registerItem("retracted_leather_sleeve",
+            new LeatherSleeveItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
     public static final Item DIAMOND_DAGGER = registerItem("diamond_dagger",
-            new DiamondDagger(new FabricItemSettings()));
+            new DiamondDaggerItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
     public static final Item SPIKY_YELLOW_BALL = registerItem("spiky_yellow_ball",
             new SpikyYellowBallItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
@@ -32,11 +32,14 @@ public class ModItems {
     public static final Item JOUST_STAFF = registerItem("joust_staff",
             new JoustStaffItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
+    public static final Item SILVER_PIPE = registerItem("silver_pipe",
+            new SilverPipeItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+
     public static final Item SPIKY_BLACK_BALL = registerItem("spiky_black_ball",
             new SpikyBlackBallItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
     public static final Item X_RAY_STONE = registerItem("x_ray_stone",
-            new XRayStoneItem(new FabricItemSettings().rarity(Rarity.EPIC)));
+            new XRayStoneItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
     public static final Item ICEBALL = registerItem("iceball",
             new IceballItem(new FabricItemSettings()));
