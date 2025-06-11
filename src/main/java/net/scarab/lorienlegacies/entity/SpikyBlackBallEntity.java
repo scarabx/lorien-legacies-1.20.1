@@ -44,7 +44,7 @@ public class SpikyBlackBallEntity extends Entity implements FlyingItemEntity {
 
         if (!this.getWorld().isClient) {
             if (ticksExisted == 10 && !exploded) {
-                this.getWorld().createExplosion(this, this.getX(), this.getY(), this.getZ(), 2.0F, World.ExplosionSourceType.MOB);
+                this.getWorld().createExplosion(this, this.getX(), this.getY(), this.getZ(), 3.0F, World.ExplosionSourceType.MOB);
                 exploded = true;
             } else if (ticksExisted == 15) {
                 spawnYellowBall();

@@ -98,6 +98,9 @@ public class ModEffects {
     public static final StatusEffect TOGGLE_TELEKINESIS_PULL = registerStatusEffect("toggle_telekinesis_pull",
             new ToggleTelekinesisPullEffect(StatusEffectCategory.BENEFICIAL, 0x9b4f96/*Purple*/));
 
+    public static final StatusEffect TOGGLE_TELEKINESIS_DEFLECT = registerStatusEffect("toggle_telekinesis_deflect",
+            new ToggleTelekinesisDeflectEffect(StatusEffectCategory.BENEFICIAL, 0x9b4f96/*Purple*/));
+
     public static final StatusEffect TOGGLE_TELEKINESIS_MOVE = registerStatusEffect("toggle_telekinesis_move",
             new ToggleTelekinesisMoveEffect(StatusEffectCategory.BENEFICIAL, 0x9b4f96/*Purple*/));
 
@@ -178,9 +181,6 @@ public class ModEffects {
 
     public static final StatusEffect CHIMAERA_CALL = registerStatusEffect("chimaera_call",
             new ChimaeraCallEffect(StatusEffectCategory.BENEFICIAL, 0xFF7F50/*Coral*/));
-
-    public static final StatusEffect PROJECTILE_DEFLECTION = registerStatusEffect("projectile_deflection",
-            new ProjectileDeflectionEffect(StatusEffectCategory.BENEFICIAL, 0xFF4682B4/*Steel Blue*/));
 
     public static final StatusEffect STAMINA = registerStatusEffect("stamina",
             new StaminaEffect(StatusEffectCategory.BENEFICIAL, 0xFFFF00/*Yellow*/));

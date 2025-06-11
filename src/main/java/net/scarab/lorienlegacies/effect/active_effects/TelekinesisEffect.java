@@ -5,6 +5,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -143,6 +144,19 @@ public class TelekinesisEffect extends StatusEffect {
                 target.teleport(currentPos.x + moveVec.x, currentPos.y + moveVec.y, currentPos.z + moveVec.z);
                 target.setNoGravity(true);
             }
+        }
+    }
+
+    public static void deflect(ServerPlayerEntity player) {
+
+        if (!player.getWorld().isClient()
+                && player.hasStatusEffect(ModEffects.TELEKINESIS)
+                && player.hasStatusEffect(TOGGLE_TELEKINESIS_DEFLECT)
+                && !player.hasStatusEffect(TIRED)
+                && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
+
+            player.addStatusEffect(new StatusEffectInstance(PONDUS, 100, 99, false, false, false));
+            player.addStatusEffect(new StatusEffectInstance(TOGGLE_IMPENETRABLE_SKIN, 100, 99, false, false, false));
         }
     }
 }

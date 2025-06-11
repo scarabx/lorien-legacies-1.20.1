@@ -7,6 +7,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.scarab.lorienlegacies.effect.ModEffects;
+import net.scarab.lorienlegacies.item.ModItems;
 
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -48,9 +49,8 @@ public class PondusEffect extends StatusEffect {
                 applyIntangibility(player);
             }
         }
-
         if (entity instanceof PlayerEntity player) {
-            if (player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
+            if (player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION) && !player.getMainHandStack().isOf(ModItems.JOUST_STAFF)) {
                     player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, Integer.MAX_VALUE, 4, false, false, false));
             } else {
                 player.removeStatusEffect(StatusEffects.STRENGTH);

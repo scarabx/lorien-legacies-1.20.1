@@ -5,11 +5,10 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 
-import net.minecraft.world.World;
 import net.scarab.lorienlegacies.chimaera.MorphHandler;
+import net.scarab.lorienlegacies.effect.ModEffects;
 import net.scarab.lorienlegacies.effect.active_effects.*;
 import net.scarab.lorienlegacies.effect.toggle_effects.*;
-import net.scarab.lorienlegacies.item.JoustStaffItem;
 import net.scarab.lorienlegacies.item.ModItems;
 
 import static net.scarab.lorienlegacies.effect.ModEffects.*;
@@ -53,6 +52,8 @@ public class LorienLegaciesModNetworking {
     public static final Identifier TELEKINESIS_PUSH_PACKET = new Identifier("lorienlegacies", "telekinesis_push");
 
     public static final Identifier TELEKINESIS_PULL_PACKET = new Identifier("lorienlegacies", "telekinesis_pull");
+
+    public static final Identifier TELEKINESIS_DEFLECT_PACKET = new Identifier("lorienlegacies", "telekinesis_deflect");
 
     public static final Identifier TELEKINESIS_MOVE_PACKET = new Identifier("lorienlegacies", "telekinesis_move");
 
@@ -103,8 +104,6 @@ public class LorienLegaciesModNetworking {
     public static final Identifier CHIMAERA_CALL_PACKET = new Identifier("lorienlegacies", "chimaera_call");
 
     public static final Identifier MARK_TARGET_FOR_WOLF_PACKET = new Identifier("lorienlegacies", "mark_target_for_wolf");
-
-    public static final Identifier PROJECTILE_DEFLECTION_PACKET = new Identifier("lorienlegacies", "projectile_deflection");
 
     public static void registerC2SPackets() {
 
@@ -196,7 +195,8 @@ public class LorienLegaciesModNetworking {
                     SturmaEffect.lightningStrike(player);
                 }
                 if (player.getMainHandStack().isOf(ModItems.JOUST_STAFF) && player.isSneaking()) {
-                    JoustStaffItem.applyProjectileDeflectionEffect(player);
+                    player.addStatusEffect(new StatusEffectInstance(PONDUS, 100, 99, false, false, false));
+                    player.addStatusEffect(new StatusEffectInstance(TOGGLE_IMPENETRABLE_SKIN, 100, 99, false, false, false));
                 }
             });
         });
@@ -208,6 +208,9 @@ public class LorienLegaciesModNetworking {
                 }
                 if (player.hasStatusEffect(TELEKINESIS)) {
                     TelekinesisEffect.pull(player);
+                }
+                if (player.hasStatusEffect(TELEKINESIS)) {
+                    TelekinesisEffect.deflect(player);
                 }
                 if (player.hasStatusEffect(CHIMAERA_MORPH)) {
                     MorphHandler.chimaeraMorph(player);
@@ -277,6 +280,7 @@ public class LorienLegaciesModNetworking {
                 if (player.hasStatusEffect(TELEKINESIS)) {
                     ToggleTelekinesisPushEffect.toggleTelekinesisPush(player);
                     player.removeStatusEffect(TOGGLE_TELEKINESIS_PULL);
+                    player.removeStatusEffect(TOGGLE_TELEKINESIS_DEFLECT);
                     player.removeStatusEffect(CHIMAERA_MORPH);
                     player.removeStatusEffect(CHIMAERA_CALL);
                     player.removeStatusEffect(MARK_TARGET_FOR_WOLF);
@@ -290,6 +294,21 @@ public class LorienLegaciesModNetworking {
                 if (player.hasStatusEffect(TELEKINESIS)) {
                     ToggleTelekinesisPullEffect.toggleTelekinesisPull(player);
                     player.removeStatusEffect(TOGGLE_TELEKINESIS_PUSH);
+                    player.removeStatusEffect(TOGGLE_TELEKINESIS_DEFLECT);
+                    player.removeStatusEffect(CHIMAERA_MORPH);
+                    player.removeStatusEffect(CHIMAERA_CALL);
+                    player.removeStatusEffect(MARK_TARGET_FOR_WOLF);
+                    player.removeStatusEffect(TOGGLE_TELETRAS);
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(TELEKINESIS_DEFLECT_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(TELEKINESIS)) {
+                    ToggleTelekinesisDeflectEffect.toggleTelekinesisDeflect(player);
+                    player.removeStatusEffect(TOGGLE_TELEKINESIS_PUSH);
+                    player.removeStatusEffect(TOGGLE_TELEKINESIS_PULL);
                     player.removeStatusEffect(CHIMAERA_MORPH);
                     player.removeStatusEffect(CHIMAERA_CALL);
                     player.removeStatusEffect(MARK_TARGET_FOR_WOLF);
@@ -527,6 +546,8 @@ public class LorienLegaciesModNetworking {
                     player.removeStatusEffect(MARK_TARGET_FOR_WOLF);
                     player.removeStatusEffect(TOGGLE_TELEKINESIS_PUSH);
                     player.removeStatusEffect(TOGGLE_TELEKINESIS_PULL);
+                    player.removeStatusEffect(TOGGLE_TELEKINESIS_DEFLECT);
+                    player.removeStatusEffect(TOGGLE_TELETRAS);
                 }
             });
         });
@@ -541,6 +562,7 @@ public class LorienLegaciesModNetworking {
                     player.removeStatusEffect(CHIMAERA_MORPH);
                     player.removeStatusEffect(TOGGLE_TELEKINESIS_PUSH);
                     player.removeStatusEffect(TOGGLE_TELEKINESIS_PULL);
+                    player.removeStatusEffect(TOGGLE_TELEKINESIS_DEFLECT);
                     player.removeStatusEffect(TOGGLE_TELETRAS);
                 }
             });
@@ -556,6 +578,7 @@ public class LorienLegaciesModNetworking {
                     player.removeStatusEffect(CHIMAERA_CALL);
                     player.removeStatusEffect(TOGGLE_TELEKINESIS_PUSH);
                     player.removeStatusEffect(TOGGLE_TELEKINESIS_PULL);
+                    player.removeStatusEffect(TOGGLE_TELEKINESIS_DEFLECT);
                     player.removeStatusEffect(TOGGLE_TELETRAS);
                 }
             });

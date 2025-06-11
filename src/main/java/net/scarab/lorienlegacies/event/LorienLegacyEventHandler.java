@@ -19,6 +19,7 @@ public class LorienLegacyEventHandler {
     }
 
     private static void keepEffectsOnDeath() {
+
         ServerPlayerEvents.COPY_FROM.register((oldPlayer, newPlayer, alive) -> {
             if (!alive) {
                 // Effects that should always persist with infinite duration
@@ -42,11 +43,12 @@ public class LorienLegacyEventHandler {
                 );
 
                 for (StatusEffect effect : persistentEffects) {
-                    if (oldPlayer.hasStatusEffect(effect)) {
+                    StatusEffectInstance instance = oldPlayer.getStatusEffect(effect);
+                    if (instance != null && instance.getAmplifier() != 99) {
                         newPlayer.addStatusEffect(new StatusEffectInstance(
                                 effect,
                                 Integer.MAX_VALUE,
-                                0,
+                                instance.getAmplifier(),
                                 false,
                                 false,
                                 false

@@ -31,7 +31,7 @@ public class LeatherSleeveItem extends Item {
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (!attacker.getWorld().isClient() && attacker instanceof PlayerEntity player) {
             boolean extended = isExtended(stack);
-            float damage = extended ? 20.0F : 0.0F;
+            float damage = extended ? 21.6F : 0.0F;
             target.damage(player.getDamageSources().playerAttack(player), damage);
             stack.damage(1, player, e -> e.sendToolBreakStatus(Hand.MAIN_HAND));
         }
