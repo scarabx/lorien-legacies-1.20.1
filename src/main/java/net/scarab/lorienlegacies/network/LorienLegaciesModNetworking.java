@@ -6,7 +6,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 
 import net.scarab.lorienlegacies.chimaera.MorphHandler;
-import net.scarab.lorienlegacies.effect.ModEffects;
 import net.scarab.lorienlegacies.effect.active_effects.*;
 import net.scarab.lorienlegacies.effect.toggle_effects.*;
 import net.scarab.lorienlegacies.item.ModItems;
@@ -195,8 +194,9 @@ public class LorienLegaciesModNetworking {
                     SturmaEffect.lightningStrike(player);
                 }
                 if (player.getMainHandStack().isOf(ModItems.JOUST_STAFF) && player.isSneaking()) {
-                    player.addStatusEffect(new StatusEffectInstance(PONDUS, 100, 99, false, false, false));
-                    player.addStatusEffect(new StatusEffectInstance(TOGGLE_IMPENETRABLE_SKIN, 100, 99, false, false, false));
+                    player.addStatusEffect(new StatusEffectInstance(PONDUS, 20, 99, false, false, false));
+                    player.addStatusEffect(new StatusEffectInstance(TOGGLE_IMPENETRABLE_SKIN, 20, 99, false, false, false));
+                    player.addStatusEffect(new StatusEffectInstance(DEFLECT_STAMINA, 20, 0, false, false, false));
                 }
             });
         });
@@ -211,6 +211,7 @@ public class LorienLegaciesModNetworking {
                 }
                 if (player.hasStatusEffect(TELEKINESIS)) {
                     TelekinesisEffect.deflect(player);
+                    player.addStatusEffect(new StatusEffectInstance(DEFLECT_STAMINA, 20, 0, false, false, false));
                 }
                 if (player.hasStatusEffect(CHIMAERA_MORPH)) {
                     MorphHandler.chimaeraMorph(player);

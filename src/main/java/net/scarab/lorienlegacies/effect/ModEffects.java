@@ -188,6 +188,12 @@ public class ModEffects {
     public static final StatusEffect TIRED = registerStatusEffect("tired",
             new TiredEffect(StatusEffectCategory.BENEFICIAL, 0xFF0000/*Red*/));
 
+    public static final StatusEffect DEFLECT_STAMINA = registerStatusEffect("deflect_stamina",
+            new DeflectStaminaEffect(StatusEffectCategory.BENEFICIAL, 0x9b4f96/*Steel Blue*/));
+
+    public static final StatusEffect DEFLECT_COOLDOWN = registerStatusEffect("deflect_cooldown",
+            new DeflectCooldownEffect(StatusEffectCategory.BENEFICIAL, 0xFF4682B4/*Steel Blue*/));
+
     public static final StatusEffect LEGACY_INHIBITION = registerStatusEffect("legacy_inhibition",
             new LegacyInhibition(StatusEffectCategory.BENEFICIAL, 0xFF0000/*Red*/));
 

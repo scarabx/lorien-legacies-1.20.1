@@ -1,8 +1,14 @@
 {
 
-  "item.lorienlegacies.loralite": "Loralite",
+  "item.lorienlegacies.red_bracelet": "Red Bracelet",
 
-  "item.lorienlegacies.loric_stone": "Loric Stone",
+  "item.lorienlegacies.red_shield_front": "Red Shield Front",
+
+  "item.lorienlegacies.red_shield_back": "Red Shield Back",
+
+  "item.lorienlegacies.red_shield_left": "Red Shield Left",
+
+  "item.lorienlegacies.red_shield_right": "Red Shield Right",
 
   "item.lorienlegacies.diamond_dagger": "Diamond Dagger",
 
@@ -21,6 +27,10 @@
   "item.lorienlegacies.inhibitor_remote": "Inhibitor Remote",
 
   "item.lorienlegacies.x_ray_stone": "X Ray Stone",
+
+  "item.lorienlegacies.loralite": "Loralite",
+
+  "item.lorienlegacies.loric_stone": "Loric Stone",
 
   "item.lorienlegacies.iceball": "Iceball",
 
@@ -78,7 +88,9 @@
 
   "effect.lorienlegacies.toggle_telekinesis_pull": "Toggle Telekinesis Pull",
 
-  "effect.lorienlegacies.toggle_telekinesis_move": "Toggle telekinesis Move",
+  "effect.lorienlegacies.toggle_telekinesis_move": "Toggle Telekinesis Move",
+
+  "effect.lorienlegacies.toggle_telekinesis_deflect": "Toggle Telekinesis Deflect",
 
   "effect.lorienlegacies.submari": "Submari",
 
@@ -111,6 +123,10 @@
   "effect.lorienlegacies.stamina": "Stamina",
 
   "effect.lorienlegacies.tired": "Tired",
+
+  "effect.lorienlegacies.deflect_stamina": "Deflect Stamina",
+
+  "effect.lorienlegacies.deflect_cooldown": "Deflect Cooldown",
 
   "effect.lorienlegacies.legacy_inhibition": "Legacy Inhibition",
 

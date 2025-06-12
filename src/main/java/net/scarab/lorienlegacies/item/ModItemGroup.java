@@ -16,21 +16,23 @@ public class ModItemGroup {
             FabricItemGroup.builder().displayName(Text.translatable("itemgroup.lorien_legacies"))
                     .icon(() -> new ItemStack(ModItems.LORALITE)).entries((displayContext, entries) -> {
 
-                        entries.add(ModItems.DIAMOND_DAGGER);
+                        entries.add(ModItems.RED_BRACELET);
 
-                        entries.add(ModItems.LEATHER_SLEEVE);
+                        entries.add(ModItems.DIAMOND_DAGGER);
 
                         entries.add(ModItems.SILVER_PIPE);
 
+                        entries.add(ModItems.LEATHER_SLEEVE);
+
                         entries.add(ModItems.SPIKY_YELLOW_BALL);
+
+                        entries.add(ModItems.X_RAY_STONE);
 
                         entries.add(ModItems.SHOCK_COLLAR);
 
                         entries.add(ModItems.INHIBITOR);
 
                         entries.add(ModItems.INHIBITOR_REMOTE);
-
-                        entries.add(ModItems.X_RAY_STONE);
 
                         entries.add(ModItems.LORALITE);
 

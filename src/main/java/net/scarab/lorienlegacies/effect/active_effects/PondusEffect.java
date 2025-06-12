@@ -45,12 +45,14 @@ public class PondusEffect extends StatusEffect {
             // Apply intangibility behavior
             if (player.hasStatusEffect(TOGGLE_INTANGIBILITY)
                     && !player.hasStatusEffect(TIRED)
-                    && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
+                    && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)
+                    && !hasAmplifier(player, PONDUS, 99)
+                    && !hasAmplifier(player, TOGGLE_IMPENETRABLE_SKIN, 99)) {
                 applyIntangibility(player);
             }
         }
         if (entity instanceof PlayerEntity player) {
-            if (player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION) && !player.getMainHandStack().isOf(ModItems.JOUST_STAFF)) {
+            if (player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION) && !hasAmplifier(player, PONDUS, 99) && !hasAmplifier(player, TOGGLE_IMPENETRABLE_SKIN, 99)) {
                     player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, Integer.MAX_VALUE, 4, false, false, false));
             } else {
                 player.removeStatusEffect(StatusEffects.STRENGTH);
@@ -93,5 +95,10 @@ public class PondusEffect extends StatusEffect {
             }
         }
         player.sendAbilitiesUpdate();
+    }
+
+    private boolean hasAmplifier(PlayerEntity player, StatusEffect effect, int amplifier) {
+        StatusEffectInstance instance = player.getStatusEffect(effect);
+        return instance != null && instance.getAmplifier() == amplifier;
     }
 }
