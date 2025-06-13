@@ -26,7 +26,15 @@ public class ModItemGroup {
 
                         entries.add(ModItems.SPIKY_YELLOW_BALL);
 
+                        entries.add(ModItems.STRAND_OF_GREEN_STONES);
+
+                        entries.add(ModItems.EMPTY_BLACKHOLE);
+
+                        entries.add(ModItems.FILLED_BLACKHOLE);
+
                         entries.add(ModItems.X_RAY_STONE);
+
+                        entries.add(ModItems.GREEN_STONE);
 
                         entries.add(ModItems.SHOCK_COLLAR);
 

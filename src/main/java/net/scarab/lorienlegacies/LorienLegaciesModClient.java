@@ -29,11 +29,15 @@ public class LorienLegaciesModClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(ModEntities.CHIMAERA_PARROT, ChimaeraParrotEntityRenderer::new);
 
-        EntityRendererRegistry.register(ModEntities.SPIKY_YELLOW_BALL, SpikyYellowBallItemEntityRenderer::new);
-
         EntityRendererRegistry.register(ModEntities.JOUST_STAFF, JoustStaffItemEntityRenderer::new);
 
+        EntityRendererRegistry.register(ModEntities.SPIKY_YELLOW_BALL, SpikyYellowBallItemEntityRenderer::new);
+
         EntityRendererRegistry.register(ModEntities.SPIKY_BLACK_BALL, SpikyBlackBallItemEntityRenderer::new);
+
+        EntityRendererRegistry.register(ModEntities.EMPTY_BLACK_HOLE, EmptyBlackholeItemEntityRenderer::new);
+
+        EntityRendererRegistry.register(ModEntities.FILLED_BLACK_HOLE, FilledBlackholeItemEntityRenderer::new);
 
         ModModelPredicateProvider.registerModModels();
     }

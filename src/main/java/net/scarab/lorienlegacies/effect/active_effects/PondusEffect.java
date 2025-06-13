@@ -42,6 +42,11 @@ public class PondusEffect extends StatusEffect {
 
         if (entity instanceof PlayerEntity player) {
 
+            if (!hasAmplifier(player, PONDUS, 99)
+                && !hasAmplifier(player, TOGGLE_IMPENETRABLE_SKIN, 99)) {
+                player.addStatusEffect(new StatusEffectInstance(BESTOWED_PONDUS, Integer.MAX_VALUE, 0, false, false, false));
+            }
+
             // Apply intangibility behavior
             if (player.hasStatusEffect(TOGGLE_INTANGIBILITY)
                     && !player.hasStatusEffect(TIRED)

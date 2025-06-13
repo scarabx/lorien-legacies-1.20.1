@@ -77,6 +77,9 @@ public class ModEffects {
     public static final StatusEffect PONDUS = registerStatusEffect("pondus",
             new PondusEffect(StatusEffectCategory.BENEFICIAL, 0x1A0B29/*Obsidian*/));
 
+    public static final StatusEffect BESTOWED_PONDUS = registerStatusEffect("bestowed_pondus",
+            new BestowedPondusEffect(StatusEffectCategory.BENEFICIAL, 0x1A0B29/*Obsidian*/));
+
     public static final StatusEffect TOGGLE_IMPENETRABLE_SKIN = registerStatusEffect("toggle_impenetrable_skin",
             new ToggleImpenetrableSkinEffect(StatusEffectCategory.BENEFICIAL, 0x1A0B29/*Obsidian*/));
 

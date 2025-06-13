@@ -2,13 +2,7 @@
 
   "item.lorienlegacies.red_bracelet": "Red Bracelet",
 
-  "item.lorienlegacies.red_shield_front": "Red Shield Front",
-
-  "item.lorienlegacies.red_shield_back": "Red Shield Back",
-
-  "item.lorienlegacies.red_shield_left": "Red Shield Left",
-
-  "item.lorienlegacies.red_shield_right": "Red Shield Right",
+  "item.lorienlegacies.red_shield": "Red Shield",
 
   "item.lorienlegacies.diamond_dagger": "Diamond Dagger",
 
@@ -20,6 +14,12 @@
 
   "item.lorienlegacies.spiky_yellow_ball": "Spiky Yellow Ball",
 
+  "item.lorienlegacies.strand_of_green_stones": "Strand Of Green Stones",
+
+  "item.lorienlegacies.empty_blackhole": "Empty Blackhole",
+
+  "item.lorienlegacies.filled_blackhole": "Filled Blackhole",
+
   "item.lorienlegacies.shock_collar": "Shock Collar",
 
   "item.lorienlegacies.inhibitor": "Inhibitor",
@@ -27,6 +27,8 @@
   "item.lorienlegacies.inhibitor_remote": "Inhibitor Remote",
 
   "item.lorienlegacies.x_ray_stone": "X Ray Stone",
+
+  "item.lorienlegacies.green_stone": "Green Stone",
 
   "item.lorienlegacies.loralite": "Loralite",
 
@@ -73,6 +75,8 @@
   "effect.lorienlegacies.novis": "Novis",
 
   "effect.lorienlegacies.pondus": "Pondus",
+
+  "effect.lorienlegacies.bestowed_pondus": "Bestowed Pondus",
 
   "effect.lorienlegacies.toggle_impenetrable_skin": "Toggle Impenetrable Skin",
 

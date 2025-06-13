@@ -17,17 +17,8 @@ public class ModItems {
     public static final Item RED_BRACELET = registerItem("red_bracelet",
             new RedBraceletItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
-    public static final Item RED_SHIELD_FRONT = registerItem("red_shield_front",
-            new RedShieldFrontItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
-
-    public static final Item RED_SHIELD_BACK = registerItem("red_shield_back",
-            new RedShieldBackItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
-
-    public static final Item RED_SHIELD_LEFT = registerItem("red_shield_left",
-            new RedShieldLeftItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
-
-    public static final Item RED_SHIELD_RIGHT = registerItem("red_shield_right",
-            new RedShieldRightItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item RED_SHIELD = registerItem("red_shield",
+            new RedShieldItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
     public static final Item DIAMOND_DAGGER = registerItem("diamond_dagger",
             new DiamondDaggerItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
@@ -47,8 +38,20 @@ public class ModItems {
     public static final Item SPIKY_BLACK_BALL = registerItem("spiky_black_ball",
             new SpikyBlackBallItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
+    public static final Item STRAND_OF_GREEN_STONES = registerItem("strand_of_green_stones",
+            new StrandOfGreenStonesItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+
+    public static final Item FILLED_BLACKHOLE = registerItem("filled_blackhole",
+            new FilledBlackholeItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+
+    public static final Item EMPTY_BLACKHOLE = registerItem("empty_blackhole",
+            new EmptyBlackholeItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+
     public static final Item X_RAY_STONE = registerItem("x_ray_stone",
             new XRayStoneItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+
+    public static final Item GREEN_STONE = registerItem("green_stone",
+            new GreenStoneItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
     public static final Item SHOCK_COLLAR = registerItem("shock_collar",
             new ShockCollarItem(new FabricItemSettings().maxCount(1)));

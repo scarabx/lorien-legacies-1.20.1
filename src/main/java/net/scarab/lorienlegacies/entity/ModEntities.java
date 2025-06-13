@@ -43,6 +43,16 @@ public class ModEntities {
             FabricEntityTypeBuilder.<SpikyBlackBallEntity>create(SpawnGroup.MISC, SpikyBlackBallEntity::new)
                     .dimensions(EntityDimensions.fixed(0.5f, 0.5f)).build());
 
+    public static final EntityType<EmptyBlackHoleEntity> EMPTY_BLACK_HOLE = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(MOD_ID, "empty_blackhole"),
+            FabricEntityTypeBuilder.<EmptyBlackHoleEntity>create(SpawnGroup.MISC, EmptyBlackHoleEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.5f, 0.5f)).build());
+
+    public static final EntityType<FilledBlackHoleEntity> FILLED_BLACK_HOLE = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(MOD_ID, "filled_blackhole"),
+            FabricEntityTypeBuilder.<FilledBlackHoleEntity>create(SpawnGroup.MISC, FilledBlackHoleEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.5f, 0.5f)).build());
+
     public static final EntityType<JoustStaffEntity> JOUST_STAFF = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(MOD_ID, "joust_staff"),
             FabricEntityTypeBuilder.<JoustStaffEntity>create(SpawnGroup.MISC, JoustStaffEntity::new)
