@@ -13,6 +13,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.scarab.lorienlegacies.LorienLegaciesMod;
 import net.scarab.lorienlegacies.effect.ModEffects;
+import net.scarab.lorienlegacies.item.ModItems;
 import net.scarab.lorienlegacies.potion.ModPotions;
 
 import java.util.HashMap;
@@ -175,10 +176,27 @@ public class LegacyBestowalHandler {
             staminaText = Text.literal(" | Tired: " + timeString).formatted(Formatting.RED);
         }
 
+        Text dangerText = Text.empty();
+        if (player.getWorld() instanceof ServerWorld serverWorld &&
+                (player.getMainHandStack().isOf(ModItems.RED_BRACELET) || player.getOffHandStack().isOf(ModItems.RED_BRACELET))) {
+
+            boolean dangerNearby = !serverWorld.getEntitiesByClass(
+                    HostileEntity.class,
+                    player.getBoundingBox().expand(15),
+                    e -> true
+            ).isEmpty();
+
+            if (dangerNearby) {
+                dangerText = Text.literal(" | ").formatted(Formatting.RED) // red but not bold
+                        .append(Text.literal("DANGER").formatted(Formatting.RED, Formatting.BOLD)); // red and bold
+            }
+        }
+
         Text combinedText = Text.empty()
                 .append(stressText)
                 .append(cooldownText)
-                .append(staminaText);
+                .append(staminaText)
+                .append(dangerText);
 
         player.sendMessage(combinedText, true);
     }

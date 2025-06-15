@@ -43,7 +43,7 @@ public class ModLootTableModifiers {
                 // Adds X Ray Stone to the shipwreck loot table.
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
-                        .conditionally(RandomChanceLootCondition.builder(1f/*0.75f*/)) // Drops 100% of the time
+                        .conditionally(RandomChanceLootCondition.builder(0.75f)) // Drops 75% of the time
                         .with(ItemEntry.builder(ModItems.GREEN_STONE))
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
                 tableBuilder.pool(poolBuilder.build());
@@ -54,7 +54,7 @@ public class ModLootTableModifiers {
                 // Adds X Ray Stone to the shipwreck loot table.
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
-                        .conditionally(RandomChanceLootCondition.builder(1f/*0.66f*/)) // Drops 100% of the time
+                        .conditionally(RandomChanceLootCondition.builder(0.66f)) // Drops 66% of the time
                         .with(ItemEntry.builder(ModItems.X_RAY_STONE))
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
                 tableBuilder.pool(poolBuilder.build());
@@ -65,7 +65,7 @@ public class ModLootTableModifiers {
                 // Adds Diamond Dagger to the Desert Temple loot table.
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
-                        .conditionally(RandomChanceLootCondition.builder(1f/*0.5f*/)) // Drops 100% of the time
+                        .conditionally(RandomChanceLootCondition.builder(0.5f)) // Drops 50% of the time
                         .with(ItemEntry.builder(ModItems.DIAMOND_DAGGER))
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
                 tableBuilder.pool(poolBuilder.build());
@@ -76,7 +76,7 @@ public class ModLootTableModifiers {
                 // Adds Joust Staff to the buried treasure loot table.
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
-                        .conditionally(RandomChanceLootCondition.builder(1f/*0.25f*/)) // Drops 10% of the time
+                        .conditionally(RandomChanceLootCondition.builder(0.25f)) // Drops 25% of the time
                         .with(ItemEntry.builder(ModItems.LEATHER_SLEEVE))
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
                 tableBuilder.pool(poolBuilder.build());
@@ -87,8 +87,8 @@ public class ModLootTableModifiers {
                 // Adds Joust Staff to the buried treasure loot table.
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
-                        .conditionally(RandomChanceLootCondition.builder(1f/*0.1f*/)) // Drops 10% of the time
-                        .with(ItemEntry.builder(ModItems.JOUST_STAFF))
+                        .conditionally(RandomChanceLootCondition.builder(0.1f)) // Drops 10% of the time
+                        .with(ItemEntry.builder(ModItems.SILVER_PIPE))
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
                 tableBuilder.pool(poolBuilder.build());
             }
@@ -98,7 +98,7 @@ public class ModLootTableModifiers {
                 // Adds Joust Staff to the buried treasure loot table.
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
-                        .conditionally(RandomChanceLootCondition.builder(1f/*0.1f*/)) // Drops 10% of the time
+                        .conditionally(RandomChanceLootCondition.builder(0.1f)) // Drops 10% of the time
                         .with(ItemEntry.builder(ModItems.SPIKY_YELLOW_BALL))
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
                 tableBuilder.pool(poolBuilder.build());
@@ -109,7 +109,7 @@ public class ModLootTableModifiers {
                 // Adds Joust Staff to the buried treasure loot table.
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
-                        .conditionally(RandomChanceLootCondition.builder(1f/*0.05f*/)) // Drops 10% of the time
+                        .conditionally(RandomChanceLootCondition.builder(0.05f)) // Drops 5% of the time
                         .with(ItemEntry.builder(ModItems.STRAND_OF_GREEN_STONES))
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
                 tableBuilder.pool(poolBuilder.build());
@@ -120,7 +120,7 @@ public class ModLootTableModifiers {
                 // Adds Joust Staff to the buried treasure loot table.
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
-                        .conditionally(RandomChanceLootCondition.builder(1f/*0.01f*/)) // Drops 10% of the time
+                        .conditionally(RandomChanceLootCondition.builder(0.01f)) // Drops 1% of the time
                         .with(ItemEntry.builder(ModItems.RED_BRACELET))
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
                 tableBuilder.pool(poolBuilder.build());

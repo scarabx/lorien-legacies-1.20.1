@@ -51,13 +51,14 @@ public class PondusEffect extends StatusEffect {
             if (player.hasStatusEffect(TOGGLE_INTANGIBILITY)
                     && !player.hasStatusEffect(TIRED)
                     && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)
+                    && !player.hasStatusEffect(PONDUS_COOLDOWN)
                     && !hasAmplifier(player, PONDUS, 99)
                     && !hasAmplifier(player, TOGGLE_IMPENETRABLE_SKIN, 99)) {
                 applyIntangibility(player);
             }
         }
         if (entity instanceof PlayerEntity player) {
-            if (player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION) && !hasAmplifier(player, PONDUS, 99) && !hasAmplifier(player, TOGGLE_IMPENETRABLE_SKIN, 99)) {
+            if (player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION) && !player.hasStatusEffect(PONDUS_COOLDOWN) && !hasAmplifier(player, PONDUS, 99) && !hasAmplifier(player, TOGGLE_IMPENETRABLE_SKIN, 99)) {
                     player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, Integer.MAX_VALUE, 4, false, false, false));
             } else {
                 player.removeStatusEffect(StatusEffects.STRENGTH);

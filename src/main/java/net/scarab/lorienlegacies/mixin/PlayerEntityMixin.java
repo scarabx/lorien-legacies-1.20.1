@@ -9,12 +9,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Hand;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
 
 import net.scarab.lorienlegacies.effect.ModEffects;
 import net.scarab.lorienlegacies.item.DiamondDaggerItem;
-import net.scarab.lorienlegacies.item.ModItems;
 import net.scarab.lorienlegacies.legacy_bestowal.LegacyBestowalHandler;
 
 import org.spongepowered.asm.mixin.Final;
@@ -38,6 +37,8 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Shadow
     public abstract boolean damage(DamageSource source, float amount);
+
+    @Shadow public abstract void playSound(SoundEvent sound, float volume, float pitch);
 
     @Inject(method = "dropItem(Lnet/minecraft/item/ItemStack;ZZ)Lnet/minecraft/entity/ItemEntity;",
             at = @At("HEAD"), cancellable = true)
@@ -96,7 +97,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     private void cancelDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         PlayerEntity player = (PlayerEntity) (Object) this;
 
-        boolean inhibited = player.hasStatusEffect(ModEffects.TIRED) || player.hasStatusEffect(ModEffects.ACTIVE_LEGACY_INHIBITION);
+        boolean inhibited = player.hasStatusEffect(ModEffects.TIRED) || player.hasStatusEffect(ModEffects.ACTIVE_LEGACY_INHIBITION) || player.hasStatusEffect(ModEffects.PONDUS_COOLDOWN);
 
         boolean hasIntangibility = player.hasStatusEffect(ModEffects.PONDUS)
                 && player.hasStatusEffect(ModEffects.TOGGLE_INTANGIBILITY)

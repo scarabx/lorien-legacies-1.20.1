@@ -26,7 +26,7 @@ public class LorienLegacyEventHandler {
                 List<StatusEffect> persistentEffects = List.of(
                         ModEffects.ACCELIX,
                         ModEffects.AVEX, ModEffects.INTANGIFLY,
-                        ModEffects.PONDUS, ModEffects.TOGGLE_IMPENETRABLE_SKIN, ModEffects.TOGGLE_INTANGIBILITY,
+                        ModEffects.PONDUS, ModEffects.TOGGLE_IMPENETRABLE_SKIN, ModEffects.TOGGLE_INTANGIBILITY, ModEffects.PONDUS_STAMINA, ModEffects.PONDUS_COOLDOWN,
                         ModEffects.TELEKINESIS, ModEffects.TOGGLE_TELEKINESIS_PUSH, ModEffects.TOGGLE_TELEKINESIS_PULL, ModEffects.TOGGLE_TELEKINESIS_MOVE,
                         ModEffects.CHIMAERA_CALL, ModEffects.CHIMAERA_MORPH, ModEffects.MARK_TARGET_FOR_WOLF,
                         ModEffects.GLACEN, ModEffects.TOGGLE_FREEZE_WATER, ModEffects.TOGGLE_ICE_HANDS, ModEffects.TOGGLE_ICICLES, ModEffects.TOGGLE_SHOOT_ICEBALL,

@@ -194,6 +194,8 @@ public class LorienLegaciesModNetworking {
                     SturmaEffect.lightningStrike(player);
                 }
                 if (player.getMainHandStack().isOf(ModItems.JOUST_STAFF) && player.isSneaking()) {
+                    player.removeStatusEffect(TIRED);
+                    player.removeStatusEffect(PONDUS_COOLDOWN);
                     player.addStatusEffect(new StatusEffectInstance(PONDUS, 20, 99, false, false, false));
                     player.addStatusEffect(new StatusEffectInstance(TOGGLE_IMPENETRABLE_SKIN, 20, 99, false, false, false));
                     player.addStatusEffect(new StatusEffectInstance(DEFLECT_STAMINA, 20, 0, false, false, false));
@@ -211,6 +213,7 @@ public class LorienLegaciesModNetworking {
                 }
                 if (player.hasStatusEffect(TELEKINESIS)) {
                     TelekinesisEffect.deflect(player);
+                    player.removeStatusEffect(PONDUS_COOLDOWN);
                     player.addStatusEffect(new StatusEffectInstance(DEFLECT_STAMINA, 20, 0, false, false, false));
                 }
                 if (player.hasStatusEffect(CHIMAERA_MORPH)) {
@@ -248,6 +251,9 @@ public class LorienLegaciesModNetworking {
             server.execute(() -> {
                 if (player.hasStatusEffect(PONDUS)) {
                     ToggleImpenetrableSkinEffect.toggleImpenetrableSkin(player);
+                    if (!player.hasStatusEffect(PONDUS_STAMINA) && !player.hasStatusEffect(PONDUS_COOLDOWN)) {
+                        player.addStatusEffect(new StatusEffectInstance(PONDUS_STAMINA, 200, 0, false, false, false));
+                    }
                 }
             });
         });
@@ -256,6 +262,9 @@ public class LorienLegaciesModNetworking {
             server.execute(() -> {
                 if (player.hasStatusEffect(PONDUS)) {
                     ToggleIntangibilityEffect.toggleIntangibility(player);
+                    if (!player.hasStatusEffect(PONDUS_STAMINA) && !player.hasStatusEffect(PONDUS_COOLDOWN)) {
+                        player.addStatusEffect(new StatusEffectInstance(PONDUS_STAMINA, 200, 0, false, false, false));
+                    }
                 }
             });
         });

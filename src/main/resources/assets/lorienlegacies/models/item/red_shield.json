@@ -694,10 +694,10 @@
 			"translation": [-5, 1, 10.75]
 		},
 		"firstperson_righthand": {
-			"translation": [-8.5, -15, 0]
+			"translation": [-8.5, -21, 0]
 		},
 		"firstperson_lefthand": {
-			"translation": [-8.5, -15, 0]
+			"translation": [-8.5, -21, 0]
 		},
 		"ground": {
 			"translation": [0, 22, 0]
