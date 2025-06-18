@@ -1,5 +1,7 @@
 package net.scarab.lorienlegacies.item;
 
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.HostileEntity;
@@ -8,7 +10,11 @@ import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Text;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 import static net.scarab.lorienlegacies.effect.ModEffects.*;
 
@@ -53,5 +59,19 @@ public class RedBraceletItem extends Item {
             }
         }
         super.inventoryTick(stack, world, entity, slot, selected);
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+
+        if (Screen.hasShiftDown()) {
+            tooltip.add(Text.translatable("tooltip.lorienlegacies.red_bracelet.tooltip.shift.1"));
+            tooltip.add(Text.translatable("tooltip.lorienlegacies.red_bracelet.tooltip.shift.2"));
+            tooltip.add(Text.translatable("tooltip.lorienlegacies.red_bracelet.tooltip.shift.3"));
+            tooltip.add(Text.translatable("tooltip.lorienlegacies.red_bracelet.tooltip.shift.4"));
+            tooltip.add(Text.translatable("tooltip.lorienlegacies.red_bracelet.tooltip.shift.5"));
+        } else {
+            tooltip.add(Text.translatable("tooltip.lorienlegacies.item.tooltip"));
+        }
     }
 }

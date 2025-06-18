@@ -192,11 +192,39 @@ public class LegacyBestowalHandler {
             }
         }
 
+        Text pondusStaminaText = Text.empty();
+
+        StatusEffectInstance pondusStaminaEffect = player.getStatusEffect(ModEffects.PONDUS_STAMINA);
+        StatusEffectInstance pondusCooldownEffect = player.getStatusEffect(ModEffects.PONDUS_COOLDOWN);
+
+        if (pondusStaminaEffect != null) {
+            int ticksLeft = pondusStaminaEffect.getDuration();
+            int totalSeconds = ticksLeft / TICKS_PER_SECOND;
+            int minutes = totalSeconds / 60;
+            int seconds = totalSeconds % 60;
+            String timeString = minutes > 0
+                    ? String.format("%dm %02ds", minutes, seconds)
+                    : String.format("%ds", seconds);
+
+            pondusStaminaText = Text.literal(" | Pondus Stamina: " + timeString).formatted(Formatting.YELLOW);
+        } else if (pondusCooldownEffect != null) {
+            int ticksLeft = pondusCooldownEffect.getDuration();
+            int totalSeconds = ticksLeft / TICKS_PER_SECOND;
+            int minutes = totalSeconds / 60;
+            int seconds = totalSeconds % 60;
+            String timeString = minutes > 0
+                    ? String.format("%dm %02ds", minutes, seconds)
+                    : String.format("%ds", seconds);
+
+            pondusStaminaText = Text.literal(" | Pondus Cooldown: " + timeString).formatted(Formatting.RED);
+        }
+
         Text combinedText = Text.empty()
                 .append(stressText)
                 .append(cooldownText)
                 .append(staminaText)
-                .append(dangerText);
+                .append(dangerText)
+                .append(pondusStaminaText);
 
         player.sendMessage(combinedText, true);
     }

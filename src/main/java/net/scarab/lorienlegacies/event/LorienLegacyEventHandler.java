@@ -1,14 +1,9 @@
 package net.scarab.lorienlegacies.event;
 
-import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.scarab.lorienlegacies.effect.ModEffects;
-import net.scarab.lorienlegacies.legacy_bestowal.LegacyBestowalHandler;
 
 import java.util.List;
 
@@ -26,8 +21,8 @@ public class LorienLegacyEventHandler {
                 List<StatusEffect> persistentEffects = List.of(
                         ModEffects.ACCELIX,
                         ModEffects.AVEX, ModEffects.INTANGIFLY,
-                        ModEffects.PONDUS, ModEffects.TOGGLE_IMPENETRABLE_SKIN, ModEffects.TOGGLE_INTANGIBILITY, ModEffects.PONDUS_STAMINA, ModEffects.PONDUS_COOLDOWN,
-                        ModEffects.TELEKINESIS, ModEffects.TOGGLE_TELEKINESIS_PUSH, ModEffects.TOGGLE_TELEKINESIS_PULL, ModEffects.TOGGLE_TELEKINESIS_MOVE,
+                        ModEffects.PONDUS, ModEffects.TOGGLE_IMPENETRABLE_SKIN, ModEffects.TOGGLE_INTANGIBILITY,
+                        ModEffects.TELEKINESIS, ModEffects.TOGGLE_TELEKINESIS_PUSH, ModEffects.TOGGLE_TELEKINESIS_PULL, ModEffects.TOGGLE_TELEKINESIS_MOVE, ModEffects.TOGGLE_TELEKINESIS_DEFLECT,
                         ModEffects.CHIMAERA_CALL, ModEffects.CHIMAERA_MORPH, ModEffects.MARK_TARGET_FOR_WOLF,
                         ModEffects.GLACEN, ModEffects.TOGGLE_FREEZE_WATER, ModEffects.TOGGLE_ICE_HANDS, ModEffects.TOGGLE_ICICLES, ModEffects.TOGGLE_SHOOT_ICEBALL,
                         ModEffects.LUMEN, ModEffects.TOGGLE_FLAMING_HANDS, ModEffects.TOGGLE_HUMAN_FIREBALL_AOE, ModEffects.TOGGLE_SHOOT_FIREBALL,
@@ -92,6 +87,58 @@ public class LorienLegacyEventHandler {
                             activeInhibitionEffect.isAmbient(),
                             activeInhibitionEffect.shouldShowParticles(),
                             activeInhibitionEffect.shouldShowIcon()
+                    ));
+                }
+
+                // Handle ACTIVE_LEGACY_INHIBITION
+                StatusEffectInstance pondusStaminaEffect = oldPlayer.getStatusEffect(ModEffects.PONDUS_STAMINA);
+                if (pondusStaminaEffect != null) {
+                    newPlayer.addStatusEffect(new StatusEffectInstance(
+                            ModEffects.PONDUS_STAMINA,
+                            pondusStaminaEffect.getDuration(),
+                            pondusStaminaEffect.getAmplifier(),
+                            pondusStaminaEffect.isAmbient(),
+                            pondusStaminaEffect.shouldShowParticles(),
+                            pondusStaminaEffect.shouldShowIcon()
+                    ));
+                }
+
+                // Handle ACTIVE_LEGACY_INHIBITION
+                StatusEffectInstance pondusCooldownEffect = oldPlayer.getStatusEffect(ModEffects.PONDUS_COOLDOWN);
+                if (pondusCooldownEffect != null) {
+                    newPlayer.addStatusEffect(new StatusEffectInstance(
+                            ModEffects.PONDUS_COOLDOWN,
+                            pondusCooldownEffect.getDuration(),
+                            pondusCooldownEffect.getAmplifier(),
+                            pondusCooldownEffect.isAmbient(),
+                            pondusCooldownEffect.shouldShowParticles(),
+                            pondusCooldownEffect.shouldShowIcon()
+                    ));
+                }
+
+                // Handle ACTIVE_LEGACY_INHIBITION
+                StatusEffectInstance deflectStaminaEffect = oldPlayer.getStatusEffect(ModEffects.DEFLECT_STAMINA);
+                if (deflectStaminaEffect != null) {
+                    newPlayer.addStatusEffect(new StatusEffectInstance(
+                            ModEffects.DEFLECT_STAMINA,
+                            deflectStaminaEffect.getDuration(),
+                            deflectStaminaEffect.getAmplifier(),
+                            deflectStaminaEffect.isAmbient(),
+                            deflectStaminaEffect.shouldShowParticles(),
+                            deflectStaminaEffect.shouldShowIcon()
+                    ));
+                }
+
+                // Handle ACTIVE_LEGACY_INHIBITION
+                StatusEffectInstance deflectCooldownEffect = oldPlayer.getStatusEffect(ModEffects.DEFLECT_COOLDOWN);
+                if (deflectCooldownEffect != null) {
+                    newPlayer.addStatusEffect(new StatusEffectInstance(
+                            ModEffects.DEFLECT_COOLDOWN,
+                            deflectCooldownEffect.getDuration(),
+                            deflectCooldownEffect.getAmplifier(),
+                            deflectCooldownEffect.isAmbient(),
+                            deflectCooldownEffect.shouldShowParticles(),
+                            deflectCooldownEffect.shouldShowIcon()
                     ));
                 }
 

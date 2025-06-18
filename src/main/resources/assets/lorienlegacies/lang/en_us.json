@@ -4,6 +4,18 @@
 
   "item.lorienlegacies.red_shield": "Red Shield",
 
+  "tooltip.lorienlegacies.red_bracelet.tooltip.shift.1": "Has a 1% chance to be found as Woodland Mansion loot.",
+
+  "tooltip.lorienlegacies.red_bracelet.tooltip.shift.2": "A red danger warning appears on screen when hostile mobs get within 15 blocks",
+
+  "tooltip.lorienlegacies.red_bracelet.tooltip.shift.3": "of you.",
+
+  "tooltip.lorienlegacies.red_bracelet.tooltip.shift.4": "Creates a red shield (only visible if in mainhand or offhand) around you when",
+
+  "tooltip.lorienlegacies.red_bracelet.tooltip.shift.5": "hostile mobs or projectiles get within 3 blocks of you.",
+
+  "tooltip.lorienlegacies.item.tooltip": "Press shift for more information",
+
   "item.lorienlegacies.diamond_dagger": "Diamond Dagger",
 
   "item.lorienlegacies.retracted_leather_sleeve": "Leather Sleeve",
@@ -162,5 +174,18 @@
 
   "key.lorienlegacies.open_radial_menu": "Open Radial Menu",
 
-  "itemgroup.lorien_legacies": "Lorien Legacies"
+  "itemgroup.lorien_legacies": "Lorien Legacies",
+
+  "tooltip.lorienlegacies.diamond_dagger.tooltip.shift.1": "Has a 50% chance to be found as Desert Temple loot.",
+  "tooltip.lorienlegacies.diamond_dagger.tooltip.shift.2": "Leftclick to melee attack. Rightclick to activate wrist wrap mode.",
+  "tooltip.lorienlegacies.diamond_dagger.tooltip.shift.3": "During wrist wrap mode, dagger damage doubles and dagger becomes slot locked.",
+  "tooltip.lorienlegacies.strand_of_green_stones.tooltip.shift.1": "Has a 5% chance to be found as Jungle Temple loot.",
+  "tooltip.lorienlegacies.strand_of_green_stones.tooltip.shift.2": "Rightclick to turn strand of green stones item into an empty blackhole item.",
+  "tooltip.lorienlegacies.strand_of_green_stones.tooltip.shift.3": "Rightclick empty blackhole item to spawn an empty blackhole entity.",
+  "tooltip.lorienlegacies.strand_of_green_stones.tooltip.shift.4": "Empty blackhole entity sucks up blocks and drops as filled blackhole item after 5",
+  "tooltip.lorienlegacies.strand_of_green_stones.tooltip.shift.5": "seconds.",
+  "tooltip.lorienlegacies.strand_of_green_stones.tooltip.shift.6": "Rightclick filled blackhole item to summon filled blackhole entity.",
+  "tooltip.lorienlegacies.strand_of_green_stones.tooltip.shift.7": "Filled blackhole entity shoots arrows in all directions for 5 seconds.",
+  "tooltip.lorienlegacies.strand_of_green_stones.tooltip.shift.8": "Ducking or equipping red bracelet is advised."
+
 }

@@ -1,11 +1,17 @@
 package net.scarab.lorienlegacies.item;
 
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class StrandOfGreenStonesItem extends Item {
 
@@ -26,6 +32,23 @@ public class StrandOfGreenStonesItem extends Item {
         }
 
         return super.use(world, user, hand);
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+
+        if (Screen.hasShiftDown()) {
+            tooltip.add(Text.translatable("tooltip.lorienlegacies.strand_of_green_stones.tooltip.shift.1"));
+            tooltip.add(Text.translatable("tooltip.lorienlegacies.strand_of_green_stones.tooltip.shift.2"));
+            tooltip.add(Text.translatable("tooltip.lorienlegacies.strand_of_green_stones.tooltip.shift.3"));
+            tooltip.add(Text.translatable("tooltip.lorienlegacies.strand_of_green_stones.tooltip.shift.4"));
+            tooltip.add(Text.translatable("tooltip.lorienlegacies.strand_of_green_stones.tooltip.shift.5"));
+            tooltip.add(Text.translatable("tooltip.lorienlegacies.strand_of_green_stones.tooltip.shift.6"));
+            tooltip.add(Text.translatable("tooltip.lorienlegacies.strand_of_green_stones.tooltip.shift.7"));
+            tooltip.add(Text.translatable("tooltip.lorienlegacies.strand_of_green_stones.tooltip.shift.8"));
+        } else {
+            tooltip.add(Text.translatable("tooltip.lorienlegacies.item.tooltip"));
+        }
     }
 }
 

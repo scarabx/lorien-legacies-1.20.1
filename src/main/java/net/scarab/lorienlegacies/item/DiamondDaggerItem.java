@@ -1,5 +1,7 @@
 package net.scarab.lorienlegacies.item;
 
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
@@ -7,6 +9,9 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class DiamondDaggerItem extends Item {
 
@@ -44,5 +49,17 @@ public class DiamondDaggerItem extends Item {
 
     public void setWristWrapped(ItemStack stack, boolean isWristWrapped) {
         stack.getOrCreateNbt().putBoolean(WRIST_WRAPPED_KEY, isWristWrapped);
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+
+        if (Screen.hasShiftDown()) {
+            tooltip.add(Text.translatable("tooltip.lorienlegacies.diamond_dagger.tooltip.shift.1"));
+            tooltip.add(Text.translatable("tooltip.lorienlegacies.diamond_dagger.tooltip.shift.2"));
+            tooltip.add(Text.translatable("tooltip.lorienlegacies.diamond_dagger.tooltip.shift.3"));
+        } else {
+            tooltip.add(Text.translatable("tooltip.lorienlegacies.item.tooltip"));
+        }
     }
 }
