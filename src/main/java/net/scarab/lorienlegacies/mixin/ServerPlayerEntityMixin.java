@@ -4,7 +4,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.scarab.lorienlegacies.item.DiamondDaggerItem;
-import net.scarab.lorienlegacies.item.JoustStaffItem;
 import net.scarab.lorienlegacies.item.LeatherSleeveItem;
 import net.scarab.lorienlegacies.legacy_bestowal.LegacyBestowalHandler;
 import org.spongepowered.asm.mixin.Mixin;

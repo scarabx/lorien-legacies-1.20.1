@@ -32,16 +32,6 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 .criterion(hasItem(ModItems.LORALITE), conditionsFromItem(ModItems.LORALITE))
                 .offerTo(exporter, new Identifier(getRecipeName(ModItems.LORIC_STONE) + "_"));
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.LEATHER_SLEEVE)
-                .pattern(" L ")
-                .pattern(" H ")
-                .pattern(" H ")
-                .input('L', ModItems.LORALITE)
-                .input('H', Items.LEATHER) // H for Horse Skin
-                .criterion(hasItem(Items.LEATHER), conditionsFromItem(Items.LEATHER))
-                .criterion(hasItem(ModItems.LORALITE), conditionsFromItem(ModItems.LORALITE))
-                .offerTo(exporter, new Identifier(getRecipeName(ModItems.LEATHER_SLEEVE) + "_"));
-
         offerReversibleCompactingRecipes(exporter, RecipeCategory.MISC, ModItems.LORALITE, RecipeCategory.MISC, ModBlocks.LORALITE_BLOCK);
 
         offerSmelting(exporter, List.of(ModItems.LORALITE, ModBlocks.LORALITE_ORE), RecipeCategory.MISC, ModItems.LORALITE,

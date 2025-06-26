@@ -6,15 +6,19 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.RangedWeaponItem;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.TypedActionResult;
 import net.scarab.lorienlegacies.block.ModBlocks;
 import net.scarab.lorienlegacies.chimaera.MorphHandler;
+import net.scarab.lorienlegacies.command.ModCommands;
 import net.scarab.lorienlegacies.effect.active_effects.GlacenEffect;
 import net.scarab.lorienlegacies.effect.active_effects.LumenEffect;
 import net.scarab.lorienlegacies.effect.ModEffects;
@@ -40,6 +44,18 @@ public class LorienLegaciesMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+
+		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+			ServerPlayerEntity player = handler.player;
+			player.sendMessage(
+					Text.literal("[LorienLegacies] ")
+							.formatted(Formatting.GOLD)
+							.append(Text.literal("Use ").formatted(Formatting.YELLOW))
+							.append(Text.literal("/modhelp page number").formatted(Formatting.AQUA, Formatting.BOLD))
+							.append(Text.literal(" for instructions on how to use the mod.").formatted(Formatting.YELLOW)),
+					false
+			);
+		});
 
 		AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
 			if (!world.isClient && entity instanceof LivingEntity target) {
@@ -105,6 +121,8 @@ public class LorienLegaciesMod implements ModInitializer {
 				player.getInventory().selectedSlot = wristWrappedSlot;
 			}
 		});
+
+		ModCommands.register();
 
 		ModItemGroup.registerItemGroups();
 
