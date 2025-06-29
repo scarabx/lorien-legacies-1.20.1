@@ -38,6 +38,8 @@ public class ModItemGroup {
 
                         entries.add(ModItems.INHIBITOR_REMOTE);
 
+                        entries.add(ModItems.DEINHIBITOR);
+
                         entries.add(ModItems.LORALITE);
 
                         entries.add(ModItems.LORIC_STONE);

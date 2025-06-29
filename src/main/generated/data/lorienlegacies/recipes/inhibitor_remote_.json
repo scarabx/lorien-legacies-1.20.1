@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "S": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "pattern": [
+    " N ",
+    "NSN",
+    " N "
+  ],
+  "result": {
+    "item": "lorienlegacies:inhibitor_remote"
+  },
+  "show_notification": true
+}

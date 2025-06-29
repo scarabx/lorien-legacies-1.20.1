@@ -21,22 +21,29 @@ public class RedShieldItem extends Item {
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         if (!(entity instanceof PlayerEntity player) || world.isClient()) return;
-        // Remove some status effects every tick (clean slate)
+
         player.removeStatusEffect(TIRED);
         player.removeStatusEffect(PONDUS_COOLDOWN);
         player.removeStatusEffect(PONDUS_STAMINA);
+
+        player.addStatusEffect(new StatusEffectInstance(PONDUS, 20, 99, false, false, false));
+        player.addStatusEffect(new StatusEffectInstance(TOGGLE_IMPENETRABLE_SKIN, 20, 99, false, false, false));
+
         ServerWorld serverWorld = (ServerWorld) world;
+
         // Check for nearby hostiles and projectiles
         boolean hasNearbyHostiles = !serverWorld.getEntitiesByClass(
                 HostileEntity.class,
                 player.getBoundingBox().expand(3),
                 e -> true
         ).isEmpty();
+
         boolean hasNearbyProjectiles = !serverWorld.getOtherEntities(
                 player,
                 player.getBoundingBox().expand(3),
                 e -> e instanceof ProjectileEntity && e.isAlive()
         ).isEmpty();
+
         // Revert only if no hostiles and no projectiles nearby
         if (!hasNearbyHostiles && !hasNearbyProjectiles) {
             boolean inOffhand = player.getOffHandStack() == stack;

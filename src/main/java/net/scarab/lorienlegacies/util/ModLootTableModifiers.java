@@ -40,7 +40,7 @@ public class ModLootTableModifiers {
 
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
             if(OCEAN_RUIN_CHEST_ID.equals(id)) {
-                // Adds X Ray Stone to the shipwreck loot table.
+                // Adds Green Stone to the ocean ruin loot table.
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
                         .conditionally(RandomChanceLootCondition.builder(0.75f)) // Drops 75% of the time

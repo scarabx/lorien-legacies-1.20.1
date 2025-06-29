@@ -51,8 +51,8 @@ public class RedBraceletItem extends Item {
                 } else {
                     player.getInventory().insertStack(slot, shield);
                 }
-                player.addStatusEffect(new StatusEffectInstance(PONDUS, Integer.MAX_VALUE, 99, false, false, false));
-                player.addStatusEffect(new StatusEffectInstance(TOGGLE_IMPENETRABLE_SKIN, Integer.MAX_VALUE, 99, false, false, false));
+                player.addStatusEffect(new StatusEffectInstance(PONDUS, 20, 99, false, false, false));
+                player.addStatusEffect(new StatusEffectInstance(TOGGLE_IMPENETRABLE_SKIN, 20, 99, false, false, false));
                 player.removeStatusEffect(TIRED);
                 player.removeStatusEffect(PONDUS_COOLDOWN);
                 player.removeStatusEffect(PONDUS_STAMINA);

@@ -1,16 +1,22 @@
 package net.scarab.lorienlegacies.item;
 
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
+import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import net.scarab.lorienlegacies.entity.IceballProjectileEntity;
 import net.scarab.lorienlegacies.entity.ShockCollarProjectileEntity;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class ShockCollarItem extends Item {
     public ShockCollarItem(Settings settings) {
@@ -34,5 +40,16 @@ public class ShockCollarItem extends Item {
         }
 
         return TypedActionResult.success(itemStack, world.isClient());
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+
+        if (Screen.hasShiftDown()) {
+            tooltip.add(Text.translatable("tooltip.lorienlegacies.shock_collar.tooltip.shift.1"));
+            tooltip.add(Text.translatable("tooltip.lorienlegacies.shock_collar.tooltip.shift.2"));
+        } else {
+            tooltip.add(Text.translatable("tooltip.lorienlegacies.item.tooltip"));
+        }
     }
 }

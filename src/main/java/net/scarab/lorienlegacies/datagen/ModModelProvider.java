@@ -38,5 +38,7 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.INHIBITOR, Models.GENERATED);
 
         itemModelGenerator.register(ModItems.INHIBITOR_REMOTE, Models.GENERATED);
+
+        itemModelGenerator.register(ModItems.DEINHIBITOR, Models.GENERATED);
     }
 }

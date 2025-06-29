@@ -253,7 +253,9 @@ public class LegacyBestowalHandler {
             player.giveItemStack(splashPotion);
             player.sendMessage(Text.literal("NEVER DRINK MILK OR YOU WILL LOSE YOUR LEGACY").formatted(Formatting.RED), false);
         } else {
-            player.sendMessage(Text.literal(player.getName().getString() + " already has been bestowed upon the " + randomEffect.getName().getString() + " legacy."), false);
+            String message = player.getName().getString() + " already has been bestowed upon the " + randomEffect.getName().getString() + " legacy.";
+            message = message.substring(0, 1).toUpperCase() + message.substring(1);
+            player.sendMessage(Text.literal(message), false);
         }
     }
 

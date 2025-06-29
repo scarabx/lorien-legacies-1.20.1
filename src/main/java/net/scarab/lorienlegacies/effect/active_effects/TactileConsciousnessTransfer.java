@@ -10,6 +10,7 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.Angerable;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -303,7 +304,7 @@ public class TactileConsciousnessTransfer extends StatusEffect {
             if (data == null) return;
 
             Entity entity = data.entity;
-            if (!(entity instanceof MobEntity mob)) return;
+            if (!(entity instanceof HostileEntity mob)) return;
 
             World world = mob.getWorld();
             double radius = 16.0;

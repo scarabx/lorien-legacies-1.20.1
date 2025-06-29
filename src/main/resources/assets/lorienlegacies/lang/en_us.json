@@ -4,18 +4,6 @@
 
   "item.lorienlegacies.red_shield": "Red Shield",
 
-  "tooltip.lorienlegacies.red_bracelet.tooltip.shift.1": "Has a 1% chance to be found as Woodland Mansion loot.",
-
-  "tooltip.lorienlegacies.red_bracelet.tooltip.shift.2": "A red danger warning appears on screen when hostile mobs get within 15 blocks",
-
-  "tooltip.lorienlegacies.red_bracelet.tooltip.shift.3": "of you.",
-
-  "tooltip.lorienlegacies.red_bracelet.tooltip.shift.4": "Creates a red shield (only visible if in mainhand or offhand) around you when",
-
-  "tooltip.lorienlegacies.red_bracelet.tooltip.shift.5": "hostile mobs or projectiles get within 3 blocks of you.",
-
-  "tooltip.lorienlegacies.item.tooltip": "Press shift for more information",
-
   "item.lorienlegacies.diamond_dagger": "Diamond Dagger",
 
   "item.lorienlegacies.retracted_leather_sleeve": "Leather Sleeve",
@@ -25,6 +13,8 @@
   "item.lorienlegacies.joust_staff": "Joust Staff",
 
   "item.lorienlegacies.spiky_yellow_ball": "Spiky Yellow Ball",
+
+  "item.lorienlegacies.spiky_black_ball": "Spiky Black Ball",
 
   "item.lorienlegacies.strand_of_green_stones": "Strand Of Green Stones",
 
@@ -37,6 +27,8 @@
   "item.lorienlegacies.inhibitor": "Inhibitor",
 
   "item.lorienlegacies.inhibitor_remote": "Inhibitor Remote",
+
+  "item.lorienlegacies.deinhibitor": "Deinhibitor",
 
   "item.lorienlegacies.x_ray_stone": "X Ray Stone",
 
@@ -179,6 +171,13 @@
   "tooltip.lorienlegacies.diamond_dagger.tooltip.shift.1": "Has a 50% chance to be found as Desert Temple loot.",
   "tooltip.lorienlegacies.diamond_dagger.tooltip.shift.2": "Leftclick to melee attack. Rightclick to activate wrist wrap mode.",
   "tooltip.lorienlegacies.diamond_dagger.tooltip.shift.3": "During wrist wrap mode, dagger damage doubles and dagger becomes slot locked.",
+
+  "tooltip.lorienlegacies.red_bracelet.tooltip.shift.1": "Has a 1% chance to be found as Woodland Mansion loot.",
+  "tooltip.lorienlegacies.red_bracelet.tooltip.shift.2": "A red danger warning appears on screen when hostile mobs get within 15 blocks",
+  "tooltip.lorienlegacies.red_bracelet.tooltip.shift.3": "of you.",
+  "tooltip.lorienlegacies.red_bracelet.tooltip.shift.4": "Creates a red shield (only visible if in mainhand or offhand) around you when",
+  "tooltip.lorienlegacies.red_bracelet.tooltip.shift.5": "hostile mobs or projectiles get within 3 blocks of you.",
+
   "tooltip.lorienlegacies.strand_of_green_stones.tooltip.shift.1": "Has a 5% chance to be found as Jungle Temple loot.",
   "tooltip.lorienlegacies.strand_of_green_stones.tooltip.shift.2": "Rightclick to turn strand of green stones item into an empty blackhole item.",
   "tooltip.lorienlegacies.strand_of_green_stones.tooltip.shift.3": "Rightclick empty blackhole item to spawn an empty blackhole entity.",
@@ -186,6 +185,44 @@
   "tooltip.lorienlegacies.strand_of_green_stones.tooltip.shift.5": "seconds.",
   "tooltip.lorienlegacies.strand_of_green_stones.tooltip.shift.6": "Rightclick filled blackhole item to summon filled blackhole entity.",
   "tooltip.lorienlegacies.strand_of_green_stones.tooltip.shift.7": "Filled blackhole entity shoots arrows in all directions for 5 seconds.",
-  "tooltip.lorienlegacies.strand_of_green_stones.tooltip.shift.8": "Ducking or equipping red bracelet is advised."
+  "tooltip.lorienlegacies.strand_of_green_stones.tooltip.shift.8": "Ducking or equipping red bracelet is advised.",
+
+  "tooltip.lorienlegacies.green_stone.tooltip.shift.1": "Has a 75% chance to be found as Ocean Ruin loot.",
+  "tooltip.lorienlegacies.green_stone.tooltip.shift.2": "Rightclick in look direction when underwater, to boost in look direction.",
+
+  "tooltip.lorienlegacies.x_ray_stone.tooltip.shift.1": "Has a 66% chance to be found as Shipwreck loot.",
+  "tooltip.lorienlegacies.x_ray_stone.tooltip.shift.2": "Rightclick to highlight entities in a 30 blocks radius, after use, you get",
+  "tooltip.lorienlegacies.x_ray_stone.tooltip.shift.3": "effected with a 5 second cooldown during which you can't use X Ray Stone.",
+
+  "tooltip.lorienlegacies.silver_pipe.tooltip.shift.1": "Has a 10% chance to be found as Buried Treasure loot.",
+  "tooltip.lorienlegacies.silver_pipe.tooltip.shift.2": "Rightclick to extend pipe into a two-sided spear with red, glowing and molten-hot",
+  "tooltip.lorienlegacies.silver_pipe.tooltip.shift.3": "blades.",
+  "tooltip.lorienlegacies.silver_pipe.tooltip.shift.4": "Leftclick to melee attack with spear and ignite target. Rightclick to throw spear",
+  "tooltip.lorienlegacies.silver_pipe.tooltip.shift.5": "and ignite target.",
+  "tooltip.lorienlegacies.silver_pipe.tooltip.shift.6": "If Telekinesis Pull ability is active, spear returns to you after being thrown.",
+  "tooltip.lorienlegacies.silver_pipe.tooltip.shift.7": "Shift leftclick to deflect projectiles and damage for 1 second .",
+  "tooltip.lorienlegacies.silver_pipe.tooltip.shift.8": "after which you are effected with 5 seconds of Deflect cooldown, during which you can't deflect projectiles and damage.",
+
+  "tooltip.lorienlegacies.spiky_yellow_ball.tooltip.shift.1": "Has a 10% chance to be found as Igloo loot.",
+  "tooltip.lorienlegacies.spiky_yellow_ball.tooltip.shift.2": "Rightclick to throw Spiky Yellow Ball. Ball expands into a big, black and",
+  "tooltip.lorienlegacies.spiky_yellow_ball.tooltip.shift.3": "spiky ball that destroys blocks and kills entities.",
+
+  "tooltip.lorienlegacies.leather_sleeve.tooltip.shift.1": "Has a 25% chance to be found as Ancient City loot.",
+  "tooltip.lorienlegacies.leather_sleeve.tooltip.shift.2": "Rightclick to extend sharp needle blade from sleeve.",
+  "tooltip.lorienlegacies.leather_sleeve.tooltip.shift.3": "Leftclick to melee attack. Instantly kills most entities.",
+
+  "tooltip.lorienlegacies.shock_collar.tooltip.shift.1": "Throw a player with rightclick to effect player with Active Legacy Inhbition for 5 seconds,",
+
+  "tooltip.lorienlegacies.inhibitor.tooltip.shift.1": "Hit a player to effect player with Legacy Inhibition.",
+  "tooltip.lorienlegacies.inhibitor.tooltip.shift.2": "Use with inhibitor remote for maximum effect.",
+  "tooltip.lorienlegacies.inhibitor.tooltip.shift.3": "§cRead Inhibitor Remote tooltip for more info.",
+
+  "tooltip.lorienlegacies.inhibitor_remote.tooltip.shift.1": "Rightclick while looking at a Legacy Inhibition effected player",
+  "tooltip.lorienlegacies.inhibitor_remote.tooltip.shift.2": "to effect player with Active Legacy Inhibition for 5 seconds,",
+  "tooltip.lorienlegacies.inhibitor_remote.tooltip.shift.3": "which prevents player from using his Legacies, blinds, weakens and slows player.",
+
+  "tooltip.lorienlegacies.item.tooltip": "Press shift for more information",
+  "tooltip.lorienlegacies.shock_collar.tooltip.shift.2": "which prevents player from using his Legacies, blinds, weakens and slows player.",
+  "tooltip.lorienlegacies.deinhibitor.tooltip.shift.1": "Rightclick to remove Legacy Inhibition effect."
 
 }

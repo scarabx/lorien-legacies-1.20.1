@@ -1,4 +1,5 @@
 {
+	"format_version": "1.21.6",
 	"credit": "Made with Blockbench",
 	"textures": {
 		"0": "lorienlegacies:item/black_spike_ball_3d",
@@ -4793,10 +4794,10 @@
 	"gui_light": "front",
 	"display": {
 		"thirdperson_righthand": {
-			"translation": [0, 12, 2]
+			"translation": [0, 10, 2]
 		},
 		"thirdperson_lefthand": {
-			"translation": [0, 12, 2]
+			"translation": [0, 10, 2]
 		},
 		"firstperson_righthand": {
 			"translation": [-2.5, 4, 0],

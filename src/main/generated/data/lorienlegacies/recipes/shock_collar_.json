@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "E": {
+      "item": "minecraft:ender_eye"
+    }
+  },
+  "pattern": [
+    "DED",
+    " D "
+  ],
+  "result": {
+    "item": "lorienlegacies:shock_collar"
+  },
+  "show_notification": true
+}

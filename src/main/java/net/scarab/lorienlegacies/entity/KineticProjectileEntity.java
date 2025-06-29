@@ -13,7 +13,10 @@ import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class KineticProjectileEntity extends ThrownItemEntity {
     public KineticProjectileEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
@@ -53,17 +56,32 @@ public class KineticProjectileEntity extends ThrownItemEntity {
     @Override
     protected void onBlockHit(BlockHitResult blockHitResult) {
         // Get the world and block position
-        if (!this.getWorld().isClient()) {
-            BlockPos pos = blockHitResult.getBlockPos();
-            this.getWorld().createExplosion(
-                    this,                  // Entity responsible for the explosion
-                    pos.getX() + 0.5,      // Center X
-                    pos.getY() + 0.5,      // Center Y
-                    pos.getZ() + 0.5,      // Center Z
-                    3.0f,                  // Explosion power
-                    World.ExplosionSourceType.MOB  // Allows block destruction and entity damage
-            );
+        double x = this.getX();
+        double y = this.getY();
+        double z = this.getZ();
+
+        // Check for nearby entities within 5-block radius
+        List<LivingEntity> nearbyEntities = this.getWorld().getEntitiesByClass(
+                LivingEntity.class,
+                new Box(x - 5, y - 5, z - 5, x + 5, y + 5, z + 5),
+                LivingEntity::isAlive
+        );
+
+        // If any entity nearby, re-center explosion on it
+        if (!nearbyEntities.isEmpty()) {
+            LivingEntity target = nearbyEntities.get(0);
+            x = target.getX();
+            y = target.getY();
+            z = target.getZ();
         }
+
+        // Create explosion at determined location
+        this.getWorld().createExplosion(
+                this, // cause
+                x, y, z,
+                3.0F,
+                World.ExplosionSourceType.MOB
+        );
 
         super.onBlockHit(blockHitResult);
         this.discard(); // Remove the projectile after the explosion

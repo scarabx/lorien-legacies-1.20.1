@@ -21,7 +21,6 @@ public class ModBlocks {
     public static final Block LORALITE_ORE = registerBlock("loralite_ore",
             new ExperienceDroppingBlock(FabricBlockSettings.copyOf(Blocks.STONE), UniformIntProvider.create(3, 6)));
 
-
     private static Block registerBlockWithoutBlockItem(String name, Block block) {
         return Registry.register(Registries.BLOCK, new Identifier(LorienLegaciesMod.MOD_ID, name), block);
     }

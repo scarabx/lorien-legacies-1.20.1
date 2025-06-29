@@ -14,11 +14,11 @@ import net.scarab.lorienlegacies.block.ModBlocks;
 
 public class ModItems {
 
-    public static final Item RED_BRACELET = registerItem("red_bracelet",
-            new RedBraceletItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item GREEN_STONE = registerItem("green_stone",
+            new GreenStoneItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
-    public static final Item RED_SHIELD = registerItem("red_shield",
-            new RedShieldItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item X_RAY_STONE = registerItem("x_ray_stone",
+            new XRayStoneItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
     public static final Item DIAMOND_DAGGER = registerItem("diamond_dagger",
             new DiamondDaggerItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
@@ -47,11 +47,11 @@ public class ModItems {
     public static final Item EMPTY_BLACKHOLE = registerItem("empty_blackhole",
             new EmptyBlackholeItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
-    public static final Item X_RAY_STONE = registerItem("x_ray_stone",
-            new XRayStoneItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item RED_BRACELET = registerItem("red_bracelet",
+            new RedBraceletItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
-    public static final Item GREEN_STONE = registerItem("green_stone",
-            new GreenStoneItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item RED_SHIELD = registerItem("red_shield",
+            new RedShieldItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
     public static final Item SHOCK_COLLAR = registerItem("shock_collar",
             new ShockCollarItem(new FabricItemSettings().maxCount(1)));
@@ -61,6 +61,9 @@ public class ModItems {
 
     public static final Item INHIBITOR_REMOTE = registerItem("inhibitor_remote",
             new InhibitorRemoteItem(new FabricItemSettings().maxDamage(500)));
+
+    public static final Item DEINHIBITOR = registerItem("deinhibitor",
+            new DeinhibitorItem(new FabricItemSettings().maxDamage(1)));
 
     public static final Item LORALITE = registerItem("loralite",
             new Item(new FabricItemSettings()));
