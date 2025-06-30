@@ -40,23 +40,24 @@ public class ModCommands {
 
     public static void register() {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-            dispatcher.register(CommandManager.literal("modhelp")
-                    .executes(ctx -> {
-                        sendHelpPage(ctx.getSource(), 1);
-                        return 1;
-                    })
-                    .then(CommandManager.literal("index")
+            dispatcher.register(CommandManager.literal("ll")
+                    .then(CommandManager.literal("modhelp")
                             .executes(ctx -> {
-                                sendHelpIndex(ctx.getSource());
+                                sendHelpPage(ctx.getSource(), 1);
                                 return 1;
-                            }))
-                    .then(CommandManager.argument("page", IntegerArgumentType.integer(1, 19))
-                            .executes(ctx -> {
-                                int page = IntegerArgumentType.getInteger(ctx, "page");
-                                sendHelpPage(ctx.getSource(), page);
-                                return 1;
-                            }))
-            );
+                            })
+                            .then(CommandManager.literal("index")
+                                    .executes(ctx -> {
+                                        sendHelpIndex(ctx.getSource());
+                                        return 1;
+                                    }))
+                            .then(CommandManager.argument("page", IntegerArgumentType.integer(1, 19))
+                                    .executes(ctx -> {
+                                        int page = IntegerArgumentType.getInteger(ctx, "page");
+                                        sendHelpPage(ctx.getSource(), page);
+                                        return 1;
+                                    }))
+                    ));
         });
     }
 
@@ -69,7 +70,7 @@ public class ModCommands {
                     .styled(style -> style.withColor(Formatting.YELLOW)), false);
         });
 
-        source.sendFeedback(() -> Text.literal("Use /modhelp <page> to view a specific page.")
+        source.sendFeedback(() -> Text.literal("Use /ll modhelp <page> to view a specific page.")
                 .styled(style -> style.withColor(Formatting.GRAY).withItalic(true)), false);
     }
 
@@ -84,7 +85,7 @@ public class ModCommands {
             case 1 -> {
                 source.sendFeedback(() -> Text.literal("Acquire 100 stress points by hitting hostiles or by being hit by hostiles for a 33% chance of gaining a random legacy.").styled(s -> s.withColor(Formatting.RED)), false);
                 source.sendFeedback(() -> Text.literal("When low on health you get cyclically effected with 10 seconds of stamina and 5 seconds of tired. During tired, you cannot use your legacies.").styled(s -> s.withColor(Formatting.RED)), false);
-                source.sendFeedback(() -> Text.literal("When activating Pondus Impenetrable Skin or Pondus Intangibility you get cyclically effected with 10s of Pondus stamina and 5 seconds of Pondus cooldown during which you cannot use Impenetrable Skin or Intangibility.").styled(s -> s.withColor(Formatting.RED)), false);
+                source.sendFeedback(() -> Text.literal("When activating Pondus Impenetrable Skin or Pondus Intangibility, you get cyclically effected with 10 seconds of Pondus stamina and 5 seconds of Pondus cooldown during which you cannot use Impenetrable Skin or Intangibility.").styled(s -> s.withColor(Formatting.RED)), false);
             }
             case 2 -> {
                 source.sendFeedback(() -> Text.literal("Activate legacy abilities with a radial menu opened using the R key.").styled(s -> s.withColor(Formatting.BLUE)), false);
@@ -137,7 +138,7 @@ public class ModCommands {
                 source.sendFeedback(() -> Text.literal("Sturma Lightning: Strike your foes with lightning. Activated with radial menu and triggered with leftclick.").styled(s -> s.withColor(Formatting.YELLOW)), false);
             }
             case 9 -> {
-                source.sendFeedback(() -> Text.literal("Sturma Weather Control: Switch between weather control modes in the order of Rain, Thunder and Clear. Activated with radial menu.").styled(s -> s.withColor(Formatting.YELLOW)), false);
+                source.sendFeedback(() -> Text.literal("Sturma Weather Control: Switch between weather control modes in the order of Rain, Thunder and Clear. Depends on specific weather conditions. Activated with radial menu.").styled(s -> s.withColor(Formatting.YELLOW)), false);
                 source.sendFeedback(() -> Text.literal("Submari: Passively breath underwater.").styled(s -> s.withColor(Formatting.BLUE)), false);
             }
             case 10 -> {

@@ -52,10 +52,10 @@ public class LorienLegaciesMod implements ModInitializer {
 					Text.literal("[Lorien Legacies] ")
 							.formatted(Formatting.GOLD)
 							.append(Text.literal("Use ").formatted(Formatting.YELLOW))
-							.append(Text.literal("/modhelp index ").formatted(Formatting.AQUA, Formatting.BOLD))
+							.append(Text.literal("/ll modhelp index ").formatted(Formatting.AQUA, Formatting.BOLD))
 							.append(Text.literal("to find specific help pages. ").formatted(Formatting.YELLOW))
 							.append(Text.literal("Use ").formatted(Formatting.YELLOW))
-							.append(Text.literal("/modhelp <page number>").formatted(Formatting.AQUA, Formatting.BOLD))
+							.append(Text.literal("/ll modhelp <page number>").formatted(Formatting.AQUA, Formatting.BOLD))
 							.append(Text.literal(" for instructions on how to use the mod.").formatted(Formatting.YELLOW)),
 					false
 			);
