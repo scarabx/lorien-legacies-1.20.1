@@ -27,9 +27,9 @@ This mod is based on the sci-fi book series of the same name by Pittacus Lore. B
 
 Superhuman abilities bestowed by the lifeforce (The Entity) of the destroyed planet, Lorien.
 
-When the player is stressed because of low health, drowning, getting poisoned, getting surrounded by enemies or losing a pet, there is a 33% chance that a random Legacy will be bestowed upon the player. A 5 minute cooldown before you can get another Legacy is activated after Legacy Bestowal.
+Stress points increase by one by hitting hostiles or by being hit by hostiles. There is a 33% chance that a random Legacy will be bestowed upon the player. A 5 minute cooldown before you can get another Legacy is activated after Legacy Bestowal.
 
-Stress is accumulative and Legacy Bestowal only happens 33% of the time when stress points reach 100 or more. Stress decreases when sleeping, eating, being safe and at full health. Stress resets on death or when reaching a maximum of 150.
+Stress is accumulative and Legacy Bestowal only happens 33% of the time when stress points reach 100 or more. Stress resets on death or when reaching a maximum of 150.
 
 **Legacy abilities are triggered with a radial menu which is opened with R key.
 Radial Menu pages are cycled with shift key while the radial menu is open.** Fireball and Iceball Throwing, Sturma Lightning Strike and Telekinesis Push, Pull and Move are activated by the radial menu and triggered by left-click (Fireball, Iceball and Sturma Lightning Strike) or right-click (Telekinesis Pull and Push). **Right-click and left-click abilities automatically cancel each other out when selected. Non right-click and left-click abilities can be used simultaneously and right-click and left-click abilities can also be used simultaneously.**
@@ -40,15 +40,17 @@ When low on health, player is effected constantly with 10 seconds of Stamina fol
 
 **Possible Legacies:**
 
-- **Lumen:**
-  Pyrokinesis. Includes abilities, Fireball Throwing
-  (activated via the radial menu and triggered by left-click),
-  Self-ignition (activated via the radial menu), Flaming Hands
-  (activated via the radial menu and triggered by hitting your
-  target) and Fire resistance (passive).
-  When on fire, hitting your target will ignite it.
-  Lumen abilities are located on page 1, titled Combat, in
-  the radial menu.
+- **Accelix:**
+  Superspeed, activated via sprinting. Speeds the player up in water too.
+
+
+- **Avex:**
+  Superman pose flying at high speed with the added benefit of slow falling. Triggered
+  via holding sneak or toggling sneak if sneak toggle is turned on in accessibility and
+  jumping once. Once in air, keep holding sneak until you want to stop flying if sneak
+  toggle is turned off, if on, you only need to press again if you want to stop flying.
+  Flight automatically stops when touching the ground. Flight can only be activated
+  while standing still.
 
 
 - **Glacen:**
@@ -62,13 +64,25 @@ When low on health, player is effected constantly with 10 seconds of Stamina fol
   titled Combat, in the radial menu. Freeze Water is located
   on page 4, titled Utility.
 
+- **Kinetic Detonation:**
 
-- **Telekinesis:**
-  Includes abilities, Push, Pull and Move. Push and Pull are activated via the radial menu
-  and triggered by right-clicking while looking at target. **Can't be used at the same
-  time, Push and Pull automatically remove each other.** Move is activated via the radial
-  menu and used by looking at target and target will follow your look direction.
-  Telekinesis abilities is located on page 1, titled Combat, in the radial menu.
+- **Lumen:**
+  Pyrokinesis. Includes abilities, Fireball Throwing
+  (activated via the radial menu and triggered by left-click),
+  Self-ignition (activated via the radial menu), Flaming Hands
+  (activated via the radial menu and triggered by hitting your
+  target) and Fire resistance (passive).
+  When on fire, hitting your target will ignite it.
+  Lumen abilities are located on page 1, titled Combat, in
+  the radial menu.
+
+- **Novis:**
+  Invisibility, activated via the radial menu.
+
+
+- **Noxen:**
+  Night vision, activates automatically at night, when submerged in water
+  or underground.
 
 
 - **Pondus:**
@@ -80,49 +94,23 @@ When low on health, player is effected constantly with 10 seconds of Stamina fol
   active, projectiles pass through you.
 
 
-  When Intangibility is active while inside blocks, you can fly (slow and upright). When
-  exiting blocks, a 5 second flight grace period starts wherein you can safely turn off
-  Intangibility. When Intangifly (activated via radial menu and located on page 2,
-  titled Movement, in the radial menu) is active, you can fly with Avex (superman
-  pose & at high speed) while Intangibility is active, meaning you can fly through solid
-  blocks unimpeded.
+        When Intangibility is active while inside blocks, you can fly (slow and upright). When
+        exiting blocks, a 5 second flight grace period starts wherein you can safely turn off
+        Intangibility. When Intangifly (activated via radial menu and located on page 2,
+        titled Movement, in the radial menu) is active, you can fly with Avex (superman
+        pose & at high speed) while Intangibility is active, meaning you can fly through solid
+        blocks unimpeded.
 
 
-  Don't fly through water in this state or your Avex and Intangibility
-  will bug out. Don't log out in this state or you will fall for enternity.
-  To successfully use Intangifly, enable abilities in the order of Avex, Intangifly and
-  Intangibility. If you accidentally fly through water or log out while Intangibility
-  and Avex flight is active, fix it by turning off Intangifly & unsneaking.
-
-
-- **Avex:**
-  Superman pose flying at high speed with the added benefit of slow falling. Triggered
-  via holding sneak or toggling sneak if sneak toggle is turned on in accessibility and
-  jumping once. Once in air, keep holding sneak until you want to stop flying if sneak
-  toggle is turned off, if on, you only need to press again if you want to stop flying.
-  Flight automatically stops when touching the ground. Flight can only be activated
-  while standing still.
-
-
-- **Accelix:**
-  Superspeed, activated via sprinting. Speeds the player up in water too.
-
-
-- **Novis:**
-  Invisibility, activated via the radial menu.
-
-
-- **Noxen:**
-  Night vision, activates automatically at night, when submerged in water
-  or underground.
+Don't fly through water in this state or your Avex and Intangibility
+will bug out. Don't log out in this state or you will fall for enternity.
+To successfully use Intangifly, enable abilities in the order of Avex, Intangifly and
+Intangibility. If you accidentally fly through water or log out while Intangibility
+and Avex flight is active, fix it by turning off Intangifly & unsneaking.
 
 
 - **Regeneras:**
   Automatically heals you to full health when you are low on health.
-
-
-- **Submari:**
-  Underwater breathing, activated when submerged in water.
 
 
 - **Sturma:**
@@ -133,6 +121,19 @@ When low on health, player is effected constantly with 10 seconds of Stamina fol
   when it is raining and only conjure clear weather when it
   is thundering. For this to work the pressing order should be Rain, Thunder and Clear. Weather control options can be found on page 4, titled Utility, in the radial menu. Strike your foes with lightning, activated via the radial menu (page 1, titled Combat) and triggered by left-clicking while looking at target. **Can't be used at the same time as other left-click abilities, when activating Lightning Strike, other left-click abilities are automatically removed.**
 
+
+- **Submari:**
+  Underwater breathing, activated when submerged in water.
+
+
+- **Telekinesis:**
+  Includes abilities, Push, Pull and Move. Push and Pull are activated via the radial menu
+  and triggered by right-clicking while looking at target. **Can't be used at the same
+  time, Push and Pull automatically remove each other.** Move is activated via the radial
+  menu and used by looking at target and target will follow your look direction.
+  Telekinesis abilities is located on page 1, titled Combat, in the radial menu.
+
+  
 ### Inhibitors:
 
 Inhibitor arrow effects target player with Active Legacy Inhibition effect, which lasts for 5 seconds, disables Legacies' abilities and effects the player with nausea, slowness and weakness. Based on shock collar crossbows from the second Lorien Legacies book series, Lorien Legacies Reborn.

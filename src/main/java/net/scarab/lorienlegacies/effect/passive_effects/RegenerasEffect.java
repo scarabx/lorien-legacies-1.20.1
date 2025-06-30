@@ -36,7 +36,7 @@ public class RegenerasEffect extends StatusEffect {
         if (entity instanceof PlayerEntity player) {
             // Don't apply regeneration if the entity is tired
             if (player.hasStatusEffect(TIRED)
-                    || player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
+                    || player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION) || player.hasStatusEffect(REGENERAS_COOLDOWN)) {
                 player.removeStatusEffect(StatusEffects.REGENERATION);
                 return;
             }
@@ -56,6 +56,7 @@ public class RegenerasEffect extends StatusEffect {
                 }
             } else if (player.getHealth() == player.getMaxHealth()) {
                 player.removeStatusEffect(StatusEffects.REGENERATION);
+                player.addStatusEffect(new StatusEffectInstance(REGENERAS_COOLDOWN, 200, 0, false, false, false));
             }
         }
     }

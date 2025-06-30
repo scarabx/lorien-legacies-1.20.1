@@ -44,6 +44,9 @@ public class ModEffects {
     public static final StatusEffect REGENERAS = registerStatusEffect("regeneras",
             new RegenerasEffect(StatusEffectCategory.BENEFICIAL, 0xFFC0CB/*Pink*/));
 
+    public static final StatusEffect REGENERAS_COOLDOWN = registerStatusEffect("regeneras_cooldown",
+            new RegenerasCooldownEffect(StatusEffectCategory.BENEFICIAL, 0xFFC0CB/*Pink*/));
+
     public static final StatusEffect ACCELIX = registerStatusEffect("accelix",
             new AccelixEffect(StatusEffectCategory.BENEFICIAL, 0xFFFF00/*Yellow*/));
 
