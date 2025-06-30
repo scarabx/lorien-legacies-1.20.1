@@ -93,16 +93,14 @@ When low on health, player is effected constantly with 10 seconds of Stamina fol
   Intangibility is active, projectiles bounce off you and when only Intangibility is
   active, projectiles pass through you.
 
+   - When Intangibility is active while inside blocks, you can fly (slow and upright). When
+exiting blocks, a 5 second flight grace period starts wherein you can safely turn off
+Intangibility. When Intangifly (activated via radial menu and located on page 2,
+titled Movement, in the radial menu) is active, you can fly with Avex (superman
+pose & at high speed) while Intangibility is active, meaning you can fly through solid
+blocks unimpeded.
 
-        When Intangibility is active while inside blocks, you can fly (slow and upright). When
-        exiting blocks, a 5 second flight grace period starts wherein you can safely turn off
-        Intangibility. When Intangifly (activated via radial menu and located on page 2,
-        titled Movement, in the radial menu) is active, you can fly with Avex (superman
-        pose & at high speed) while Intangibility is active, meaning you can fly through solid
-        blocks unimpeded.
-
-
-Don't fly through water in this state or your Avex and Intangibility
+   - Don't fly through water in this state or your Avex and Intangibility
 will bug out. Don't log out in this state or you will fall for enternity.
 To successfully use Intangifly, enable abilities in the order of Avex, Intangifly and
 Intangibility. If you accidentally fly through water or log out while Intangibility
