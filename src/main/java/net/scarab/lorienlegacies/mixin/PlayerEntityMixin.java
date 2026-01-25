@@ -6,14 +6,17 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import net.scarab.lorienlegacies.effect.ModEffects;
 import net.scarab.lorienlegacies.item.DiamondDaggerItem;
+import net.scarab.lorienlegacies.item.ModItems;
 import net.scarab.lorienlegacies.legacy_bestowal.LegacyBestowalHandler;
 
 import org.spongepowered.asm.mixin.Final;
@@ -30,15 +33,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
-
-    @Shadow
-    @Final
-    public PlayerScreenHandler playerScreenHandler;
-
-    @Shadow
-    public abstract boolean damage(DamageSource source, float amount);
-
-    @Shadow public abstract void playSound(SoundEvent sound, float volume, float pitch);
 
     @Inject(method = "dropItem(Lnet/minecraft/item/ItemStack;ZZ)Lnet/minecraft/entity/ItemEntity;",
             at = @At("HEAD"), cancellable = true)
@@ -92,10 +86,67 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         }
     }
 
+
+
     // Intangibility and Impenetrable Skin damage immunity logic
     @Inject(method = "damage", at = @At("HEAD"), cancellable = true)
     private void cancelDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         PlayerEntity player = (PlayerEntity) (Object) this;
+
+        // NEW: Check for Red Shield item in hand
+        ItemStack mainHand = player.getMainHandStack();
+        ItemStack offHand = player.getOffHandStack();
+        boolean hasRedShield = mainHand.getItem() == ModItems.RED_SHIELD || offHand.getItem() == ModItems.RED_SHIELD;
+
+        if (hasRedShield) {
+            // Block damage from mobs ONLY if attack comes from front
+            if (source.getAttacker() != null) {
+                Entity attacker = source.getAttacker();
+
+                // Calculate direction from player to attacker
+                Vec3d playerPos = player.getPos();
+                Vec3d attackerPos = attacker.getPos();
+                Vec3d toAttacker = attackerPos.subtract(playerPos).normalize();
+
+                // Get player's look direction
+                Vec3d playerLook = player.getRotationVec(1.0F);
+
+                // Calculate angle between player's look direction and attacker direction
+                double dotProduct = playerLook.dotProduct(toAttacker);
+
+                // Only block if attacker is in front (positive dot product)
+                if (dotProduct > 0) {
+                    // Attack comes from front, block it
+                    cir.setReturnValue(false);
+                    return;
+                }
+                // Attack from other directions: DO NOTHING - let normal damage apply
+            }
+
+            // For projectiles: Check if it's a projectile source
+            if (source.getSource() != null && source.getSource() instanceof ProjectileEntity) {
+                Entity projectile = source.getSource();
+
+                // Calculate direction from player to projectile
+                Vec3d playerPos = player.getPos();
+                Vec3d projectilePos = projectile.getPos();
+                Vec3d toProjectile = projectilePos.subtract(playerPos).normalize();
+
+                // Get player's look direction
+                Vec3d playerLook = player.getRotationVec(1.0F);
+
+                // Calculate angle between player's look direction and projectile direction
+                double dotProduct = playerLook.dotProduct(toProjectile);
+
+                // Only block if projectile is coming from front (positive dot product)
+                if (dotProduct > 0) {
+                    // Projectile from front, block it
+                    cir.setReturnValue(false);
+                    return;
+                }
+                // Projectiles from other directions: DO NOTHING - let normal damage apply
+            }
+        }
 
         boolean inhibited = player.hasStatusEffect(ModEffects.TIRED) || player.hasStatusEffect(ModEffects.ACTIVE_LEGACY_INHIBITION) || player.hasStatusEffect(ModEffects.PONDUS_COOLDOWN);
 

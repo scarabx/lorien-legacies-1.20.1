@@ -30,8 +30,6 @@ public class GreenStoneItem extends Item {
             // Apply velocity boost in the direction the player is looking
             double boostStrength = 5; // Change this value to increase/decrease the force
             user.addVelocity(lookVec.x * boostStrength, lookVec.y * boostStrength, lookVec.z * boostStrength);
-            // Play a sound or particle if you want (optional)
-            // world.playSound(...);
             user.getItemCooldownManager().set(this, 20); // 5-second cooldown
             return TypedActionResult.success(stack, world.isClient());
         }

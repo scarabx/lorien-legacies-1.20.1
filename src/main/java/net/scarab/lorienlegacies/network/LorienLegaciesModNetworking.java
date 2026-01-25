@@ -551,7 +551,7 @@ public class LorienLegaciesModNetworking {
                 if (player.hasStatusEffect(CHIMAERA_MORPH)) {
                     player.removeStatusEffect(CHIMAERA_MORPH);
                 } else {
-                    player.addStatusEffect(new StatusEffectInstance(CHIMAERA_MORPH, -1, 0, false, false, false));
+                    player.addStatusEffect(new StatusEffectInstance(CHIMAERA_MORPH, Integer.MAX_VALUE, 0, false, false, false));
                     player.removeStatusEffect(CHIMAERA_CALL);
                     player.removeStatusEffect(MARK_TARGET_FOR_WOLF);
                     player.removeStatusEffect(TOGGLE_TELEKINESIS_PUSH);
@@ -567,7 +567,7 @@ public class LorienLegaciesModNetworking {
                 if (player.hasStatusEffect(CHIMAERA_CALL)) {
                     player.removeStatusEffect(CHIMAERA_CALL);
                 } else {
-                    player.addStatusEffect(new StatusEffectInstance(CHIMAERA_CALL, -1, 0, false, false, false));
+                    player.addStatusEffect(new StatusEffectInstance(CHIMAERA_CALL, Integer.MAX_VALUE, 0, false, false, false));
                     player.removeStatusEffect(MARK_TARGET_FOR_WOLF);
                     player.removeStatusEffect(CHIMAERA_MORPH);
                     player.removeStatusEffect(TOGGLE_TELEKINESIS_PUSH);
@@ -583,7 +583,7 @@ public class LorienLegaciesModNetworking {
                 if (player.hasStatusEffect(MARK_TARGET_FOR_WOLF)) {
                     player.removeStatusEffect(MARK_TARGET_FOR_WOLF);
                 } else {
-                    player.addStatusEffect(new StatusEffectInstance(MARK_TARGET_FOR_WOLF, -1, 0, false, false, false));
+                    player.addStatusEffect(new StatusEffectInstance(MARK_TARGET_FOR_WOLF, Integer.MAX_VALUE, 0, false, false, false));
                     player.removeStatusEffect(CHIMAERA_MORPH);
                     player.removeStatusEffect(CHIMAERA_CALL);
                     player.removeStatusEffect(TOGGLE_TELEKINESIS_PUSH);

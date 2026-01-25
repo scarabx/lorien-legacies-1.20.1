@@ -55,7 +55,9 @@ public class KineticProjectileEntity extends ThrownItemEntity {
 
     @Override
     protected void onBlockHit(BlockHitResult blockHitResult) {
-        // Get the world and block position
+        /* LOGIC THAT CENTERS EXPLOSION DAMAGE ON NEARBY ENTITY WHEN EXPLOSION OCCURS WITHIN A 5 BLOCK RADIUS
+        EXPLOSION CENTERING CODE START
+        DETERMINES BLOCK HIT POSITION (IDEAL FOR BLOCK HIT TRIGGERED EFFECTS) */
         double x = this.getX();
         double y = this.getY();
         double z = this.getZ();
@@ -74,11 +76,12 @@ public class KineticProjectileEntity extends ThrownItemEntity {
             y = target.getY();
             z = target.getZ();
         }
+        // EXPLOSION CENTERING CODE END
 
         // Create explosion at determined location
         this.getWorld().createExplosion(
                 this, // cause
-                x, y, z,
+                x, y, z /* Coordinates supplied by above EXPLOSION CENTERING CODE */,
                 3.0F,
                 World.ExplosionSourceType.MOB
         );

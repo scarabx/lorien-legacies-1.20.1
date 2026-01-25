@@ -65,7 +65,7 @@ public class TeletrasEffect extends StatusEffect {
             ServerWorld world = (ServerWorld) entity.getWorld();
 
             Vec3d start = entity.getCameraPosVec(1.0F);
-            Vec3d end = start.add(entity.getRotationVec(1.0F).multiply(10)); // 5 block range
+            Vec3d end = start.add(entity.getRotationVec(1.0F).multiply(10)); // 10 block range
 
             BlockHitResult hitResult = world.raycast(new RaycastContext(
                     start,

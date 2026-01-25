@@ -1,16 +1,17 @@
 package net.scarab.lorienlegacies.item;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-import static net.scarab.lorienlegacies.effect.ModEffects.*;
+import java.util.List;
 
 public class RedShieldItem extends Item {
 
@@ -21,13 +22,6 @@ public class RedShieldItem extends Item {
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         if (!(entity instanceof PlayerEntity player) || world.isClient()) return;
-
-        player.removeStatusEffect(TIRED);
-        player.removeStatusEffect(PONDUS_COOLDOWN);
-        player.removeStatusEffect(PONDUS_STAMINA);
-
-        player.addStatusEffect(new StatusEffectInstance(PONDUS, 20, 99, false, false, false));
-        player.addStatusEffect(new StatusEffectInstance(TOGGLE_IMPENETRABLE_SKIN, 20, 99, false, false, false));
 
         ServerWorld serverWorld = (ServerWorld) world;
 
@@ -44,28 +38,79 @@ public class RedShieldItem extends Item {
                 e -> e instanceof ProjectileEntity && e.isAlive()
         ).isEmpty();
 
-        // Revert only if no hostiles and no projectiles nearby
-        if (!hasNearbyHostiles && !hasNearbyProjectiles) {
+        // NEW: Deflect projectiles only if coming from the front
+        boolean shouldDeflect = false;
+        if (hasNearbyProjectiles) {
+            List<Entity> projectiles = serverWorld.getOtherEntities(
+                    player,
+                    player.getBoundingBox().expand(3),
+                    e -> e instanceof ProjectileEntity && e.isAlive()
+            );
+
+            for (Entity projectile : projectiles) {
+                // Calculate direction from player to projectile
+                Vec3d playerPos = player.getPos();
+                Vec3d projectilePos = projectile.getPos();
+                Vec3d toProjectile = projectilePos.subtract(playerPos).normalize();
+
+                // Get player's look direction
+                Vec3d playerLook = player.getRotationVec(1.0F);
+
+                // Calculate angle between player's look direction and projectile direction
+                double dotProduct = playerLook.dotProduct(toProjectile);
+
+                // Only deflect if projectile is coming from front (positive dot product)
+                if (dotProduct > 0) {
+                    shouldDeflect = true;
+
+                    // Deflect the projectile
+                    double dx = projectile.getX() - player.getX();
+                    double dy = projectile.getY() - player.getY();
+                    double dz = projectile.getZ() - player.getZ();
+                    double distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+                    if (distance > 0) {
+                        projectile.setVelocity(dx / distance * 2.0, dy / distance * 2.0, dz / distance * 2.0);
+                        projectile.velocityModified = true;
+                    }
+                }
+                // Projectiles from other directions are ignored - no deflection
+            }
+        }
+
+        // NEW: Check if there are any hostiles in front that would keep shield active
+        boolean hasHostilesInFront = false;
+        if (hasNearbyHostiles) {
+            List<HostileEntity> hostiles = serverWorld.getEntitiesByClass(
+                    HostileEntity.class,
+                    player.getBoundingBox().expand(3),
+                    e -> true
+            );
+
+            for (HostileEntity hostile : hostiles) {
+                Vec3d playerPos = player.getPos();
+                Vec3d hostilePos = hostile.getPos();
+                Vec3d toHostile = hostilePos.subtract(playerPos).normalize();
+                Vec3d playerLook = player.getRotationVec(1.0F);
+
+                double dotProduct = playerLook.dotProduct(toHostile);
+                if (dotProduct > 0) {
+                    hasHostilesInFront = true;
+                    break;
+                }
+            }
+        }
+
+        // Revert only if no hostiles in front and no projectiles in front
+        if (!hasHostilesInFront && !shouldDeflect) {
             boolean inOffhand = player.getOffHandStack() == stack;
             if (stack.getItem() == ModItems.RED_SHIELD) {
                 stack.decrement(1);
                 ItemStack bracelet = new ItemStack(ModItems.RED_BRACELET);
                 if (inOffhand) {
-                    player.setStackInHand(net.minecraft.util.Hand.OFF_HAND, bracelet);
+                    player.setStackInHand(Hand.OFF_HAND, bracelet);
                 } else {
                     player.getInventory().insertStack(slot, bracelet);
-                }
-                StatusEffectInstance pondus = player.getStatusEffect(PONDUS);
-                if (pondus != null && pondus.getAmplifier() == 99) {
-                    player.removeStatusEffect(PONDUS);
-                    if (player.hasStatusEffect(BESTOWED_PONDUS)) {
-                        player.addStatusEffect(new StatusEffectInstance(PONDUS_STAMINA, 200, 0, false, false, false));
-                        player.addStatusEffect(new StatusEffectInstance(PONDUS, Integer.MAX_VALUE, 0, false, false, false));
-                    }
-                }
-                StatusEffectInstance impenetrableSkin = player.getStatusEffect(TOGGLE_IMPENETRABLE_SKIN);
-                if (impenetrableSkin != null && impenetrableSkin.getAmplifier() == 99) {
-                    player.removeStatusEffect(TOGGLE_IMPENETRABLE_SKIN);
                 }
             }
         }

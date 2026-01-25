@@ -44,6 +44,9 @@ public class SpikyBlackBallEntity extends Entity implements FlyingItemEntity {
 
         if (!this.getWorld().isClient) {
             if (ticksExisted == 10 && !exploded) {
+                /* LOGIC THAT CENTERS EXPLOSION DAMAGE ON NEARBY ENTITY WHEN EXPLOSION OCCURS WITHIN A 5 BLOCK RADIUS
+                EXPLOSION CENTERING CODE START
+                DETERMINES PROJECTILE POSITION (IDEAL FOR TIMED EFFECTS) */
                 double x = this.getX();
                 double y = this.getY();
                 double z = this.getZ();
@@ -62,11 +65,12 @@ public class SpikyBlackBallEntity extends Entity implements FlyingItemEntity {
                     y = target.getY();
                     z = target.getZ();
                 }
+                // EXPLOSION CENTERING CODE END
 
                 // Create explosion at determined location
                 this.getWorld().createExplosion(
                         this, // cause
-                        x, y, z,
+                        x, y, z /* Coordinates supplied by above EXPLOSION CENTERING CODE */,
                         3.0F,
                         World.ExplosionSourceType.MOB
                 );

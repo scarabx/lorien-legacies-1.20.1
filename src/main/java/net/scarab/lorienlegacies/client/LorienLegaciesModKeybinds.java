@@ -12,8 +12,6 @@ import org.lwjgl.glfw.GLFW;
 
 public class LorienLegaciesModKeybinds implements ClientModInitializer {
 
-    private static boolean sneakingLastTick = false;
-
     @Override
     public void onInitializeClient() {
 

@@ -9,7 +9,6 @@ import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.RangedWeaponItem;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -49,14 +48,15 @@ public class LorienLegaciesMod implements ModInitializer {
 		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
 			ServerPlayerEntity player = handler.player;
 			player.sendMessage(
-					Text.literal("[Lorien Legacies] ")
-							.formatted(Formatting.GOLD)
+					Text.empty()
+							.append(Text.literal("[Lorien Legacies] ").formatted(Formatting.GOLD, Formatting.BOLD))
 							.append(Text.literal("Use ").formatted(Formatting.YELLOW))
 							.append(Text.literal("/ll modhelp index ").formatted(Formatting.AQUA, Formatting.BOLD))
 							.append(Text.literal("to find specific help pages. ").formatted(Formatting.YELLOW))
 							.append(Text.literal("Use ").formatted(Formatting.YELLOW))
 							.append(Text.literal("/ll modhelp <page number>").formatted(Formatting.AQUA, Formatting.BOLD))
-							.append(Text.literal(" for instructions on how to use the mod.").formatted(Formatting.YELLOW)),
+							.append(Text.literal(" for instructions on how to use the mod. ").formatted(Formatting.YELLOW))
+							.append(Text.literal("NEVER DRINK MILK OR YOU WILL LOSE YOUR LEGACY!").formatted(Formatting.RED)),
 					false
 			);
 		});

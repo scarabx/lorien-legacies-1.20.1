@@ -41,11 +41,9 @@ public class ClickTracker implements ClientModInitializer {
                 HitResult hitResult = client.crosshairTarget;
                 if (rightClickingNow && !wasRightClicking && hitResult != null) {
                     if (hitResult.getType() == HitResult.Type.BLOCK) {
-                        BlockHitResult blockHit = (BlockHitResult) hitResult;
                         // Block right-click logic
                         ClientPlayNetworking.send(RIGHT_CLICK_PACKET, PacketByteBufs.empty());
                     } else if (hitResult.getType() == HitResult.Type.ENTITY) {
-                        EntityHitResult entityHit = (EntityHitResult) hitResult;
                         // Entity right-click logic
                         ClientPlayNetworking.send(RIGHT_CLICK_PACKET, PacketByteBufs.empty());
                     }
