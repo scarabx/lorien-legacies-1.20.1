@@ -42,18 +42,19 @@ public class RegenerasEffect extends StatusEffect {
             }
 
             // Apply regeneration if health is low
-            if (!player.getWorld().isClient() && entity.getHealth() <= 10) {
-                StatusEffectInstance regen = player.getStatusEffect(StatusEffects.REGENERATION);
-                if (regen == null || regen.getAmplifier() < 4) {
+            if (!player.getWorld().isClient() && entity.getHealth() < entity.getMaxHealth()) {
+                //StatusEffectInstance regen = player.getStatusEffect(StatusEffects.REGENERATION);
+                //if (regen == null || regen.getAmplifier() < 4) {
                     player.addStatusEffect(new StatusEffectInstance(
                             StatusEffects.REGENERATION,
-                            Integer.MAX_VALUE,
-                            4,
+                            //Integer.MAX_VALUE,
+                            1,
+                            0,
                             false,
                             false,
                             false
                     ));
-                }
+                //}
             } else if (player.getHealth() == player.getMaxHealth()) {
                 player.removeStatusEffect(StatusEffects.REGENERATION);
                 player.addStatusEffect(new StatusEffectInstance(REGENERAS_COOLDOWN, 200, 0, false, false, false));
