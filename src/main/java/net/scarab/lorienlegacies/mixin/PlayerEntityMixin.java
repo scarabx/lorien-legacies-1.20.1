@@ -86,8 +86,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         }
     }
 
-
-
     // Intangibility and Impenetrable Skin damage immunity logic
     @Inject(method = "damage", at = @At("HEAD"), cancellable = true)
     private void cancelDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
