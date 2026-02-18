@@ -154,7 +154,7 @@ public class MorphHandler {
         }
 
         // Morph from horse to wolf
-        for (Entity entity : world.getOtherEntities(player, box, e -> e instanceof HorseEntity horse && horse.isTame() && e.isAlive())) {
+        for (Entity entity : world.getOtherEntities(player, box, e -> e instanceof HorseEntity horse && horse.isTame() && horse.hasStatusEffect(ModEffects.CHIMAERA_ESSENCE) && e.isAlive())) {
             Box entityBox = entity.getBoundingBox().expand(0.3);
             Optional<Vec3d> optional = entityBox.raycast(eyePos, reachVec);
             if (optional.isPresent()) {
