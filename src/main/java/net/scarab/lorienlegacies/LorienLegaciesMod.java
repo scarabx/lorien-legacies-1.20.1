@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.RangedWeaponItem;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -28,6 +29,7 @@ import net.scarab.lorienlegacies.item.DiamondDaggerItem;
 import net.scarab.lorienlegacies.item.ModItemGroup;
 import net.scarab.lorienlegacies.item.ModItems;
 import net.scarab.lorienlegacies.legacy_bestowal.LegacyBestowalHandler;
+import net.scarab.lorienlegacies.legacy_bestowal.LegacyBestowalHandler2;
 import net.scarab.lorienlegacies.network.LorienLegaciesModNetworking;
 import net.scarab.lorienlegacies.potion.ModPotions;
 import net.scarab.lorienlegacies.util.ModLootTableModifiers;
@@ -93,6 +95,14 @@ public class LorienLegaciesMod implements ModInitializer {
 			});
 		});
 
+		ServerTickEvents.START_SERVER_TICK.register(server -> {
+			server.getPlayerManager().getPlayerList().forEach(player -> {
+				if (player instanceof ServerPlayerEntity) {
+					LegacyBestowalHandler2.bestowLumenLegacy(player);
+				}
+			});
+		});
+
 		ServerTickEvents.END_SERVER_TICK.register(server -> {
 			for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
 				if (player.getHealth() <= 0) {
@@ -149,6 +159,8 @@ public class LorienLegaciesMod implements ModInitializer {
 		MorphHandler.registerMorphHandler();
 
 		LegacyBestowalHandler.registerLegacyBestowalHandler();
+
+		LegacyBestowalHandler2.registerLegacyBestowalHandler2();
 
 		ModLootTableModifiers.modifyLootTables();
 	}

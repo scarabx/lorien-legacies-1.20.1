@@ -24,13 +24,13 @@ import java.util.concurrent.ThreadLocalRandom;
 public class LegacyBestowalHandler {
 
     private static final Map<UUID, Integer> playerStress = new HashMap<>();
-    private static final Map<UUID, Long> lastLowHealthTime = new HashMap<>();
-    private static final Map<UUID, Long> lastHungerTime = new HashMap<>();
-    private static final Map<UUID, Long> lastMultiThreatTime = new HashMap<>();
-    private static final Map<UUID, Long> lastFullHealthTime = new HashMap<>();
-    private static final Map<UUID, Long> lastRestingTime = new HashMap<>();
-    private static final Map<UUID, Long> lastSleepTime = new HashMap<>();
-    private static final Map<UUID, Long> lastEatingTime = new HashMap<>();
+    //private static final Map<UUID, Long> lastLowHealthTime = new HashMap<>();
+    //private static final Map<UUID, Long> lastHungerTime = new HashMap<>();
+    //private static final Map<UUID, Long> lastMultiThreatTime = new HashMap<>();
+    //private static final Map<UUID, Long> lastFullHealthTime = new HashMap<>();
+    //private static final Map<UUID, Long> lastRestingTime = new HashMap<>();
+    //private static final Map<UUID, Long> lastSleepTime = new HashMap<>();
+    //private static final Map<UUID, Long> lastEatingTime = new HashMap<>();
 
     private static final Map<StatusEffect, Integer> LEGACY_POOL = Map.ofEntries(
             Map.entry(ModEffects.TELEKINESIS, 10),
@@ -50,13 +50,13 @@ public class LegacyBestowalHandler {
     );
 
     private static final int TICKS_PER_SECOND = 20;
-    private static final int THROTTLE_TICKS = TICKS_PER_SECOND * 10;
+    //private static final int THROTTLE_TICKS = TICKS_PER_SECOND * 10;
     private static final int MAX_STRESS = 150;
     private static final int LEGACY_COOLDOWN_TICKS = 20 * 60 * 5;
 
     public static void stressManager(ServerPlayerEntity player) {
         UUID id = player.getUuid();
-        long time = player.getServerWorld().getTime();
+        //long time = player.getServerWorld().getTime();
         int stress = playerStress.getOrDefault(id, 0);
 
         /*if (player.getHealth() <= 2 && time - lastLowHealthTime.getOrDefault(id, 0L) > THROTTLE_TICKS) {
