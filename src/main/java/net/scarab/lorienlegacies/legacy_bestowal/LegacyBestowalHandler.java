@@ -238,7 +238,7 @@ public class LegacyBestowalHandler {
     }*/
 
     public static void giveLegacy(ServerPlayerEntity player) {
-        if (ThreadLocalRandom.current().nextDouble() >= 0.33) {
+        if (ThreadLocalRandom.current().nextDouble() >= 0.5/*0.33*/) {
             player.sendMessage(Text.literal("You felt a surge of power... but nothing happened."), false);
             return;
         }

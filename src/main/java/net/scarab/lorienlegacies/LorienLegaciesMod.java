@@ -95,13 +95,13 @@ public class LorienLegaciesMod implements ModInitializer {
 			});
 		});
 
-		ServerTickEvents.START_SERVER_TICK.register(server -> {
-			server.getPlayerManager().getPlayerList().forEach(player -> {
-				if (player instanceof ServerPlayerEntity) {
-					LegacyBestowalHandler2.bestowLumenLegacy(player);
-				}
-			});
-		});
+//		ServerTickEvents.START_SERVER_TICK.register(server -> {
+//			server.getPlayerManager().getPlayerList().forEach(player -> {
+//				if (player instanceof ServerPlayerEntity) {
+//					LegacyBestowalHandler2.bestowLumenLegacy(player);
+//				}
+//			});
+//		});
 
 		ServerTickEvents.END_SERVER_TICK.register(server -> {
 			for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
@@ -160,7 +160,7 @@ public class LorienLegaciesMod implements ModInitializer {
 
 		LegacyBestowalHandler.registerLegacyBestowalHandler();
 
-		LegacyBestowalHandler2.registerLegacyBestowalHandler2();
+		//LegacyBestowalHandler2.registerLegacyBestowalHandler2();
 
 		ModLootTableModifiers.modifyLootTables();
 	}
