@@ -14,9 +14,9 @@ public class LegacyBestowalHandler2 {
 
     public static void bestowLumenLegacy(ServerPlayerEntity player) {
 
-        if (!player.hasStatusEffect(StatusEffects.FIRE_RESISTANCE) && !player.hasStatusEffect(ModEffects.LUMEN) && player.getFireTicks() > 100) {
+        if (!player.hasStatusEffect(StatusEffects.FIRE_RESISTANCE) && !player.hasStatusEffect(ModEffects.LUMEN) && player.getFireTicks() > 140) {
 
-            if (ThreadLocalRandom.current().nextDouble() < 0.33) {
+            if (ThreadLocalRandom.current().nextDouble() > 0.33) {
 
                 player.sendMessage(Text.literal("You felt a surge of power... but nothing happened."), false);
 
@@ -24,13 +24,10 @@ public class LegacyBestowalHandler2 {
 
             }
 
-            if (ThreadLocalRandom.current().nextDouble() > 0.33) {
+            player.addStatusEffect(new StatusEffectInstance(ModEffects.LUMEN, Integer.MAX_VALUE, 0, false, false, false));
 
-                player.addStatusEffect(new StatusEffectInstance(ModEffects.LUMEN, Integer.MAX_VALUE, 0, false, false, false));
+            player.sendMessage(Text.literal("You have been bestowed upon the Lumen legacy."), false);
 
-                player.sendMessage(Text.literal("You have been bestowed upon the Lumen legacy."), false);
-
-            }
         }
     }
 
