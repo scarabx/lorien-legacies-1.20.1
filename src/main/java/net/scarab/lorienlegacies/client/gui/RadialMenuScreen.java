@@ -1,13 +1,10 @@
 package net.scarab.lorienlegacies.client.gui;
 
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
-import org.lwjgl.glfw.GLFW;
 
 public class RadialMenuScreen extends Screen {
-    private final MinecraftClient client = MinecraftClient.getInstance();
 
     public RadialMenuScreen() {
         super(Text.literal(""));
@@ -20,26 +17,16 @@ public class RadialMenuScreen extends Screen {
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (button == 0) { // Left click
-            RadialMenuHandler.selectOption();
-            return true;
-        }
-        return super.mouseClicked(mouseX, mouseY, button);
-    }
-
-    @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT || keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT) {
+    public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
+        if (amount > 0) {
             RadialMenuHandler.nextPage();
             return true;
         }
-        if (keyCode == GLFW.GLFW_KEY_R || keyCode == GLFW.GLFW_KEY_ESCAPE) {
-            RadialMenuHandler.closeMenu();
-            client.setScreen(null);
+        if (amount < 0) {
+            RadialMenuHandler.previousPage();
             return true;
         }
-        return super.keyPressed(keyCode, scanCode, modifiers);
+        return super.mouseScrolled(mouseX, mouseY, amount);
     }
 
     @Override

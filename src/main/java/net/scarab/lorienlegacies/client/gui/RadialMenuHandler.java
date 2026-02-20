@@ -21,9 +21,6 @@ public class RadialMenuHandler {
     private static final List<Integer> pageColors = new ArrayList<>();
     private static int currentPage = 0;
 
-    // Store toggled state
-    //private static final Set<Identifier> toggledOptions = new HashSet<>();
-
     static {
         // Page 1 - Combat Abilities
         pageNames.add("Combat");
@@ -168,6 +165,10 @@ public class RadialMenuHandler {
         menuOpen = false;
     }
 
+    public static void previousPage() {
+        currentPage = (currentPage - 1 + pageNames.size()) % pageNames.size();
+    }
+
     public static void nextPage() {
         currentPage = (currentPage + 1) % pageNames.size();
     }
@@ -184,7 +185,6 @@ public class RadialMenuHandler {
         double mouseY = client.mouse.getY() * screenHeight / client.getWindow().getHeight();
 
         List<String> options = optionsPages.get(currentPage);
-        List<Identifier> packets = packetPages.get(currentPage);
         String pageName = pageNames.get(currentPage);
         int headingColor = pageColors.get(currentPage);
 
@@ -204,7 +204,6 @@ public class RadialMenuHandler {
 
         for (int i = 0; i < optionCount; i++) {
             String option = options.get(i);
-            Identifier packetId = packets.get(i);
 
             double angle = angleStep * i - Math.PI / 2;
             int optionX = centerX + (int) (radius * Math.cos(angle));

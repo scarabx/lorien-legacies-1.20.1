@@ -16,7 +16,7 @@ public class LorienLegaciesModKeybinds implements ClientModInitializer {
     public void onInitializeClient() {
 
         KeyBinding openRadialMenuKey = KeyBindingHelper.registerKeyBinding(
-                new KeyBinding("key.lorienlegacies.open_radial_menu", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_R, "key.category.lorienlegacies.lorienlegacies"));
+                new KeyBinding("key.lorienlegacies.open_radial_menu", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_Z, "key.category.lorienlegacies.lorienlegacies"));
 
         // Register HUD renderer
         HudRenderCallback.EVENT.register((drawContext, tickDelta) -> {
@@ -24,15 +24,24 @@ public class LorienLegaciesModKeybinds implements ClientModInitializer {
         });
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            // Radial Menu Keybind
-            if (openRadialMenuKey.wasPressed()) {
-                if (RadialMenuHandler.menuOpen) {
-                    RadialMenuHandler.closeMenu();
-                    client.setScreen(null);
-                } else {
-                    RadialMenuHandler.menuOpen = true;
-                    client.setScreen(new RadialMenuScreen());
-                }
+            if (client.player == null) return;
+
+            boolean isHeld = InputUtil.isKeyPressed(
+                    client.getWindow().getHandle(),
+                    openRadialMenuKey.getDefaultKey().getCode()
+            );
+
+            // Open menu on hold
+            if (isHeld && !RadialMenuHandler.menuOpen) {
+                RadialMenuHandler.menuOpen = true;
+                client.setScreen(new RadialMenuScreen());
+            }
+
+            // Close/select menu on release
+            if (!isHeld && RadialMenuHandler.menuOpen) {
+                RadialMenuHandler.selectOption();
+                RadialMenuHandler.closeMenu();
+                client.setScreen(null);
             }
         });
     }
