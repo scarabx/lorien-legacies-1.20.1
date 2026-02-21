@@ -42,6 +42,9 @@ public class RegenerasEffect extends StatusEffect {
             } else if (player.getHealth() == player.getMaxHealth()) {
                 player.removeStatusEffect(StatusEffects.REGENERATION);
                 player.addStatusEffect(new StatusEffectInstance(REGENERAS_COOLDOWN, 200, 0, false, false, false));
+            } else if (player.hasStatusEffect(StatusEffects.HEALTH_BOOST) && player.getHealth() == 40) {
+                player.removeStatusEffect(StatusEffects.REGENERATION);
+                player.addStatusEffect(new StatusEffectInstance(REGENERAS_COOLDOWN, 200, 0, false, false, false));
             }
         }
     }
