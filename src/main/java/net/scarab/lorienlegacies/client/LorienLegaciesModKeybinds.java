@@ -16,7 +16,7 @@ public class LorienLegaciesModKeybinds implements ClientModInitializer {
     public void onInitializeClient() {
 
         KeyBinding openRadialMenuKey = KeyBindingHelper.registerKeyBinding(
-                new KeyBinding("key.lorienlegacies.open_radial_menu", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_Z, "key.category.lorienlegacies.lorienlegacies"));
+                new KeyBinding("key.lorienlegacies.open_radial_menu", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_R, "key.category.lorienlegacies.lorienlegacies"));
 
         // Register HUD renderer
         HudRenderCallback.EVENT.register((drawContext, tickDelta) -> {
@@ -31,8 +31,8 @@ public class LorienLegaciesModKeybinds implements ClientModInitializer {
                     openRadialMenuKey.getDefaultKey().getCode()
             );
 
-            // Open menu on hold
-            if (isHeld && !RadialMenuHandler.menuOpen) {
+            // Open menu on hold - only if no GUI/menu/inventory/command/chat is open
+            if (isHeld && !RadialMenuHandler.menuOpen && client.currentScreen == null) {
                 RadialMenuHandler.menuOpen = true;
                 client.setScreen(new RadialMenuScreen());
             }
