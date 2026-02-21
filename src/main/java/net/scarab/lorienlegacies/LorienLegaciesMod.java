@@ -76,16 +76,6 @@ public class LorienLegaciesMod implements ModInitializer {
 			return ActionResult.PASS;
 		});
 
-		UseItemCallback.EVENT.register((player, world, hand) -> {
-			if (player.hasStatusEffect(ModEffects.ACTIVE_TACTILE_CONSCIOUSNESS_TRANSFER)) {
-				ItemStack stack = player.getStackInHand(hand);
-				if (stack.getItem() instanceof RangedWeaponItem) {
-					return TypedActionResult.fail(stack); // Cancel the use
-				}
-			}
-			return TypedActionResult.pass(player.getStackInHand(hand));
-		});
-
 		// Registering the server tick event to run stressManager on each player every tick
 		ServerTickEvents.START_SERVER_TICK.register(server -> {
 			server.getPlayerManager().getPlayerList().forEach(player -> {
@@ -101,6 +91,9 @@ public class LorienLegaciesMod implements ModInitializer {
 					LegacyBestowalHandler2.bestowLumenLegacy(player);
 					LegacyBestowalHandler2.bestowGlacenLegacy(player);
 					LegacyBestowalHandler2.bestowSubmariLegacy(player);
+					LegacyBestowalHandler2.bestowPondusLegacy(player);
+					LegacyBestowalHandler2.bestowAvexLegacy(player);
+					LegacyBestowalHandler2.bestowRegenerasLegacy(player);
 				}
 			});
 		});

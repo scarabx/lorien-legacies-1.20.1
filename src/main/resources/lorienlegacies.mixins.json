@@ -9,8 +9,7 @@
     "PlayerEntityMixin",
     "ProjectileEntityMixin",
     "ScreenHandlerMixin",
-    "ServerPlayerEntityMixin",
-    "TargetPredicateMixin"
+    "ServerPlayerEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -152,11 +152,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                 && player.hasStatusEffect(ModEffects.TOGGLE_INTANGIBILITY)
                 && !inhibited;
 
-        boolean hasTCTIntangibility = player.hasStatusEffect(ModEffects.TACTILE_CONSCIOUSNESS_TRANSFER)
-                && player.hasStatusEffect(ModEffects.ACTIVE_TACTILE_CONSCIOUSNESS_TRANSFER)
-                && !inhibited;
-
-        if ((hasIntangibility || hasTCTIntangibility) && !source.isOf(DamageTypes.GENERIC_KILL)) {
+        if ((hasIntangibility) && !source.isOf(DamageTypes.GENERIC_KILL)) {
             cir.setReturnValue(false);
             return;
         }

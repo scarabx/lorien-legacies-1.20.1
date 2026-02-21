@@ -158,9 +158,6 @@ public static final StatusEffect PONDUS_COOLDOWN = registerStatusEffect("pondus_
     public static final StatusEffect TOGGLE_XIMIC_TELETRAS = registerStatusEffect("toggle_ximic_teletras",
             new ToggleXimicTeletrasEffect(StatusEffectCategory.BENEFICIAL, 0x9b4f96/*Purple*/));
 
-    public static final StatusEffect TOGGLE_XIMIC_TACTILE_CONSCIOUSNESS_TRANSFER = registerStatusEffect("toggle_ximic_tactile_consciousness_transfer",
-            new ToggleXimicTactileConsciousnessTransferEffect(StatusEffectCategory.BENEFICIAL, 0x55FFFF/*Light Blue*/));
-
     public static final StatusEffect KINETIC_DETONATION = registerStatusEffect("kinetic_detonation",
             new KineticDetonationEffect(StatusEffectCategory.BENEFICIAL, 0xFF0000/*Red*/));
 
@@ -172,15 +169,6 @@ public static final StatusEffect PONDUS_COOLDOWN = registerStatusEffect("pondus_
 
     public static final StatusEffect TOGGLE_KINETIC_DETONATION = registerStatusEffect("toggle_kinetic_detonation",
             new ToggleKineticDetonationEffect(StatusEffectCategory.BENEFICIAL, 0xFF0000/*Red*/));
-
-    public static final StatusEffect TACTILE_CONSCIOUSNESS_TRANSFER = registerStatusEffect("tactile_consciousness_transfer",
-            new TactileConsciousnessTransfer(StatusEffectCategory.BENEFICIAL, 0x55FFFF/*Light Blue*/));
-
-    public static final StatusEffect TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER = registerStatusEffect("toggle_tactile_consciousness_transfer",
-            new ToggleTactileConsciousnessTransferEffect(StatusEffectCategory.BENEFICIAL, 0x55FFFF/*Light Blue*/));
-
-    public static final StatusEffect ACTIVE_TACTILE_CONSCIOUSNESS_TRANSFER = registerStatusEffect("active_tactile_consciousness_transfer",
-            new ActiveTactileConsciousnessTransferEffect(StatusEffectCategory.BENEFICIAL, 0x55FFFF/*Light Blue*/));
 
     public static final StatusEffect CHIMAERA_ESSENCE = registerStatusEffect("chimaera_essence",
             new ChimaeraEssenceEffect(StatusEffectCategory.BENEFICIAL, 0x00AA00/*Dark Green*/));

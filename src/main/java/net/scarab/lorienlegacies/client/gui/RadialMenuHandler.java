@@ -99,8 +99,7 @@ public class RadialMenuHandler {
                 LorienLegaciesModNetworking.TOGGLE_CONJURE_RAIN_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_CONJURE_THUNDER_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_CONJURE_CLEAR_WEATHER_PACKET,
-                LorienLegaciesModNetworking.TOGGLE_NOVIS_PACKET,
-                LorienLegaciesModNetworking.TOGGLE_TACTILE_CONSCIOUSNESS_TRANSFER_PACKET
+                LorienLegaciesModNetworking.TOGGLE_NOVIS_PACKET
         );
         optionsPages.add(utilityOptions);
         packetPages.add(utilityPackets);
@@ -134,7 +133,6 @@ public class RadialMenuHandler {
                 "Pondus",
                 "Regeneras",
                 "Sturma",
-                "Tactile Consciousness Transfer",
                 "Telekinesis",
                 "Kinetic Detonation",
                 "Teletras",
@@ -150,7 +148,6 @@ public class RadialMenuHandler {
                 LorienLegaciesModNetworking.TOGGLE_XIMIC_PONDUS_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_XIMIC_REGENERAS_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_XIMIC_STURMA_PACKET,
-                LorienLegaciesModNetworking.TOGGLE_XIMIC_TACTILE_CONSCIOUSNESS_TRANSFER_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_XIMIC_TELEKINESIS_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_XIMIC_KINETIC_DETONATION_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_XIMIC_TELETRAS_PACKET,

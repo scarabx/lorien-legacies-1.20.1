@@ -33,8 +33,7 @@ public class LorienLegacyEventHandler {
                         ModEffects.SUBMARI,
                         ModEffects.XIMIC,
                         ModEffects.KINETIC_DETONATION, ModEffects.TOGGLE_KINETIC_DETONATION,
-                        ModEffects.TELETRAS, ModEffects.TOGGLE_TELETRAS,
-                        ModEffects.TACTILE_CONSCIOUSNESS_TRANSFER
+                        ModEffects.TELETRAS, ModEffects.TOGGLE_TELETRAS
                 );
 
                 for (StatusEffect effect : persistentEffects) {

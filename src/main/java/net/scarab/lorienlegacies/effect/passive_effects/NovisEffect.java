@@ -60,7 +60,7 @@ public class NovisEffect extends StatusEffect {
                         false
                 ));
             }
-        } else if (!player.hasStatusEffect(ACTIVE_TACTILE_CONSCIOUSNESS_TRANSFER)){
+        } else {
             player.removeStatusEffect(StatusEffects.INVISIBILITY);
         }
     }
