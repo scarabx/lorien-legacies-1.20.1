@@ -32,6 +32,8 @@ public class LorienLegaciesModNetworking {
 
     public static final Identifier LEFT_CLICK_PACKET = new Identifier("lorienlegacies", "left_click");
 
+    public static final Identifier LEFT_CLICK_RELEASE_PACKET = new Identifier("lorienlegacies", "left_click_release");
+
     public static final Identifier RIGHT_CLICK_PACKET = new Identifier("lorienlegacies", "right_click");
 
     public static final Identifier TOGGLE_SHOOT_ICEBALL_PACKET = new Identifier("lorienlegacies", "toggle_shoot_iceball");
@@ -188,13 +190,6 @@ public class LorienLegaciesModNetworking {
                 }
                 if (player.hasStatusEffect(STURMA)) {
                     SturmaEffect.lightningStrike(player);
-                }
-                if (player.getMainHandStack().isOf(ModItems.JOUST_STAFF) && player.isSneaking()) {
-                    player.removeStatusEffect(TIRED);
-                    player.removeStatusEffect(PONDUS_COOLDOWN);
-                    player.addStatusEffect(new StatusEffectInstance(PONDUS, 20, 99, false, false, false));
-                    player.addStatusEffect(new StatusEffectInstance(TOGGLE_IMPENETRABLE_SKIN, 20, 99, false, false, false));
-                    player.addStatusEffect(new StatusEffectInstance(DEFLECT_STAMINA, 20, 0, false, false, false));
                 }
             });
         });
