@@ -6,7 +6,14 @@ import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Vec3d;
 import net.scarab.lorienlegacies.effect.ModEffects;
+import net.scarab.lorienlegacies.entity.IceballProjectileEntity;
+import net.scarab.lorienlegacies.entity.JoustStaffEntity;
+import net.scarab.lorienlegacies.entity.ShockCollarProjectileEntity;
+import net.scarab.lorienlegacies.entity.SpikyYellowBallEntity;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -18,6 +25,8 @@ import static net.scarab.lorienlegacies.effect.ModEffects.PONDUS_COOLDOWN;
 @Mixin(ProjectileEntity.class)
 public abstract class ProjectileEntityMixin {
 
+    @Shadow private @Nullable Entity owner;
+
     /**
      * Tick-based deflection for nearby players with Impenetrable Skin (and both active).
      */
@@ -26,8 +35,7 @@ public abstract class ProjectileEntityMixin {
         ProjectileEntity projectile = (ProjectileEntity) (Object) this;
 
         for (Entity entity : projectile.getWorld().getOtherEntities(projectile, projectile.getBoundingBox().expand(0.3))) {
-            if (entity instanceof PlayerEntity player &&
-                    player.hasStatusEffect(ModEffects.PONDUS)) {
+            if (entity instanceof PlayerEntity player && player.hasStatusEffect(ModEffects.PONDUS) && !(player == owner) /*&& !(projectile instanceof JoustStaffEntity || projectile instanceof IceballProjectileEntity || projectile instanceof SpikyYellowBallEntity || projectile instanceof ShockCollarProjectileEntity)*/) {
 
                 boolean hasImpenetrableSkin = player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION) && !player.hasStatusEffect(PONDUS_COOLDOWN);
                 boolean hasIntangibility = player.hasStatusEffect(ModEffects.TOGGLE_INTANGIBILITY) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION) && !player.hasStatusEffect(PONDUS_COOLDOWN);
@@ -49,7 +57,7 @@ public abstract class ProjectileEntityMixin {
         Entity target = hitResult.getEntity();
 
         if (target instanceof PlayerEntity player &&
-                player.hasStatusEffect(ModEffects.PONDUS)) {
+                player.hasStatusEffect(ModEffects.PONDUS) && !(player == owner)) {
 
             boolean hasImpenetrableSkin = player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION) && !player.hasStatusEffect(PONDUS_COOLDOWN);
             boolean hasIntangibility = player.hasStatusEffect(ModEffects.TOGGLE_INTANGIBILITY) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION) && !player.hasStatusEffect(PONDUS_COOLDOWN);
@@ -66,19 +74,23 @@ public abstract class ProjectileEntityMixin {
     /**
      * Utility method to deflect a projectile away from a point.
      */
+    @Unique
     private void deflectProjectileFrom(ProjectileEntity projectile, Vec3d fromPosition) {
-        Vec3d velocity = projectile.getVelocity();
-        Vec3d direction = projectile.getPos().subtract(fromPosition).normalize();
-        Vec3d deflected = velocity.subtract(direction.multiply(2 * velocity.dotProduct(direction)));
 
-        // Add random variation to the deflection for realism
-        deflected = deflected.add(new Vec3d(
-                Math.random() * 0.1 - 0.05,
-                Math.random() * 0.1 - 0.05,
-                Math.random() * 0.1 - 0.05
-        ));
+        if (!(owner instanceof PlayerEntity)) {
+            Vec3d velocity = projectile.getVelocity();
+            Vec3d direction = projectile.getPos().subtract(fromPosition).normalize();
+            Vec3d deflected = velocity.subtract(direction.multiply(2 * velocity.dotProduct(direction)));
 
-        projectile.setVelocity(deflected);
+            // Add random variation to the deflection for realism
+            deflected = deflected.add(new Vec3d(
+                    Math.random() * 0.1 - 0.05,
+                    Math.random() * 0.1 - 0.05,
+                    Math.random() * 0.1 - 0.05
+            ));
+
+            projectile.setVelocity(deflected);
+        }
     }
 
     /**
@@ -87,7 +99,7 @@ public abstract class ProjectileEntityMixin {
     @Inject(method = "canHit", at = @At("HEAD"), cancellable = true)
     private void preventHitIfIntangible(Entity entity, CallbackInfoReturnable<Boolean> cir) {
         if (entity instanceof PlayerEntity player &&
-                player.hasStatusEffect(ModEffects.PONDUS)) {
+                player.hasStatusEffect(ModEffects.PONDUS)  && !(player == owner)) {
 
             boolean hasImpenetrableSkin = player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION) && !player.hasStatusEffect(PONDUS_COOLDOWN);
             boolean hasIntangibility = player.hasStatusEffect(ModEffects.TOGGLE_INTANGIBILITY) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION) && !player.hasStatusEffect(PONDUS_COOLDOWN);
@@ -112,7 +124,7 @@ public abstract class ProjectileEntityMixin {
         Entity target = hitResult.getEntity();
 
         if (target instanceof PlayerEntity player &&
-                player.hasStatusEffect(ModEffects.PONDUS)) {
+                player.hasStatusEffect(ModEffects.PONDUS) && !(player == owner)) {
 
             boolean hasImpenetrableSkin = player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION) && !player.hasStatusEffect(PONDUS_COOLDOWN);
             boolean hasIntangibility = player.hasStatusEffect(ModEffects.TOGGLE_INTANGIBILITY) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION) && !player.hasStatusEffect(PONDUS_COOLDOWN);
