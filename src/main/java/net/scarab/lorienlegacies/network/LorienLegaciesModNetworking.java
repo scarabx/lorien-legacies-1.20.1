@@ -9,6 +9,7 @@ import net.scarab.lorienlegacies.chimaera.MorphHandler;
 import net.scarab.lorienlegacies.effect.active_effects.*;
 import net.scarab.lorienlegacies.effect.toggle_effects.*;
 import net.scarab.lorienlegacies.item.ModItems;
+import net.scarab.lorienlegacies.legacies.LegacyManager;
 
 import static net.scarab.lorienlegacies.effect.ModEffects.*;
 
@@ -102,7 +103,22 @@ public class LorienLegaciesModNetworking {
 
     public static final Identifier MARK_TARGET_FOR_WOLF_PACKET = new Identifier("lorienlegacies", "mark_target_for_wolf");
 
+    public static final Identifier TOGGLE_LEGACY_PACKET = new Identifier("lorienlegacies", "toggle_legacy");
+
     public static void registerC2SPackets() {
+
+        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_LEGACY_PACKET,
+                (server, player, handler, buf, responseSender) -> {
+                    String legacyName = buf.readString();
+                    server.execute(() -> {
+                        try {
+                            LegacyManager.Legacy legacy = LegacyManager.Legacy.valueOf(legacyName);
+                            LegacyManager.toggleLegacy(player, legacy);
+                        } catch (IllegalArgumentException e) {
+                            // invalid legacy sent, ignore
+                        }
+                    });
+                });
 
         ServerPlayNetworking.registerGlobalReceiver(SHOOT_FIREBALL_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
