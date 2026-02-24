@@ -16,17 +16,6 @@ public class TiredEffect extends StatusEffect {
 
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-        // Maintain hidden effect (prevents visual flickering)
-        StatusEffectInstance current = entity.getStatusEffect(this);
-        if (current != null && (current.shouldShowParticles() || current.shouldShowIcon())) {
-            entity.removeStatusEffect(this);
-            entity.addStatusEffect(new StatusEffectInstance(
-                    this,
-                    current.getDuration(),
-                    current.getAmplifier(),
-                    false, false, false
-            ));
-        }
 
         if (entity instanceof PlayerEntity player) {
             if (player.hasStatusEffect(ModEffects.AVEX) && player.isFallFlying()) {

@@ -10,7 +10,7 @@ import net.minecraft.util.Identifier;
 
 public class ModPotions {
     public static final Potion CHIMAERA_ESSENCE = registerPotion("chimaera_essence",
-            new Potion(new StatusEffectInstance(ModEffects.CHIMAERA_ESSENCE, Integer.MAX_VALUE, 0)));
+            new Potion(new StatusEffectInstance(ModEffects.CHIMAERA_ESSENCE/*, Integer.MAX_VALUE, 0, false, false, false*/)));
 
     private static Potion registerPotion(String name, Potion potion) {
         return Registry.register(Registries.POTION, new Identifier(LorienLegaciesMod.MOD_ID, name), potion);

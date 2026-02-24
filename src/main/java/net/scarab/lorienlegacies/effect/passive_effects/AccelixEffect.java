@@ -19,19 +19,6 @@ public class AccelixEffect extends StatusEffect {
 
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-        // Reapply invisibly if needed
-        StatusEffectInstance current = entity.getStatusEffect(this);
-        if (current != null && (current.shouldShowParticles() || current.shouldShowIcon())) {
-            entity.removeStatusEffect(this);
-            entity.addStatusEffect(new StatusEffectInstance(
-                    this,
-                    current.getDuration(),
-                    current.getAmplifier(),
-                    false,
-                    false,
-                    false
-            ));
-        }
 
         // Don't apply speed if the entity is tired
         if (entity.hasStatusEffect(TIRED)

@@ -15,26 +15,6 @@ public class StaminaEffect extends StatusEffect {
     }
 
     @Override
-    public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-        StatusEffectInstance current = entity.getStatusEffect(this);
-        if (current != null && (current.shouldShowParticles() || current.shouldShowIcon())) {
-            entity.removeStatusEffect(this);
-            entity.addStatusEffect(new StatusEffectInstance(
-                    this,
-                    current.getDuration(),
-                    current.getAmplifier(),
-                    false, false, false
-            ));
-        }
-        super.applyUpdateEffect(entity, amplifier);
-    }
-
-    @Override
-    public boolean canApplyUpdateEffect(int duration, int amplifier) {
-        return true;
-    }
-
-    @Override
     public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
 
         if (!entity.getWorld().isClient() && entity instanceof PlayerEntity player && player.getHealth() <= 5) {

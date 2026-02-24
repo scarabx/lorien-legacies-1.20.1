@@ -25,18 +25,6 @@ public class TelekinesisEffect extends StatusEffect {
 
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-        StatusEffectInstance current = entity.getStatusEffect(this);
-        if (current != null && (current.shouldShowParticles() || current.shouldShowIcon())) {
-            entity.removeStatusEffect(this);
-            entity.addStatusEffect(new StatusEffectInstance(
-                    this,
-                    current.getDuration(),
-                    current.getAmplifier(),
-                    false,
-                    false,
-                    false
-            ));
-        }
 
         if (entity instanceof ServerPlayerEntity player) {
             if (player.hasStatusEffect(TOGGLE_TELEKINESIS_MOVE)

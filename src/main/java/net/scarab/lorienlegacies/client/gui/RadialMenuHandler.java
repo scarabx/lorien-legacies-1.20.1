@@ -41,7 +41,7 @@ public class RadialMenuHandler {
         List<Identifier> combatPackets = List.of(
                 LorienLegaciesModNetworking.TOGGLE_SHOOT_FIREBALL_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_FLAMING_HANDS_PACKET,
-                LorienLegaciesModNetworking.TOGGLE_KINETIC_DETONATION,
+                LorienLegaciesModNetworking.TOGGLE_KINETIC_DETONATION_PACKET,
                 LorienLegaciesModNetworking.TELEKINESIS_PUSH_PACKET,
                 LorienLegaciesModNetworking.TELEKINESIS_PULL_PACKET,
                 LorienLegaciesModNetworking.TELEKINESIS_MOVE_PACKET,

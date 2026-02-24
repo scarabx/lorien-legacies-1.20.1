@@ -21,20 +21,6 @@ public class KineticDetonationEffect extends StatusEffect {
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
 
-        // Reapply invisibly if needed
-        StatusEffectInstance current = entity.getStatusEffect(this);
-        if (current != null && (current.shouldShowParticles() || current.shouldShowIcon())) {
-            entity.removeStatusEffect(this);
-            entity.addStatusEffect(new StatusEffectInstance(
-                    this,
-                    current.getDuration(),
-                    current.getAmplifier(),
-                    false,
-                    false,
-                    false
-            ));
-        }
-
         if (!entity.getWorld().isClient()
                 && entity.hasStatusEffect(KINETIC_DETONATION)
                 && entity.hasStatusEffect(TOGGLE_KINETIC_DETONATION)

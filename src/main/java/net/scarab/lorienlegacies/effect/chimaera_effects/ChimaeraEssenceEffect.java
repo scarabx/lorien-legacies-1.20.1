@@ -27,20 +27,6 @@ public class ChimaeraEssenceEffect extends StatusEffect {
             return;
         }
 
-        // Reapply invisibly if needed
-        StatusEffectInstance current = entity.getStatusEffect(this);
-        if (current != null && (current.shouldShowParticles() || current.shouldShowIcon())) {
-            entity.removeStatusEffect(this);
-            entity.addStatusEffect(new StatusEffectInstance(
-                    this,
-                    current.getDuration(),
-                    current.getAmplifier(),
-                    false,
-                    false,
-                    false
-            ));
-        }
-
         if(entity instanceof WolfEntity wolf) {
             wolf.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 100, 0, false, false, false));
             wolf.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 100, 2, false, false, false));

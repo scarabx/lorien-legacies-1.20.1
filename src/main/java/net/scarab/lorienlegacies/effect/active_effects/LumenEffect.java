@@ -20,7 +20,6 @@ import net.minecraft.world.World;
 import net.scarab.lorienlegacies.effect.ModEffects;
 
 import static net.scarab.lorienlegacies.effect.ModEffects.*;
-import static net.scarab.lorienlegacies.effect.toggle_effects.ToggleHumanFireballAOEEffect.toggleHumanFireballAOE;
 
 public class LumenEffect extends StatusEffect {
 
@@ -31,24 +30,12 @@ public class LumenEffect extends StatusEffect {
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
 
-        // Reapply invisibly if needed
-        StatusEffectInstance current = entity.getStatusEffect(this);
-        if (current != null && (current.shouldShowParticles() || current.shouldShowIcon())) {
-            entity.removeStatusEffect(this);
-            entity.addStatusEffect(new StatusEffectInstance(
-                    this,
-                    current.getDuration(),
-                    current.getAmplifier(),
-                    false,
-                    false,
-                    false
-            ));
-        }
-
         // Refresh fire resistance
         //StatusEffectInstance fireResistance = entity.getStatusEffect(StatusEffects.FIRE_RESISTANCE);
         //if (fireResistance == null || fireResistance.getDuration() < 200) {
-        entity.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, Integer.MAX_VALUE, 0, false, false, false), entity);
+        if (!entity.hasStatusEffect(StatusEffects.FIRE_RESISTANCE)) {
+            entity.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, Integer.MAX_VALUE, 0, false, false, false)/*, entity*/);
+        }
 
         // Apply AOE fire logic while on fire and toggle is active
         if (entity instanceof ServerPlayerEntity player
@@ -97,12 +84,15 @@ public class LumenEffect extends StatusEffect {
             if (player.isOnFire()) {
                 player.extinguish();
                 // Disable AOE fire when human fireball is turned off
-                toggleHumanFireballAOE(player, false);
-
+                if (player.hasStatusEffect(TOGGLE_HUMAN_FIREBALL_AOE)) {
+                    player.removeStatusEffect(TOGGLE_HUMAN_FIREBALL_AOE);
+                }
             } else {
                 player.setOnFireFor(100);
                 // Enable AOE fire when human fireball is turned on
-                toggleHumanFireballAOE(player, true);
+                if (!player.hasStatusEffect(TOGGLE_HUMAN_FIREBALL_AOE)) {
+                    player.addStatusEffect(new StatusEffectInstance(TOGGLE_HUMAN_FIREBALL_AOE, Integer.MAX_VALUE, 0, false, false, false));
+                }
             }
         }
     }
