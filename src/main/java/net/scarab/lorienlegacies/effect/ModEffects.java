@@ -75,7 +75,7 @@ public class ModEffects {
             new ToggleLightningStrikeEffect(StatusEffectCategory.BENEFICIAL, 0xFFFF00/*Yellow*/));
 
     public static final StatusEffect TOGGLE_NOVIS = registerStatusEffect("toggle_novis",
-            new NovisEffect(StatusEffectCategory.BENEFICIAL, 0x55FFFF/*Light Blue*/));
+            new ToggleNovisEffect(StatusEffectCategory.BENEFICIAL, 0x55FFFF/*Light Blue*/));
 
     public static final StatusEffect PONDUS = registerStatusEffect("pondus",
             new PondusEffect(StatusEffectCategory.BENEFICIAL, 0x1A0B29/*Obsidian*/));

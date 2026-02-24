@@ -19,11 +19,11 @@ public class RadialMenuScreen extends Screen {
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
         if (amount > 0) {
-            RadialMenuHandler.nextPage();
+            RadialMenuHandler.previousPage();
             return true;
         }
         if (amount < 0) {
-            RadialMenuHandler.previousPage();
+            RadialMenuHandler.nextPage();
             return true;
         }
         return super.mouseScrolled(mouseX, mouseY, amount);

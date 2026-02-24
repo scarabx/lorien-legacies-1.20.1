@@ -7,7 +7,6 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_KINETIC_DETONATION;
-import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_NOVIS;
 
 public class ToggleKineticDetonationEffect extends StatusEffect {
 

@@ -156,18 +156,6 @@ public class RadialMenuHandler {
         optionsPages.add(ximicOptions);
         packetPages.add(ximicPackets);
         pageColors.add(0xFFFFFF); // White
-
-        // Page 6 - Test
-        pageNames.add("Test");
-        List<String> testOptions = List.of(
-                "Novis"
-        );
-        List<Identifier> testPackets = List.of(
-                LorienLegaciesModNetworking.TOGGLE_LEGACY_PACKET
-        );
-        optionsPages.add(testOptions);
-        packetPages.add(testPackets);
-        pageColors.add(0xFFFFFF); // White
     }
 
     public static void closeMenu() {

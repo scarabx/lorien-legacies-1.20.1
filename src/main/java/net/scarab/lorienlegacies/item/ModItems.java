@@ -77,9 +77,6 @@ public class ModItems {
     public static final Item KINETIC_PROJECTILE = registerItem("kinetic_projectile",
             new KineticProjectileItem(new FabricItemSettings().maxCount(1)));
 
-    public static final Item NOVIS = registerItem("novis",
-            new NovisItem(new FabricItemSettings().maxCount(1)));
-
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, new Identifier(LorienLegaciesMod.MOD_ID, name), item);
     }

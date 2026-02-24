@@ -30,21 +30,6 @@ public class PondusCooldownEffect extends StatusEffect {
                 return;
             }
         }
-
-        // Reapply invisibly if needed
-        StatusEffectInstance current = entity.getStatusEffect(this);
-        if (current != null && (current.shouldShowParticles() || current.shouldShowIcon())) {
-            entity.removeStatusEffect(this);
-            entity.addStatusEffect(new StatusEffectInstance(
-                    this,
-                    current.getDuration(),
-                    current.getAmplifier(),
-                    false,
-                    false,
-                    false
-            ));
-        }
-
         if (entity instanceof PlayerEntity player) {
             if (player.hasStatusEffect(PONDUS) && player.hasStatusEffect(TOGGLE_INTANGIBILITY)) {
                 player.getAbilities().flying = false;
@@ -66,7 +51,7 @@ public class PondusCooldownEffect extends StatusEffect {
                 return;
             }
 
-            if (!player.hasStatusEffect(PONDUS_STAMINA) && !player.hasStatusEffect(PONDUS_COOLDOWN)) {
+            if (!player.hasStatusEffect(PONDUS_STAMINA) && !player.hasStatusEffect(PONDUS_COOLDOWN) && player.hasStatusEffect(PONDUS)) {
                 player.addStatusEffect(new StatusEffectInstance(PONDUS_STAMINA, 200, 0, false, false));
             }
             if (player.hasStatusEffect(PONDUS) && player.hasStatusEffect(TOGGLE_INTANGIBILITY)) {

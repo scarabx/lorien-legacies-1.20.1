@@ -29,20 +29,6 @@ public class PondusStaminaEffect extends StatusEffect {
                 return;
             }
         }
-
-        // Reapply invisibly if needed
-        StatusEffectInstance current = entity.getStatusEffect(this);
-        if (current != null && (current.shouldShowParticles() || current.shouldShowIcon())) {
-            entity.removeStatusEffect(this);
-            entity.addStatusEffect(new StatusEffectInstance(
-                    this,
-                    current.getDuration(),
-                    current.getAmplifier(),
-                    false,
-                    false,
-                    false
-            ));
-        }
     }
 
     @Override
@@ -58,7 +44,7 @@ public class PondusStaminaEffect extends StatusEffect {
                 return;
             }
 
-            if (!player.hasStatusEffect(PONDUS_COOLDOWN) && !player.hasStatusEffect(PONDUS_STAMINA)) {
+            if (!player.hasStatusEffect(PONDUS_COOLDOWN) && !player.hasStatusEffect(PONDUS_STAMINA) && player.hasStatusEffect(PONDUS)) {
                 player.addStatusEffect(new StatusEffectInstance(PONDUS_COOLDOWN, 100, 0, false, false, false));
             }
         }

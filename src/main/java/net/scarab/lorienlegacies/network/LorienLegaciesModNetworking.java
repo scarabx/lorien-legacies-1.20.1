@@ -6,10 +6,9 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 
 import net.scarab.lorienlegacies.chimaera.MorphHandler;
+import net.scarab.lorienlegacies.effect.ModEffects;
 import net.scarab.lorienlegacies.effect.active_effects.*;
 import net.scarab.lorienlegacies.effect.toggle_effects.*;
-import net.scarab.lorienlegacies.item.ModItems;
-import net.scarab.lorienlegacies.legacies.LegacyManager;
 
 import static net.scarab.lorienlegacies.effect.ModEffects.*;
 
@@ -103,22 +102,7 @@ public class LorienLegaciesModNetworking {
 
     public static final Identifier MARK_TARGET_FOR_WOLF_PACKET = new Identifier("lorienlegacies", "mark_target_for_wolf");
 
-    public static final Identifier TOGGLE_LEGACY_PACKET = new Identifier("lorienlegacies", "toggle_legacy");
-
     public static void registerC2SPackets() {
-
-        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_LEGACY_PACKET,
-                (server, player, handler, buf, responseSender) -> {
-                    String legacyName = buf.readString();
-                    server.execute(() -> {
-                        try {
-                            LegacyManager.Legacy legacy = LegacyManager.Legacy.valueOf(legacyName);
-                            LegacyManager.toggleLegacy(player, legacy);
-                        } catch (IllegalArgumentException e) {
-                            // invalid legacy sent, ignore
-                        }
-                    });
-                });
 
         ServerPlayNetworking.registerGlobalReceiver(SHOOT_FIREBALL_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
@@ -139,7 +123,11 @@ public class LorienLegaciesModNetworking {
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_FLAMING_HANDS_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 if (player.hasStatusEffect(LUMEN)) {
-                    ToggleFlamingHandsEffect.toggleFlamingHands(player);
+                    if (player.hasStatusEffect(TOGGLE_FLAMING_HANDS)) {
+                        player.removeStatusEffect(TOGGLE_FLAMING_HANDS);
+                    } else {
+                        player.addStatusEffect(new StatusEffectInstance(TOGGLE_FLAMING_HANDS, Integer.MAX_VALUE, 0, false, false, false));
+                    }
                 }
             });
         });
@@ -155,7 +143,11 @@ public class LorienLegaciesModNetworking {
         ServerPlayNetworking.registerGlobalReceiver(ICICLES_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 if (player.hasStatusEffect(GLACEN)) {
-                    ToggleIciclesEffect.toggleIcicles(player);
+                    if (player.hasStatusEffect(TOGGLE_ICICLES)) {
+                        player.removeStatusEffect(TOGGLE_ICICLES);
+                    } else {
+                        player.addStatusEffect(new StatusEffectInstance(TOGGLE_ICICLES, Integer.MAX_VALUE, 0, false, false, false));
+                    }
                 }
             });
         });
@@ -163,7 +155,11 @@ public class LorienLegaciesModNetworking {
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_ICE_HANDS_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 if (player.hasStatusEffect(GLACEN)) {
-                    ToggleIceHandsEffect.toggleIceHands(player);
+                    if (player.hasStatusEffect(TOGGLE_ICE_HANDS)) {
+                        player.removeStatusEffect(TOGGLE_ICE_HANDS);
+                    } else {
+                        player.addStatusEffect(new StatusEffectInstance(TOGGLE_ICE_HANDS, Integer.MAX_VALUE, 0, false, false, false));
+                    }
                 }
             });
         });
@@ -179,7 +175,11 @@ public class LorienLegaciesModNetworking {
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_SHOOT_FIREBALL_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 if (player.hasStatusEffect(LUMEN)) {
-                    ToggleShootFireballEffect.toggleShootFireball(player);
+                    if (player.hasStatusEffect(TOGGLE_SHOOT_FIREBALL)) {
+                        player.removeStatusEffect(TOGGLE_SHOOT_FIREBALL);
+                    } else {
+                        player.addStatusEffect(new StatusEffectInstance(TOGGLE_SHOOT_FIREBALL, Integer.MAX_VALUE, 0, false, false, false));
+                    }
                     player.removeStatusEffect(TOGGLE_SHOOT_ICEBALL);
                     player.removeStatusEffect(TOGGLE_LIGHTNING_STRIKE);
                 }
@@ -189,7 +189,11 @@ public class LorienLegaciesModNetworking {
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_SHOOT_ICEBALL_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 if (player.hasStatusEffect(GLACEN)) {
-                    ToggleShootIceballEffect.toggleShootIceball(player);
+                    if (player.hasStatusEffect(TOGGLE_SHOOT_ICEBALL)) {
+                        player.removeStatusEffect(TOGGLE_SHOOT_ICEBALL);
+                    } else {
+                        player.addStatusEffect(new StatusEffectInstance(TOGGLE_SHOOT_ICEBALL, Integer.MAX_VALUE, 0, false, false, false));
+                    }
                     player.removeStatusEffect(TOGGLE_SHOOT_FIREBALL);
                     player.removeStatusEffect(TOGGLE_LIGHTNING_STRIKE);
                 }
@@ -241,7 +245,11 @@ public class LorienLegaciesModNetworking {
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_FREEZE_WATER_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 if (player.hasStatusEffect(GLACEN)) {
-                    ToggleFreezeWaterEffect.toggleFreezeWater(player);
+                    if (player.hasStatusEffect(TOGGLE_FREEZE_WATER)) {
+                        player.removeStatusEffect(TOGGLE_FREEZE_WATER);
+                    } else {
+                        player.addStatusEffect(new StatusEffectInstance(TOGGLE_FREEZE_WATER, Integer.MAX_VALUE, 0, false, false, false));
+                    }
                 }
             });
         });
@@ -249,7 +257,11 @@ public class LorienLegaciesModNetworking {
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_NOVIS_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 if (player.hasStatusEffect(NOVIS)) {
-                    ToggleNovisEffect.toggleNovis(player);
+                    if (player.hasStatusEffect(TOGGLE_NOVIS)) {
+                        player.removeStatusEffect(TOGGLE_NOVIS);
+                    } else {
+                        player.addStatusEffect(new StatusEffectInstance(TOGGLE_NOVIS, Integer.MAX_VALUE, 0, false, false, false));
+                    }
                 }
             });
         });
@@ -257,7 +269,11 @@ public class LorienLegaciesModNetworking {
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_IMPENETRABLE_SKIN_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 if (player.hasStatusEffect(PONDUS)) {
-                    ToggleImpenetrableSkinEffect.toggleImpenetrableSkin(player);
+                    if (player.hasStatusEffect(TOGGLE_IMPENETRABLE_SKIN)) {
+                        player.removeStatusEffect(TOGGLE_IMPENETRABLE_SKIN);
+                    } else {
+                        player.addStatusEffect(new StatusEffectInstance(TOGGLE_IMPENETRABLE_SKIN, Integer.MAX_VALUE, 0, false, false, false));
+                    }
                     if (!player.hasStatusEffect(PONDUS_STAMINA) && !player.hasStatusEffect(PONDUS_COOLDOWN)) {
                         player.addStatusEffect(new StatusEffectInstance(PONDUS_STAMINA, 200, 0, false, false, false));
                     }
@@ -268,7 +284,11 @@ public class LorienLegaciesModNetworking {
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_INTANGIBILITY_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 if (player.hasStatusEffect(PONDUS)) {
-                    ToggleIntangibilityEffect.toggleIntangibility(player);
+                    if (player.hasStatusEffect(TOGGLE_INTANGIBILITY)) {
+                        player.removeStatusEffect(TOGGLE_INTANGIBILITY);
+                    } else {
+                        player.addStatusEffect(new StatusEffectInstance(TOGGLE_INTANGIBILITY, Integer.MAX_VALUE, 0, false, false, false));
+                    }
                     if (!player.hasStatusEffect(PONDUS_STAMINA) && !player.hasStatusEffect(PONDUS_COOLDOWN)) {
                         player.addStatusEffect(new StatusEffectInstance(PONDUS_STAMINA, 200, 0, false, false, false));
                     }
@@ -323,7 +343,11 @@ public class LorienLegaciesModNetworking {
         ServerPlayNetworking.registerGlobalReceiver(TELEKINESIS_DEFLECT_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 if (player.hasStatusEffect(TELEKINESIS)) {
-                    ToggleTelekinesisDeflectEffect.toggleTelekinesisDeflect(player);
+                    if (player.hasStatusEffect(TOGGLE_TELEKINESIS_DEFLECT)) {
+                        player.removeStatusEffect(TOGGLE_TELEKINESIS_DEFLECT);
+                    } else {
+                        player.addStatusEffect(new StatusEffectInstance(TOGGLE_TELEKINESIS_DEFLECT, Integer.MAX_VALUE, 0, false, false, false));
+                    }
                     player.removeStatusEffect(TOGGLE_TELEKINESIS_PUSH);
                     player.removeStatusEffect(TOGGLE_TELEKINESIS_PULL);
                     player.removeStatusEffect(CHIMAERA_MORPH);
@@ -345,7 +369,11 @@ public class LorienLegaciesModNetworking {
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_LIGHTNING_STRIKE_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 if (player.hasStatusEffect(STURMA)) {
-                    ToggleLightningStrikeEffect.toggleLightningStrike(player);
+                    if (player.hasStatusEffect(TOGGLE_LIGHTNING_STRIKE)) {
+                        player.removeStatusEffect(TOGGLE_LIGHTNING_STRIKE);
+                    } else {
+                        player.addStatusEffect(new StatusEffectInstance(TOGGLE_LIGHTNING_STRIKE, Integer.MAX_VALUE, 0, false, false, false));
+                    }
                     player.removeStatusEffect(TOGGLE_SHOOT_FIREBALL);
                     player.removeStatusEffect(TOGGLE_SHOOT_ICEBALL);
                 }
@@ -355,9 +383,8 @@ public class LorienLegaciesModNetworking {
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_CONJURE_RAIN_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 if (player.hasStatusEffect(STURMA)) {
-                    ToggleConjureRainEffect.toggleConjureRain(player);
+                    player.addStatusEffect(new StatusEffectInstance(TOGGLE_CONJURE_RAIN, 0, 0, false, false, false));
                     SturmaEffect.conjureRain(player, (ServerWorld) player.getWorld());
-                    player.removeStatusEffect(TOGGLE_CONJURE_RAIN);
                 }
             });
         });

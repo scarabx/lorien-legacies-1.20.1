@@ -1,13 +1,13 @@
 package net.scarab.lorienlegacies.effect.active_effects;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.scarab.lorienlegacies.effect.ModEffects;
-import net.scarab.lorienlegacies.item.ModItems;
 
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -25,20 +25,6 @@ public class PondusEffect extends StatusEffect {
 
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-
-        // Reapply invisibly if needed
-        StatusEffectInstance current = entity.getStatusEffect(this);
-        if (current != null && (current.shouldShowParticles() || current.shouldShowIcon())) {
-            entity.removeStatusEffect(this);
-            entity.addStatusEffect(new StatusEffectInstance(
-                    this,
-                    current.getDuration(),
-                    current.getAmplifier(),
-                    false,
-                    false,
-                    false
-            ));
-        }
 
         if (entity instanceof PlayerEntity player) {
 
@@ -106,5 +92,19 @@ public class PondusEffect extends StatusEffect {
     private boolean hasAmplifier(PlayerEntity player, StatusEffect effect, int amplifier) {
         StatusEffectInstance instance = player.getStatusEffect(effect);
         return instance != null && instance.getAmplifier() == amplifier;
+    }
+
+    @Override
+    public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
+
+        if (entity instanceof PlayerEntity player) {
+            if (player.hasStatusEffect(PONDUS_COOLDOWN)) {
+                player.removeStatusEffect(PONDUS_COOLDOWN);
+            }
+            if (player.hasStatusEffect(PONDUS_STAMINA)) {
+                player.removeStatusEffect(PONDUS_STAMINA);
+            }
+        }
+        super.onRemoved(entity, attributes, amplifier);
     }
 }
