@@ -274,7 +274,7 @@ public class LorienLegaciesModNetworking {
                         player.addStatusEffect(new StatusEffectInstance(TOGGLE_IMPENETRABLE_SKIN, Integer.MAX_VALUE, 0, false, false, false));
                     }
                     if (!player.hasStatusEffect(PONDUS_STAMINA) && !player.hasStatusEffect(PONDUS_COOLDOWN)) {
-                        player.addStatusEffect(new StatusEffectInstance(PONDUS_STAMINA, 200, 0, false, false, false));
+                        player.addStatusEffect(new StatusEffectInstance(PONDUS_STAMINA, 12000, 0, false, false, false));
                     }
                 }
             });
