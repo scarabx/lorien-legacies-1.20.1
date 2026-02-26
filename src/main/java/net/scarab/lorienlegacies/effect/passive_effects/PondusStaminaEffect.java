@@ -45,7 +45,7 @@ public class PondusStaminaEffect extends StatusEffect {
             }
 
             if (!player.hasStatusEffect(PONDUS_COOLDOWN) && !player.hasStatusEffect(PONDUS_STAMINA) && player.hasStatusEffect(PONDUS)) {
-                player.addStatusEffect(new StatusEffectInstance(PONDUS_COOLDOWN, 6000, 0, false, false, false));
+                player.addStatusEffect(new StatusEffectInstance(PONDUS_COOLDOWN, 600, 0, false, false, false));
             }
         }
         super.onRemoved(entity, attributes, amplifier);
