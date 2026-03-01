@@ -6,10 +6,14 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
+import net.minecraft.util.math.Vec3d;
 import net.scarab.lorienlegacies.entity.ModEntities;
 import net.scarab.lorienlegacies.entity.client.*;
 import net.scarab.lorienlegacies.entity.layer.ModModelLayers;
 import net.scarab.lorienlegacies.util.ModModelPredicateProvider;
+
+import static net.scarab.lorienlegacies.effect.ModEffects.PONDUS;
+import static net.scarab.lorienlegacies.effect.ModEffects.TOGGLE_INTANGIBILITY;
 
 public class LorienLegaciesModClient implements ClientModInitializer {
     @Override
@@ -40,6 +44,29 @@ public class LorienLegaciesModClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.FILLED_BLACK_HOLE, FilledBlackholeItemEntityRenderer::new);
 
         ModModelPredicateProvider.registerModModels();
+
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            // Only activate if player exists and has required status effects
+            if (client.player != null && client.player.hasStatusEffect(PONDUS) && client.player.hasStatusEffect(TOGGLE_INTANGIBILITY)) {
+
+                // Base movement parameters for normal flight
+                double baseMultiplier = 0.05;  // Acceleration factor
+                double maxSpeed = 1.5;        // Terminal velocity
+
+                // Handle active forward movement
+                if (client.options.forwardKey.isPressed()) {
+                    // Get player's look direction vector
+                    Vec3d look = client.player.getRotationVec(1.0F);
+                    // Calculate new velocity with acceleration
+                    Vec3d velocity = client.player.getVelocity().add(look.multiply(baseMultiplier));
+                    // Enforce speed limit
+                    if (velocity.length() > maxSpeed) {
+                        velocity = velocity.normalize().multiply(maxSpeed);
+                    }
+                    client.player.setVelocity(velocity);
+                }
+            }
+        });
     }
 }
 

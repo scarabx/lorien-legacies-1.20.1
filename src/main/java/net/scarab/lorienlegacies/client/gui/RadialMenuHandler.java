@@ -252,7 +252,6 @@ public class RadialMenuHandler {
 
                 ClientPlayNetworking.send(packetId, new PacketByteBuf(Unpooled.buffer()));
                 closeMenu();
-                MinecraftClient.getInstance().setScreen(null);
                 break;
             }
         }
