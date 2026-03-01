@@ -14,8 +14,6 @@ public class LorienLegaciesModKeybinds implements ClientModInitializer {
 
     private static KeyBinding openRadialMenuKey;
     private boolean wasKeyPressed = false;
-    private double accumulatedScroll = 0;
-    private boolean scrollCallbackSet = false;
     private boolean mouseGrabbedState = false;
 
     @Override
@@ -32,16 +30,6 @@ public class LorienLegaciesModKeybinds implements ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player == null) return;
 
-            // Set up scroll callback once window is available
-            if (!scrollCallbackSet && client.getWindow() != null) {
-                GLFW.glfwSetScrollCallback(client.getWindow().getHandle(), (window, xoffset, yoffset) -> {
-                    if (RadialMenuHandler.menuOpen) {
-                        accumulatedScroll += yoffset;
-                    }
-                });
-                scrollCallbackSet = true;
-            }
-
             // Check if the rebound key is physically held down
             InputUtil.Key boundKey = KeyBindingHelper.getBoundKeyOf(openRadialMenuKey);
             boolean isPressed = false;
@@ -52,17 +40,21 @@ public class LorienLegaciesModKeybinds implements ClientModInitializer {
                 );
             }
 
+            // Only allow opening the radial menu if no screen is currently open
+            // (prevents opening in inventories, chat, etc.)
+            boolean canOpenMenu = client.currentScreen == null;
+
             // Open menu on key press
-            if (isPressed && !RadialMenuHandler.menuOpen) {
+            if (isPressed && !RadialMenuHandler.menuOpen && canOpenMenu) {
                 RadialMenuHandler.menuOpen = true;
                 // Store current mouse grab state and release mouse for cursor control
                 mouseGrabbedState = client.mouse.isCursorLocked();
                 client.mouse.unlockCursor();
             }
 
-            // Close AND SELECT menu on key release (ORIGINAL BEHAVIOR)
+            // Close AND SELECT menu on key release
             if (!isPressed && wasKeyPressed && RadialMenuHandler.menuOpen) {
-                RadialMenuHandler.selectOption(); // Select based on cursor position
+                RadialMenuHandler.selectOption();
                 RadialMenuHandler.closeMenu();
                 // Restore mouse grab state
                 if (mouseGrabbedState) {
@@ -71,21 +63,6 @@ public class LorienLegaciesModKeybinds implements ClientModInitializer {
             }
 
             wasKeyPressed = isPressed;
-
-            // Handle mouse input when menu is open
-            if (RadialMenuHandler.menuOpen) {
-                // Handle accumulated scroll for page switching
-                if (accumulatedScroll != 0) {
-                    if (accumulatedScroll > 0) {
-                        RadialMenuHandler.previousPage();
-                    } else {
-                        RadialMenuHandler.nextPage();
-                    }
-                    accumulatedScroll = 0;
-                }
-            } else {
-                accumulatedScroll = 0; // Reset scroll when menu closes
-            }
         });
     }
 }
