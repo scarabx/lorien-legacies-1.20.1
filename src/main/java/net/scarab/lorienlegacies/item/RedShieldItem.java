@@ -38,9 +38,11 @@ public class RedShieldItem extends Item {
                 e -> e instanceof ProjectileEntity && e.isAlive()
         ).isEmpty();
 
-        // NEW: Deflect projectiles only if coming from the front
+        // NEW: Deflect projectiles from any direction
         boolean shouldDeflect = false;
+
         if (hasNearbyProjectiles) {
+
             List<Entity> projectiles = serverWorld.getOtherEntities(
                     player,
                     player.getBoundingBox().expand(3),
@@ -48,72 +50,56 @@ public class RedShieldItem extends Item {
             );
 
             for (Entity projectile : projectiles) {
-                // Calculate direction from player to projectile
-                Vec3d playerPos = player.getPos();
-                Vec3d projectilePos = projectile.getPos();
-                Vec3d toProjectile = projectilePos.subtract(playerPos).normalize();
 
-                // Get player's look direction
-                Vec3d playerLook = player.getRotationVec(1.0F);
+                shouldDeflect = true;
 
-                // Calculate angle between player's look direction and projectile direction
-                double dotProduct = playerLook.dotProduct(toProjectile);
+                // Deflect the projectile
+                double dx = projectile.getX() - player.getX();
+                double dy = projectile.getY() - player.getY();
+                double dz = projectile.getZ() - player.getZ();
+                double distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
 
-                // Only deflect if projectile is coming from front (positive dot product)
-                if (dotProduct > 0) {
-                    shouldDeflect = true;
+                if (distance > 0) {
 
-                    // Deflect the projectile
-                    double dx = projectile.getX() - player.getX();
-                    double dy = projectile.getY() - player.getY();
-                    double dz = projectile.getZ() - player.getZ();
-                    double distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
+                    projectile.setVelocity(dx / distance * 2.0, dy / distance * 2.0, dz / distance * 2.0);
 
-                    if (distance > 0) {
-                        projectile.setVelocity(dx / distance * 2.0, dy / distance * 2.0, dz / distance * 2.0);
-                        projectile.velocityModified = true;
-                    }
+                    projectile.velocityModified = true;
+
                 }
-                // Projectiles from other directions are ignored - no deflection
+
             }
+
         }
 
-        // NEW: Check if there are any hostiles in front that would keep shield active
-        boolean hasHostilesInFront = false;
-        if (hasNearbyHostiles) {
-            List<HostileEntity> hostiles = serverWorld.getEntitiesByClass(
-                    HostileEntity.class,
-                    player.getBoundingBox().expand(3),
-                    e -> true
-            );
+        // NEW: Check if there are any hostiles nearby that would keep shield active
 
-            for (HostileEntity hostile : hostiles) {
-                Vec3d playerPos = player.getPos();
-                Vec3d hostilePos = hostile.getPos();
-                Vec3d toHostile = hostilePos.subtract(playerPos).normalize();
-                Vec3d playerLook = player.getRotationVec(1.0F);
+        // Revert only if no hostiles nearby and no projectiles nearby
+        if (!hasNearbyHostiles && !shouldDeflect) {
 
-                double dotProduct = playerLook.dotProduct(toHostile);
-                if (dotProduct > 0) {
-                    hasHostilesInFront = true;
-                    break;
-                }
-            }
-        }
-
-        // Revert only if no hostiles in front and no projectiles in front
-        if (!hasHostilesInFront && !shouldDeflect) {
             boolean inOffhand = player.getOffHandStack() == stack;
+
             if (stack.getItem() == ModItems.RED_SHIELD) {
+
                 stack.decrement(1);
+
                 ItemStack bracelet = new ItemStack(ModItems.RED_BRACELET);
+
                 if (inOffhand) {
+
                     player.setStackInHand(Hand.OFF_HAND, bracelet);
+
                 } else {
+
                     player.getInventory().insertStack(slot, bracelet);
+
                 }
+
             }
+
         }
+
         super.inventoryTick(stack, world, entity, slot, selected);
+
     }
+
 }
