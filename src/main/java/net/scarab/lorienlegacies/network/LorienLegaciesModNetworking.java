@@ -223,7 +223,6 @@ public class LorienLegaciesModNetworking {
                 }
                 if (player.hasStatusEffect(TELEKINESIS)) {
                     TelekinesisEffect.deflect(player);
-                    player.removeStatusEffect(PONDUS_COOLDOWN);
                     player.addStatusEffect(new StatusEffectInstance(DEFLECT_STAMINA, 20, 0, false, false, false));
                 }
                 if (player.hasStatusEffect(CHIMAERA_MORPH)) {

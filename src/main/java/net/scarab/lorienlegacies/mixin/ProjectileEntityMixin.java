@@ -35,7 +35,7 @@ public abstract class ProjectileEntityMixin {
         ProjectileEntity projectile = (ProjectileEntity) (Object) this;
 
         for (Entity entity : projectile.getWorld().getOtherEntities(projectile, projectile.getBoundingBox().expand(0.3))) {
-            if (entity instanceof PlayerEntity player && player.hasStatusEffect(ModEffects.PONDUS) && !(player == owner) /*&& !(projectile instanceof JoustStaffEntity || projectile instanceof IceballProjectileEntity || projectile instanceof SpikyYellowBallEntity || projectile instanceof ShockCollarProjectileEntity)*/) {
+            if (entity instanceof PlayerEntity player && player.hasStatusEffect(ModEffects.PONDUS) && !(player == owner)) {
 
                 boolean hasImpenetrableSkin = player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION) && !player.hasStatusEffect(PONDUS_COOLDOWN);
                 boolean hasIntangibility = player.hasStatusEffect(ModEffects.TOGGLE_INTANGIBILITY) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION) && !player.hasStatusEffect(PONDUS_COOLDOWN);
@@ -99,7 +99,7 @@ public abstract class ProjectileEntityMixin {
     @Inject(method = "canHit", at = @At("HEAD"), cancellable = true)
     private void preventHitIfIntangible(Entity entity, CallbackInfoReturnable<Boolean> cir) {
         if (entity instanceof PlayerEntity player &&
-                player.hasStatusEffect(ModEffects.PONDUS)  && !(player == owner)) {
+                player.hasStatusEffect(ModEffects.PONDUS) && !(player == owner)) {
 
             boolean hasImpenetrableSkin = player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION) && !player.hasStatusEffect(PONDUS_COOLDOWN);
             boolean hasIntangibility = player.hasStatusEffect(ModEffects.TOGGLE_INTANGIBILITY) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION) && !player.hasStatusEffect(PONDUS_COOLDOWN);

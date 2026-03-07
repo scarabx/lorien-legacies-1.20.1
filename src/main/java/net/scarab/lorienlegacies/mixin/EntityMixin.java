@@ -17,7 +17,7 @@ public abstract class EntityMixin {
     // Prevent player from colliding with entities
     @Inject(method = "collidesWith", at = @At("HEAD"), cancellable = true)
     private void intangibleNoEntityCollision(Entity entity, CallbackInfoReturnable<Boolean> cir) {
-        // ignoreer warning
+        //noinspection ConstantValue
         if ((Object) this instanceof PlayerEntity player &&
                 player.hasStatusEffect(ModEffects.PONDUS) &&
                 player.hasStatusEffect(ModEffects.TOGGLE_INTANGIBILITY)
@@ -29,7 +29,7 @@ public abstract class EntityMixin {
     // Prevent being selected as a collidable entity
     @Inject(method = "isCollidable", at = @At("HEAD"), cancellable = true)
     private void intangibleNotCollidable(CallbackInfoReturnable<Boolean> cir) {
-        // ignoreer warning
+        //noinspection ConstantValue
         if ((Object) this instanceof PlayerEntity player &&
                 player.hasStatusEffect(ModEffects.PONDUS) &&
                 player.hasStatusEffect(ModEffects.TOGGLE_INTANGIBILITY)
@@ -41,7 +41,7 @@ public abstract class EntityMixin {
     // Prevent projectiles (or other logic) from raycasting to player
     @Inject(method = "canHit", at = @At("HEAD"), cancellable = true)
     private void intangibleCannotBeHit(CallbackInfoReturnable<Boolean> cir) {
-        // ignoreer warning
+        //noinspection ConstantValue
         if ((Object) this instanceof PlayerEntity player &&
                 player.hasStatusEffect(ModEffects.PONDUS) &&
                 player.hasStatusEffect(ModEffects.TOGGLE_INTANGIBILITY)

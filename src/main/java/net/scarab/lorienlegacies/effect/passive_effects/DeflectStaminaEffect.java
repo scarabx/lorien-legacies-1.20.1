@@ -20,9 +20,9 @@ public class DeflectStaminaEffect extends StatusEffect {
 
         if (entity instanceof PlayerEntity player) {
             player.addStatusEffect(new StatusEffectInstance(DEFLECT_COOLDOWN, 100, 0, false, false, false));
-            if (player.hasStatusEffect(BESTOWED_PONDUS)) {
-                player.addStatusEffect(new StatusEffectInstance(PONDUS_STAMINA, 200, 0, false, false, false));
-            }
+            //if (player.hasStatusEffect(BESTOWED_PONDUS)) {
+                //player.addStatusEffect(new StatusEffectInstance(PONDUS_STAMINA, 200, 0, false, false, false));
+            //}
         }
         super.onRemoved(entity, attributes, amplifier);
     }

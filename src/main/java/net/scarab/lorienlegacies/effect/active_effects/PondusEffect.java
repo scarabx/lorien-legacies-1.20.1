@@ -28,23 +28,16 @@ public class PondusEffect extends StatusEffect {
 
         if (entity instanceof PlayerEntity player) {
 
-            if (!hasAmplifier(player, PONDUS, 99)
-                && !hasAmplifier(player, TOGGLE_IMPENETRABLE_SKIN, 99)) {
-                player.addStatusEffect(new StatusEffectInstance(BESTOWED_PONDUS, Integer.MAX_VALUE, 0, false, false, false));
-            }
-
             // Apply intangibility behavior
             if (player.hasStatusEffect(TOGGLE_INTANGIBILITY)
                     && !player.hasStatusEffect(TIRED)
                     && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)
-                    && !player.hasStatusEffect(PONDUS_COOLDOWN)
-                    && !hasAmplifier(player, PONDUS, 99)
-                    && !hasAmplifier(player, TOGGLE_IMPENETRABLE_SKIN, 99)) {
+                    && !player.hasStatusEffect(PONDUS_COOLDOWN)) {
                 applyIntangibility(player);
             }
         }
         if (entity instanceof PlayerEntity player) {
-            if (player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION) && !player.hasStatusEffect(PONDUS_COOLDOWN) && !hasAmplifier(player, PONDUS, 99) && !hasAmplifier(player, TOGGLE_IMPENETRABLE_SKIN, 99)) {
+            if (player.hasStatusEffect(ModEffects.TOGGLE_IMPENETRABLE_SKIN) && !player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION) && !player.hasStatusEffect(PONDUS_COOLDOWN)) {
                     player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, Integer.MAX_VALUE, 4, false, false, false));
             } else {
                 player.removeStatusEffect(StatusEffects.STRENGTH);
@@ -87,11 +80,6 @@ public class PondusEffect extends StatusEffect {
             }
         }
         player.sendAbilitiesUpdate();
-    }
-
-    private boolean hasAmplifier(PlayerEntity player, StatusEffect effect, int amplifier) {
-        StatusEffectInstance instance = player.getStatusEffect(effect);
-        return instance != null && instance.getAmplifier() == amplifier;
     }
 
     @Override
