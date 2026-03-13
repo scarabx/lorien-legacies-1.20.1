@@ -11,6 +11,7 @@ import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 import net.scarab.lorienlegacies.tick_throttling.TickThrottlerHandler;
 
+import static net.scarab.lorienlegacies.effect.ModEffects.ACTIVE_LEGACY_INHIBITION;
 import static net.scarab.lorienlegacies.effect.ModEffects.TIRED;
 
 public class NoxenEffect extends StatusEffect {
@@ -33,37 +34,24 @@ public class NoxenEffect extends StatusEffect {
             return; // Skip night vision application this tick
 
         }
+
         TickThrottlerHandler.ticksSinceLastUpdate = 0;
 
         if (entity instanceof PlayerEntity player) {
 
             if (!player.getWorld().isClient()) {
 
-                World world = player.getWorld();
-
-                BlockPos pos = player.getBlockPos();
-
-                int blockLight = world.getLightLevel(LightType.BLOCK, pos);
-
-                int skyLight = world.getLightLevel(LightType.SKY, pos);
-
-                boolean isDark = (blockLight + skyLight) < 8;
-
-                boolean shouldApplyNightVision = (world.isNight() || player.isSubmergedInWater() || isDark || world.getBlockCollisions(entity, entity.getBoundingBox()).iterator().hasNext()) && !entity.hasStatusEffect(TIRED);
-
-                if (shouldApplyNightVision) {
-
-                    StatusEffectInstance nightVision = player.getStatusEffect(StatusEffects.NIGHT_VISION);
-
-                    if (nightVision == null || nightVision.getDuration() < 1) { // Less than 1 tick left
-
-                        player.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, Integer.MAX_VALUE, 0, false, false, false));
-
-                    }
-
-                } else {
+                if (player.hasStatusEffect(TIRED) || player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
                     player.removeStatusEffect(StatusEffects.NIGHT_VISION);
+
+                    return;
+
+                }
+
+                if (!player.hasStatusEffect(StatusEffects.NIGHT_VISION)) {
+
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, Integer.MAX_VALUE, 0, false, false, false));
 
                 }
             }
