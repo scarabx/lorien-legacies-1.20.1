@@ -32,7 +32,7 @@ public class AvexEffect extends StatusEffect {
                 && !entity.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             // Start flying if not already and the player is in the air (jumped and not on ground or flying)
-            if (!player.isFallFlying() && !player.isOnGround() && player.getVelocity().y > 0 && player.isSneaking()) {
+            if (!player.isFallFlying() && !player.isOnGround() /*&& player.getVelocity().y > 0*/ && player.isSneaking()) {
                 ClientPlayNetworking.send(
                         LorienLegaciesModNetworking.START_AVEX_FLIGHT_PACKET,
                         PacketByteBufs.empty()

@@ -156,9 +156,9 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         PlayerEntity player = (PlayerEntity) (Object) this;
 
         if (player.hasStatusEffect(ModEffects.AVEX)) {
-            if (!player.isFallFlying() && !player.isOnGround() && player.getVelocity().y > 0 && player.isSneaking()) {
+            //if (!player.isFallFlying() && !player.isOnGround() /*&& player.getVelocity().y > 0*/ && player.isSneaking()) {
                 player.startFallFlying();
-            }
+            //}
         }
     }
 }
