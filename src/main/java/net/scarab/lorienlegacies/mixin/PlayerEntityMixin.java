@@ -1,16 +1,18 @@
 package net.scarab.lorienlegacies.mixin;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -19,13 +21,14 @@ import net.scarab.lorienlegacies.item.DiamondDaggerItem;
 import net.scarab.lorienlegacies.item.ModItems;
 import net.scarab.lorienlegacies.legacy_bestowal.LegacyBestowalHandler;
 
-import org.spongepowered.asm.mixin.Final;
+import net.scarab.lorienlegacies.network.LorienLegaciesModNetworking;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import static net.scarab.lorienlegacies.effect.ModEffects.ACTIVE_LEGACY_INHIBITION;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
@@ -37,7 +40,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Inject(method = "dropItem(Lnet/minecraft/item/ItemStack;ZZ)Lnet/minecraft/entity/ItemEntity;",
             at = @At("HEAD"), cancellable = true)
     private void preventItemDrop(ItemStack stack, boolean throwRandomly, boolean retainOwnership, CallbackInfoReturnable<?> cir) {
-        PlayerEntity player = (PlayerEntity)(Object) this;
+        PlayerEntity player = (PlayerEntity) (Object) this;
 
         // Only prevent drop if it's a Diamond Dagger with WristWrap enabled
         if (stack.getItem() instanceof DiamondDaggerItem dagger && dagger.isWristWrapped(stack)) {
@@ -153,12 +156,54 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     // Simulate Avex fall flying without Elytra
     @Inject(method = "tick", at = @At("HEAD"))
     private void simulateFallFlyingWithoutElytra(CallbackInfo ci) {
+
         PlayerEntity player = (PlayerEntity) (Object) this;
 
         if (player.hasStatusEffect(ModEffects.AVEX)) {
-            //if (!player.isFallFlying() && !player.isOnGround() /*&& player.getVelocity().y > 0*/ && player.isSneaking()) {
-                player.startFallFlying();
-            //}
+
+            if (!player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
+
+                if (!player.isOnGround() && player.isSneaking()) {
+
+                    ClientPlayNetworking.send(LorienLegaciesModNetworking.START_AVEX_FLIGHT_PACKET, PacketByteBufs.empty());
+
+                    player.startFallFlying();
+
+                    if (!player.hasStatusEffect(StatusEffects.SLOW_FALLING)) {
+
+                        player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, Integer.MAX_VALUE, 0, false, false ,false));
+
+                    }
+                }
+
+                if (player.isFallFlying()) {
+
+                    Vec3d look = player.getRotationVec(1.0F);
+
+                    Vec3d boosted = player.getVelocity().add(look.multiply(0.05));
+
+                    double maxSpeed = 1.5;
+
+                    if (boosted.length() > maxSpeed) {
+
+                        boosted = boosted.normalize().multiply(maxSpeed);
+
+                    }
+
+                    player.setVelocity(boosted);
+
+                    if (player.isOnGround()) {
+
+                        player.stopFallFlying();
+
+                        if (player.hasStatusEffect(StatusEffects.SLOW_FALLING)) {
+
+                            player.removeStatusEffect(StatusEffects.SLOW_FALLING);
+
+                        }
+                    }
+                }
+            }
         }
     }
 }
