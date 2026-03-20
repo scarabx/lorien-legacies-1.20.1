@@ -6,6 +6,8 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.registry.Registries;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
@@ -49,7 +51,15 @@ public class NoxenEffect extends StatusEffect {
 
                 }
 
-                if (!player.hasStatusEffect(StatusEffects.NIGHT_VISION)) {
+                Identifier convertedEffectId = new Identifier("copi", "converted");
+
+                StatusEffect convertedEffect = Registries.STATUS_EFFECT.get(convertedEffectId);
+
+                Identifier UCSSOnEffectId = new Identifier("copi", "ucss_on");
+
+                StatusEffect UCSSOnEffectEffect = Registries.STATUS_EFFECT.get(UCSSOnEffectId);
+
+                if (!player.hasStatusEffect(StatusEffects.NIGHT_VISION) && !player.hasStatusEffect(convertedEffect) && !player.hasStatusEffect(UCSSOnEffectEffect)) {
 
                     player.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, Integer.MAX_VALUE, 0, false, false, false));
 
