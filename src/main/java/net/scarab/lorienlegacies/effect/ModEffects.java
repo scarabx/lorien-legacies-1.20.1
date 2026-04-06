@@ -122,14 +122,20 @@ public static final StatusEffect PONDUS_COOLDOWN = registerStatusEffect("pondus_
     public static final StatusEffect KINETIC_DETONATION = registerStatusEffect("kinetic_detonation",
             new KineticDetonationEffect(StatusEffectCategory.BENEFICIAL, 0xFF0000/*Red*/));
 
+    public static final StatusEffect TOGGLE_KINETIC_DETONATION = registerStatusEffect("toggle_kinetic_detonation",
+            new ToggleKineticDetonationEffect(StatusEffectCategory.BENEFICIAL, 0xFF0000/*Red*/));
+
+    public static final StatusEffect KINETIC_DETONATION_STAMINA = registerStatusEffect("kinetic_detonation_stamina",
+            new KineticDetonationStaminaEffect(StatusEffectCategory.BENEFICIAL, 0xFF0000/*Red*/));
+
+    public static final StatusEffect KINETIC_DETONATION_COOLDOWN = registerStatusEffect("kinetic_detonation_cooldown",
+            new KineticDetonationCooldownEffect(StatusEffectCategory.BENEFICIAL, 0xFF0000/*Red*/));
+
     public static final StatusEffect TELETRAS = registerStatusEffect("teletras",
             new TeletrasEffect(StatusEffectCategory.BENEFICIAL, 0x9b4f96/*Purple*/));
 
     public static final StatusEffect TOGGLE_TELETRAS = registerStatusEffect("toggle_teletras",
             new ToggleTeletrasEffect(StatusEffectCategory.BENEFICIAL, 0x9b4f96/*Purple*/));
-
-    public static final StatusEffect TOGGLE_KINETIC_DETONATION = registerStatusEffect("toggle_kinetic_detonation",
-            new ToggleKineticDetonationEffect(StatusEffectCategory.BENEFICIAL, 0xFF0000/*Red*/));
 
     public static final StatusEffect CHIMAERA_ESSENCE = registerStatusEffect("chimaera_essence",
             new ChimaeraEssenceEffect(StatusEffectCategory.BENEFICIAL, 0x00AA00/*Dark Green*/));

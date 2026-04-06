@@ -43,7 +43,7 @@ public class SpikyBlackBallEntity extends Entity implements FlyingItemEntity {
         ticksExisted++;
 
         if (!this.getWorld().isClient) {
-            if (ticksExisted == 10 && !exploded) {
+            if (ticksExisted == 20 && !exploded) {
                 /* LOGIC THAT CENTERS EXPLOSION DAMAGE ON NEARBY ENTITY WHEN EXPLOSION OCCURS WITHIN A 5 BLOCK RADIUS
                 EXPLOSION CENTERING CODE START
                 DETERMINES PROJECTILE POSITION (IDEAL FOR TIMED EFFECTS) */
@@ -75,7 +75,7 @@ public class SpikyBlackBallEntity extends Entity implements FlyingItemEntity {
                         World.ExplosionSourceType.MOB
                 );
                 exploded = true;
-            } else if (ticksExisted == 15) {
+            } else if (ticksExisted == 40) {
                 spawnYellowBall();
                 this.discard();
             }

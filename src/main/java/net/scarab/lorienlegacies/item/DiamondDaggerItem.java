@@ -103,9 +103,9 @@ public class DiamondDaggerItem extends Item {
 
             System.out.println("isWristWrapped(stack) -> " + wristWrapped);
 
-            // Float value for damage that is 8 if the stack's isWristWrapped nbt is true and 4 if it is false
+            // Float value for damage that is 12 if the stack's isWristWrapped nbt is true and 8 if it is false
 
-            float damage = wristWrapped ? 8.0F : 4.0F;
+            float damage = wristWrapped ? 12.0F : 8.0F;
 
             System.out.println(damage + "has been determined");
 

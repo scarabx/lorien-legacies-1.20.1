@@ -49,7 +49,7 @@ public class SpikyYellowBallEntity extends PersistentProjectileEntity implements
                 ticksSinceLanded = 0;
             } else {
                 ticksSinceLanded++;
-                if (ticksSinceLanded >= 5 && !this.getWorld().isClient) {
+                if (ticksSinceLanded >= 20 && !this.getWorld().isClient) {
                     spawnBlackBall();
                     this.discard();
                 }

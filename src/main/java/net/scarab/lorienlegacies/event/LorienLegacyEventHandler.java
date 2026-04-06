@@ -89,7 +89,7 @@ public class LorienLegacyEventHandler {
                     ));
                 }
 
-                // Handle ACTIVE_LEGACY_INHIBITION
+                // Handle PONDUS_STAMINA
                 StatusEffectInstance pondusStaminaEffect = oldPlayer.getStatusEffect(ModEffects.PONDUS_STAMINA);
                 if (pondusStaminaEffect != null) {
                     newPlayer.addStatusEffect(new StatusEffectInstance(
@@ -102,7 +102,7 @@ public class LorienLegacyEventHandler {
                     ));
                 }
 
-                // Handle ACTIVE_LEGACY_INHIBITION
+                // Handle PONDUS_COOLDOWN
                 StatusEffectInstance pondusCooldownEffect = oldPlayer.getStatusEffect(ModEffects.PONDUS_COOLDOWN);
                 if (pondusCooldownEffect != null) {
                     newPlayer.addStatusEffect(new StatusEffectInstance(
@@ -115,7 +115,7 @@ public class LorienLegacyEventHandler {
                     ));
                 }
 
-                // Handle ACTIVE_LEGACY_INHIBITION
+                // Handle DEFLECT_STAMINA
                 StatusEffectInstance deflectStaminaEffect = oldPlayer.getStatusEffect(ModEffects.DEFLECT_STAMINA);
                 if (deflectStaminaEffect != null) {
                     newPlayer.addStatusEffect(new StatusEffectInstance(
@@ -128,7 +128,7 @@ public class LorienLegacyEventHandler {
                     ));
                 }
 
-                // Handle ACTIVE_LEGACY_INHIBITION
+                // Handle DEFLECT_COOLDOWN
                 StatusEffectInstance deflectCooldownEffect = oldPlayer.getStatusEffect(ModEffects.DEFLECT_COOLDOWN);
                 if (deflectCooldownEffect != null) {
                     newPlayer.addStatusEffect(new StatusEffectInstance(
@@ -151,6 +151,32 @@ public class LorienLegacyEventHandler {
                             xRayStoneCooldownEffect.isAmbient(),
                             xRayStoneCooldownEffect.shouldShowParticles(),
                             xRayStoneCooldownEffect.shouldShowIcon()
+                    ));
+                }
+
+                // Handle KINETIC_DETONATION_STAMINA
+                StatusEffectInstance kineticDetonationStaminaEffect = oldPlayer.getStatusEffect(ModEffects.KINETIC_DETONATION_STAMINA);
+                if (kineticDetonationStaminaEffect != null) {
+                    newPlayer.addStatusEffect(new StatusEffectInstance(
+                            ModEffects.KINETIC_DETONATION_STAMINA,
+                            kineticDetonationStaminaEffect.getDuration(),
+                            kineticDetonationStaminaEffect.getAmplifier(),
+                            kineticDetonationStaminaEffect.isAmbient(),
+                            kineticDetonationStaminaEffect.shouldShowParticles(),
+                            kineticDetonationStaminaEffect.shouldShowIcon()
+                    ));
+                }
+
+                // Handle KINETIC_DETONATION_COOLDOWN
+                StatusEffectInstance kineticDetonationCooldownEffect = oldPlayer.getStatusEffect(ModEffects.KINETIC_DETONATION_COOLDOWN);
+                if (kineticDetonationCooldownEffect != null) {
+                    newPlayer.addStatusEffect(new StatusEffectInstance(
+                            ModEffects.KINETIC_DETONATION_COOLDOWN,
+                            kineticDetonationCooldownEffect.getDuration(),
+                            kineticDetonationCooldownEffect.getAmplifier(),
+                            kineticDetonationCooldownEffect.isAmbient(),
+                            kineticDetonationCooldownEffect.shouldShowParticles(),
+                            kineticDetonationCooldownEffect.shouldShowIcon()
                     ));
                 }
             }

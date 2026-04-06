@@ -1,6 +1,5 @@
 package net.scarab.lorienlegacies.entity;
 
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.FlyingItemEntity;
 import net.minecraft.entity.ItemEntity;
@@ -9,10 +8,8 @@ import net.minecraft.entity.MovementType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.scarab.lorienlegacies.item.ModItems;
 
@@ -43,19 +40,8 @@ public class JoustStaffEntity extends PersistentProjectileEntity implements Flyi
     @Override
     protected void onCollision(HitResult hitResult) {
         if (hitResult.getType() == HitResult.Type.BLOCK && !this.getWorld().isClient) {
-            BlockHitResult blockHit = (BlockHitResult) hitResult;
-            BlockPos hitPos = blockHit.getBlockPos().offset(blockHit.getSide());
-            World world = this.getWorld();
-
-            if (world.getBlockState(hitPos).isAir() && Blocks.FIRE.getDefaultState().canPlaceAt(world, hitPos)) {
-                world.setBlockState(hitPos, Blocks.FIRE.getDefaultState());
-            }
-
-            this.setNoGravity(true);
             this.returning = true;
-            this.setVelocity(0, 0, 0); // stop before homing
         }
-
         super.onCollision(hitResult);
     }
 
@@ -77,6 +63,7 @@ public class JoustStaffEntity extends PersistentProjectileEntity implements Flyi
         if (!this.getWorld().isClient) {
             entityHitResult.getEntity().damage(this.getWorld().getDamageSources().trident(this, this.getOwner()), 20.0F);
             entityHitResult.getEntity().setOnFireFor(20);
+            this.returning = true;
         }
     }
 

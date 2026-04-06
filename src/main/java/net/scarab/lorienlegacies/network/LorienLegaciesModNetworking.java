@@ -6,6 +6,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 
 import net.scarab.lorienlegacies.chimaera.MorphHandler;
+import net.scarab.lorienlegacies.effect.ModEffects;
 import net.scarab.lorienlegacies.effect.active_effects.*;
 import net.scarab.lorienlegacies.effect.toggle_effects.*;
 
@@ -532,6 +533,9 @@ public class LorienLegaciesModNetworking {
                         player.removeStatusEffect(TOGGLE_KINETIC_DETONATION);
                     } else {
                         player.addStatusEffect(new StatusEffectInstance(TOGGLE_KINETIC_DETONATION, Integer.MAX_VALUE, 0, false, false, false));
+                    }
+                    if (!player.hasStatusEffect(KINETIC_DETONATION_STAMINA)) {
+                        player.addStatusEffect(new StatusEffectInstance(KINETIC_DETONATION_STAMINA, 12000, 0, false, false, false));
                     }
                 }
             });
