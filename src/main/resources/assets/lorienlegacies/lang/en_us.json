@@ -124,6 +124,10 @@
 
   "effect.lorienlegacies.toggle_kinetic_detonation": "Toggle Kinetic Detonation",
 
+  "effect.lorienlegacies.kinetic_detonation_stamina": "Kinetic Detonation Stamina",
+
+  "effect.lorienlegacies.kinetic_detonation_cooldown": "Kinetic Detonation Cooldown",
+
   "effect.lorienlegacies.teletras": "Teletras",
 
   "effect.lorienlegacies.toggle_teletras": "Toggle Teletras",

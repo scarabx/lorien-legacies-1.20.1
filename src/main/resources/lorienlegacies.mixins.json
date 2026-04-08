@@ -9,7 +9,8 @@
     "PlayerEntityMixin",
     "ProjectileEntityMixin",
     "ScreenHandlerMixin",
-    "ServerPlayerEntityMixin"
+    "ServerPlayerEntityMixin",
+    "SmallFireballEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

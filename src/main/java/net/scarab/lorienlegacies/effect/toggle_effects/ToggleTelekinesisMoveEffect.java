@@ -22,9 +22,7 @@ public class ToggleTelekinesisMoveEffect extends StatusEffect {
         double range = 6.0;
 
         for (Entity target : world.getOtherEntities(player, player.getBoundingBox().expand(range))) {
-            if (target instanceof LivingEntity livingTarget) {
-                livingTarget.setNoGravity(false); // Reset gravity when toggle is turned off
-            }
+            target.setNoGravity(false); // Reset gravity when toggle is turned off
         }
     }
 }

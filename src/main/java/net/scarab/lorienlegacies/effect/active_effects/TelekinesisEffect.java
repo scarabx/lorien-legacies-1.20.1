@@ -56,7 +56,7 @@ public class TelekinesisEffect extends StatusEffect {
 
             for (Entity target : targets) {
 
-                if (target instanceof LivingEntity) {
+                if (target instanceof Entity) {
 
                     target.addVelocity(look.x * FORCE, look.y * FORCE, look.z * FORCE);
 
@@ -79,7 +79,7 @@ public class TelekinesisEffect extends StatusEffect {
 
             for (Entity target : targets) {
 
-                if (target instanceof LivingEntity) {
+                if (target instanceof Entity) {
 
                     Vec3d direction = playerPos.subtract(target.getPos()).normalize();
 
@@ -124,7 +124,11 @@ public class TelekinesisEffect extends StatusEffect {
 
             for (Entity entity : world.getOtherEntities(player, player.getBoundingBox().expand(maxGrip))) {
 
-                if (entity instanceof LivingEntity && !((LivingEntity) entity).hasStatusEffect(CHIMAERA_ESSENCE)) {
+                if (entity instanceof LivingEntity livingEntity && livingEntity.hasStatusEffect(CHIMAERA_ESSENCE)) {
+                    continue;
+                }
+
+                if (entity instanceof Entity) {
 
                     double dist = eyePos.distanceTo(entity.getPos());
 

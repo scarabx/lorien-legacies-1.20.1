@@ -43,7 +43,7 @@ public class LumenEffect extends StatusEffect {
                 && player.hasStatusEffect(TOGGLE_HUMAN_FIREBALL_AOE)
                 && !player.hasStatusEffect(TIRED)
                 && !entity.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
-            humanFireballAOE(player, 5, 20); // radius 5, fire for 5 seconds
+            humanFireballAOE(player, 1, 20); // radius 1, fire for 5 seconds
         }
         super.applyUpdateEffect(entity, amplifier);
     }
@@ -60,21 +60,23 @@ public class LumenEffect extends StatusEffect {
                 && entity.hasStatusEffect(ModEffects.LUMEN)
                 && entity.hasStatusEffect(TOGGLE_SHOOT_FIREBALL)
                 && !entity.hasStatusEffect(TIRED)
-                && !entity.hasStatusEffect(ACTIVE_LEGACY_INHIBITION))
+                && !entity.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
-            if (!entity.getWorld().isClient() && entity instanceof ServerPlayerEntity) {
-                ServerWorld world = ((ServerWorld) entity.getWorld());
+            if (entity instanceof ServerPlayerEntity player) {
+                ServerWorld world = player.getServerWorld();
 
-                Vec3d direction = entity.getRotationVec(1.0f);
-                double x = entity.getX() + direction.x;
-                double y = entity.getEyeY();
-                double z = entity.getZ() + direction.z;
+                Vec3d lookVec = player.getRotationVec(1.0f);
+                Vec3d handPos = player.getPos().add(0, 1.2, 0);
+                Vec3d rightOffset = player.getRotationVec(1.0f).rotateY((float) Math.toRadians(-30));
+                handPos = handPos.add(rightOffset.multiply(0.4));
+                Vec3d spawnPos = handPos.add(lookVec.multiply(0.8));
 
-                SmallFireballEntity fireball = new SmallFireballEntity(world, entity, direction.x, direction.y, direction.z);
-                fireball.setPosition(x, y, z);
+                SmallFireballEntity fireball = new SmallFireballEntity(world, player, lookVec.x, lookVec.y, lookVec.z);
+                fireball.setPosition(spawnPos.x, spawnPos.y, spawnPos.z);
 
                 world.spawnEntity(fireball);
             }
+        }
     }
 
     // Toggle the AOE fire effect (enable or disable)
@@ -88,7 +90,7 @@ public class LumenEffect extends StatusEffect {
                     player.removeStatusEffect(TOGGLE_HUMAN_FIREBALL_AOE);
                 }
             } else {
-                player.setOnFireFor(100);
+                player.setOnFireFor(5);
                 // Enable AOE fire when human fireball is turned on
                 if (!player.hasStatusEffect(TOGGLE_HUMAN_FIREBALL_AOE)) {
                     player.addStatusEffect(new StatusEffectInstance(TOGGLE_HUMAN_FIREBALL_AOE, Integer.MAX_VALUE, 0, false, false, false));
@@ -97,7 +99,7 @@ public class LumenEffect extends StatusEffect {
         }
     }
 
-    // AOE Fire effect: Burn mobs, animals, and blocks around the player
+    // AOE Fire effect: Burn mobs, animals, and create fire trail behind player
     public static void humanFireballAOE(ServerPlayerEntity player, int radius, int fireSeconds) {
 
         if (!player.getWorld().isClient()
@@ -105,7 +107,6 @@ public class LumenEffect extends StatusEffect {
                 && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
             World world = player.getWorld();
-            BlockPos playerPos = player.getBlockPos();
 
             // --- 1. Set mobs/animals on fire ---
             Box box = new Box(
@@ -116,21 +117,18 @@ public class LumenEffect extends StatusEffect {
             for (Entity entity : world.getOtherEntities(player, box)) {
                 if (entity instanceof MobEntity || entity instanceof AnimalEntity) {
                     entity.setOnFireFor(fireSeconds);
+                    entity.damage(player.getDamageSources().generic(), 20.0f);
                 }
             }
 
-            // --- 2. Set air blocks on fire if block below is solid ---
-            for (int x = -radius; x <= radius; x++) {
-                for (int y = -radius; y <= radius; y++) {
-                    for (int z = -radius; z <= radius; z++) {
-                        BlockPos targetPos = playerPos.add(x, y, z);
-                        if (world.isAir(targetPos)) {
-                            BlockPos belowPos = targetPos.down();
-                            if (world.getBlockState(belowPos).isSolidBlock(world, belowPos)) {
-                                world.setBlockState(targetPos, Blocks.FIRE.getDefaultState());
-                            }
-                        }
-                    }
+            // --- 2. Set fire trail - only at player's feet (creates trail as they walk) ---
+            BlockPos feetPos = player.getBlockPos();
+
+            // Check if the block at feet is air and has solid block below
+            if (world.isAir(feetPos)) {
+                BlockPos belowPos = feetPos.down();
+                if (world.getBlockState(belowPos).isSolidBlock(world, belowPos)) {
+                    world.setBlockState(feetPos, Blocks.FIRE.getDefaultState());
                 }
             }
         }
