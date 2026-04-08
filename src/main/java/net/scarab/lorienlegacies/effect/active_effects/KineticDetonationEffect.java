@@ -1,6 +1,7 @@
 package net.scarab.lorienlegacies.effect.active_effects;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.player.PlayerEntity;
@@ -49,5 +50,19 @@ public class KineticDetonationEffect extends StatusEffect {
     @Override
     public boolean canApplyUpdateEffect(int duration, int amplifier) {
         return true;
+    }
+
+    @Override
+    public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
+
+        if (entity instanceof PlayerEntity player) {
+            if (player.hasStatusEffect(KINETIC_DETONATION_STAMINA)) {
+                player.removeStatusEffect(KINETIC_DETONATION_STAMINA);
+            }
+            if (player.hasStatusEffect(KINETIC_DETONATION_COOLDOWN)) {
+                player.removeStatusEffect(KINETIC_DETONATION_COOLDOWN);
+            }
+        }
+        super.onRemoved(entity, attributes, amplifier);
     }
 }

@@ -1,6 +1,7 @@
 package net.scarab.lorienlegacies.effect.active_effects;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
@@ -57,7 +58,7 @@ public class TelekinesisEffect extends StatusEffect {
 
             for (Entity target : targets) {
 
-                if (target instanceof Entity && !(target instanceof JoustStaffEntity)) {
+                if (target instanceof LivingEntity || target instanceof ItemEntity/* && !(target instanceof JoustStaffEntity)*/) {
 
                     target.addVelocity(look.x * FORCE, look.y * FORCE, look.z * FORCE);
 
@@ -80,7 +81,7 @@ public class TelekinesisEffect extends StatusEffect {
 
             for (Entity target : targets) {
 
-                if (target instanceof Entity && !(target instanceof JoustStaffEntity)) {
+                if (target instanceof LivingEntity  || target instanceof ItemEntity/* && !(target instanceof JoustStaffEntity)*/) {
 
                     Vec3d direction = playerPos.subtract(target.getPos()).normalize();
 
@@ -129,7 +130,7 @@ public class TelekinesisEffect extends StatusEffect {
                     continue;
                 }
 
-                if (entity instanceof Entity && !(target instanceof JoustStaffEntity)) {
+                if (entity instanceof LivingEntity  || entity instanceof ItemEntity /*&& !(target instanceof JoustStaffEntity)*/) {
 
                     double dist = eyePos.distanceTo(entity.getPos());
 

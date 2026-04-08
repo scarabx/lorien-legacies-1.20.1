@@ -1,6 +1,7 @@
 package net.scarab.lorienlegacies.effect.toggle_effects;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.effect.StatusEffect;
@@ -22,7 +23,9 @@ public class ToggleTelekinesisMoveEffect extends StatusEffect {
         double range = 6.0;
 
         for (Entity target : world.getOtherEntities(player, player.getBoundingBox().expand(range))) {
-            target.setNoGravity(false); // Reset gravity when toggle is turned off
+            if (target instanceof LivingEntity || target instanceof ItemEntity) {
+                target.setNoGravity(false); // Reset gravity when toggle is turned off
+            }
         }
     }
 }
