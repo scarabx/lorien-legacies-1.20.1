@@ -9,6 +9,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.scarab.lorienlegacies.effect.ModEffects;
+import net.scarab.lorienlegacies.entity.JoustStaffEntity;
 
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class TelekinesisEffect extends StatusEffect {
 
             for (Entity target : targets) {
 
-                if (target instanceof Entity) {
+                if (target instanceof Entity && !(target instanceof JoustStaffEntity)) {
 
                     target.addVelocity(look.x * FORCE, look.y * FORCE, look.z * FORCE);
 
@@ -79,7 +80,7 @@ public class TelekinesisEffect extends StatusEffect {
 
             for (Entity target : targets) {
 
-                if (target instanceof Entity) {
+                if (target instanceof Entity && !(target instanceof JoustStaffEntity)) {
 
                     Vec3d direction = playerPos.subtract(target.getPos()).normalize();
 
@@ -128,7 +129,7 @@ public class TelekinesisEffect extends StatusEffect {
                     continue;
                 }
 
-                if (entity instanceof Entity) {
+                if (entity instanceof Entity && !(target instanceof JoustStaffEntity)) {
 
                     double dist = eyePos.distanceTo(entity.getPos());
 
