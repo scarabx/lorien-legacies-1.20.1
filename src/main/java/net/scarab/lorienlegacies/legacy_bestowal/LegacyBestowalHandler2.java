@@ -46,9 +46,7 @@ public class LegacyBestowalHandler2 {
     private static final Set<UUID> isFallingToDeath = new HashSet<>();
 
     private static final Set<UUID> isGettingDamaged = new HashSet<>();
-
-    private static final Set<UUID> isAttemptingXimic = new HashSet<>();
-
+    
     public static void bestowLumenLegacy(ServerPlayerEntity player) {
 
         if (legacies.stream().filter(player::hasStatusEffect).count() < 5 || player.hasStatusEffect(ModEffects.XIMIC)) {
