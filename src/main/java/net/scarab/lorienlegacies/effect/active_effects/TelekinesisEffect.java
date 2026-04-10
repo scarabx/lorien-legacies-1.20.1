@@ -58,7 +58,7 @@ public class TelekinesisEffect extends StatusEffect {
 
             for (Entity target : targets) {
 
-                if (target instanceof LivingEntity || target instanceof ItemEntity/* && !(target instanceof JoustStaffEntity)*/) {
+                if (target instanceof LivingEntity || target instanceof ItemEntity) {
 
                     target.addVelocity(look.x * FORCE, look.y * FORCE, look.z * FORCE);
 
@@ -81,7 +81,7 @@ public class TelekinesisEffect extends StatusEffect {
 
             for (Entity target : targets) {
 
-                if (target instanceof LivingEntity  || target instanceof ItemEntity/* && !(target instanceof JoustStaffEntity)*/) {
+                if (target instanceof LivingEntity  || target instanceof ItemEntity) {
 
                     Vec3d direction = playerPos.subtract(target.getPos()).normalize();
 
@@ -130,7 +130,7 @@ public class TelekinesisEffect extends StatusEffect {
                     continue;
                 }
 
-                if (entity instanceof LivingEntity  || entity instanceof ItemEntity /*&& !(target instanceof JoustStaffEntity)*/) {
+                if (entity instanceof LivingEntity  || entity instanceof ItemEntity ) {
 
                     double dist = eyePos.distanceTo(entity.getPos());
 

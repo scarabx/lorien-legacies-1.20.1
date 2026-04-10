@@ -33,9 +33,9 @@ public class SmallFireballEntityMixin {
 
                 if (target instanceof LivingEntity livingEntity) {
 
-                    livingEntity.damage(player.getDamageSources().generic(), 18.0f);
-
                     livingEntity.setOnFireFor(5);
+
+                    livingEntity.damage(player.getDamageSources().generic(), 18.0f);
 
                     ci.cancel();
 
