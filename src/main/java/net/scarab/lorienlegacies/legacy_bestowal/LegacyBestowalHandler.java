@@ -44,7 +44,7 @@ public class LegacyBestowalHandler {
             //Map.entry(ModEffects.REGENERAS, 1),
             //Map.entry(ModEffects.SUBMARI, 5),
             Map.entry(ModEffects.STURMA, 1),
-            Map.entry(ModEffects.XIMIC, 1),
+            //Map.entry(ModEffects.XIMIC, 1),
             Map.entry(ModEffects.TELETRAS, 1),
             Map.entry(ModEffects.KINETIC_DETONATION, 1)
     );
