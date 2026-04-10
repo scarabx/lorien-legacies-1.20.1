@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
@@ -124,6 +125,14 @@ public class LorienLegaciesMod implements ModInitializer {
 			if (wristWrappedSlot != -1 && selectedSlot != wristWrappedSlot) {
 				// Force back to wrist wrapped dagger slot client-side
 				player.getInventory().selectedSlot = wristWrappedSlot;
+			}
+		});
+
+		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+			ServerPlayerEntity player = handler.player;
+			if (!player.hasStatusEffect(ModEffects.TELEKINESIS)) {
+				player.addStatusEffect(new StatusEffectInstance(ModEffects.TELEKINESIS, Integer.MAX_VALUE, 0, false, false, false));
+				player.sendMessage(Text.literal("You have been bestowed upon the Telekinesis legacy."), false);
 			}
 		});
 

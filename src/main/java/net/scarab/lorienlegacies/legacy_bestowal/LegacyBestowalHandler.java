@@ -33,16 +33,16 @@ public class LegacyBestowalHandler {
     //private static final Map<UUID, Long> lastEatingTime = new HashMap<>();
 
     private static final Map<StatusEffect, Integer> LEGACY_POOL = Map.ofEntries(
-            Map.entry(ModEffects.TELEKINESIS, 10),
-            Map.entry(ModEffects.LUMEN, 2),
-            Map.entry(ModEffects.AVEX, 1),
-            Map.entry(ModEffects.PONDUS, 1),
-            Map.entry(ModEffects.GLACEN, 3),
+            //Map.entry(ModEffects.TELEKINESIS, 10),
+            //Map.entry(ModEffects.LUMEN, 2),
+            //Map.entry(ModEffects.AVEX, 1),
+            //Map.entry(ModEffects.PONDUS, 1),
+            //Map.entry(ModEffects.GLACEN, 3),
             Map.entry(ModEffects.ACCELIX, 4),
             Map.entry(ModEffects.NOVIS, 1),
             Map.entry(ModEffects.NOXEN, 6),
-            Map.entry(ModEffects.REGENERAS, 1),
-            Map.entry(ModEffects.SUBMARI, 5),
+            //Map.entry(ModEffects.REGENERAS, 1),
+            //Map.entry(ModEffects.SUBMARI, 5),
             Map.entry(ModEffects.STURMA, 1),
             Map.entry(ModEffects.XIMIC, 1),
             Map.entry(ModEffects.TELETRAS, 1),
