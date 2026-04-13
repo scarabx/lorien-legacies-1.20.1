@@ -65,10 +65,7 @@ public class LorienLegaciesMod implements ModInitializer {
 				GlacenEffect.icicles(player, target);
 				GlacenEffect.iceHands(player, target);
 				LumenEffect.flamingHands(player, target);
-				if (!player.hasStatusEffect(ModEffects.TIRED)
-						&& !player.hasStatusEffect(ModEffects.ACTIVE_LEGACY_INHIBITION)) {
-					LumenEffect.burnOnHit(player, target);
-				}
+				LumenEffect.burnOnHit(player, target);
 			}
 			return ActionResult.PASS;
 		});

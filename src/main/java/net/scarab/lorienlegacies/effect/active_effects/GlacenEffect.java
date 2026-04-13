@@ -100,7 +100,7 @@ public class GlacenEffect extends StatusEffect {
                 icicles.setPos(target.getX(), target.getY(), target.getZ());
                 world.spawnEntity(icicles);
 
-                target.damage(target.getWorld().getDamageSources().thrown(user, target), 10.0F);
+                target.damage(player.getDamageSources().generic(), 20.0f);
 
                 if (target instanceof LivingEntity livingEntity) {
                     livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 6, false, false, false)); // 100 ticks (5 seconds) with level 6 slowness
@@ -119,7 +119,8 @@ public class GlacenEffect extends StatusEffect {
                     && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
                 if (target instanceof LivingEntity livingEntity) {
-                    livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 6, false, false, false));
+                    livingEntity.setFrozenTicks(1740);
+                    livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 1740, 6, false, false, false));
                 }
             }
         }

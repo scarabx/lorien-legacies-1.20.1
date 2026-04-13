@@ -66,31 +66,31 @@ public class LorienLegaciesModNetworking {
 
     public static final Identifier TOGGLE_CONJURE_CLEAR_WEATHER_PACKET = new Identifier("lorienlegacies", "toggle_conjure_clear_weather");
 
-    public static final Identifier TOGGLE_XIMIC_ACCELIX_PACKET = new Identifier("lorienlegacies", "toggle_ximic_accelix");
-
-    public static final Identifier TOGGLE_XIMIC_AVEX_PACKET = new Identifier("lorienlegacies", "toggle_ximic_avex");
-
-    public static final Identifier TOGGLE_XIMIC_GLACEN_PACKET = new Identifier("lorienlegacies", "toggle_ximic_glacen");
-
-    public static final Identifier TOGGLE_XIMIC_LUMEN_PACKET = new Identifier("lorienlegacies", "toggle_ximic_lumen");
-
-    public static final Identifier TOGGLE_XIMIC_NOVIS_PACKET = new Identifier("lorienlegacies", "toggle_ximic_novis");
-
-    public static final Identifier TOGGLE_XIMIC_NOXEN_PACKET = new Identifier("lorienlegacies", "toggle_ximic_noxen");
-
-    public static final Identifier TOGGLE_XIMIC_PONDUS_PACKET = new Identifier("lorienlegacies", "toggle_ximic_pondus");
-
-    public static final Identifier TOGGLE_XIMIC_REGENERAS_PACKET = new Identifier("lorienlegacies", "toggle_ximic_regeneras");
-
-    public static final Identifier TOGGLE_XIMIC_STURMA_PACKET = new Identifier("lorienlegacies", "toggle_ximic_sturma");
-
-    public static final Identifier TOGGLE_XIMIC_SUBMARI_PACKET = new Identifier("lorienlegacies", "toggle_ximic_submari");
-
-    public static final Identifier TOGGLE_XIMIC_TELEKINESIS_PACKET = new Identifier("lorienlegacies", "toggle_ximic_telekinesis");
-
-    public static final Identifier TOGGLE_XIMIC_KINETIC_DETONATION_PACKET = new Identifier("lorienlegacies", "toggle_ximic_kinetic_detonation");
-
-    public static final Identifier TOGGLE_XIMIC_TELETRAS_PACKET = new Identifier("lorienlegacies", "toggle_ximic_teletras_packet");
+//    public static final Identifier TOGGLE_XIMIC_ACCELIX_PACKET = new Identifier("lorienlegacies", "toggle_ximic_accelix");
+//
+//    public static final Identifier TOGGLE_XIMIC_AVEX_PACKET = new Identifier("lorienlegacies", "toggle_ximic_avex");
+//
+//    public static final Identifier TOGGLE_XIMIC_GLACEN_PACKET = new Identifier("lorienlegacies", "toggle_ximic_glacen");
+//
+//    public static final Identifier TOGGLE_XIMIC_LUMEN_PACKET = new Identifier("lorienlegacies", "toggle_ximic_lumen");
+//
+//    public static final Identifier TOGGLE_XIMIC_NOVIS_PACKET = new Identifier("lorienlegacies", "toggle_ximic_novis");
+//
+//    public static final Identifier TOGGLE_XIMIC_NOXEN_PACKET = new Identifier("lorienlegacies", "toggle_ximic_noxen");
+//
+//    public static final Identifier TOGGLE_XIMIC_PONDUS_PACKET = new Identifier("lorienlegacies", "toggle_ximic_pondus");
+//
+//    public static final Identifier TOGGLE_XIMIC_REGENERAS_PACKET = new Identifier("lorienlegacies", "toggle_ximic_regeneras");
+//
+//    public static final Identifier TOGGLE_XIMIC_STURMA_PACKET = new Identifier("lorienlegacies", "toggle_ximic_sturma");
+//
+//    public static final Identifier TOGGLE_XIMIC_SUBMARI_PACKET = new Identifier("lorienlegacies", "toggle_ximic_submari");
+//
+//    public static final Identifier TOGGLE_XIMIC_TELEKINESIS_PACKET = new Identifier("lorienlegacies", "toggle_ximic_telekinesis");
+//
+//    public static final Identifier TOGGLE_XIMIC_KINETIC_DETONATION_PACKET = new Identifier("lorienlegacies", "toggle_ximic_kinetic_detonation");
+//
+//    public static final Identifier TOGGLE_XIMIC_TELETRAS_PACKET = new Identifier("lorienlegacies", "toggle_ximic_teletras_packet");
 
     public static final Identifier TOGGLE_KINETIC_DETONATION_PACKET = new Identifier("lorienlegacies", "toggle_kinetic_detonation");
 
@@ -422,109 +422,109 @@ public class LorienLegaciesModNetworking {
             });
         });
 
-        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_ACCELIX_PACKET, (server, player, handler, buf, responseSender) -> {
-            server.execute(() -> {
-                if (player.hasStatusEffect(XIMIC)) {
-                    player.addStatusEffect(new StatusEffectInstance(ACCELIX, Integer.MAX_VALUE, 0, false, false, false));
-                }
-            });
-        });
-
-        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_AVEX_PACKET, (server, player, handler, buf, responseSender) -> {
-            server.execute(() -> {
-                if (player.hasStatusEffect(XIMIC)) {
-                    player.addStatusEffect(new StatusEffectInstance(AVEX, Integer.MAX_VALUE, 0, false, false, false));
-                }
-            });
-        });
-
-        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_GLACEN_PACKET, (server, player, handler, buf, responseSender) -> {
-            server.execute(() -> {
-                if (player.hasStatusEffect(XIMIC)) {
-                    player.addStatusEffect(new StatusEffectInstance(GLACEN, Integer.MAX_VALUE, 0, false, false, false));
-                }
-            });
-        });
-
-        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_LUMEN_PACKET, (server, player, handler, buf, responseSender) -> {
-            server.execute(() -> {
-                if (player.hasStatusEffect(XIMIC)) {
-                    player.addStatusEffect(new StatusEffectInstance(LUMEN, Integer.MAX_VALUE, 0, false, false, false));
-                }
-            });
-        });
-
-        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_NOVIS_PACKET, (server, player, handler, buf, responseSender) -> {
-            server.execute(() -> {
-                if (player.hasStatusEffect(XIMIC)) {
-                    player.addStatusEffect(new StatusEffectInstance(NOVIS, Integer.MAX_VALUE, 0, false, false, false));
-                }
-            });
-        });
-
-        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_NOXEN_PACKET, (server, player, handler, buf, responseSender) -> {
-            server.execute(() -> {
-                if (player.hasStatusEffect(XIMIC)) {
-                    player.addStatusEffect(new StatusEffectInstance(NOXEN, Integer.MAX_VALUE, 0, false, false, false));
-                }
-            });
-        });
-
-        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_PONDUS_PACKET, (server, player, handler, buf, responseSender) -> {
-            server.execute(() -> {
-                if (player.hasStatusEffect(XIMIC)) {
-                    player.addStatusEffect(new StatusEffectInstance(PONDUS, Integer.MAX_VALUE, 0, false, false, false));
-                }
-            });
-        });
-
-        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_REGENERAS_PACKET, (server, player, handler, buf, responseSender) -> {
-            server.execute(() -> {
-                if (player.hasStatusEffect(XIMIC)) {
-                    player.addStatusEffect(new StatusEffectInstance(REGENERAS, Integer.MAX_VALUE, 0, false, false, false));
-                }
-            });
-        });
-
-        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_STURMA_PACKET, (server, player, handler, buf, responseSender) -> {
-            server.execute(() -> {
-                if (player.hasStatusEffect(XIMIC)) {
-                    player.addStatusEffect(new StatusEffectInstance(STURMA, Integer.MAX_VALUE, 0, false, false, false));
-                }
-            });
-        });
-
-        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_SUBMARI_PACKET, (server, player, handler, buf, responseSender) -> {
-            server.execute(() -> {
-                if (player.hasStatusEffect(XIMIC)) {
-                    player.addStatusEffect(new StatusEffectInstance(SUBMARI, Integer.MAX_VALUE, 0, false, false, false));
-                }
-            });
-        });
-
-        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_TELEKINESIS_PACKET, (server, player, handler, buf, responseSender) -> {
-            server.execute(() -> {
-                if (player.hasStatusEffect(XIMIC)) {
-                    player.addStatusEffect(new StatusEffectInstance(TELEKINESIS, Integer.MAX_VALUE, 0, false, false, false));
-                }
-            });
-        });
-
-        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_KINETIC_DETONATION_PACKET, (server, player, handler, buf, responseSender) -> {
-            server.execute(() -> {
-                if (player.hasStatusEffect(XIMIC)) {
-                    player.addStatusEffect(new StatusEffectInstance(KINETIC_DETONATION, Integer.MAX_VALUE, 0, false, false, false));
-                }
-            });
-        });
-
-        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_TELETRAS_PACKET, (server, player, handler, buf, responseSender) -> {
-            server.execute(() -> {
-                if (player.hasStatusEffect(XIMIC)) {
-                    player.addStatusEffect(new StatusEffectInstance(TELETRAS, Integer.MAX_VALUE, 0, false, false, false));
-                }
-            });
-        });
+//        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_ACCELIX_PACKET, (server, player, handler, buf, responseSender) -> {
+//            server.execute(() -> {
+//                if (player.hasStatusEffect(XIMIC)) {
+//                    player.addStatusEffect(new StatusEffectInstance(ACCELIX, Integer.MAX_VALUE, 0, false, false, false));
+//                }
+//            });
+//        });
+//
+//        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_AVEX_PACKET, (server, player, handler, buf, responseSender) -> {
+//            server.execute(() -> {
+//                if (player.hasStatusEffect(XIMIC)) {
+//                    player.addStatusEffect(new StatusEffectInstance(AVEX, Integer.MAX_VALUE, 0, false, false, false));
+//                }
+//            });
+//        });
+//
+//        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_GLACEN_PACKET, (server, player, handler, buf, responseSender) -> {
+//            server.execute(() -> {
+//                if (player.hasStatusEffect(XIMIC)) {
+//                    player.addStatusEffect(new StatusEffectInstance(GLACEN, Integer.MAX_VALUE, 0, false, false, false));
+//                }
+//            });
+//        });
+//
+//        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_LUMEN_PACKET, (server, player, handler, buf, responseSender) -> {
+//            server.execute(() -> {
+//                if (player.hasStatusEffect(XIMIC)) {
+//                    player.addStatusEffect(new StatusEffectInstance(LUMEN, Integer.MAX_VALUE, 0, false, false, false));
+//                }
+//            });
+//        });
+//
+//        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_NOVIS_PACKET, (server, player, handler, buf, responseSender) -> {
+//            server.execute(() -> {
+//                if (player.hasStatusEffect(XIMIC)) {
+//                    player.addStatusEffect(new StatusEffectInstance(NOVIS, Integer.MAX_VALUE, 0, false, false, false));
+//                }
+//            });
+//        });
+//
+//        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_NOXEN_PACKET, (server, player, handler, buf, responseSender) -> {
+//            server.execute(() -> {
+//                if (player.hasStatusEffect(XIMIC)) {
+//                    player.addStatusEffect(new StatusEffectInstance(NOXEN, Integer.MAX_VALUE, 0, false, false, false));
+//                }
+//            });
+//        });
+//
+//        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_PONDUS_PACKET, (server, player, handler, buf, responseSender) -> {
+//            server.execute(() -> {
+//                if (player.hasStatusEffect(XIMIC)) {
+//                    player.addStatusEffect(new StatusEffectInstance(PONDUS, Integer.MAX_VALUE, 0, false, false, false));
+//                }
+//            });
+//        });
+//
+//        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_REGENERAS_PACKET, (server, player, handler, buf, responseSender) -> {
+//            server.execute(() -> {
+//                if (player.hasStatusEffect(XIMIC)) {
+//                    player.addStatusEffect(new StatusEffectInstance(REGENERAS, Integer.MAX_VALUE, 0, false, false, false));
+//                }
+//            });
+//        });
+//
+//        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_STURMA_PACKET, (server, player, handler, buf, responseSender) -> {
+//            server.execute(() -> {
+//                if (player.hasStatusEffect(XIMIC)) {
+//                    player.addStatusEffect(new StatusEffectInstance(STURMA, Integer.MAX_VALUE, 0, false, false, false));
+//                }
+//            });
+//        });
+//
+//        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_SUBMARI_PACKET, (server, player, handler, buf, responseSender) -> {
+//            server.execute(() -> {
+//                if (player.hasStatusEffect(XIMIC)) {
+//                    player.addStatusEffect(new StatusEffectInstance(SUBMARI, Integer.MAX_VALUE, 0, false, false, false));
+//                }
+//            });
+//        });
+//
+//        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_TELEKINESIS_PACKET, (server, player, handler, buf, responseSender) -> {
+//            server.execute(() -> {
+//                if (player.hasStatusEffect(XIMIC)) {
+//                    player.addStatusEffect(new StatusEffectInstance(TELEKINESIS, Integer.MAX_VALUE, 0, false, false, false));
+//                }
+//            });
+//        });
+//
+//        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_KINETIC_DETONATION_PACKET, (server, player, handler, buf, responseSender) -> {
+//            server.execute(() -> {
+//                if (player.hasStatusEffect(XIMIC)) {
+//                    player.addStatusEffect(new StatusEffectInstance(KINETIC_DETONATION, Integer.MAX_VALUE, 0, false, false, false));
+//                }
+//            });
+//        });
+//
+//        ServerPlayNetworking.registerGlobalReceiver(TOGGLE_XIMIC_TELETRAS_PACKET, (server, player, handler, buf, responseSender) -> {
+//            server.execute(() -> {
+//                if (player.hasStatusEffect(XIMIC)) {
+//                    player.addStatusEffect(new StatusEffectInstance(TELETRAS, Integer.MAX_VALUE, 0, false, false, false));
+//                }
+//            });
+//        });
 
         ServerPlayNetworking.registerGlobalReceiver(TOGGLE_KINETIC_DETONATION_PACKET, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {

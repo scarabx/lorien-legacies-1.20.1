@@ -32,12 +32,9 @@ public class AvexEffect extends StatusEffect {
 //                && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 //
 //            // Start flying if not already and the player is in the air (jumped and not on ground or flying)
-////            if (!player.isFallFlying() && !player.isOnGround() && player.getVelocity().y > 0 && player.isSneaking()) {
-////                ClientPlayNetworking.send(
-////                        LorienLegaciesModNetworking.START_AVEX_FLIGHT_PACKET,
-////                        PacketByteBufs.empty()
-//                );
-////            }
+//            if (!player.isFallFlying() && !player.isOnGround() && player.getVelocity().y > 0 && player.isSneaking()) {
+//                ClientPlayNetworking.send(LorienLegaciesModNetworking.START_AVEX_FLIGHT_PACKET, PacketByteBufs.empty());
+//            }
 //
 //            // Apply forward motion while flying
 //            if (player.isFallFlying()) {
@@ -58,11 +55,11 @@ public class AvexEffect extends StatusEffect {
 //            }
 //        }
 //    }
-//
-//    @Override
-//    public boolean canApplyUpdateEffect(int duration, int amplifier) {
-//        return true;
-//    }
+
+    @Override
+    public boolean canApplyUpdateEffect(int duration, int amplifier) {
+        return true;
+    }
 
     @Override
     public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {

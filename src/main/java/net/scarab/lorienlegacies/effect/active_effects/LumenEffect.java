@@ -34,16 +34,26 @@ public class LumenEffect extends StatusEffect {
         //StatusEffectInstance fireResistance = entity.getStatusEffect(StatusEffects.FIRE_RESISTANCE);
         //if (fireResistance == null || fireResistance.getDuration() < 200) {
         if (!entity.hasStatusEffect(StatusEffects.FIRE_RESISTANCE)) {
-            entity.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, Integer.MAX_VALUE, 0, false, false, false)/*, entity*/);
+            entity.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, Integer.MAX_VALUE, 0, false, false, false));
         }
 
-        // Apply AOE fire logic while on fire and toggle is active
-        if (entity instanceof ServerPlayerEntity player
-                && player.isOnFire()
-                && player.hasStatusEffect(TOGGLE_HUMAN_FIREBALL_AOE)
-                && !player.hasStatusEffect(TIRED)
-                && !entity.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
-            humanFireballAOE(player, 1, 20); // radius 1, fire for 5 seconds
+        if (entity instanceof ServerPlayerEntity player) {
+            // Apply AOE fire logic while on fire and toggle is active
+            if (player.isOnFire()
+                    && player.hasStatusEffect(TOGGLE_HUMAN_FIREBALL_AOE)
+                    && !player.hasStatusEffect(TIRED)
+                    && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
+                humanFireballAOE(player, 1, 20);
+            }
+            // Only remove effects if player has TIRED or ACTIVE_LEGACY_INHIBITION
+            if (player.hasStatusEffect(TIRED) || player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
+                if (player.hasStatusEffect(TOGGLE_HUMAN_FIREBALL_AOE)) {
+                    player.removeStatusEffect(TOGGLE_HUMAN_FIREBALL_AOE);
+                }
+                if (player.isOnFire()) {
+                    player.extinguish();
+                }
+            }
         }
         super.applyUpdateEffect(entity, amplifier);
     }
@@ -90,7 +100,7 @@ public class LumenEffect extends StatusEffect {
                     player.removeStatusEffect(TOGGLE_HUMAN_FIREBALL_AOE);
                 }
             } else {
-                player.setOnFireFor(5);
+                player.setOnFireFor(100);
                 // Enable AOE fire when human fireball is turned on
                 if (!player.hasStatusEffect(TOGGLE_HUMAN_FIREBALL_AOE)) {
                     player.addStatusEffect(new StatusEffectInstance(TOGGLE_HUMAN_FIREBALL_AOE, Integer.MAX_VALUE, 0, false, false, false));
@@ -138,7 +148,8 @@ public class LumenEffect extends StatusEffect {
 
         if (user instanceof PlayerEntity player) {
             if (!player.getWorld().isClient() && player.isOnFire()) {
-                target.setOnFireFor(20);
+                target.setOnFireFor(5);
+                target.damage(player.getDamageSources().generic(), 18.0f);
             }
         }
     }
@@ -152,7 +163,8 @@ public class LumenEffect extends StatusEffect {
                     && !player.hasStatusEffect(TIRED)
                     && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
-                target.setOnFireFor(20);
+                target.setOnFireFor(5);
+                target.damage(player.getDamageSources().generic(), 18.0f);
             }
         }
     }
