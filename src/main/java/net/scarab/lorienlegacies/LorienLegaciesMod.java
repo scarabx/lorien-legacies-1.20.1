@@ -88,6 +88,7 @@ public class LorienLegaciesMod implements ModInitializer {
 					LegacyBestowalHandler2.bestowPondusLegacy(player);
 					LegacyBestowalHandler2.bestowAvexLegacy(player);
 					LegacyBestowalHandler2.bestowRegenerasLegacy(player);
+					LegacyBestowalHandler2.bestowAccelixLegacy(player);
 				}
 			});
 		});

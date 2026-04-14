@@ -3,16 +3,19 @@ package net.scarab.lorienlegacies.legacy_bestowal;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.potion.PotionUtil;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.scarab.lorienlegacies.LorienLegaciesMod;
 import net.scarab.lorienlegacies.effect.ModEffects;
+import net.scarab.lorienlegacies.potion.ModPotions;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class LegacyBestowalHandler2 {
@@ -46,7 +49,11 @@ public class LegacyBestowalHandler2 {
     private static final Set<UUID> isFallingToDeath = new HashSet<>();
 
     private static final Set<UUID> isGettingDamaged = new HashSet<>();
-    
+
+    private static final Set<UUID> isSprinting = new HashSet<>();
+
+    private static final Map<UUID, BlockPos> sprintStartPos = new HashMap<>();
+
     public static void bestowLumenLegacy(ServerPlayerEntity player) {
 
         if (legacies.stream().filter(player::hasStatusEffect).count() < 5 || player.hasStatusEffect(ModEffects.XIMIC)) {
@@ -68,6 +75,12 @@ public class LegacyBestowalHandler2 {
                 player.addStatusEffect(new StatusEffectInstance(ModEffects.LUMEN, Integer.MAX_VALUE, 0, false, false, false));
 
                 player.sendMessage(Text.literal("You have been bestowed upon the Lumen legacy."), false);
+
+                ItemStack splashPotion = PotionUtil.setPotion(new ItemStack(Items.SPLASH_POTION), ModPotions.CHIMAERA_ESSENCE);
+
+                player.giveItemStack(splashPotion);
+
+                player.sendMessage(Text.literal("NEVER DRINK MILK OR YOU WILL LOSE YOUR LEGACY").formatted(Formatting.RED), false);
 
                 bestowXimicLegacy(player);
 
@@ -103,6 +116,12 @@ public class LegacyBestowalHandler2 {
 
                 player.sendMessage(Text.literal("You have been bestowed upon the Glacen legacy."), false);
 
+                ItemStack splashPotion = PotionUtil.setPotion(new ItemStack(Items.SPLASH_POTION), ModPotions.CHIMAERA_ESSENCE);
+
+                player.giveItemStack(splashPotion);
+
+                player.sendMessage(Text.literal("NEVER DRINK MILK OR YOU WILL LOSE YOUR LEGACY").formatted(Formatting.RED), false);
+
                 bestowXimicLegacy(player);
 
             }
@@ -136,6 +155,12 @@ public class LegacyBestowalHandler2 {
                 player.addStatusEffect(new StatusEffectInstance(ModEffects.SUBMARI, Integer.MAX_VALUE, 0, false, false, false));
 
                 player.sendMessage(Text.literal("You have been bestowed upon the Submari legacy."), false);
+
+                ItemStack splashPotion = PotionUtil.setPotion(new ItemStack(Items.SPLASH_POTION), ModPotions.CHIMAERA_ESSENCE);
+
+                player.giveItemStack(splashPotion);
+
+                player.sendMessage(Text.literal("NEVER DRINK MILK OR YOU WILL LOSE YOUR LEGACY").formatted(Formatting.RED), false);
 
                 bestowXimicLegacy(player);
 
@@ -171,6 +196,12 @@ public class LegacyBestowalHandler2 {
 
                 player.sendMessage(Text.literal("You have been bestowed upon the Pondus legacy."), false);
 
+                ItemStack splashPotion = PotionUtil.setPotion(new ItemStack(Items.SPLASH_POTION), ModPotions.CHIMAERA_ESSENCE);
+
+                player.giveItemStack(splashPotion);
+
+                player.sendMessage(Text.literal("NEVER DRINK MILK OR YOU WILL LOSE YOUR LEGACY").formatted(Formatting.RED), false);
+
                 bestowXimicLegacy(player);
 
             }
@@ -204,6 +235,12 @@ public class LegacyBestowalHandler2 {
                 player.addStatusEffect(new StatusEffectInstance(ModEffects.REGENERAS, Integer.MAX_VALUE, 0, false, false, false));
 
                 player.sendMessage(Text.literal("You have been bestowed upon the Regeneras legacy."), false);
+
+                ItemStack splashPotion = PotionUtil.setPotion(new ItemStack(Items.SPLASH_POTION), ModPotions.CHIMAERA_ESSENCE);
+
+                player.giveItemStack(splashPotion);
+
+                player.sendMessage(Text.literal("NEVER DRINK MILK OR YOU WILL LOSE YOUR LEGACY").formatted(Formatting.RED), false);
 
                 bestowXimicLegacy(player);
 
@@ -243,6 +280,12 @@ public class LegacyBestowalHandler2 {
 
                     player.sendMessage(Text.literal("You have been bestowed upon the Avex legacy."), false);
 
+                    ItemStack splashPotion = PotionUtil.setPotion(new ItemStack(Items.SPLASH_POTION), ModPotions.CHIMAERA_ESSENCE);
+
+                    player.giveItemStack(splashPotion);
+
+                    player.sendMessage(Text.literal("NEVER DRINK MILK OR YOU WILL LOSE YOUR LEGACY").formatted(Formatting.RED), false);
+
                     bestowXimicLegacy(player);
 
                 }
@@ -253,6 +296,66 @@ public class LegacyBestowalHandler2 {
                 isFallingToDeath.remove(id);
 
             }
+        }
+    }
+
+    public static void bestowAccelixLegacy(ServerPlayerEntity player) {
+
+        if (legacies.stream().filter(player::hasStatusEffect).count() < 5  || player.hasStatusEffect(ModEffects.XIMIC)) {
+
+            UUID id = player.getUuid();
+
+            if (!player.hasStatusEffect(ModEffects.ACCELIX) && player.isSprinting() && !isSprinting.contains(id)) {
+
+                isSprinting.add(id);
+
+                if (!sprintStartPos.containsKey(id)) {
+
+                    sprintStartPos.put(id, player.getBlockPos());
+
+                }
+
+                BlockPos startPos = sprintStartPos.get(id);
+
+                double distanceSprinted = Math.sqrt(Math.pow(player.getX() - startPos.getX(), 2) + Math.pow(player.getZ() - startPos.getZ(), 2));
+
+                if (distanceSprinted >= 10) {
+
+                    if (ThreadLocalRandom.current().nextDouble() >= 0.1) {
+
+                        player.sendMessage(Text.literal("You felt a surge of power... but nothing happened."), false);
+
+                        return;
+
+                    }
+
+                    player.addStatusEffect(new StatusEffectInstance(ModEffects.ACCELIX, Integer.MAX_VALUE, 0, false, false, false));
+
+                    player.sendMessage(Text.literal("You have been bestowed upon the Accelix legacy."), false);
+
+                    ItemStack splashPotion = PotionUtil.setPotion(new ItemStack(Items.SPLASH_POTION), ModPotions.CHIMAERA_ESSENCE);
+
+                    player.giveItemStack(splashPotion);
+
+                    player.sendMessage(Text.literal("NEVER DRINK MILK OR YOU WILL LOSE YOUR LEGACY").formatted(Formatting.RED), false);
+
+                    bestowXimicLegacy(player);
+
+                    sprintStartPos.remove(id);
+
+                }
+
+            } else {
+
+                sprintStartPos.remove(player.getUuid());
+
+            }
+
+            //if (!player.isSprinting()) {
+
+                isSprinting.remove(id);
+
+            //}
         }
     }
 
@@ -271,6 +374,12 @@ public class LegacyBestowalHandler2 {
             player.addStatusEffect(new StatusEffectInstance(ModEffects.XIMIC, Integer.MAX_VALUE, 0, false, false, false));
 
             player.sendMessage(Text.literal("You have been bestowed upon the Ximic legacy."), false);
+
+            ItemStack splashPotion = PotionUtil.setPotion(new ItemStack(Items.SPLASH_POTION), ModPotions.CHIMAERA_ESSENCE);
+
+            player.giveItemStack(splashPotion);
+
+            player.sendMessage(Text.literal("NEVER DRINK MILK OR YOU WILL LOSE YOUR LEGACY").formatted(Formatting.RED), false);
 
         }
     }
