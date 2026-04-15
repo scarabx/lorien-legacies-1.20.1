@@ -50,9 +50,9 @@ public class LegacyBestowalHandler2 {
 
     private static final Set<UUID> isGettingDamaged = new HashSet<>();
 
-    private static final Set<UUID> isSprinting = new HashSet<>();
+    private static final Map<UUID, BlockPos> sprintLastPos = new HashMap<>();
 
-    private static final Map<UUID, BlockPos> sprintStartPos = new HashMap<>();
+    private static final Map<UUID, Double> sprintDistanceAccumulator = new HashMap<>();
 
     public static void bestowLumenLegacy(ServerPlayerEntity player) {
 
@@ -305,25 +305,35 @@ public class LegacyBestowalHandler2 {
 
             UUID id = player.getUuid();
 
-            if (!player.hasStatusEffect(ModEffects.ACCELIX) && player.isSprinting() && !isSprinting.contains(id)) {
+            if (!player.hasStatusEffect(ModEffects.ACCELIX) && player.isSprinting()) {
 
-                isSprinting.add(id);
+                if (!sprintLastPos.containsKey(id)) {
 
-                if (!sprintStartPos.containsKey(id)) {
+                    sprintLastPos.put(id, player.getBlockPos());
 
-                    sprintStartPos.put(id, player.getBlockPos());
+                    sprintDistanceAccumulator.put(id, 0.0);
 
                 }
 
-                BlockPos startPos = sprintStartPos.get(id);
+                BlockPos lastPos = sprintLastPos.get(id);
 
-                double distanceSprinted = Math.sqrt(Math.pow(player.getX() - startPos.getX(), 2) + Math.pow(player.getZ() - startPos.getZ(), 2));
+                double distanceThisTick = Math.sqrt(Math.pow(player.getX() - lastPos.getX(), 2) + Math.pow(player.getZ() - lastPos.getZ(), 2));
 
-                if (distanceSprinted >= 10) {
+                double totalDistance = sprintDistanceAccumulator.get(id) + distanceThisTick;
+
+                sprintDistanceAccumulator.put(id, totalDistance);
+
+                sprintLastPos.put(id, player.getBlockPos());
+
+                if (totalDistance >= 500) {
 
                     if (ThreadLocalRandom.current().nextDouble() >= 0.1) {
 
                         player.sendMessage(Text.literal("You felt a surge of power... but nothing happened."), false);
+
+                        sprintLastPos.remove(id);
+
+                        sprintDistanceAccumulator.remove(id);
 
                         return;
 
@@ -341,21 +351,19 @@ public class LegacyBestowalHandler2 {
 
                     bestowXimicLegacy(player);
 
-                    sprintStartPos.remove(id);
+                    sprintLastPos.remove(id);
+
+                    sprintDistanceAccumulator.remove(id);
 
                 }
 
             } else {
 
-                sprintStartPos.remove(player.getUuid());
+                sprintLastPos.remove(player.getUuid());
+
+                sprintDistanceAccumulator.remove(player.getUuid());
 
             }
-
-            //if (!player.isSprinting()) {
-
-                isSprinting.remove(id);
-
-            //}
         }
     }
 

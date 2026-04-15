@@ -153,9 +153,8 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         }
     }
 
-    // Simulate Avex fall flying without Elytra
     @Inject(method = "tick", at = @At("HEAD"))
-    private void simulateFallFlyingWithoutElytra(CallbackInfo ci) {
+    private void avexFlight(CallbackInfo ci) {
 
         PlayerEntity player = (PlayerEntity) (Object) this;
 
@@ -202,6 +201,12 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
                         }
                     }
+                }
+
+                if (player.isOnGround() && player.hasStatusEffect(StatusEffects.SLOW_FALLING)) {
+
+                    player.removeStatusEffect(StatusEffects.SLOW_FALLING);
+
                 }
             }
         }
