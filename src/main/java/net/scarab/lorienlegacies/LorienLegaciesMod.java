@@ -75,13 +75,7 @@ public class LorienLegaciesMod implements ModInitializer {
 			server.getPlayerManager().getPlayerList().forEach(player -> {
 				if (player instanceof ServerPlayerEntity) {
 					LegacyBestowalHandler.stressManager(player);
-				}
-			});
-		});
 
-		ServerTickEvents.START_SERVER_TICK.register(server -> {
-			server.getPlayerManager().getPlayerList().forEach(player -> {
-				if (player instanceof ServerPlayerEntity) {
 					LegacyBestowalHandler2.bestowLumenLegacy(player);
 					LegacyBestowalHandler2.bestowGlacenLegacy(player);
 					LegacyBestowalHandler2.bestowSubmariLegacy(player);

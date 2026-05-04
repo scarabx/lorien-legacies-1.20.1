@@ -59,10 +59,12 @@ public class RadialMenuHandler {
         // Page 2 - Movement Abilities
         pageNames.add("Movement");
         List<String> movementOptions = List.of(
+                "Float",
                 "Intangifly",
                 "Teleport"
         );
         List<Identifier> movementPackets = List.of(
+                LorienLegaciesModNetworking.FLOAT_PACKET,
                 LorienLegaciesModNetworking.INTANGIFLY_PACKET,
                 LorienLegaciesModNetworking.TOGGLE_TELETRAS_PACKET
         );

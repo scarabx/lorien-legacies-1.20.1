@@ -158,15 +158,13 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
         PlayerEntity player = (PlayerEntity) (Object) this;
 
-        if (player.hasStatusEffect(ModEffects.AVEX)) {
+        if (player.hasStatusEffect(ModEffects.AVEX) && !player.hasStatusEffect(ModEffects.FLOAT)) {
 
             if (!player.hasStatusEffect(ModEffects.TIRED) && !player.hasStatusEffect(ACTIVE_LEGACY_INHIBITION)) {
 
                 if (!player.isOnGround() && player.isSneaking()) {
 
                     ClientPlayNetworking.send(LorienLegaciesModNetworking.START_AVEX_FLIGHT_PACKET, PacketByteBufs.empty());
-
-                    player.startFallFlying();
 
                     if (!player.hasStatusEffect(StatusEffects.SLOW_FALLING)) {
 

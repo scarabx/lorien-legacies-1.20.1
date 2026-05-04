@@ -48,6 +48,8 @@ public class LorienLegaciesModNetworking {
 
     public static final Identifier START_AVEX_FLIGHT_PACKET = new Identifier("lorienlegacies", "start_avex_flight");
 
+    public static final Identifier FLOAT_PACKET = new Identifier("lorienlegacies", "float");
+
     public static final Identifier INTANGIFLY_PACKET = new Identifier("lorienlegacies", "intangifly");
 
     public static final Identifier TELEKINESIS_PUSH_PACKET = new Identifier("lorienlegacies", "telekinesis_push");
@@ -311,6 +313,18 @@ public class LorienLegaciesModNetworking {
             server.execute(() -> {
                 if (player.hasStatusEffect(AVEX)) {
                     player.startFallFlying();
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(FLOAT_PACKET, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> {
+                if (player.hasStatusEffect(AVEX)) {
+                    if (player.hasStatusEffect(FLOAT)) {
+                        player.removeStatusEffect(FLOAT);
+                    } else {
+                        player.addStatusEffect(new StatusEffectInstance(FLOAT, Integer.MAX_VALUE, 0, false, false, false));
+                    }
                 }
             });
         });

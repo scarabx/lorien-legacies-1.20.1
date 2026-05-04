@@ -19,6 +19,9 @@ public class ModEffects {
     public static final StatusEffect AVEX = registerStatusEffect("avex",
             new AvexEffect(StatusEffectCategory.BENEFICIAL, 0x87CEEB/*Sky Blue*/));
 
+    public static final StatusEffect FLOAT = registerStatusEffect("float",
+            new FloatEffect(StatusEffectCategory.BENEFICIAL, 0x87CEEB/*Sky Blue*/));
+
     public static final StatusEffect GLACEN = registerStatusEffect("glacen",
             new GlacenEffect(StatusEffectCategory.BENEFICIAL, 0x0000AA/*Dark Blue*/));
 
