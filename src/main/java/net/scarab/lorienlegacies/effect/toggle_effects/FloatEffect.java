@@ -4,6 +4,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 
 public class FloatEffect extends StatusEffect {
@@ -23,8 +25,13 @@ public class FloatEffect extends StatusEffect {
 
             player.getAbilities().allowFlying = true;
 
-            player.sendAbilitiesUpdate();;
+            player.sendAbilitiesUpdate();
 
+            if (!player.hasStatusEffect(StatusEffects.SLOW_FALLING)) {
+
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, Integer.MAX_VALUE, 0, false, false ,false));
+
+            }
         }
 
         super.applyUpdateEffect(entity, amplifier);
@@ -47,8 +54,13 @@ public class FloatEffect extends StatusEffect {
 
             player.getAbilities().allowFlying = false;
 
-            player.sendAbilitiesUpdate();;
+            player.sendAbilitiesUpdate();
 
+            if (player.hasStatusEffect(StatusEffects.SLOW_FALLING) && player.isOnGround()) {
+
+                player.removeStatusEffect(StatusEffects.SLOW_FALLING);
+
+            }
         }
 
         super.onRemoved(entity, attributes, amplifier);
