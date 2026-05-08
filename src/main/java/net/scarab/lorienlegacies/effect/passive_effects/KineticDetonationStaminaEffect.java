@@ -17,7 +17,7 @@ public class KineticDetonationStaminaEffect extends StatusEffect {
     @Override
     public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
 
-        if (!entity.getWorld().isClient() && entity instanceof PlayerEntity player) {
+        if (!entity.getWorld().isClient() && entity instanceof PlayerEntity player && player.hasStatusEffect(ModEffects.KINETIC_DETONATION)) {
             // Apply Kinetic Detonation Cooldown effect when Kinetic Detonation Stamina effect ends
             player.addStatusEffect(new StatusEffectInstance(ModEffects.KINETIC_DETONATION_COOLDOWN, 6000, 0, false, false));
         }
