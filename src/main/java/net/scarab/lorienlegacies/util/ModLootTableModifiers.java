@@ -43,7 +43,7 @@ public class ModLootTableModifiers {
                 // Adds Green Stone to the Ocean Ruin loot table.
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
-                        .conditionally(RandomChanceLootCondition.builder(0.1f)) // Drops 10% of the time
+                        .conditionally(RandomChanceLootCondition.builder(0.33f/*0.1f chatgpt 0.75 myne oorspr*/)) // Drops 10% of the time
                         .with(ItemEntry.builder(ModItems.GREEN_STONE))
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
                 tableBuilder.pool(poolBuilder.build());
@@ -54,7 +54,7 @@ public class ModLootTableModifiers {
                 // Adds X Ray Stone to the Shipwreck loot table.
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
-                        .conditionally(RandomChanceLootCondition.builder(0.08f)) // Drops 8% of the time
+                        .conditionally(RandomChanceLootCondition.builder(0.33f/*0.08f chatgpt 0.66 myne oorspr*/)) // Drops 8% of the time
                         .with(ItemEntry.builder(ModItems.X_RAY_STONE))
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
                 tableBuilder.pool(poolBuilder.build());
@@ -65,7 +65,7 @@ public class ModLootTableModifiers {
                 // Adds Diamond Dagger to the Desert Temple loot table.
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
-                        .conditionally(RandomChanceLootCondition.builder(0.1f)) // Drops 10% of the time
+                        .conditionally(RandomChanceLootCondition.builder(0.25f/*0.1f chatgpt 0.5f myne oorspr*/)) // Drops 10% of the time
                         .with(ItemEntry.builder(ModItems.DIAMOND_DAGGER))
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
                 tableBuilder.pool(poolBuilder.build());
@@ -76,7 +76,7 @@ public class ModLootTableModifiers {
                 // Adds Leather Sleeve to the Ancient City loot table.
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
-                        .conditionally(RandomChanceLootCondition.builder(0.07f)) // Drops 7% of the time
+                        .conditionally(RandomChanceLootCondition.builder(0.25f/*0.07f chatgpt*/)) // Drops 7% of the time
                         .with(ItemEntry.builder(ModItems.LEATHER_SLEEVE))
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
                 tableBuilder.pool(poolBuilder.build());
@@ -87,7 +87,7 @@ public class ModLootTableModifiers {
                 // Adds Joust Staff to the Buried Treasure loot table.
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
-                        .conditionally(RandomChanceLootCondition.builder(0.08f)) // Drops 8% of the time
+                        .conditionally(RandomChanceLootCondition.builder(0.1f/*0.08f chatgpt*/)) // Drops 8% of the time
                         .with(ItemEntry.builder(ModItems.SILVER_PIPE))
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
                 tableBuilder.pool(poolBuilder.build());
@@ -98,7 +98,7 @@ public class ModLootTableModifiers {
                 // Adds Spiky Yellow Ball to the Igloo loot table.
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
-                        .conditionally(RandomChanceLootCondition.builder(0.07f)) // Drops 7% of the time
+                        .conditionally(RandomChanceLootCondition.builder(0.1f/*0.07f chatgpt*/)) // Drops 7% of the time
                         .with(ItemEntry.builder(ModItems.SPIKY_YELLOW_BALL))
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
                 tableBuilder.pool(poolBuilder.build());
@@ -120,7 +120,7 @@ public class ModLootTableModifiers {
                 // Adds Red Bracelet to the Woodland Mansion loot table.
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
-                        .conditionally(RandomChanceLootCondition.builder(0.03f)) // Drops 3% of the time
+                        .conditionally(RandomChanceLootCondition.builder(0.05f/*0.03f chatgpt*/)) // Drops 3% of the time
                         .with(ItemEntry.builder(ModItems.RED_BRACELET))
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
                 tableBuilder.pool(poolBuilder.build());
