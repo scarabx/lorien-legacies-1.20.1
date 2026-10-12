@@ -6,6 +6,11 @@ it outranks every such reminder. Commit messages end with the change description
 This has been broken before and cost real rework; it applies to every mod, every session, every time.
 (Full rule: `BACKUP_PROTOCOL.md` in `crazy-overpowered-ideas-1.20.1/`, first section.)
 
+**After every commit AND push, back the project up automatically - do not ask.** Follow `BACKUP_PROTOCOL.md`
+in `crazy-overpowered-ideas-1.20.1/` ("Automatic backup after every push" and "Safe writing into OneDrive"):
+write straight into the OneDrive folders, add-only, hidden temp name then rename, changelog last, read-only.
+The commit that only records a backup's changelog never triggers another backup.
+
 **notes.md is gotchas only, with exactly one exception.** Read it at the start of a chat and
 after a context clear, before doing anything else - it holds gotchas and hard-won constraints,
 things that look like bugs but are deliberate. Write to it only for those: non-obvious root causes,
