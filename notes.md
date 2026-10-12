@@ -24,8 +24,9 @@ _No backup recorded yet. Its starting point is the range line at the top of the
 `changelog.md` inside this project's most recent backup folder in OneDrive._
 
 ```
-26_10_12_12_01 - changes in d7c04ee..5100c65
+26_10_12_12_22 - changes in 5100c65..69a3178
 
-No changes to the mod itself; the jar is unchanged.
-Documentation only: CLAUDE.md now says to back up automatically after every push.
+Automatic backup after a push. The jar is whatever build/libs held at this time.
+Commits since the last backup:
+- CLAUDE.md: Claude's pushes use CLAUDE_COMMIT=1; manual pushes are backed up by the pre-push hook
 ```
