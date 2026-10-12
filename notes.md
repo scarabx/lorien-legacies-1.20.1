@@ -24,11 +24,8 @@ _No backup recorded yet. Its starting point is the range line at the top of the
 `changelog.md` inside this project's most recent backup folder in OneDrive._
 
 ```
-10_09_26_12_35 - changes in b86b3f2..67e060d
+26_10_12_11_49 - changes in 67e060d..d7c04ee
 
-Internal and documentation changes only; no gameplay changes.
-
-This project now keeps its own last shipped changelog in its own notes.md, so backing
-up another mod can no longer overwrite its record. notes.md was created for it, and
-states that this changelog is the one exception to its gotchas-only rule.
+No changes to the mod itself; the jar is unchanged.
+Documentation only: CLAUDE.md now states at the top that commits are never signed as Claude.
 ```
