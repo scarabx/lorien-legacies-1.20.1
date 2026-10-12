@@ -24,8 +24,8 @@ _No backup recorded yet. Its starting point is the range line at the top of the
 `changelog.md` inside this project's most recent backup folder in OneDrive._
 
 ```
-26_10_12_11_49 - changes in 67e060d..d7c04ee
+26_10_12_12_01 - changes in d7c04ee..5100c65
 
 No changes to the mod itself; the jar is unchanged.
-Documentation only: CLAUDE.md now states at the top that commits are never signed as Claude.
+Documentation only: CLAUDE.md now says to back up automatically after every push.
 ```
