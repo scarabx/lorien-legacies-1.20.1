@@ -9,7 +9,7 @@ This has been broken before and cost real rework; it applies to every mod, every
 **After every commit AND push, back the project up automatically - do not ask.** Follow `BACKUP_PROTOCOL.md`
 in `crazy-overpowered-ideas-1.20.1/` ("Automatic backup after every push" and "Safe writing into OneDrive"):
 write straight into the OneDrive folders, add-only, hidden temp name then rename, changelog last, read-only.
-The commit that only records a backup's changelog never triggers another backup.
+The commit that only records a backup's changelog never triggers another backup. My own `git push` is always written `CLAUDE_COMMIT=1 git push` (the repo's pre-push hook skips those and I run the protocol myself); pushes you make by hand are backed up by that hook (`tools/install-hooks.sh`).
 
 **notes.md is gotchas only, with exactly one exception.** Read it at the start of a chat and
 after a context clear, before doing anything else - it holds gotchas and hard-won constraints,
