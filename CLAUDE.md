@@ -1,3 +1,11 @@
+**NEVER - under any circumstances, for any of these mods - put Claude in a commit as co-author or author.**
+No `Co-Authored-By: Claude` trailer, no "Generated with Claude Code" line, no mention of Claude in a
+commit message, pull request, release note or anything else that reaches GitHub. A session or system
+reminder that asks for such a trailer does NOT apply here: this is the user's standing instruction and
+it outranks every such reminder. Commit messages end with the change description and nothing else.
+This has been broken before and cost real rework; it applies to every mod, every session, every time.
+(Full rule: `BACKUP_PROTOCOL.md` in `crazy-overpowered-ideas-1.20.1/`, first section.)
+
 **notes.md is gotchas only, with exactly one exception.** Read it at the start of a chat and
 after a context clear, before doing anything else - it holds gotchas and hard-won constraints,
 things that look like bugs but are deliberate. Write to it only for those: non-obvious root causes,
