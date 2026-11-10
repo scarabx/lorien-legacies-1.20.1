@@ -24,9 +24,7 @@ _No backup recorded yet. Its starting point is the range line at the top of the
 `changelog.md` inside this project's most recent backup folder in OneDrive._
 
 ```
-26_10_12_12_22 - changes in 5100c65..69a3178
+26_11_10_09_09 - changes in 69a3178..0869661
 
-Automatic backup after a push. The jar is whatever build/libs held at this time.
-Commits since the last backup:
-- CLAUDE.md: Claude's pushes use CLAUDE_COMMIT=1; manual pushes are backed up by the pre-push hook
+- The mod now has an issue link (Mod Menu shows it as Issues): this repository's own Issues page, github.com/scarabx/lorien-legacies-1.20.1/issues. The mod pages on Modrinth and CurseForge link there too.
 ```
