@@ -24,7 +24,9 @@ _No backup recorded yet. Its starting point is the range line at the top of the
 `changelog.md` inside this project's most recent backup folder in OneDrive._
 
 ```
-26_11_10_09_09 - changes in 69a3178..0869661
+26_11_11_18_24 - changes in 69a3178..fb66d6a
+
+A fresh backup: the zip is gone from the 26_11_10_09_09 backup folder, which left the newest zip from 12 October. Nothing has changed in the mod since 26_11_10_09_09, so this zip holds the same code; the range starts at the last backup that still has its zip.
 
 - The mod now has an issue link (Mod Menu shows it as Issues): this repository's own Issues page, github.com/scarabx/lorien-legacies-1.20.1/issues. The mod pages on Modrinth and CurseForge link there too.
 ```
